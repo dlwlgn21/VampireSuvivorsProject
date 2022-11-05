@@ -13,6 +13,42 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="GameObject">
+      <UniqueIdentifier>{3505ee35-8236-4d60-9f32-2ecad1de120b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Manager">
+      <UniqueIdentifier>{2266b514-f736-4c2d-b5c7-d54f9cc71018}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="HighLevelnterface">
+      <UniqueIdentifier>{3de67488-0b62-4081-a694-0105e85d0459}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Component">
+      <UniqueIdentifier>{55756bb2-b42b-4c66-9749-e6ef9dd94580}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Scene">
+      <UniqueIdentifier>{fff6cff6-f726-44e2-a548-843a9d18eea6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Common">
+      <UniqueIdentifier>{ac8a6bf3-b44f-4857-a822-e4d64b340e79}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resource">
+      <UniqueIdentifier>{ed067cc0-6794-4429-a988-11c5ebac6c5a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine">
+      <UniqueIdentifier>{2f1b32c7-b028-45a4-b3d4-a5b5e5cbf07f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Component\Base">
+      <UniqueIdentifier>{cd91c937-3bab-42b0-b3c4-f71b77172e36}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameObject\Base">
+      <UniqueIdentifier>{f9447b29-0c73-4b6b-9e6a-df85db57de19}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resource\Base">
+      <UniqueIdentifier>{9f55254c-710e-42cd-b832-fa276a1ff0d9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Scene\Base">
+      <UniqueIdentifier>{4469bc7e-07f3-4df7-9393-839c210a5de6}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
@@ -27,9 +63,183 @@
     <ClInclude Include="VampireSuvivorsProject.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
+    <ClInclude Include="Common.h">
+      <Filter>Common</Filter>
+    </ClInclude>
+    <ClInclude Include="Def.h">
+      <Filter>Common</Filter>
+    </ClInclude>
+    <ClInclude Include="Maths.h">
+      <Filter>Common</Filter>
+    </ClInclude>
+    <ClInclude Include="yaAnimation.h">
+      <Filter>Component</Filter>
+    </ClInclude>
+    <ClInclude Include="yaAnimator.h">
+      <Filter>Component</Filter>
+    </ClInclude>
+    <ClInclude Include="yaApplication.h">
+      <Filter>HighLevelnterface</Filter>
+    </ClInclude>
+    <ClInclude Include="yaBackpack.h">
+      <Filter>GameObject</Filter>
+    </ClInclude>
+    <ClInclude Include="yaBGImageObject.h">
+      <Filter>GameObject</Filter>
+    </ClInclude>
+    <ClInclude Include="yaBGIMageObjectAlpha.h">
+      <Filter>GameObject</Filter>
+    </ClInclude>
+    <ClInclude Include="yaButtonImageObject.h">
+      <Filter>GameObject</Filter>
+    </ClInclude>
+    <ClInclude Include="yaCollider.h">
+      <Filter>Component</Filter>
+    </ClInclude>
+    <ClInclude Include="yaCamera.h">
+      <Filter>Manager</Filter>
+    </ClInclude>
+    <ClInclude Include="yaCollisionManager.h">
+      <Filter>Manager</Filter>
+    </ClInclude>
+    <ClInclude Include="yaComponent.h">
+      <Filter>Component\Base</Filter>
+    </ClInclude>
+    <ClInclude Include="yaEndingScene.h">
+      <Filter>Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="yaEntity.h">
+      <Filter>Engine</Filter>
+    </ClInclude>
+    <ClInclude Include="yaGameObejct.h">
+      <Filter>GameObject\Base</Filter>
+    </ClInclude>
+    <ClInclude Include="yaImage.h">
+      <Filter>Resource</Filter>
+    </ClInclude>
+    <ClInclude Include="yaInput.h">
+      <Filter>Manager</Filter>
+    </ClInclude>
+    <ClInclude Include="yaLogoScene.h">
+      <Filter>Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="yaMissile.h">
+      <Filter>GameObject</Filter>
+    </ClInclude>
+    <ClInclude Include="yaMonster.h">
+      <Filter>GameObject</Filter>
+    </ClInclude>
+    <ClInclude Include="yaObject.h">
+      <Filter>Common</Filter>
+    </ClInclude>
+    <ClInclude Include="yaPlayer.h">
+      <Filter>GameObject</Filter>
+    </ClInclude>
+    <ClInclude Include="yaPlayScene.h">
+      <Filter>Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="yaResource.h">
+      <Filter>Resource\Base</Filter>
+    </ClInclude>
+    <ClInclude Include="yaResources.h">
+      <Filter>Manager</Filter>
+    </ClInclude>
+    <ClInclude Include="yaSceneManager.h">
+      <Filter>Manager</Filter>
+    </ClInclude>
+    <ClInclude Include="yaTime.h">
+      <Filter>Manager</Filter>
+    </ClInclude>
+    <ClInclude Include="yaTitleScene.h">
+      <Filter>Scene</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="VampireSuvivorsProject.cpp">
+    <ClCompile Include="Maths.cpp">
+      <Filter>Common</Filter>
+    </ClCompile>
+    <ClCompile Include="yaAnimation.cpp">
+      <Filter>Component</Filter>
+    </ClCompile>
+    <ClCompile Include="yaAnimator.cpp">
+      <Filter>Component</Filter>
+    </ClCompile>
+    <ClCompile Include="yaApplication.cpp">
+      <Filter>HighLevelnterface</Filter>
+    </ClCompile>
+    <ClCompile Include="yaBackpack.cpp">
+      <Filter>GameObject</Filter>
+    </ClCompile>
+    <ClCompile Include="yaBGImageObject.cpp">
+      <Filter>GameObject</Filter>
+    </ClCompile>
+    <ClCompile Include="yaBGIMageObjectAlpha.cpp">
+      <Filter>GameObject</Filter>
+    </ClCompile>
+    <ClCompile Include="yaButtonImageObject.cpp">
+      <Filter>GameObject</Filter>
+    </ClCompile>
+    <ClCompile Include="yaCollider.cpp">
+      <Filter>Component</Filter>
+    </ClCompile>
+    <ClCompile Include="yaCamera.cpp">
+      <Filter>Manager</Filter>
+    </ClCompile>
+    <ClCompile Include="yaCollisionManager.cpp">
+      <Filter>Manager</Filter>
+    </ClCompile>
+    <ClCompile Include="yaComponent.cpp">
+      <Filter>Component\Base</Filter>
+    </ClCompile>
+    <ClCompile Include="yaEndingScene.cpp">
+      <Filter>Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="yaEntity.cpp">
+      <Filter>Engine</Filter>
+    </ClCompile>
+    <ClCompile Include="yaGameObejct.cpp">
+      <Filter>GameObject\Base</Filter>
+    </ClCompile>
+    <ClCompile Include="yaImage.cpp">
+      <Filter>Resource</Filter>
+    </ClCompile>
+    <ClCompile Include="yaInput.cpp">
+      <Filter>Manager</Filter>
+    </ClCompile>
+    <ClCompile Include="yaLogoScene.cpp">
+      <Filter>Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="yaMissile.cpp">
+      <Filter>GameObject</Filter>
+    </ClCompile>
+    <ClCompile Include="yaMonster.cpp">
+      <Filter>GameObject</Filter>
+    </ClCompile>
+    <ClCompile Include="yaPlayer.cpp">
+      <Filter>GameObject</Filter>
+    </ClCompile>
+    <ClCompile Include="yaPlayScene.cpp">
+      <Filter>Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="yaResource.cpp">
+      <Filter>Resource\Base</Filter>
+    </ClCompile>
+    <ClCompile Include="yaResources.cpp">
+      <Filter>Manager</Filter>
+    </ClCompile>
+    <ClCompile Include="yaScene.cpp">
+      <Filter>Scene\Base</Filter>
+    </ClCompile>
+    <ClCompile Include="yaSceneManager.cpp">
+      <Filter>Manager</Filter>
+    </ClCompile>
+    <ClCompile Include="yaTime.cpp">
+      <Filter>Manager</Filter>
+    </ClCompile>
+    <ClCompile Include="yaTitleScene.cpp">
+      <Filter>Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="Main.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
   </ItemGroup>

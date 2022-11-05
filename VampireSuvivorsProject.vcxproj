@@ -127,13 +127,71 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="Common.h" />
+    <ClInclude Include="Def.h" />
     <ClInclude Include="framework.h" />
+    <ClInclude Include="Maths.h" />
     <ClInclude Include="Resource.h" />
     <ClInclude Include="targetver.h" />
     <ClInclude Include="VampireSuvivorsProject.h" />
+    <ClInclude Include="yaAnimation.h" />
+    <ClInclude Include="yaAnimator.h" />
+    <ClInclude Include="yaApplication.h" />
+    <ClInclude Include="yaBackpack.h" />
+    <ClInclude Include="yaBGImageObject.h" />
+    <ClInclude Include="yaBGIMageObjectAlpha.h" />
+    <ClInclude Include="yaButtonImageObject.h" />
+    <ClInclude Include="yaCamera.h" />
+    <ClInclude Include="yaCollider.h" />
+    <ClInclude Include="yaCollisionManager.h" />
+    <ClInclude Include="yaComponent.h" />
+    <ClInclude Include="yaEndingScene.h" />
+    <ClInclude Include="yaEntity.h" />
+    <ClInclude Include="yaGameObejct.h" />
+    <ClInclude Include="yaImage.h" />
+    <ClInclude Include="yaInput.h" />
+    <ClInclude Include="yaLogoScene.h" />
+    <ClInclude Include="yaMissile.h" />
+    <ClInclude Include="yaMonster.h" />
+    <ClInclude Include="yaObject.h" />
+    <ClInclude Include="yaPlayer.h" />
+    <ClInclude Include="yaPlayScene.h" />
+    <ClInclude Include="yaResource.h" />
+    <ClInclude Include="yaResources.h" />
+    <ClInclude Include="yaSceneManager.h" />
+    <ClInclude Include="yaTime.h" />
+    <ClInclude Include="yaTitleScene.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="VampireSuvivorsProject.cpp" />
+    <ClCompile Include="Main.cpp" />
+    <ClCompile Include="Maths.cpp" />
+    <ClCompile Include="yaAnimation.cpp" />
+    <ClCompile Include="yaAnimator.cpp" />
+    <ClCompile Include="yaApplication.cpp" />
+    <ClCompile Include="yaBackpack.cpp" />
+    <ClCompile Include="yaBGImageObject.cpp" />
+    <ClCompile Include="yaBGIMageObjectAlpha.cpp" />
+    <ClCompile Include="yaButtonImageObject.cpp" />
+    <ClCompile Include="yaCamera.cpp" />
+    <ClCompile Include="yaCollider.cpp" />
+    <ClCompile Include="yaCollisionManager.cpp" />
+    <ClCompile Include="yaComponent.cpp" />
+    <ClCompile Include="yaEndingScene.cpp" />
+    <ClCompile Include="yaEntity.cpp" />
+    <ClCompile Include="yaGameObejct.cpp" />
+    <ClCompile Include="yaImage.cpp" />
+    <ClCompile Include="yaInput.cpp" />
+    <ClCompile Include="yaLogoScene.cpp" />
+    <ClCompile Include="yaMissile.cpp" />
+    <ClCompile Include="yaMonster.cpp" />
+    <ClCompile Include="yaPlayer.cpp" />
+    <ClCompile Include="yaPlayScene.cpp" />
+    <ClCompile Include="yaResource.cpp" />
+    <ClCompile Include="yaResources.cpp" />
+    <ClCompile Include="yaScene.cpp" />
+    <ClCompile Include="yaSceneManager.cpp" />
+    <ClCompile Include="yaTime.cpp" />
+    <ClCompile Include="yaTitleScene.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="VampireSuvivorsProject.rc" />
