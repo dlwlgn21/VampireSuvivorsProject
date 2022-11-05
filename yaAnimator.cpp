@@ -51,7 +51,7 @@ namespace ya
 		animation->Create(image, leftTop, size, offset, spriteLength, duration, bIsAffectedCamera);
 		animation->SetName(name);
 		animation->SetAnimator(this);
-
+		animation->SetScale(GetOwner()->GetScale());
 		mAnimations.insert(std::make_pair(name, animation));
 	}
 	void Animator::Play(const std::wstring& name, bool bIsLooping)

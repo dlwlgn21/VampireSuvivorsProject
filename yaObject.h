@@ -74,8 +74,7 @@ namespace ya
 			for (int i = 0; i < MAX_COLLIDER_LAYER; ++i)
 			{
 				// std::vector<GameObject*>::iterator iter
-				for (auto iter = objects[i].begin();
-					iter != objects[i].end();)
+				for (auto iter = objects[i].begin(); iter != objects[i].end();)
 				{
 					if (!(*iter)->IsAlive())
 					{
@@ -86,6 +85,5 @@ namespace ya
 				}
 			}
 		}
-
 	}
 }

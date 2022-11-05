@@ -45,10 +45,11 @@ namespace ya
 			temp.y = y - other.y;
 			return temp;
 		}
-		void operator+=(const Vector2& other)
+		Vector2& operator+=(const Vector2& other)
 		{
 			x += other.x;
 			y += other.y;
+			return *this;
 		}
 
 	};

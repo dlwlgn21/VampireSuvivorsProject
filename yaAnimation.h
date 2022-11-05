@@ -38,6 +38,7 @@ namespace ya
 			bool bIsAffectedCamera = true);
 
 		void Reset();
+		__forceinline void SetScale(Vector2 scale) { mScale = scale; }
 		__forceinline bool IsComplete() { return mbIsComplete; }
 		__forceinline void SetAnimator(Animator* animator) { mpAnimator = animator; };
 
@@ -48,7 +49,7 @@ namespace ya
 		BLENDFUNCTION mFunc;
 		UINT mSpriteIdx;
 		float mTime;
-
+		Vector2 mScale;
 
 
 		bool mbIsStart;

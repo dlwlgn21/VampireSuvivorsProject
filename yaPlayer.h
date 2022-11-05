@@ -6,7 +6,6 @@ namespace ya
 {
 	class Image;
 	class Animator;
-
 	class Player final : public GameObject
 	{
 	public:
@@ -23,7 +22,7 @@ namespace ya
 
 	private:
 		void createAnimation(
-			const std::wstring& name, Vector2 leftTop,
+			const std::wstring& name, Image* image, Vector2 leftTop,
 			Vector2 size, Vector2 offset,
 			UINT spriteLength, float duration);
 
@@ -31,17 +30,21 @@ namespace ya
 		float mSpeed;
 		HPEN mPen;
 		HBRUSH mBrush;
-		Image* mpImage;
+		Image* mpIdleImage;
+		Image* mpMoveImage;
+		Image* mpMoveInvImage;
 		Animator* mpAnimator;
 
 		const std::wstring mAnimIdle;
-		const std::wstring mAnimMoveUp;
-		const std::wstring mAnimMoveDown;
-		const std::wstring mAnimMoveLeft;
-		const std::wstring mAnimMoveRight;
-		Vector2 mAnimSize;
-		float animDuration;
+		const std::wstring mAnimMove;
+		const std::wstring mAnimMoveInv;
+		Vector2 mAnimIdleSize;
+		Vector2 mAnimMoveSize;
+		Vector2 mAnimOffset;
+		UINT mAnimCount;
+		float mAnimDuration;
 		float mAnimRowInterval;
+		Vector2 mColliderScale;
 
 	};
 

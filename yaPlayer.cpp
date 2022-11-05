@@ -21,37 +21,42 @@ namespace ya
 		, mSpeed(500.0f)
 		, mPen(CreatePen(PS_DASHDOTDOT, 3, RGB(0, 255, 255)))
 		, mBrush(CreateSolidBrush(RGB(153, 204, 255)))
-		, mpImage(nullptr)
+		, mpIdleImage(nullptr)
+		, mpMoveImage(nullptr)
+		, mpMoveInvImage(nullptr)
 		, mAnimIdle(L"Idle")
-		, mAnimMoveUp(L"MoveUp")
-		, mAnimMoveDown(L"MoveDown")
-		, mAnimMoveLeft(L"MoveLeft")
-		, mAnimMoveRight(L"MoveRight")
-		, mAnimSize(120.0f, 130.0f)
+		, mAnimMove(L"Move")
+		, mAnimMoveInv(L"MoveInverse")
+		, mAnimIdleSize(30.5f, 34.0f)
+		, mAnimMoveSize(34.0f, 34.0f)
+		, mAnimOffset(-18.0f, -22.0f)
+		, mAnimCount(4)
 		, mAnimRowInterval(130.0f)
-		, animDuration(0.1f)
+		, mAnimDuration(0.15f)
+		, mColliderScale(25.0f, 40.0f)
 	{
 		SetName(L"Player");
 		mPos = { 500.0f, 500.0f };
-		mScale = { 3.0f, 3.0f };
-		mpImage = Resources::Load<Image>(L"Player", L"Resources\\Image\\link.bmp");
-		assert(mpImage != nullptr);
-
+		mScale = { 2.0f, 2.0f };
+		mpIdleImage = Resources::Load<Image>(L"PlayerIdleAnim", L"Resources\\Image\\CharacterIdle.bmp");
+		assert(mpIdleImage != nullptr);		
+		mpMoveImage = Resources::Load<Image>(L"PlayerMoveAnim", L"Resources\\Image\\CharacterMove.bmp");
+		assert(mpMoveImage != nullptr);
+		mpMoveInvImage = Resources::Load<Image>(L"PlayerMoveInverseAnim", L"Resources\\Image\\CharacterMoveInverse.bmp");
+		assert(mpMoveInvImage != nullptr);
+		
 		mpAnimator = new Animator();
-
-		createAnimation(mAnimIdle, Vector2(0.0f, 0.0f), mAnimSize, Vector2(0.0f, 0.0f), 3, animDuration);
-		createAnimation(mAnimMoveDown, Vector2(0.0f, 520.0f), mAnimSize, Vector2(0.0f, 0.0f), 10, animDuration);
-		createAnimation(mAnimMoveLeft, Vector2(0.0f, 650.0f), mAnimSize, Vector2(0.0f, 0.0f), 10, animDuration);
-		createAnimation(mAnimMoveUp, Vector2(0.0f, 780.0f), mAnimSize, Vector2(0.0f, 0.0f), 10, animDuration);
-		createAnimation(mAnimMoveRight, Vector2(0.0f, 910.0f), mAnimSize, Vector2(0.0f, 0.0f), 10, animDuration);
+		AddComponent(mpAnimator);
+		createAnimation(mAnimIdle,		mpIdleImage,		Vector2::ZERO, mAnimIdleSize, mAnimOffset, mAnimCount, mAnimDuration);
+		createAnimation(mAnimMove,		mpMoveImage,		Vector2::ZERO, mAnimMoveSize, mAnimOffset, mAnimCount, mAnimDuration);
+		createAnimation(mAnimMoveInv,	mpMoveInvImage, Vector2::ZERO, mAnimMoveSize, mAnimOffset, mAnimCount, mAnimDuration);
 
 		mpAnimator->Play(mAnimIdle, true);
 
 		// 이거 내가 따로 다시 공부해야함. 마지막 이벤트에 고고
 		mpAnimator->mCompleteEvent = std::bind(&Player::WalkComplete, this);
 
-		AddComponent(new Collider());
-		AddComponent(mpAnimator);
+		AddComponent(new Collider(mColliderScale));
 		Camera::SetTarget(this);
 	}
 
@@ -67,26 +72,15 @@ namespace ya
 		if (IS_KEY_PRESSED(eKeyCode::A)) { mPos.x -= mSpeed * Time::DeltaTime(); }
 		if (IS_KEY_PRESSED(eKeyCode::D)) { mPos.x += mSpeed * Time::DeltaTime(); }
 
-		if (IS_KEY_DOWN(eKeyCode::W)) { mpAnimator->Play(mAnimMoveUp, true); }
-		if (IS_KEY_DOWN(eKeyCode::S)) { mpAnimator->Play(mAnimMoveDown, true); }
-		if (IS_KEY_DOWN(eKeyCode::A)) { mpAnimator->Play(mAnimMoveLeft, true); }
-		if (IS_KEY_DOWN(eKeyCode::D)) { mpAnimator->Play(mAnimMoveRight, true); }
+		if (IS_KEY_DOWN(eKeyCode::D))	{ mpAnimator->Play(mAnimMove, true); }
+		//if (IS_KEY_DOWN(eKeyCode::W) || IS_KEY_DOWN(eKeyCode::S) || IS_KEY_DOWN(eKeyCode::D))
+		if (IS_KEY_UP(eKeyCode::D))		{ mpAnimator->Play(mAnimIdle, true); }
+		if (IS_KEY_DOWN(eKeyCode::A))	{ mpAnimator->Play(mAnimMoveInv, true); }
+		if (IS_KEY_UP(eKeyCode::A))		{ mpAnimator->Play(mAnimIdle, true); }
 
-		if (IS_KEY_UP(eKeyCode::W)) { mpAnimator->Play(mAnimIdle, true); }
-		if (IS_KEY_UP(eKeyCode::S)) { mpAnimator->Play(mAnimIdle, true); }
-		if (IS_KEY_UP(eKeyCode::A)) { mpAnimator->Play(mAnimIdle, true); }
-		if (IS_KEY_UP(eKeyCode::D)) { mpAnimator->Play(mAnimIdle, true); }
-
-		if (IS_KEY_DOWN(eKeyCode::SPACE))
-		{
-			Missile* missile = ya::object::Instantiate<Missile>(eColliderLayer::PLAYER_PROJECTTILE);
-			missile->SetPos((GetPos() + (mScale / 2.0f)) - (missile->GetScale() / 2.0f));
-		}
-		if (IS_KEY_DOWN(eKeyCode::I))
-		{
-			Scene* currScene = SceneManager::GetCurrentScene();
-			currScene->AddGameObject(new Backpack(), eColliderLayer::BACKPACK);
-		}
+		if (IS_KEY_UP(eKeyCode::W) || IS_KEY_UP(eKeyCode::S))
+		//if (IS_KEY_UP(eKeyCode::W) || IS_KEY_UP(eKeyCode::S) || IS_KEY_UP(eKeyCode::A) || IS_KEY_UP(eKeyCode::D))
+		{ mpAnimator->Play(mAnimIdle, true); }
 
 	}
 
@@ -154,11 +148,11 @@ namespace ya
 
 	}
 
-	void Player::createAnimation(const std::wstring& name, Vector2 leftTop, Vector2 size, Vector2 offset, UINT spriteLength, float duration)
+	void Player::createAnimation(const std::wstring& name, Image* image, Vector2 leftTop, Vector2 size, Vector2 offset, UINT spriteLength, float duration)
 	{
 		mpAnimator->CreateAnimation(
 			name,
-			mpImage,
+			image,
 			leftTop,
 			size,
 			offset,

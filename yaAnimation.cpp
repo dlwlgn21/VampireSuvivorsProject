@@ -6,25 +6,13 @@
 #include "yaTime.h"
 namespace ya
 {
-	/*
-		Image* mpImage;
-		Animator* mpAnimator;
-		std::vector<Sprite> mSpriteSheet;
-		BLENDFUNCTION mFunc;
-		UINT mSpriteIdx;
-		float mTime;
-		bool mbIsStart;
-		bool mbIsComplete;
-		bool mbIsEnd;
-		bool mbIsAffectedCamera;
-
-	*/
 	Animation::Animation()
 		: Component(eComponentType::ANIMATION)
 		, mpImage(nullptr)
 		, mpAnimator(nullptr)
 		, mSpriteIdx(0)
 		, mTime(0.0f)
+		, mScale(Vector2::ONE)
 		, mbIsStart(false)
 		, mbIsEnd(false)
 		, mbIsComplete(false)
@@ -77,8 +65,8 @@ namespace ya
 			hdc,
 			static_cast<int>(pos.x - mSpriteSheet[mSpriteIdx].Size.x / 2.0f),
 			static_cast<int>(pos.y - mSpriteSheet[mSpriteIdx].Size.y / 2.0f),
-			static_cast<int>(mSpriteSheet[mSpriteIdx].Size.x),
-			static_cast<int>(mSpriteSheet[mSpriteIdx].Size.y),
+			static_cast<int>(mSpriteSheet[mSpriteIdx].Size.x * mScale.x),
+			static_cast<int>(mSpriteSheet[mSpriteIdx].Size.y * mScale.y),
 
 			mpImage->GetDC(),
 			static_cast<int>(mSpriteSheet[mSpriteIdx].LeftTop.x),

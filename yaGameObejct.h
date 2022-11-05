@@ -22,15 +22,15 @@ namespace ya
 		virtual void OnCollisionStay(Collider* other);
 		virtual void OnCollisionExit(Collider* other);
 
-		inline void SetPos(Vector2 pos) { mPos = pos; }
-		inline Vector2 GetPos() { return mPos; }
-		inline void SetScale(Vector2 scale) { mScale = scale; }
-		inline Vector2 GetScale() { return mScale; }
+		__forceinline void SetPos(Vector2 pos) { mPos = pos; }
+		__forceinline Vector2 GetPos() { return mPos; }
+		__forceinline void SetScale(Vector2 scale) { mScale = scale; }
+		__forceinline Vector2 GetScale() { return mScale; }
 		//inline void SetHdc(HDC hdc) { mHdc = hdc; }
 		//inline HDC GetHdc() { return mHdc; }
-		inline void DisableObject() { mIsAlive = false; }
-		inline bool IsAlive() { return mIsAlive; }
-		inline void SetDisableTime(float time);
+		__forceinline void DisableObject() { mIsAlive = false; }
+		__forceinline bool IsAlive() { return mIsAlive; }
+		__forceinline void SetDisableTime(float time);
 		void AddComponent(Component* component);
 
 		template<typename T>
