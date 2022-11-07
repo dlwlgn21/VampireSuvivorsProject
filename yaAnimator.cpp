@@ -64,4 +64,5 @@ namespace ya
 		mbIsLooping = bIsLooping;
 		if (pPrevAnim != mpCurrAnimation) { mEndEvent(); }
 	}
+
 }

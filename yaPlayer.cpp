@@ -47,9 +47,9 @@ namespace ya
 		
 		mpAnimator = new Animator();
 		AddComponent(mpAnimator);
-		createAnimation(mAnimIdle,		mpIdleImage,		Vector2::ZERO, mAnimIdleSize, mAnimOffset, mAnimCount, mAnimDuration);
-		createAnimation(mAnimMove,		mpMoveImage,		Vector2::ZERO, mAnimMoveSize, mAnimOffset, mAnimCount, mAnimDuration);
-		createAnimation(mAnimMoveInv,	mpMoveInvImage, Vector2::ZERO, mAnimMoveSize, mAnimOffset, mAnimCount, mAnimDuration);
+		createAnimation(mAnimIdle,		mpIdleImage,	Vector2::ZERO, mAnimIdleSize, mAnimOffset, mAnimCount, mAnimDuration);
+		createAnimation(mAnimMove,		mpMoveImage,	Vector2::ZERO, mAnimMoveSize, mAnimOffset, mAnimCount, mAnimDuration);
+		createAnimation(mAnimMoveInv,	mpMoveInvImage,	Vector2::ZERO, mAnimMoveSize, mAnimOffset, mAnimCount, mAnimDuration);
 
 		mpAnimator->Play(mAnimIdle, true);
 

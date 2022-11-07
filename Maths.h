@@ -1,7 +1,22 @@
 #pragma once
+#include <math.h>
+
+#define PI (3.141592)
 
 namespace ya
 {
+	__forceinline float DegreeToRad(float degree)
+	{
+		return degree * PI / 180;
+	}
+
+	__forceinline float RadToDegree(float rad)
+	{
+		return rad * 180 / PI;
+	}
+
+
+
 	struct Vector2
 	{
 		float x;

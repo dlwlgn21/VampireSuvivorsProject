@@ -42,6 +42,12 @@ namespace ya
 	void Missile::Tick()
 	{
 		GameObject::Tick();
+
+		//float degree = DegreeToRad(180.0f);
+		//mPos.x += mSpeed * cosf(Vector2::UP.x) * Time::DeltaTime();
+		//mPos.y -= mSpeed * sinf(Vector2::UP.y) * Time::DeltaTime();
+
+
 		mPos.y -= mSpeed * Time::DeltaTime();
 		mLifeTime -= Time::DeltaTime();
 		if (mLifeTime <= 0.0f)

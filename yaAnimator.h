@@ -37,6 +37,8 @@ namespace ya
 			bool bIsAffectedCamera = true);
 		void Play(const std::wstring& name, bool bIsLooping);
 
+		//Event* GetEvents(const std::wstring key);
+
 	public:
 		Event mStartEvent;
 		Event mCompleteEvent;
@@ -44,6 +46,7 @@ namespace ya
 
 	private:
 		std::unordered_map<std::wstring, Animation*> mAnimations;
+		//std::unordered_map<std::wstring, Event*> mEvents;
 		Animation* mpCurrAnimation;
 		bool mbIsLooping;
 	};
