@@ -23,6 +23,12 @@ namespace ya
 			std::function<void()> mEvent;
 		};
 
+		struct Events
+		{
+			Event mStartEvent;
+			Event mCompleteEvent;
+			Event mEndEvent;
+		};
 		Animator();
 		virtual ~Animator();
 
@@ -37,16 +43,15 @@ namespace ya
 			bool bIsAffectedCamera = true);
 		void Play(const std::wstring& name, bool bIsLooping);
 
-		//Event* GetEvents(const std::wstring key);
+		Events* FindEvents(const std::wstring& key);
 
-	public:
-		Event mStartEvent;
-		Event mCompleteEvent;
-		Event mEndEvent;
+		std::function<void()>& GetStartEvent(const std::wstring& key);
+		std::function<void()>& GetEndEvent(const std::wstring& key);
+		std::function<void()>& GetCompleteEvent(const std::wstring& key);
 
 	private:
 		std::unordered_map<std::wstring, Animation*> mAnimations;
-		//std::unordered_map<std::wstring, Event*> mEvents;
+		std::unordered_map<std::wstring, Events*> mEvents;
 		Animation* mpCurrAnimation;
 		bool mbIsLooping;
 	};

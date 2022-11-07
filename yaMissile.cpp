@@ -15,14 +15,15 @@ namespace ya
 		, mLifeTime(3.0f)
 		, mpImage(nullptr)
 	{
-		SetScale({ 20.0f, 20.0f });
+		SetScale({ 1.0f, 1.0f });
 		AddComponent(new Collider(GetScale()));
 
-		mpImage = Resources::Find<Image>(L"Player");
+		mpImage = Resources::Load<Image>(L"MissleIdleAnim", L"Resources\\Image\\link.bmp");
 		assert(mpImage != nullptr);
-		Animator* animator = new Animator();
-		animator->CreateAnimation(
-			L"Idle",
+		mpAnimator = new Animator();
+		AddComponent(mpAnimator);
+		mpAnimator->CreateAnimation(
+			L"MissleIdleAnim",
 			mpImage,
 			Vector2(0.0f, 0.0f),
 			Vector2(120.0f, 130.0f),
@@ -31,9 +32,7 @@ namespace ya
 			0.1f
 		);
 
-		animator->Play(L"Idle", true);
-		AddComponent(animator);
-
+		mpAnimator->Play(L"MissleIdleAnim", true);
 	}
 
 	Missile::~Missile()

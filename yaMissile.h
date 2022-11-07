@@ -3,6 +3,7 @@
 namespace ya
 {
 	class Image;
+	class Animator;
 	class Missile : public GameObject
 	{
 	public:
@@ -19,6 +20,7 @@ namespace ya
 		float mSpeed;
 		float mLifeTime;
 		Image* mpImage;
+		Animator* mpAnimator;
 	};
 
 }

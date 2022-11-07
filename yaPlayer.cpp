@@ -52,11 +52,12 @@ namespace ya
 		createAnimation(mAnimMoveInv,	mpMoveInvImage,	Vector2::ZERO, mAnimMoveSize, mAnimOffset, mAnimCount, mAnimDuration);
 
 		mpAnimator->Play(mAnimIdle, true);
-
+		mpAnimator->GetCompleteEvent(mAnimIdle) = std::bind(&Player::WalkComplete, this);
 		// 이거 내가 따로 다시 공부해야함. 마지막 이벤트에 고고
-		mpAnimator->mCompleteEvent = std::bind(&Player::WalkComplete, this);
+		//mpAnimator->mCompleteEvent = std::bind(&Player::WalkComplete, this);
 
-		AddComponent(new Collider(mColliderScale));
+
+		AddComponent(new Collider(mColliderScale)); 
 		Camera::SetTarget(this);
 	}
 
@@ -72,7 +73,7 @@ namespace ya
 		if (IS_KEY_PRESSED(eKeyCode::A)) { mPos.x -= mSpeed * Time::DeltaTime(); }
 		if (IS_KEY_PRESSED(eKeyCode::D)) { mPos.x += mSpeed * Time::DeltaTime(); }
 
-		if (IS_KEY_DOWN(eKeyCode::D))	{ mpAnimator->Play(mAnimMove, true); }
+		if (IS_KEY_DOWN(eKeyCode::D)) { mpAnimator->Play(mAnimMove, true); }
 		//if (IS_KEY_DOWN(eKeyCode::W) || IS_KEY_DOWN(eKeyCode::S) || IS_KEY_DOWN(eKeyCode::D))
 		if (IS_KEY_UP(eKeyCode::D))		{ mpAnimator->Play(mAnimIdle, true); }
 		if (IS_KEY_DOWN(eKeyCode::A))	{ mpAnimator->Play(mAnimMoveInv, true); }
@@ -82,6 +83,11 @@ namespace ya
 		//if (IS_KEY_UP(eKeyCode::W) || IS_KEY_UP(eKeyCode::S) || IS_KEY_UP(eKeyCode::A) || IS_KEY_UP(eKeyCode::D))
 		{ mpAnimator->Play(mAnimIdle, true); }
 
+		if (IS_KEY_DOWN(eKeyCode::SPACE))
+		{
+			Missile* pMis = ya::object::Instantiate<Missile>(eColliderLayer::PLAYER_PROJECTTILE);
+			pMis->SetPos(mPos);
+		}
 	}
 
 	void Player::Render(HDC hdc)
@@ -145,7 +151,8 @@ namespace ya
 
 	void Player::WalkComplete()
 	{
-
+		Missile* pMis = ya::object::Instantiate<Missile>(eColliderLayer::PLAYER_PROJECTTILE);
+		pMis->SetPos(mPos);
 	}
 
 	void Player::createAnimation(const std::wstring& name, Image* image, Vector2 leftTop, Vector2 size, Vector2 offset, UINT spriteLength, float duration)

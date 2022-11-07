@@ -19,6 +19,10 @@ namespace ya
 		{
 			if (iter.second != nullptr) { delete iter.second; }
 		}
+		for (auto iter : mEvents)
+		{
+			if (iter.second != nullptr) { delete iter.second; }
+		}
 	}
 
 	void Animator::Tick()
@@ -28,7 +32,9 @@ namespace ya
 			mpCurrAnimation->Tick();
 			if (mbIsLooping && mpCurrAnimation->IsComplete())
 			{
-				mCompleteEvent();
+				Animator::Events * events = FindEvents(mpCurrAnimation->GetName());
+				if (events == nullptr) { assert(false); }
+				else { events->mCompleteEvent(); }
 				mpCurrAnimation->Reset();
 			}
 		}
@@ -52,17 +58,55 @@ namespace ya
 		animation->SetName(name);
 		animation->SetAnimator(this);
 		animation->SetScale(GetOwner()->GetScale());
-		mAnimations.insert(std::make_pair(name, animation));
+		auto insertAnimRes = mAnimations.insert(std::make_pair(name, animation));
+		if (insertAnimRes.second == false) { assert(false); return; }
+		Events* events = new Events();
+		auto insertEventsRes = mEvents.insert(std::make_pair(name, events));
+		if (insertEventsRes.second == false) { assert(false); return; }
+
 	}
 	void Animator::Play(const std::wstring& name, bool bIsLooping)
 	{
-		mStartEvent();
+		Animator::Events* events = FindEvents(name);
+		if (events == nullptr) { assert(false); }
+		else { events->mStartEvent(); }
+		
 		Animation* pPrevAnim = mpCurrAnimation;
 		mpCurrAnimation = FindAnimation(name);
 		assert(mpCurrAnimation != nullptr);
 		mpCurrAnimation->Reset();
 		mbIsLooping = bIsLooping;
-		if (pPrevAnim != mpCurrAnimation) { mEndEvent(); }
+		if (pPrevAnim != mpCurrAnimation) 
+		{ 
+			if (events != nullptr) { events->mEndEvent(); }
+		}
+	}
+
+	Animator::Events* Animator::FindEvents(const std::wstring& key)
+	{
+		auto iter = mEvents.find(key);
+
+		if (iter == mEvents.end()) { return nullptr; }
+
+		return iter->second;
+	}
+
+	std::function<void()>& Animator::GetStartEvent(const std::wstring& key)
+	{
+		Events* events = FindEvents(key);
+		return events->mStartEvent.mEvent;
+	}
+
+	std::function<void()>& Animator::GetEndEvent(const std::wstring& key)
+	{
+		Events* events = FindEvents(key);
+		return events->mEndEvent.mEvent;
+	}
+
+	std::function<void()>& Animator::GetCompleteEvent(const std::wstring& key)
+	{
+		Events* events = FindEvents(key);
+		return events->mCompleteEvent.mEvent;;
 	}
 
 }
