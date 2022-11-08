@@ -65,6 +65,14 @@ namespace ya
 		if (insertEventsRes.second == false) { assert(false); return; }
 
 	}
+	void Animator::CreateAnimations(const std::wstring& name)
+	{
+		//std::wstring name = L"cupheadIdle";
+		//UINT width = 200;
+		//UINT height = 200;
+		//UINT fileCount = 5;
+		//mpSprtieSheet = Image::Create();
+	}
 	void Animator::Play(const std::wstring& name, bool bIsLooping)
 	{
 		Animator::Events* events = FindEvents(name);

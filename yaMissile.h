@@ -21,7 +21,10 @@ namespace ya
 		float mLifeTime;
 		Image* mpImage;
 		Animator* mpAnimator;
+	public:
+		Vector2 mDir;
+		Vector2 mDestPos;
 	};
 
-}
+};
 

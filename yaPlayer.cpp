@@ -34,6 +34,7 @@ namespace ya
 		, mAnimRowInterval(130.0f)
 		, mAnimDuration(0.15f)
 		, mColliderScale(25.0f, 40.0f)
+		, dir(Vector2::ONE)
 	{
 		SetName(L"Player");
 		mPos = { 500.0f, 500.0f };
@@ -55,8 +56,6 @@ namespace ya
 		mpAnimator->GetCompleteEvent(mAnimIdle) = std::bind(&Player::WalkComplete, this);
 		// 이거 내가 따로 다시 공부해야함. 마지막 이벤트에 고고
 		//mpAnimator->mCompleteEvent = std::bind(&Player::WalkComplete, this);
-
-
 		AddComponent(new Collider(mColliderScale)); 
 		Camera::SetTarget(this);
 	}
@@ -83,10 +82,15 @@ namespace ya
 		//if (IS_KEY_UP(eKeyCode::W) || IS_KEY_UP(eKeyCode::S) || IS_KEY_UP(eKeyCode::A) || IS_KEY_UP(eKeyCode::D))
 		{ mpAnimator->Play(mAnimIdle, true); }
 
-		if (IS_KEY_DOWN(eKeyCode::SPACE))
+		if (IS_KEY_DOWN(eKeyCode::L_BUTTON))
 		{
 			Missile* pMis = ya::object::Instantiate<Missile>(eColliderLayer::PLAYER_PROJECTTILE);
+			//pMis->mDestPos = Input::GetMousePos();
+			//pMis->mDir = pMis->mDestPos - pMis->GetPos();
 			pMis->SetPos(mPos);
+			pMis->mDestPos = Input::GetMousePos() - mPos;
+			dir = yamath::Rotate(dir, 5.0f);
+			pMis->mDir = dir;
 		}
 	}
 
@@ -151,8 +155,8 @@ namespace ya
 
 	void Player::WalkComplete()
 	{
-		Missile* pMis = ya::object::Instantiate<Missile>(eColliderLayer::PLAYER_PROJECTTILE);
-		pMis->SetPos(mPos);
+		/*Missile* pMis = ya::object::Instantiate<Missile>(eColliderLayer::PLAYER_PROJECTTILE);
+		pMis->SetPos(mPos);*/
 	}
 
 	void Player::createAnimation(const std::wstring& name, Image* image, Vector2 leftTop, Vector2 size, Vector2 offset, UINT spriteLength, float duration)

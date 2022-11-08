@@ -41,6 +41,8 @@ namespace ya
 			Vector2 size, Vector2 offset,
 			UINT spriteLength, float duration,
 			bool bIsAffectedCamera = true);
+		
+		void CreateAnimations(const std::wstring& name);
 		void Play(const std::wstring& name, bool bIsLooping);
 
 		Events* FindEvents(const std::wstring& key);
@@ -54,5 +56,7 @@ namespace ya
 		std::unordered_map<std::wstring, Events*> mEvents;
 		Animation* mpCurrAnimation;
 		bool mbIsLooping;
+
+		Image* mpSprtieSheet;
 	};
 }

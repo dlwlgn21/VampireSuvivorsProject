@@ -46,6 +46,7 @@ namespace ya
 		float mAnimRowInterval;
 		Vector2 mColliderScale;
 
+		Vector2 dir;
 	};
 
 }

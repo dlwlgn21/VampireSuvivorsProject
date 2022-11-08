@@ -4,18 +4,7 @@
 #define PI (3.141592)
 
 namespace ya
-{
-	__forceinline float DegreeToRad(float degree)
-	{
-		return degree * PI / 180;
-	}
-
-	__forceinline float RadToDegree(float rad)
-	{
-		return rad * 180 / PI;
-	}
-
-
+{	
 
 	struct Vector2
 	{
@@ -67,6 +56,40 @@ namespace ya
 			return *this;
 		}
 
+		float GetLength()
+		{
+			return sqrt((x * x) + (y * y));
+		}
+
+		Vector2& Normalize()
+		{
+			float lenth = GetLength();
+			x /= lenth;
+			y /= lenth;
+			return *this;
+		}
 	};
+
+	namespace yamath
+	{
+		__forceinline float DegreeToRad(float degree)
+		{
+			return static_cast<float>(degree * PI / 180.0f);
+		}
+
+		__forceinline float RadToDegree(float rad)
+		{
+			return static_cast<float>(rad * 180.0f / PI);
+		}
+
+		inline Vector2 Rotate(const Vector2 input, float degree)
+		{
+			Vector2 ret = Vector2::ZERO;
+			float rad = DegreeToRad(degree);
+			ret.x = input.x * cosf(rad) - input.y * sinf(rad);
+			ret.y = input.x * sinf(rad) + input.y * cosf(rad);
+			return ret;
+		}
+	}
 
 }

@@ -1,4 +1,5 @@
 #include "yaInput.h"
+#include "yaApplication.h"
 
 namespace ya
 {
@@ -35,7 +36,9 @@ namespace ya
 
 	};
 
+	Vector2 Input::mMousePos;
 	std::vector<Input::Key> Input::mKeys;
+	HWND Input::mHwnd = Application::GetInstance().GetWindowData().hwnd;
 	void Input::Initialize()
 	{
 		mKeys.reserve(128);
@@ -50,21 +53,39 @@ namespace ya
 	}
 	void Input::Tick()
 	{
-		for (int i = 0; i < static_cast<UINT>(eKeyCode::COUNT); ++i)
+		if (GetFocus())
 		{
-			if (GetAsyncKeyState(ASCII[i]) & 0x8000)
+			for (int i = 0; i < static_cast<UINT>(eKeyCode::COUNT); ++i)
 			{
-				// 이전 프레임에 눌려져 있었다.
-				if (mKeys[i].bIsPressed) { mKeys[i].state = eKeyState::PRESSED; }
-				else { mKeys[i].state = eKeyState::DOWN; }
-				mKeys[i].bIsPressed = true;
-
+				if (GetAsyncKeyState(ASCII[i]) & 0x8000)
+				{
+					// 이전 프레임에 눌려져 있었다.
+					if (mKeys[i].bIsPressed)	{ mKeys[i].state = eKeyState::PRESSED; }
+					else						{ mKeys[i].state = eKeyState::DOWN; }
+					mKeys[i].bIsPressed = true;
+				}
+				else
+				{
+					if (mKeys[i].bIsPressed)	{ mKeys[i].state = eKeyState::UP; }
+					else						{ mKeys[i].state = eKeyState::NONE; }
+					mKeys[i].bIsPressed = false;
+				}
 			}
-			else
+
+			POINT mousePos = {};
+			GetCursorPos(&mousePos);
+			ScreenToClient(mHwnd, &mousePos);
+			mMousePos.x = static_cast<float>(mousePos.x);
+			mMousePos.y = static_cast<float>(mousePos.y);
+			
+		}
+		else // 포커스가 벗어났을 떄
+		{
+			for (int i = 0; i < static_cast<UINT>(eKeyCode::COUNT); ++i)
 			{
-				if (mKeys[i].bIsPressed) { mKeys[i].state = eKeyState::UP; }
-				else { mKeys[i].state = eKeyState::NONE; }
-				mKeys[i].bIsPressed = false;
+				// 강제적으로 키를 떼어줌. UP으로 만들어줌.
+				if (eKeyState::DOWN == mKeys[i].state || eKeyState::PRESSED == mKeys[i].state) { mKeys[i].state = eKeyState::UP; }
+				else if (eKeyState::UP == mKeys[i].state) { mKeys[i].state = eKeyState::NONE; }
 			}
 		}
 

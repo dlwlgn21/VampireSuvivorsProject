@@ -51,7 +51,6 @@ namespace ya
 		float mTime;
 		Vector2 mScale;
 
-
 		bool mbIsStart;
 		bool mbIsComplete;
 		bool mbIsEnd;

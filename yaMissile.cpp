@@ -6,6 +6,7 @@
 #include "yaAnimator.h"
 #include "yaAnimation.h"
 #include "yaResources.h"
+#include "yaInput.h"
 
 namespace ya
 {
@@ -14,6 +15,8 @@ namespace ya
 		, mSpeed(200.0f)
 		, mLifeTime(3.0f)
 		, mpImage(nullptr)
+		, mDir(Vector2::UP)
+		, mDestPos(Vector2::ZERO)
 	{
 		SetScale({ 1.0f, 1.0f });
 		AddComponent(new Collider(GetScale()));
@@ -45,9 +48,13 @@ namespace ya
 		//float degree = DegreeToRad(180.0f);
 		//mPos.x += mSpeed * cosf(Vector2::UP.x) * Time::DeltaTime();
 		//mPos.y -= mSpeed * sinf(Vector2::UP.y) * Time::DeltaTime();
+		//Vector2 mousePos = Input::GetMousePos();
 
+		//mDir = mDestPos - mPos;
+		//mDir.Normalize();
 
-		mPos.y -= mSpeed * Time::DeltaTime();
+		mPos.x += mDir.x * mSpeed * Time::DeltaTime();
+		mPos.y += mDir.y * mSpeed * Time::DeltaTime();
 		mLifeTime -= Time::DeltaTime();
 		if (mLifeTime <= 0.0f)
 		{
