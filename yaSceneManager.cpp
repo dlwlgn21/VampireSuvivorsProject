@@ -4,7 +4,7 @@
 #include "yaTitleScene.h"
 #include "yaEndingScene.h"
 #include "yaObject.h"
-
+#include "yaToolScene.h"
 namespace ya
 {
 
@@ -22,7 +22,10 @@ namespace ya
 		mScenes[static_cast<UINT>(eSceneType::PLAY_SCENE)]->Initialize();
 		mScenes[static_cast<UINT>(eSceneType::ENDING_SCENE)] = new EndingScene();
 		mScenes[static_cast<UINT>(eSceneType::ENDING_SCENE)]->Initialize();
-		ChangeSecne(eSceneType::LOGO_SCENE);
+		mScenes[static_cast<UINT>(eSceneType::TOOL_SCENE)] = new ToolScene();
+		mScenes[static_cast<UINT>(eSceneType::TOOL_SCENE)]->Initialize();
+		ChangeSecne(eSceneType::TOOL_SCENE);
+
 	}
 
 	void SceneManager::Tick()

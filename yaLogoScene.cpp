@@ -7,6 +7,7 @@
 #include "yaMonster.h"
 #include "yaCollisionManager.h"
 #include "yaObject.h"
+#include "yaApplication.h"
 
 namespace ya
 {
@@ -24,6 +25,7 @@ namespace ya
 		ya::object::Instantiate<Monster>(eColliderLayer::MONSTER, Vector2(500.f, 300.f));
 		CollisionManager::SetLayer(eColliderLayer::PLAYER, eColliderLayer::MONSTER, true);
 		CollisionManager::SetLayer(eColliderLayer::MONSTER, eColliderLayer::PLAYER_PROJECTTILE, true);
+		Application::GetInstance().SetMenuBar(true);
 	}
 	void LogoScene::Tick()
 	{
@@ -59,12 +61,16 @@ namespace ya
 		swprintf_s(buffer, 64, L"Logo Scene");
 		size_t strLen = wcsnlen_s(buffer, 64);
 
-		TextOut(hdc, 10, 30, buffer, strLen);
+		TextOut(hdc, 10, 30, buffer, static_cast<UINT>(strLen));
 	}
 	void LogoScene::Enter()
 	{
+		Scene::Enter();
+		CollisionManager::SetLayer(eColliderLayer::PLAYER, eColliderLayer::MONSTER, true);
+		CollisionManager::SetLayer(eColliderLayer::MONSTER, eColliderLayer::PLAYER_PROJECTTILE, true);
 	}
 	void LogoScene::Exit()
 	{
+		Scene::Exit();
 	}
 }

@@ -26,7 +26,7 @@ namespace ya
 		Scene::Tick();
 		if (IS_KEY_UP(eKeyCode::N))
 		{
-			SceneManager::ChangeSecne(eSceneType::PLAY_SCENE);
+			SceneManager::ChangeSecne(eSceneType::TOOL_SCENE);
 		}
 	}
 	void TitleScene::Render(HDC hdc)
@@ -42,8 +42,10 @@ namespace ya
 	}
 	void TitleScene::Enter()
 	{
+		Scene::Enter();
 	}
 	void TitleScene::Exit()
 	{
+		Scene::Exit();
 	}
 }

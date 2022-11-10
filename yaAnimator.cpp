@@ -11,15 +11,16 @@ namespace ya
 		: Component(eComponentType::ANIMATOR)
 		, mpCurrAnimation(nullptr)
 		, mbIsLooping(false)
+		, mpSprtieSheet(nullptr)
 	{
 	}
 	Animator::~Animator()
 	{
-		for (auto iter : mAnimations)
+		for (auto& iter : mAnimations)
 		{
 			if (iter.second != nullptr) { delete iter.second; }
 		}
-		for (auto iter : mEvents)
+		for (auto& iter : mEvents)
 		{
 			if (iter.second != nullptr) { delete iter.second; }
 		}
@@ -65,13 +66,61 @@ namespace ya
 		if (insertEventsRes.second == false) { assert(false); return; }
 
 	}
-	void Animator::CreateAnimations(const std::wstring& name)
+	void Animator::CreateAnimations(const std::wstring& path, const std::wstring& animName, float duration, Vector2 offset)
 	{
-		//std::wstring name = L"cupheadIdle";
-		//UINT width = 200;
-		//UINT height = 200;
-		//UINT fileCount = 5;
-		//mpSprtieSheet = Image::Create();
+		std::wstring name = L"CupheadIdle";
+		UINT width = 200;
+		UINT height = 200;
+		UINT fileCount = 0;
+
+		std::filesystem::path filePath(path);
+		std::wstring tmp = path;
+		std::vector<Image*> images;
+		images.reserve(16);
+		// 폴더에 있는 여러장의 이미지를 다 가져오는 반복문
+		for (auto& p : std::filesystem::recursive_directory_iterator(path))
+		{
+			p;
+			std::wstring fileName = p.path().filename();
+			std::wstring fullName = path + L"\\" +fileName;
+			Image* image = Resources::Load<Image>(name, tmp);
+			images.push_back(image);
+
+			if (width < image->GetWidth())		{ width = image->GetWidth(); }
+			if (height < image->GetHeight())	{ height = image->GetHeight(); }
+			++fileCount;
+		}
+
+
+		mpSprtieSheet = Image::Create(name, width * fileCount, height);
+		UINT i = 0;
+		// 스프라이트 시트에 이미지 그릴거양.
+		for (Image* image : images)
+		{
+			BitBlt(
+				mpSprtieSheet->GetDC(), 
+				static_cast<int>(i * width),
+				0, 
+				static_cast<int>(image->GetWidth()),
+				static_cast<int>(image->GetHeight()),
+
+				image->GetDC(),
+				0,
+				0,
+				SRCCOPY
+			);
+			++i;
+		}
+
+		CreateAnimation(
+			animName, 
+			mpSprtieSheet, 
+			Vector2::ZERO, 
+			Vector2(static_cast<float>(width), static_cast<float>(height)),
+			offset,
+			fileCount,
+			duration
+		);
 	}
 	void Animator::Play(const std::wstring& name, bool bIsLooping)
 	{

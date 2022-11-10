@@ -49,6 +49,12 @@
     <Filter Include="Scene\Base">
       <UniqueIdentifier>{4469bc7e-07f3-4df7-9393-839c210a5de6}</UniqueIdentifier>
     </Filter>
+    <Filter Include="GameObject\Tile">
+      <UniqueIdentifier>{2c64c16f-2f87-4b77-99dc-60a2a8a629ef}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameObject\Game">
+      <UniqueIdentifier>{b565c428-5851-4d08-9c06-f034940474fd}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
@@ -81,18 +87,6 @@
     <ClInclude Include="yaApplication.h">
       <Filter>HighLevelnterface</Filter>
     </ClInclude>
-    <ClInclude Include="yaBackpack.h">
-      <Filter>GameObject</Filter>
-    </ClInclude>
-    <ClInclude Include="yaBGImageObject.h">
-      <Filter>GameObject</Filter>
-    </ClInclude>
-    <ClInclude Include="yaBGIMageObjectAlpha.h">
-      <Filter>GameObject</Filter>
-    </ClInclude>
-    <ClInclude Include="yaButtonImageObject.h">
-      <Filter>GameObject</Filter>
-    </ClInclude>
     <ClInclude Include="yaCollider.h">
       <Filter>Component</Filter>
     </ClInclude>
@@ -123,17 +117,8 @@
     <ClInclude Include="yaLogoScene.h">
       <Filter>Scene</Filter>
     </ClInclude>
-    <ClInclude Include="yaMissile.h">
-      <Filter>GameObject</Filter>
-    </ClInclude>
-    <ClInclude Include="yaMonster.h">
-      <Filter>GameObject</Filter>
-    </ClInclude>
     <ClInclude Include="yaObject.h">
       <Filter>Common</Filter>
-    </ClInclude>
-    <ClInclude Include="yaPlayer.h">
-      <Filter>GameObject</Filter>
     </ClInclude>
     <ClInclude Include="yaPlayScene.h">
       <Filter>Scene</Filter>
@@ -153,6 +138,36 @@
     <ClInclude Include="yaTitleScene.h">
       <Filter>Scene</Filter>
     </ClInclude>
+    <ClInclude Include="yaToolScene.h">
+      <Filter>Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="yaTile.h">
+      <Filter>GameObject\Tile</Filter>
+    </ClInclude>
+    <ClInclude Include="yaTilePalette.h">
+      <Filter>GameObject\Tile</Filter>
+    </ClInclude>
+    <ClInclude Include="yaBackpack.h">
+      <Filter>GameObject\Game</Filter>
+    </ClInclude>
+    <ClInclude Include="yaBGImageObject.h">
+      <Filter>GameObject\Game</Filter>
+    </ClInclude>
+    <ClInclude Include="yaBGIMageObjectAlpha.h">
+      <Filter>GameObject\Game</Filter>
+    </ClInclude>
+    <ClInclude Include="yaButtonImageObject.h">
+      <Filter>GameObject\Game</Filter>
+    </ClInclude>
+    <ClInclude Include="yaMissile.h">
+      <Filter>GameObject\Game</Filter>
+    </ClInclude>
+    <ClInclude Include="yaMonster.h">
+      <Filter>GameObject\Game</Filter>
+    </ClInclude>
+    <ClInclude Include="yaPlayer.h">
+      <Filter>GameObject\Game</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Maths.cpp">
@@ -166,18 +181,6 @@
     </ClCompile>
     <ClCompile Include="yaApplication.cpp">
       <Filter>HighLevelnterface</Filter>
-    </ClCompile>
-    <ClCompile Include="yaBackpack.cpp">
-      <Filter>GameObject</Filter>
-    </ClCompile>
-    <ClCompile Include="yaBGImageObject.cpp">
-      <Filter>GameObject</Filter>
-    </ClCompile>
-    <ClCompile Include="yaBGIMageObjectAlpha.cpp">
-      <Filter>GameObject</Filter>
-    </ClCompile>
-    <ClCompile Include="yaButtonImageObject.cpp">
-      <Filter>GameObject</Filter>
     </ClCompile>
     <ClCompile Include="yaCollider.cpp">
       <Filter>Component</Filter>
@@ -209,15 +212,6 @@
     <ClCompile Include="yaLogoScene.cpp">
       <Filter>Scene</Filter>
     </ClCompile>
-    <ClCompile Include="yaMissile.cpp">
-      <Filter>GameObject</Filter>
-    </ClCompile>
-    <ClCompile Include="yaMonster.cpp">
-      <Filter>GameObject</Filter>
-    </ClCompile>
-    <ClCompile Include="yaPlayer.cpp">
-      <Filter>GameObject</Filter>
-    </ClCompile>
     <ClCompile Include="yaPlayScene.cpp">
       <Filter>Scene</Filter>
     </ClCompile>
@@ -241,6 +235,36 @@
     </ClCompile>
     <ClCompile Include="Main.cpp">
       <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="yaToolScene.cpp">
+      <Filter>Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="yaTile.cpp">
+      <Filter>GameObject\Tile</Filter>
+    </ClCompile>
+    <ClCompile Include="yaTilePalette.cpp">
+      <Filter>GameObject\Tile</Filter>
+    </ClCompile>
+    <ClCompile Include="yaBackpack.cpp">
+      <Filter>GameObject\Game</Filter>
+    </ClCompile>
+    <ClCompile Include="yaBGImageObject.cpp">
+      <Filter>GameObject\Game</Filter>
+    </ClCompile>
+    <ClCompile Include="yaBGIMageObjectAlpha.cpp">
+      <Filter>GameObject\Game</Filter>
+    </ClCompile>
+    <ClCompile Include="yaButtonImageObject.cpp">
+      <Filter>GameObject\Game</Filter>
+    </ClCompile>
+    <ClCompile Include="yaMissile.cpp">
+      <Filter>GameObject\Game</Filter>
+    </ClCompile>
+    <ClCompile Include="yaMonster.cpp">
+      <Filter>GameObject\Game</Filter>
+    </ClCompile>
+    <ClCompile Include="yaPlayer.cpp">
+      <Filter>GameObject\Game</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

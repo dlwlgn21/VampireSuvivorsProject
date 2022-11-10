@@ -4,6 +4,7 @@
 namespace ya
 {
 	class Image;
+	class Animator;
 	class Monster : public GameObject
 	{
 	public:
@@ -21,6 +22,13 @@ namespace ya
 		HPEN mPen;
 		HBRUSH mBrush;
 		Image* mpImage;
+		Animator* mpAnimator;
+
+		const std::wstring mAnimMove;
+		Vector2 mAnimMoveSize;
+		Vector2 mAnimOffset;
+		UINT mAnimCount;
+		float mAnimDuration;
 	};
 
 }

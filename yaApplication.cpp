@@ -1,4 +1,6 @@
 #include <assert.h>
+#include "framework.h"
+#include "VampireSuvivorsProject.h"
 #include "yaApplication.h"
 #include "yaSceneManager.h"
 #include "yaTime.h"
@@ -20,12 +22,19 @@ namespace ya
 	{
 		mWindowData = data;
 		mWindowData.hdc = GetDC(data.hwnd);
+
 		initailizeWindow();
 
 		Camera::Initialize();
 		Time::Initialize();
 		Input::Initialize();
 		SceneManager::Initialze();
+	}
+
+	void Application::InitializeAtalsWindow(WindowData atlasWindowData)
+	{
+		mAtlasWindowData = atlasWindowData;
+		mAtlasWindowData.hdc = GetDC(atlasWindowData.hwnd);
 	}
 
 	void Application::initailizeWindow()
@@ -60,6 +69,8 @@ namespace ya
 		mBrushes[static_cast<UINT>(eBrushColor::BLACK)] = static_cast<HBRUSH>(GetStockObject(BLACK_BRUSH));
 		mBrushes[static_cast<UINT>(eBrushColor::GRAY)] = CreateSolidBrush(RGB(67, 67, 67));
 		mBrushes[static_cast<UINT>(eBrushColor::WHITE)] = static_cast<HBRUSH>(GetStockObject(WHITE_BRUSH));
+	
+		mMenu = LoadMenu(nullptr, MAKEINTRESOURCEW(IDC_VAMPIRESUVIVORSPROJECT));
 	}
 
 	void Application::Tick()
@@ -96,5 +107,22 @@ namespace ya
 
 		// 틱과 렌더 모두 끝내고 Gameobject 삭제 
 		SceneManager::DestroyGameobject();
+	}
+
+	void Application::SetMenuBar(bool power)
+	{
+		SetMenu(mWindowData.hwnd, mMenu);				// WinAPI 기본 제공 함수.
+		
+		RECT rect = { 0,0, static_cast<LONG>(mWindowData.width), static_cast<LONG>(mWindowData.height) };
+		AdjustWindowRect(&rect, WS_OVERLAPPEDWINDOW, power);
+
+		SetWindowPos(
+			mWindowData.hwnd,
+			nullptr, 0, 0,
+			rect.right - rect.left,
+			rect.bottom - rect.top,
+			0
+		);
+		ShowWindow(mWindowData.hwnd, true);
 	}
 }

@@ -47,9 +47,11 @@ namespace ya
 	}
 	void PlayScene::Enter()
 	{
+		Scene::Enter();
 	}
 
 	void PlayScene::Exit()
 	{
+		Scene::Exit();
 	}
 }

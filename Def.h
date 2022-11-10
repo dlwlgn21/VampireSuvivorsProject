@@ -12,6 +12,7 @@ enum class eSceneType
 	TITLE_SCENE,
 	PLAY_SCENE,
 	ENDING_SCENE,
+	TOOL_SCENE,
 	COUNT
 };
 
@@ -74,3 +75,8 @@ enum class eCameraEffect
 	FADE_OUT,
 	COUNT
 };
+
+#define TILE_SIZE_X (32)
+#define TILE_LINE_COL (8)
+#define TILE_LINE_ROW (3)
+

@@ -24,7 +24,7 @@ namespace ya
 	void Camera::Initialize()
 	{
 		WindowData windowData = Application::GetInstance().GetWindowData();
-		mResolution = Vector2(windowData.width, windowData.height);
+		mResolution = Vector2(static_cast<float>(windowData.width), static_cast<float>(windowData.height));
 		mLookPosition = mResolution / 2.0f;							// 가운데로 할거양
 		//mEffect = eCameraEffect::FADE_IN;
 		mpImageCutton = Image::Create(

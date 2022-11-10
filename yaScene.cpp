@@ -2,6 +2,7 @@
 #include "yaGameObejct.h"
 #include "yaScene.h"
 #include "yaSceneManager.h"
+#include "yaCollisionManager.h"
 
 namespace ya
 {
@@ -76,6 +77,7 @@ namespace ya
 	}
 	void Scene::Exit()
 	{
+		CollisionManager::Clear();
 	}
 	void Scene::AddGameObject(GameObject* object, eColliderLayer layer)
 	{

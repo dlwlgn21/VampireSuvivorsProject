@@ -58,7 +58,7 @@ namespace ya
 
 		float GetLength()
 		{
-			return sqrt((x * x) + (y * y));
+			return static_cast<float>(sqrt((x * x) + (y * y)));
 		}
 
 		Vector2& Normalize()

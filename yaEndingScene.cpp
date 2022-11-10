@@ -40,8 +40,10 @@ namespace ya
 	}
 	void EndingScene::Enter()
 	{
+		Scene::Enter();
 	}
 	void EndingScene::Exit()
 	{
+		Scene::Exit();
 	}
 }

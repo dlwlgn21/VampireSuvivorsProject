@@ -12,14 +12,22 @@ namespace ya
 		, mPen(CreatePen(PS_DASHDOTDOT, 3, RGB(0, 255, 255)))
 		, mBrush(CreateSolidBrush(RGB(153, 204, 255)))
 		, mpImage(nullptr)
+		, mpAnimator(nullptr)
+		, mAnimMove(L"MudmanMoveAnim")
+		, mAnimMoveSize(28.0f, 29.0f)
+		, mAnimOffset(Vector2::ZERO)
+		, mAnimCount(2)
+		, mAnimDuration(0.15f)
 	{
-		SetName(L"Monster");
+		SetName(L"MudMan");
 		mPos = { 800.0f, 500.0f };
 		mScale = { 3.0f, 3.0f };
-		mpImage = Resources::Load<Image>(L"Monster", L"Resources\\Image\\Monster.bmp");
+		mpImage = Resources::Load<Image>(L"Monster", L"Resources\\Image\\Mudman.bmp");
 		assert(mpImage != nullptr);
-
-		//AddComponent(new Animator());
+		mpAnimator = new Animator();
+		AddComponent(mpAnimator);
+		mpAnimator->CreateAnimation(mAnimMove, mpImage, Vector2::ZERO, mAnimMoveSize, mAnimOffset, mAnimCount, mAnimDuration);
+		mpAnimator->Play(mAnimMove, true);
 		AddComponent(new Collider());
 	}
 	Monster::Monster(Vector2 pos)
@@ -27,14 +35,22 @@ namespace ya
 		, mPen(CreatePen(PS_DASHDOTDOT, 3, RGB(0, 255, 255)))
 		, mBrush(CreateSolidBrush(RGB(153, 204, 255)))
 		, mpImage(nullptr)
+		, mpAnimator(nullptr)
+		, mAnimMove(L"MudmanMoveAnim")
+		, mAnimMoveSize(28.0f, 29.0f)
+		, mAnimOffset(Vector2::ZERO)
+		, mAnimCount(2)
+		, mAnimDuration(0.15f)
 	{
-		SetName(L"Monster");
-		mPos = pos;
+		SetName(L"MudMan");
+		mPos = { 800.0f, 500.0f };
 		mScale = { 3.0f, 3.0f };
-		mpImage = Resources::Load<Image>(L"Monster", L"Resources\\Image\\Monster.bmp");
+		mpImage = Resources::Load<Image>(L"Monster", L"Resources\\Image\\Mudman.bmp");
 		assert(mpImage != nullptr);
-
-		//AddComponent(new Animator());
+		mpAnimator = new Animator();
+		AddComponent(mpAnimator);
+		mpAnimator->CreateAnimation(mAnimMove, mpImage, Vector2::ZERO, mAnimMoveSize, mAnimOffset, mAnimCount, mAnimDuration);
+		mpAnimator->Play(mAnimMove, true);
 		AddComponent(new Collider());
 	}
 	Monster::~Monster()
@@ -48,7 +64,7 @@ namespace ya
 	}
 	void Monster::Render(HDC hdc)
 	{
-		Vector2 fPos;
+	/*	Vector2 fPos;
 		fPos.x = mPos.x - mpImage->GetWidth() * (mScale.x / 2);
 		fPos.y = mPos.y - mpImage->GetWidth() * (mScale.x / 2);
 		fPos = Camera::ToCameraPos(fPos);
@@ -64,7 +80,7 @@ namespace ya
 			mpImage->GetWidth(),
 			mpImage->GetHeight(),
 			RGB(255, 0, 255)
-		);
+		);*/
 
 		GameObject::Render(hdc);
 	}

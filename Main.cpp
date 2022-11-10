@@ -4,18 +4,23 @@
 #include "framework.h"
 #include "VampireSuvivorsProject.h"
 #include "yaApplication.h"
+#include "yaScene.h"
+#include "yaSceneManager.h"
+#include "yaToolScene.h"
+#include "yaImage.h"
 
-#define MAX_LOADSTRING 100
+#define MAX_LOADSTRING (100)
 
 // 전역 변수:
 HINSTANCE hInst;                                // 현재 인스턴스입니다.
 WCHAR szTitle[MAX_LOADSTRING];                  // 제목 표시줄 텍스트입니다.
 WCHAR szWindowClass[MAX_LOADSTRING];            // 기본 창 클래스 이름입니다.
-
+LPCWSTR gAtlasWindowClassName;
 // 이 코드 모듈에 포함된 함수의 선언을 전달합니다:
-ATOM                MyRegisterClass(HINSTANCE hInstance);
+ATOM                MyRegisterClass(HINSTANCE hInstance, WNDPROC wndProc, LPCWSTR windowClassName);
 BOOL                InitInstance(HINSTANCE, int);
 LRESULT CALLBACK    WndProc(HWND, UINT, WPARAM, LPARAM);
+LRESULT CALLBACK    AtlasWndProc(HWND, UINT, WPARAM, LPARAM);
 INT_PTR CALLBACK    About(HWND, UINT, WPARAM, LPARAM);
 
 ya::Application& app = ya::Application::GetInstance();
@@ -34,7 +39,10 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 
     LoadStringW(hInstance, IDS_APP_TITLE, szTitle, MAX_LOADSTRING);
     LoadStringW(hInstance, IDC_VAMPIRESUVIVORSPROJECT, szWindowClass, MAX_LOADSTRING);
-    MyRegisterClass(hInstance);
+    MyRegisterClass(hInstance, WndProc, szWindowClass);     // MainWindow
+    gAtlasWindowClassName = L"AtlasWindow";
+    MyRegisterClass(hInstance, AtlasWndProc, gAtlasWindowClassName);     // TileWindow
+
 
     if (!InitInstance(hInstance, nCmdShow))
     {
@@ -55,7 +63,6 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
                 TranslateMessage(&msg);
                 DispatchMessage(&msg);
             }
-
         }
         else
         {
@@ -71,22 +78,22 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
     return (int)msg.wParam;
 }
 
-ATOM MyRegisterClass(HINSTANCE hInstance)
+ATOM MyRegisterClass(HINSTANCE hInstance, WNDPROC wndProc, LPCWSTR windowClassName)
 {
     WNDCLASSEXW wcex = {};
 
     wcex.cbSize = sizeof(WNDCLASSEX);
 
     wcex.style = CS_HREDRAW | CS_VREDRAW;
-    wcex.lpfnWndProc = WndProc;
+    wcex.lpfnWndProc = wndProc;
     wcex.cbClsExtra = 0;
     wcex.cbWndExtra = 0;
     wcex.hInstance = hInstance;
     wcex.hIcon = LoadIcon(hInstance, MAKEINTRESOURCE(IDC_VAMPIRESUVIVORSPROJECT));
     wcex.hCursor = LoadCursor(nullptr, IDC_ARROW);
     wcex.hbrBackground = (HBRUSH)(COLOR_WINDOW + 1);
-    wcex.lpszMenuName = MAKEINTRESOURCEW(IDC_VAMPIRESUVIVORSPROJECT);
-    wcex.lpszClassName = szWindowClass;
+    wcex.lpszMenuName = nullptr; //MAKEINTRESOURCEW(IDC_VAMPIRESUVIVORSPROJECT);
+    wcex.lpszClassName = windowClassName;
     wcex.hIconSm = LoadIcon(wcex.hInstance, MAKEINTRESOURCE(IDI_SMALL));
 
     return RegisterClassExW(&wcex);
@@ -98,12 +105,12 @@ BOOL InitInstance(HINSTANCE hInstance, int nCmdShow)
     hInst = hInstance;
 
     WindowData windowData = {};
-    windowData.width = 1600;
+    windowData.width = 900;
     windowData.height = 900;
 
     HWND hWnd = CreateWindowW(szWindowClass, szTitle, WS_OVERLAPPEDWINDOW,
         CW_USEDEFAULT, 0, CW_USEDEFAULT, 0, nullptr, nullptr, hInstance, nullptr);
-    if (!hWnd)
+    if (hWnd == NULL)
     {
         assert(false);
         return FALSE;
@@ -116,6 +123,25 @@ BOOL InitInstance(HINSTANCE hInstance, int nCmdShow)
     UpdateWindow(hWnd);
 
     app.Initialize(windowData);
+
+    WindowData atlasWindowData = {};
+    atlasWindowData.width = 256;
+    atlasWindowData.height = 96;
+
+    hWnd = CreateWindowW(gAtlasWindowClassName, szTitle, WS_OVERLAPPEDWINDOW,
+        CW_USEDEFAULT, 0, CW_USEDEFAULT, 0, nullptr, nullptr, hInstance, nullptr);
+    if (hWnd == NULL)
+    {
+        assert(false);
+        return FALSE;
+    }
+    atlasWindowData.hwnd = hWnd;
+    
+    SetWindowPos(hWnd, nullptr, windowData.width, 0, atlasWindowData.width, atlasWindowData.height, 0);
+    ShowWindow(hWnd, nCmdShow);
+    UpdateWindow(hWnd);
+
+    app.InitializeAtalsWindow(atlasWindowData);
 
     return TRUE;
 }
@@ -174,6 +200,104 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
     }
     return 0;
 }
+
+
+LRESULT CALLBACK AtlasWndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
+{
+    switch (message)
+    {
+    case WM_CREATE:
+    {
+        WindowData mainWinData = app.GetInstance().GetWindowData();
+        WindowData atlasData = app.GetInstance().GetAtlasWindowData();
+        ya::ToolScene* pToolScene = static_cast<ya::ToolScene*>(ya::SceneManager::GetCurrentScene());
+        assert(pToolScene != nullptr);
+        ya::Image* pAtlas = pToolScene->GetAtlasImage();
+        assert(pAtlas != nullptr);
+
+        RECT rect = { 
+            0,
+            0, 
+            static_cast<LONG>(pAtlas->GetWidth()), 
+            static_cast<LONG>(pAtlas->GetHeight()) 
+        };
+        AdjustWindowRect(&rect, WS_OVERLAPPEDWINDOW, true);
+
+        SetWindowPos(
+            hWnd,
+            nullptr, 
+            mainWinData.width, 
+            0,
+            pAtlas->GetWidth(),
+            pAtlas->GetHeight(),
+            0
+        );
+        ShowWindow(hWnd, true);
+        UpdateWindow(hWnd);
+    }
+    break;
+    case WM_COMMAND:
+    {
+        int wmId = LOWORD(wParam);
+        switch (wmId)
+        {
+        case IDM_ABOUT:
+            DialogBox(hInst, MAKEINTRESOURCE(IDD_ABOUTBOX), hWnd, About);
+            break;
+        case IDM_EXIT:
+            DestroyWindow(hWnd);
+            break;
+        default:
+            return DefWindowProc(hWnd, message, wParam, lParam);
+        }
+    }
+    break;
+    case WM_PAINT:
+    {
+        PAINTSTRUCT ps;
+        HDC hdc = BeginPaint(hWnd, &ps);
+
+        WindowData atlasData = app.GetInstance().GetAtlasWindowData();
+        ya::ToolScene* pToolScene = static_cast<ya::ToolScene*>(ya::SceneManager::GetCurrentScene());
+        assert(pToolScene != nullptr);
+        ya::Image* pAtlas = pToolScene->GetAtlasImage();
+        assert(pAtlas != nullptr);
+
+        ya::Vector2 pos(ya::Vector2::ZERO);
+        TransparentBlt(
+            hdc, 
+            static_cast<int>(pos.x), 
+            static_cast<int>(pos.y),
+            static_cast<int>(pAtlas->GetWidth()),
+            static_cast<int>(pAtlas->GetHeight()),
+
+            pAtlas->GetDC(),
+            0,
+            0,
+            static_cast<int>(pAtlas->GetWidth()),
+            static_cast<int>(pAtlas->GetHeight()),
+            RGB(255, 0, 255)
+        );
+
+
+        EndPaint(hWnd, &ps);
+
+    }
+    break;
+    case WM_DESTROY:
+    {
+        PostQuitMessage(0);
+    }
+    break;
+    default:
+        return DefWindowProc(hWnd, message, wParam, lParam);
+    }
+    return 0;
+}
+
+
+
+
 // 정보 대화 상자의 메시지 처리기입니다.
 INT_PTR CALLBACK About(HWND hDlg, UINT message, WPARAM wParam, LPARAM lParam)
 {

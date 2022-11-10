@@ -52,7 +52,6 @@ namespace ya
 		createAnimation(mAnimMove,		mpMoveImage,	Vector2::ZERO, mAnimMoveSize, mAnimOffset, mAnimCount, mAnimDuration);
 		createAnimation(mAnimMoveInv,	mpMoveInvImage,	Vector2::ZERO, mAnimMoveSize, mAnimOffset, mAnimCount, mAnimDuration);
 
-		mpAnimator->Play(mAnimIdle, true);
 		mpAnimator->GetCompleteEvent(mAnimIdle) = std::bind(&Player::WalkComplete, this);
 		// 이거 내가 따로 다시 공부해야함. 마지막 이벤트에 고고
 		//mpAnimator->mCompleteEvent = std::bind(&Player::WalkComplete, this);
@@ -77,10 +76,6 @@ namespace ya
 		if (IS_KEY_UP(eKeyCode::D))		{ mpAnimator->Play(mAnimIdle, true); }
 		if (IS_KEY_DOWN(eKeyCode::A))	{ mpAnimator->Play(mAnimMoveInv, true); }
 		if (IS_KEY_UP(eKeyCode::A))		{ mpAnimator->Play(mAnimIdle, true); }
-
-		if (IS_KEY_UP(eKeyCode::W) || IS_KEY_UP(eKeyCode::S))
-		//if (IS_KEY_UP(eKeyCode::W) || IS_KEY_UP(eKeyCode::S) || IS_KEY_UP(eKeyCode::A) || IS_KEY_UP(eKeyCode::D))
-		{ mpAnimator->Play(mAnimIdle, true); }
 
 		if (IS_KEY_DOWN(eKeyCode::L_BUTTON))
 		{

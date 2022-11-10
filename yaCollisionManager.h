@@ -14,7 +14,7 @@ namespace ya
 		static void CheckColliderCollision(Collider* lCollider, Collider* rCollider);
 
 		static bool CheckIntersect(Collider* lCollider, Collider* rCollider);
-
+		static void Clear();
 
 	private:
 		static WORD mMatrix[MAX_COLLIDER_LAYER];
