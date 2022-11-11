@@ -20,6 +20,7 @@ namespace ya
 	private:
 		static Scene* mScenes[static_cast<UINT>(eSceneType::COUNT)];
 		static Scene* mCurrentScenes;
+		static eSceneType mSceneType;
 	};
 }
 

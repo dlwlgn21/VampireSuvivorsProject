@@ -1,9 +1,10 @@
 #pragma once
-#include "yaTile.h"
+#include "Common.h"
 
 namespace ya
 {
 	class Image;
+	class Tile;
 	class TilePalette
 	{
 	public:
@@ -13,7 +14,7 @@ namespace ya
 		void Tick();
 		void Render(HDC hdc);
 		
-		//void CreateTile();
+		void CreateTile(UINT idx, Vector2 idxPos);
 		//void CreateTiles();
 		//
 		//void Save();
@@ -21,7 +22,7 @@ namespace ya
 		__forceinline Image* GetAtlasImage() { return mAtlas; }
 	private:
 		Image* mAtlas;
-
+		std::unordered_map<UINT64, Tile*> mTiles;
 	};
 
 }

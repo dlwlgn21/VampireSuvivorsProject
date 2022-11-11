@@ -8,6 +8,7 @@
 #include "yaSceneManager.h"
 #include "yaToolScene.h"
 #include "yaImage.h"
+#include "yaInput.h"
 
 #define MAX_LOADSTRING (100)
 
@@ -131,8 +132,8 @@ BOOL InitInstance(HINSTANCE hInstance, int nCmdShow)
 // TILE-MAP PART
 #if 0
     WindowData atlasWindowData = {};
-    atlasWindowData.width = 256;
-    atlasWindowData.height = 96;
+    //atlasWindowData.width = 256;
+    //atlasWindowData.height = 96;
 
     hWnd = CreateWindowW(gAtlasWindowClassName, szTitle, WS_OVERLAPPEDWINDOW,
         CW_USEDEFAULT, 0, CW_USEDEFAULT, 0, nullptr, nullptr, hInstance, nullptr);
@@ -143,9 +144,9 @@ BOOL InitInstance(HINSTANCE hInstance, int nCmdShow)
     }
     atlasWindowData.hwnd = hWnd;
     
-    SetWindowPos(hWnd, nullptr, windowData.width, 0, atlasWindowData.width, atlasWindowData.height, 0);
-    ShowWindow(hWnd, nCmdShow);
-    UpdateWindow(hWnd);
+    //SetWindowPos(hWnd, nullptr, windowData.width, 0, atlasWindowData.width, atlasWindowData.height, 0);
+    //ShowWindow(hWnd, nCmdShow);
+    //UpdateWindow(hWnd);
 
     app.InitializeAtalsWindow(atlasWindowData);
 #endif
@@ -216,17 +217,20 @@ LRESULT CALLBACK AtlasWndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lPa
     {
         WindowData mainWinData = app.GetInstance().GetWindowData();
         WindowData atlasData = app.GetInstance().GetAtlasWindowData();
+       
         ya::ToolScene* pToolScene = static_cast<ya::ToolScene*>(ya::SceneManager::GetCurrentScene());
         assert(pToolScene != nullptr);
+
         ya::Image* pAtlas = pToolScene->GetAtlasImage();
         assert(pAtlas != nullptr);
 
         RECT rect = { 
             0,
             0, 
-            static_cast<LONG>(pAtlas->GetWidth()), 
-            static_cast<LONG>(pAtlas->GetHeight()) 
+            static_cast<LONG>(pAtlas->GetWidth() * TILE_SCALE), 
+            static_cast<LONG>(pAtlas->GetHeight() * TILE_SCALE) 
         };
+
         AdjustWindowRect(&rect, WS_OVERLAPPEDWINDOW, true);
 
         SetWindowPos(
@@ -234,8 +238,8 @@ LRESULT CALLBACK AtlasWndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lPa
             nullptr, 
             mainWinData.width, 
             0,
-            pAtlas->GetWidth(),
-            pAtlas->GetHeight(),
+            rect.right - rect.left,
+            rect.bottom - rect.top,
             0
         );
         ShowWindow(hWnd, true);
@@ -270,12 +274,14 @@ LRESULT CALLBACK AtlasWndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lPa
         assert(pAtlas != nullptr);
 
         ya::Vector2 pos(ya::Vector2::ZERO);
+
+
         TransparentBlt(
             hdc, 
             static_cast<int>(pos.x), 
             static_cast<int>(pos.y),
-            static_cast<int>(pAtlas->GetWidth()),
-            static_cast<int>(pAtlas->GetHeight()),
+            static_cast<int>(pAtlas->GetWidth() * TILE_SCALE),
+            static_cast<int>(pAtlas->GetHeight() * TILE_SCALE),
 
             pAtlas->GetDC(),
             0,
@@ -284,9 +290,24 @@ LRESULT CALLBACK AtlasWndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lPa
             static_cast<int>(pAtlas->GetHeight()),
             RGB(255, 0, 255)
         );
-
-
         EndPaint(hWnd, &ps);
+
+    }
+    break;
+    case WM_LBUTTONDOWN:
+    {
+        if (GetFocus())
+        {
+            ya::Vector2 mousePos = ya::Input::GetMousePos(hWnd);
+            int x = static_cast<int>(mousePos.x / (TILE_SIZE_X * TILE_SCALE));
+            int y = static_cast<int>(mousePos.y / (TILE_SIZE_Y * TILE_SCALE));
+            int idx = (y * TILE_COLUMN_COUNT) + (x % TILE_COLUMN_COUNT);
+
+            ya::ToolScene* pToolScene = static_cast<ya::ToolScene*>(ya::SceneManager::GetCurrentScene());
+            assert(pToolScene != nullptr);
+
+            pToolScene->SetTileIdx(idx);
+        }
 
     }
     break;

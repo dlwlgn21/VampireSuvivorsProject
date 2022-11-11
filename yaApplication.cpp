@@ -121,7 +121,7 @@ namespace ya
 			nullptr, 0, 0,
 			rect.right - rect.left,
 			rect.bottom - rect.top,
-			0
+			SWP_NOMOVE | SWP_NOZORDER
 		);
 		ShowWindow(mWindowData.hwnd, true);
 	}

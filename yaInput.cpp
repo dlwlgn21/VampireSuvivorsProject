@@ -97,4 +97,18 @@ namespace ya
 	{
 		return mKeys[static_cast<UINT>(keyCode)].state;
 	}
+	Vector2 Input::GetMousePos(HWND hwnd)
+	{
+		Vector2 vMousePos(-1.0f, -1.0f);
+		if (GetFocus())
+		{
+			POINT mousePos = {};
+			GetCursorPos(&mousePos);
+			ScreenToClient(hwnd, &mousePos);
+			vMousePos.x = static_cast<float>(mousePos.x);
+			vMousePos.y = static_cast<float>(mousePos.y);
+			return vMousePos;
+		}
+		return vMousePos;
+	}
 }

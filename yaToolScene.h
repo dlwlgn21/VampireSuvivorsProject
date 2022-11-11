@@ -19,10 +19,12 @@ namespace ya
 		void Exit() override;
 		inline eSceneType GetSceneTpye() { return mSceneType; }
 		inline Image* GetAtlasImage(){ return mpTilePalette->GetAtlasImage(); }
-
+		void SetTileIdx(int idx) { mTileIdx = idx; }
+		UINT GetTileIdx() { return mTileIdx; }
 	private:
 		eSceneType mSceneType;
 		TilePalette* mpTilePalette;
+		UINT mTileIdx;
 	};
 }
 

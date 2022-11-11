@@ -58,6 +58,7 @@ enum class eColliderLayer
 	COUNT = MAX_COLLIDER_LAYER,
 };
 
+
 union UnionColliderID
 {
 	struct
@@ -68,7 +69,7 @@ union UnionColliderID
 
 	UINT64 ID;
 };
-
+typedef UnionColliderID UnionTileID;
 enum class eCameraEffect
 {
 	FADE_IN,
@@ -77,6 +78,8 @@ enum class eCameraEffect
 };
 
 #define TILE_SIZE_X (32)
-#define TILE_LINE_COL (8)
-#define TILE_LINE_ROW (3)
+#define TILE_SIZE_Y (32)
+#define TILE_COLUMN_COUNT (8)
+#define TILE_ROW_COUNT (3)
+#define TILE_SCALE (2)
 
