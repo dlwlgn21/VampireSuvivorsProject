@@ -19,6 +19,7 @@ namespace ya
 
 	private:
 		eSceneType mSceneType;
+		
 	};
 }
 

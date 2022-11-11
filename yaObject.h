@@ -55,6 +55,15 @@ namespace ya
 		}
 
 		template<typename T>
+		static __forceinline T* InstantiateAtAnotherScene(eColliderLayer colliderLayer, Vector2 pos, eSceneType sceneType)
+		{
+			T* gameObeject = new T(pos);
+			Scene* scene = SceneManager::GetSpecifiedScene(sceneType);
+			scene->AddGameObject(static_cast<GameObject*>(gameObeject), colliderLayer);
+			return gameObeject;
+		}
+
+		template<typename T>
 		static __forceinline void Destory(GameObject* gameObject)
 		{
 			gameObject->DisableObject();

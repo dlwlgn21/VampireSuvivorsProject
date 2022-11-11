@@ -4,11 +4,11 @@
 #include "yaInput.h"
 #include "yaSceneManager.h"
 #include "yaBgImageObject.h"
-#include "yaMonster.h"
+#include "yaMiniMudman.h"
+#include "yaBoomGhost.h"
 #include "yaCollisionManager.h"
 #include "yaObject.h"
 #include "yaApplication.h"
-
 namespace ya
 {
 	LogoScene::LogoScene()
@@ -20,12 +20,22 @@ namespace ya
 	}
 	void LogoScene::Initialize()
 	{
+		int monsterCount = 100;
+		for (int i = 0; i < monsterCount; ++i)
+		{
+			ya::object::InstantiateAtAnotherScene<MiniMudman>(eColliderLayer::MONSTER, Vector2(100.f * i, 300.f), GetSceneTpye());
+		}
+
+		for (int i = 0; i < monsterCount; ++i)
+		{
+			ya::object::InstantiateAtAnotherScene<BoomGhost>(eColliderLayer::MONSTER, Vector2(100.f * i, 800.f), GetSceneTpye());
+		}
+		//ya::object::Instantiate<Monster>(eColliderLayer::MONSTER, Vector2(200.f, 300.f));
+		//ya::object::Instantiate<Monster>(eColliderLayer::MONSTER, Vector2(500.f, 300.f));
 		ya::object::Instantiate<Player>(eColliderLayer::PLAYER);
-		ya::object::Instantiate<Monster>(eColliderLayer::MONSTER, Vector2(200.f, 300.f));
-		ya::object::Instantiate<Monster>(eColliderLayer::MONSTER, Vector2(500.f, 300.f));
 		CollisionManager::SetLayer(eColliderLayer::PLAYER, eColliderLayer::MONSTER, true);
 		CollisionManager::SetLayer(eColliderLayer::MONSTER, eColliderLayer::PLAYER_PROJECTTILE, true);
-		Application::GetInstance().SetMenuBar(true);
+		//Application::GetInstance().SetMenuBar(true);
 	}
 	void LogoScene::Tick()
 	{

@@ -5,12 +5,11 @@ namespace ya
 {
 	class Image;
 	class Animator;
-	class Monster : public GameObject
+	class BoomGhost : public GameObject
 	{
 	public:
-		Monster();
-		Monster(Vector2 pos);
-		virtual ~Monster();
+		BoomGhost(Vector2 pos);
+		virtual ~BoomGhost();
 
 		void Tick() override;
 		void Render(HDC hdc) override;

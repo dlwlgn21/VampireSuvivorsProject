@@ -77,8 +77,10 @@ namespace ya
 		if (IS_KEY_DOWN(eKeyCode::A))	{ mpAnimator->Play(mAnimMoveInv, true); }
 		if (IS_KEY_UP(eKeyCode::A))		{ mpAnimator->Play(mAnimIdle, true); }
 
+#if 0
 		if (IS_KEY_DOWN(eKeyCode::L_BUTTON))
 		{
+// FOR AsortLock class
 			Missile* pMis = ya::object::Instantiate<Missile>(eColliderLayer::PLAYER_PROJECTTILE);
 			//pMis->mDestPos = Input::GetMousePos();
 			//pMis->mDir = pMis->mDestPos - pMis->GetPos();
@@ -87,6 +89,7 @@ namespace ya
 			dir = yamath::Rotate(dir, 5.0f);
 			pMis->mDir = dir;
 		}
+#endif
 	}
 
 	void Player::Render(HDC hdc)

@@ -3,9 +3,10 @@
 #include "yaInput.h"
 #include "yaSceneManager.h"
 #include "yaBgImageObject.h"
-#include "yaMonster.h"
+#include "yaMiniMudman.h"
 #include "yaSceneManager.h"
 #include "yaCollisionManager.h"
+#include "yaObject.h"
 
 namespace ya
 {
@@ -24,6 +25,17 @@ namespace ya
 		//AddGameObject(new Monster(), eColliderLayer::MONSTER);
 		//CollisionManager::SetLayer(eColliderLayer::PLAYER, eColliderLayer::MONSTER, true);
 		//Scene::Initialize();
+		
+		//int monsterCount = 100;
+		//for (int i = 0; i < monsterCount; ++i)
+		//{
+		//	ya::object::InstantiateAtAnotherScene<Monster>(eColliderLayer::MONSTER, Vector2(50.f * i, 300.f), GetSceneTpye());
+		//}
+		////ya::object::Instantiate<Monster>(eColliderLayer::MONSTER, Vector2(200.f, 300.f));
+		////ya::object::Instantiate<Monster>(eColliderLayer::MONSTER, Vector2(500.f, 300.f));
+		//ya::object::Instantiate<Player>(eColliderLayer::PLAYER);
+		//CollisionManager::SetLayer(eColliderLayer::PLAYER, eColliderLayer::MONSTER, true);
+		//CollisionManager::SetLayer(eColliderLayer::MONSTER, eColliderLayer::PLAYER_PROJECTTILE, true);
 
 	}
 	void PlayScene::Tick()

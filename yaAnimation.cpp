@@ -32,8 +32,8 @@ namespace ya
 		if (mSpriteSheet[mSpriteIdx].Durtation < mTime)
 		{
 			mTime = 0.0f;
-			if (mSpriteIdx + 1 >= mSpriteSheet.size()) { mbIsComplete = true; }
-			else { ++mSpriteIdx; }
+			if (mSpriteIdx + 1 >= mSpriteSheet.size())	{ mbIsComplete = true; }
+			else										{ ++mSpriteIdx; }
 		}
 
 	}
@@ -76,6 +76,7 @@ namespace ya
 			mFunc
 		);
 	}
+
 	void Animation::Create(Image* pImage, Vector2 leftTop, Vector2 size, Vector2 offset, UINT spriteLength, float duration, bool bIsAffectedCamera)
 	{
 		mpImage = pImage;
@@ -91,6 +92,7 @@ namespace ya
 			mSpriteSheet.push_back(sprite);
 		}
 	}
+
 	void Animation::Reset()
 	{
 		mSpriteIdx = 0;

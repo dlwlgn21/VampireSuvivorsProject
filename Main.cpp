@@ -40,9 +40,12 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
     LoadStringW(hInstance, IDS_APP_TITLE, szTitle, MAX_LOADSTRING);
     LoadStringW(hInstance, IDC_VAMPIRESUVIVORSPROJECT, szWindowClass, MAX_LOADSTRING);
     MyRegisterClass(hInstance, WndProc, szWindowClass);     // MainWindow
+
+// TILE-MAP PART
+#if 0
     gAtlasWindowClassName = L"AtlasWindow";
     MyRegisterClass(hInstance, AtlasWndProc, gAtlasWindowClassName);     // TileWindow
-
+#endif 
 
     if (!InitInstance(hInstance, nCmdShow))
     {
@@ -73,6 +76,7 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
     if (WM_QUIT == msg.message)
     {
         // 메모리 해제작업
+        
     }
 
     return (int)msg.wParam;
@@ -105,7 +109,7 @@ BOOL InitInstance(HINSTANCE hInstance, int nCmdShow)
     hInst = hInstance;
 
     WindowData windowData = {};
-    windowData.width = 900;
+    windowData.width = 1600;
     windowData.height = 900;
 
     HWND hWnd = CreateWindowW(szWindowClass, szTitle, WS_OVERLAPPEDWINDOW,
@@ -124,6 +128,8 @@ BOOL InitInstance(HINSTANCE hInstance, int nCmdShow)
 
     app.Initialize(windowData);
 
+// TILE-MAP PART
+#if 0
     WindowData atlasWindowData = {};
     atlasWindowData.width = 256;
     atlasWindowData.height = 96;
@@ -142,7 +148,7 @@ BOOL InitInstance(HINSTANCE hInstance, int nCmdShow)
     UpdateWindow(hWnd);
 
     app.InitializeAtalsWindow(atlasWindowData);
-
+#endif
     return TRUE;
 }
 
