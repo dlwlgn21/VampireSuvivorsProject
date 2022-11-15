@@ -35,7 +35,7 @@ namespace ya
 	}
 	void Tile::Render(HDC hdc)
 	{
-		if (mAtlas == nullptr)	{return;}
+		if (mAtlas == nullptr)	{ return; }
 		Vector2 renderPos = Camera::ToCameraPos(mPos);
 		
 		int tilePosX = mX * TILE_SIZE_X;
@@ -49,7 +49,7 @@ namespace ya
 			static_cast<int>(TILE_SIZE_Y * TILE_SCALE),
 
 			mAtlas->GetDC(),
-			tilePosY,
+			tilePosX,
 			tilePosY,
 			static_cast<int>(TILE_SIZE_X),
 			static_cast<int>(TILE_SIZE_Y),

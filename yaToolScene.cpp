@@ -10,7 +10,7 @@
 namespace ya
 {
 	ToolScene::ToolScene()
-		: mSceneType(eSceneType::ENDING_SCENE)
+		: mSceneType(eSceneType::TOOL_SCENE)
 		, mpTilePalette(new TilePalette())
 		, mTileIdx(0)
 	{

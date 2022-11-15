@@ -43,7 +43,7 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
     MyRegisterClass(hInstance, WndProc, szWindowClass);     // MainWindow
 
 // TILE-MAP PART
-#if 0
+#if 1
     gAtlasWindowClassName = L"AtlasWindow";
     MyRegisterClass(hInstance, AtlasWndProc, gAtlasWindowClassName);     // TileWindow
 #endif 
@@ -110,8 +110,8 @@ BOOL InitInstance(HINSTANCE hInstance, int nCmdShow)
     hInst = hInstance;
 
     WindowData windowData = {};
-    windowData.width = 1600;
-    windowData.height = 900;
+    windowData.width = 800;
+    windowData.height = 800;
 
     HWND hWnd = CreateWindowW(szWindowClass, szTitle, WS_OVERLAPPEDWINDOW,
         CW_USEDEFAULT, 0, CW_USEDEFAULT, 0, nullptr, nullptr, hInstance, nullptr);
@@ -130,7 +130,7 @@ BOOL InitInstance(HINSTANCE hInstance, int nCmdShow)
     app.Initialize(windowData);
 
 // TILE-MAP PART
-#if 0
+#if 1
     WindowData atlasWindowData = {};
     //atlasWindowData.width = 256;
     //atlasWindowData.height = 96;
