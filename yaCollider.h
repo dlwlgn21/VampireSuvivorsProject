@@ -4,19 +4,19 @@
 namespace ya
 {
 	class Component;
-	class Collider : public Component
+	class Collider final : public Component
 	{
 	public:
 		Collider();
 		Collider(Vector2 scale);
 		~Collider();
 
-		virtual void Tick() override;
-		virtual void Render(HDC hdc) override;
+		void Tick() override;
+		void Render(HDC hdc) override;
 
-		virtual void OnCollisionEnter(Collider* other);
-		virtual void OnCollisionStay(Collider* other);
-		virtual void OnCollisionExit(Collider* other);
+		void OnCollisionEnter(Collider* other);
+		void OnCollisionStay(Collider* other);
+		void OnCollisionExit(Collider* other);
 
 		__forceinline void SetOffset(Vector2 offset) { mOffset = offset; }
 		__forceinline void SetPos(Vector2 pos) { mPos = pos; }

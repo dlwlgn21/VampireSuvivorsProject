@@ -13,6 +13,7 @@
 #include "yaCamera.h"
 #include "yaBackpack.h"
 #include "yaObject.h"
+#include "yaRigidBody.h"
 
 namespace ya
 {
@@ -37,7 +38,7 @@ namespace ya
 		, dir(Vector2::ONE)
 	{
 		SetName(L"Player");
-		mPos = { 500.0f, 500.0f };
+		mPos = { 100.0f, 500.0f };
 		mScale = { 2.0f, 2.0f };
 		mpIdleImage = Resources::Load<Image>(L"PlayerIdleAnim", L"Resources\\Image\\CharacterIdle.bmp");
 		assert(mpIdleImage != nullptr);		
@@ -56,6 +57,7 @@ namespace ya
 		// 이거 내가 따로 다시 공부해야함. 마지막 이벤트에 고고
 		//mpAnimator->mCompleteEvent = std::bind(&Player::WalkComplete, this);
 		AddComponent(new Collider(mColliderScale)); 
+		AddComponent(new RigidBody());
 		Camera::SetTarget(this);
 	}
 
@@ -66,17 +68,33 @@ namespace ya
 	void Player::Tick()
 	{
 		GameObject::Tick();
+#if 0
 		if (IS_KEY_PRESSED(eKeyCode::W)) { mPos.y -= mSpeed * Time::DeltaTime(); }
 		if (IS_KEY_PRESSED(eKeyCode::S)) { mPos.y += mSpeed * Time::DeltaTime(); }
 		if (IS_KEY_PRESSED(eKeyCode::A)) { mPos.x -= mSpeed * Time::DeltaTime(); }
 		if (IS_KEY_PRESSED(eKeyCode::D)) { mPos.x += mSpeed * Time::DeltaTime(); }
+#endif
+#if 1
+		if (IS_KEY_PRESSED(eKeyCode::W)) { GetComponentOrNull<RigidBody>(eComponentType::RIGID_BODY)->AddForce({0.0f, -mSpeed }); }
+		if (IS_KEY_PRESSED(eKeyCode::S)) { GetComponentOrNull<RigidBody>(eComponentType::RIGID_BODY)->AddForce({ 0.0f, mSpeed }); }
+		if (IS_KEY_PRESSED(eKeyCode::A)) { GetComponentOrNull<RigidBody>(eComponentType::RIGID_BODY)->AddForce({ -mSpeed, 0.0f }); }
+		if (IS_KEY_PRESSED(eKeyCode::D)) { GetComponentOrNull<RigidBody>(eComponentType::RIGID_BODY)->AddForce({ mSpeed, 0.0f }); }
 
+#endif
 		if (IS_KEY_DOWN(eKeyCode::D)) { mpAnimator->Play(mAnimMove, true); }
 		//if (IS_KEY_DOWN(eKeyCode::W) || IS_KEY_DOWN(eKeyCode::S) || IS_KEY_DOWN(eKeyCode::D))
-		if (IS_KEY_UP(eKeyCode::D))		{ mpAnimator->Play(mAnimIdle, true); }
+		if (IS_KEY_UP(eKeyCode::D))		{ mpAnimator->Play(mAnimMove, false); }
 		if (IS_KEY_DOWN(eKeyCode::A))	{ mpAnimator->Play(mAnimMoveInv, true); }
-		if (IS_KEY_UP(eKeyCode::A))		{ mpAnimator->Play(mAnimIdle, true); }
-
+		if (IS_KEY_UP(eKeyCode::A))		{ mpAnimator->Play(mAnimMoveInv, false); }
+		
+		if (IS_KEY_DOWN(eKeyCode::SPACE))
+		{
+			RigidBody* pRB = GetComponentOrNull<RigidBody>(eComponentType::RIGID_BODY);
+			Vector2 velocity = pRB->GetVelocity();
+			velocity.y -= 500.0f;
+			pRB->SetVelocity(velocity);
+			pRB->SetIsGround(false);
+		}
 #if 0
 		if (IS_KEY_DOWN(eKeyCode::L_BUTTON))
 		{
@@ -140,15 +158,12 @@ namespace ya
 
 	void Player::OnCollisionEnter(Collider* other)
 	{
-
 	}
 	void Player::OnCollisionStay(Collider* other)
 	{
-
 	}
 	void Player::OnCollisionExit(Collider* other)
 	{
-
 	}
 
 	void Player::WalkComplete()

@@ -35,9 +35,10 @@ enum class eBrushColor
 
 enum class eComponentType
 {
+	RIGID_BODY,
+	COLLIDER,
 	ANIMATOR,
 	ANIMATION,
-	COLLIDER,
 	SOUND,
 	COUNT
 };
@@ -46,12 +47,17 @@ enum class eComponentType
 enum class eColliderLayer
 {
 	DEFAULT,
+
+	// GameObjects
 	BACKGROUND,
 	TILE,
 	PLAYER,
 	PLAYER_PROJECTTILE,
 	MONSTER,
 	MONSTER_PROJECTTILE,
+	GROUND,
+
+	// UI
 	BACKPACK,
 
 	UI = MAX_COLLIDER_LAYER - 1,

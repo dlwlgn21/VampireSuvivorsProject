@@ -25,6 +25,7 @@ namespace ya
 		}
 
 		inline std::vector<std::vector<GameObject*>>& GetGameObjects() { return mObjects; };
+	
 	private:
 		std::vector<std::vector<GameObject*>> mObjects;
 	};

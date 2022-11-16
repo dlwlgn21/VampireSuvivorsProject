@@ -15,10 +15,12 @@ namespace ya
 		void Render(HDC hdc);
 		
 		void CreateTile(UINT idx, Vector2 idxPos);
+
+		void Save();
+		void Load();
+		void Load(const std::wstring& path);
 		//void CreateTiles();
-		//
-		//void Save();
-		//void Load();
+
 		__forceinline Image* GetAtlasImage() { return mAtlas; }
 	private:
 		Image* mAtlas;

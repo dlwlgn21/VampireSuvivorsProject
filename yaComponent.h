@@ -16,7 +16,7 @@ namespace ya
 
 		virtual void Tick();
 		virtual void Render(HDC hdc);
-		inline GameObject* GetOwner() { return mOwner; }
+		__forceinline GameObject* GetOwner() { return mOwner; }
 
 	protected:
 		const eComponentType mType;

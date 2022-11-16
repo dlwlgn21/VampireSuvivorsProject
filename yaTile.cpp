@@ -9,6 +9,7 @@ namespace ya
 		, mAtlas(nullptr)
 		, mY(-1)
 		, mX(-1)
+		, mIdx(0)
 	{
 	}
 	//Tile::Tile(Image* atlas, int idx)

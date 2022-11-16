@@ -16,18 +16,23 @@ namespace ya
 		// 모든 씬들을 초기화
 		mScenes[static_cast<UINT>(eSceneType::LOGO_SCENE)] = new LogoScene();
 		mScenes[static_cast<UINT>(eSceneType::LOGO_SCENE)]->Initialize();
+
 		mScenes[static_cast<UINT>(eSceneType::TITLE_SCENE)] = new TitleScene();
 		mScenes[static_cast<UINT>(eSceneType::TITLE_SCENE)]->Initialize();
+
 		mScenes[static_cast<UINT>(eSceneType::PLAY_SCENE)] = new PlayScene();
 		mScenes[static_cast<UINT>(eSceneType::PLAY_SCENE)]->Initialize();
+
 		mScenes[static_cast<UINT>(eSceneType::ENDING_SCENE)] = new EndingScene();
 		mScenes[static_cast<UINT>(eSceneType::ENDING_SCENE)]->Initialize();
+
+		ChangeSecne(eSceneType::LOGO_SCENE);
+#if 0
 		mScenes[static_cast<UINT>(eSceneType::TOOL_SCENE)] = new ToolScene();
 		mScenes[static_cast<UINT>(eSceneType::TOOL_SCENE)]->Initialize();
-#if 1
+
 		ChangeSecne(eSceneType::TOOL_SCENE);
 #endif
-		//ChangeSecne(eSceneType::LOGO_SCENE);
 
 	}
 

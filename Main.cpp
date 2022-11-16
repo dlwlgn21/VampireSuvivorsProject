@@ -43,7 +43,7 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
     MyRegisterClass(hInstance, WndProc, szWindowClass);     // MainWindow
 
 // TILE-MAP PART
-#if 1
+#if 0
     gAtlasWindowClassName = L"AtlasWindow";
     MyRegisterClass(hInstance, AtlasWndProc, gAtlasWindowClassName);     // TileWindow
 #endif 
@@ -110,7 +110,7 @@ BOOL InitInstance(HINSTANCE hInstance, int nCmdShow)
     hInst = hInstance;
 
     WindowData windowData = {};
-    windowData.width = 800;
+    windowData.width = 1600;
     windowData.height = 800;
 
     HWND hWnd = CreateWindowW(szWindowClass, szTitle, WS_OVERLAPPEDWINDOW,
@@ -130,7 +130,7 @@ BOOL InitInstance(HINSTANCE hInstance, int nCmdShow)
     app.Initialize(windowData);
 
 // TILE-MAP PART
-#if 1
+#if 0
     WindowData atlasWindowData = {};
     //atlasWindowData.width = 256;
     //atlasWindowData.height = 96;
@@ -167,6 +167,20 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
         int wmId = LOWORD(wParam);
         switch (wmId)
         {
+        case ID_TILE_SAVE:
+        {
+            ya::ToolScene* pToolScene = static_cast<ya::ToolScene*>(ya::SceneManager::GetCurrentScene());
+            assert(pToolScene != nullptr);
+            pToolScene->SaveTilePallete();
+        }
+        break;
+        case ID_TILE_LOAD:
+        {
+            ya::ToolScene* pToolScene = static_cast<ya::ToolScene*>(ya::SceneManager::GetCurrentScene());
+            assert(pToolScene != nullptr);
+            pToolScene->LoadTilePallete();
+        }
+        break;
         case IDM_ABOUT:
             DialogBox(hInst, MAKEINTRESOURCE(IDD_ABOUTBOX), hWnd, About);
             break;

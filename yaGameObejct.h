@@ -34,7 +34,15 @@ namespace ya
 		void AddComponent(Component* component);
 
 		template<typename T>
-		__forceinline T* GetComponentOrNull(eComponentType type)
+		T* AddComponent()
+		{
+			T* component = new T();
+			AddComponent(component);
+			return component;
+		}
+
+		template<typename T>
+		T* GetComponentOrNull(eComponentType type)
 		{
 			for (Component* component : mComponents)
 			{

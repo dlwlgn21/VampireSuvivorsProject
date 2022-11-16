@@ -21,6 +21,10 @@ namespace ya
 		inline Image* GetAtlasImage(){ return mpTilePalette->GetAtlasImage(); }
 		void SetTileIdx(int idx) { mTileIdx = idx; }
 		UINT GetTileIdx() { return mTileIdx; }
+		void SaveTilePallete();
+		void LoadTilePallete();
+		void LoadTilePallete(const std::wstring& path);
+
 	private:
 		eSceneType mSceneType;
 		TilePalette* mpTilePalette;

@@ -6,7 +6,7 @@ namespace ya
 {
 	class Image;
 	class Animation;
-	class Animator : public Component
+	class Animator final : public Component
 	{
 	public:
 		struct Event
@@ -32,8 +32,8 @@ namespace ya
 		Animator();
 		virtual ~Animator();
 
-		virtual void Tick() override;
-		virtual void Render(HDC hdc) override;
+		void Tick() override;
+		void Render(HDC hdc) override;
 
 		Animation* FindAnimation(const std::wstring& name);
 		void CreateAnimation(

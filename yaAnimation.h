@@ -6,7 +6,7 @@ namespace ya
 {
 	class Image;
 	class Animator;
-	class Animation : public Component
+	class Animation final : public Component
 	{
 	public:
 		struct Sprite

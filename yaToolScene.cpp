@@ -64,4 +64,16 @@ namespace ya
 	void ToolScene::Exit()
 	{
 	}
+	void ToolScene::SaveTilePallete()
+	{
+		mpTilePalette->Save();
+	}
+	void ToolScene::LoadTilePallete()
+	{
+		mpTilePalette->Load();
+	}
+	void ToolScene::LoadTilePallete(const std::wstring& path)
+	{
+		mpTilePalette->Load(path);
+	}
 }

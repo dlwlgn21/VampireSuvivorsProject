@@ -1,4 +1,7 @@
 #include <cassert>
+#include "framework.h"
+#include "VampireSuvivorsProject.h"
+#include <commdlg.h>
 #include "yaTilePalette.h"
 #include "yaImage.h"
 #include "yaResources.h"
@@ -59,5 +62,96 @@ namespace ya
 		Tile* tile = ya::object::Instantiate<Tile>(eColliderLayer::TILE, objectPos);
 		tile->Initialize(mAtlas, idx);
 		mTiles.insert(std::make_pair(key.ID, tile));
+	}
+	void TilePalette::Save()
+	{
+		// open a file name
+		OPENFILENAME ofn = {};
+
+		wchar_t szFilePath[256] = {};
+
+		ZeroMemory(&ofn, sizeof(ofn));
+		ofn.lStructSize = sizeof(ofn);
+		ofn.hwndOwner = NULL;
+		ofn.lpstrFile = szFilePath;
+		ofn.lpstrFile[0] = '\0';
+		ofn.nMaxFile = 256;
+		ofn.lpstrFilter = L"Tile\0*.tile\0";
+		ofn.nFilterIndex = 1;
+		ofn.lpstrFileTitle = NULL;
+		ofn.nMaxFileTitle = 0;
+		ofn.lpstrInitialDir = NULL;
+		ofn.Flags = OFN_PATHMUSTEXIST | OFN_FILEMUSTEXIST;
+
+		if (false == GetSaveFileName(&ofn)) { assert(false); return; }
+
+		FILE* pFile = nullptr;
+		_wfopen_s(&pFile, szFilePath, L"wb");
+		if (pFile == nullptr)				{ assert(false); return; }
+
+		auto iter = mTiles.begin();
+		for (; iter != mTiles.end(); ++iter)
+		{
+			int tileIndex = (*iter).second->GetIdx();
+			fwrite(&tileIndex, sizeof(int), 1, pFile);
+
+			UnionTileID id;
+			id.ID = (*iter).first;
+			fwrite(&id.ID, sizeof(UINT64), 1, pFile);
+		}
+
+		fclose(pFile);
+	}
+	void TilePalette::Load()
+	{
+		OPENFILENAME ofn = {};
+
+		wchar_t szFilePath[256] = {};
+
+		ZeroMemory(&ofn, sizeof(ofn));
+		ofn.lStructSize = sizeof(ofn);
+		ofn.hwndOwner = NULL;
+		ofn.lpstrFile = szFilePath;
+		ofn.lpstrFile[0] = '\0';
+		ofn.nMaxFile = 256;
+		ofn.lpstrFilter = L"All\0*.*\0Text\0*.TXT\0";
+		ofn.nFilterIndex = 1;
+		ofn.lpstrFileTitle = NULL;
+		ofn.nMaxFileTitle = 0;
+		ofn.lpstrInitialDir = NULL;
+		ofn.Flags = OFN_PATHMUSTEXIST | OFN_FILEMUSTEXIST;
+
+		if (false == GetOpenFileName(&ofn)) { assert(false); return; }
+
+		FILE* pFile = nullptr;
+		_wfopen_s(&pFile, szFilePath, L"rb");
+		if (pFile == nullptr)				{ assert(false); return; }
+
+		while (true)
+		{
+			int tileIdx = 0;
+			UnionTileID id;
+			if (fread(&tileIdx, sizeof(int), 1, pFile) == NULL)		{ break; }
+			if (fread(&id.ID, sizeof(UINT64), 1, pFile) == NULL)	{ break; }
+			CreateTile(tileIdx, Vector2(id.left, id.right));
+		}
+		fclose(pFile);
+	}
+
+	void TilePalette::Load(const std::wstring& path)
+	{
+		FILE* pFile = nullptr;
+		_wfopen_s(&pFile, path.c_str(), L"rb");
+		if (pFile == nullptr) { assert(false); return; }
+
+		while (true)
+		{
+			int tileIdx = 0;
+			UnionTileID id;
+			if (fread(&tileIdx, sizeof(int), 1, pFile) == NULL) { break; }
+			if (fread(&id.ID, sizeof(UINT64), 1, pFile) == NULL) { break; }
+			CreateTile(tileIdx, Vector2(id.left, id.right));
+		}
+		fclose(pFile);
 	}
 }
