@@ -64,6 +64,15 @@ enum class eColliderLayer
 	COUNT = MAX_COLLIDER_LAYER,
 };
 
+enum class eUIType
+{
+	HP,
+	MP,
+	SHOP,
+	INVENTORY,
+	OPTIOIN,
+	COUNT
+};
 
 union UnionColliderID
 {

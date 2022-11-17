@@ -77,7 +77,7 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
     if (WM_QUIT == msg.message)
     {
         // 메모리 해제작업
-        
+        app.Release();
     }
 
     return (int)msg.wParam;

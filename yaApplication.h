@@ -17,7 +17,7 @@ namespace ya
 		void InitializeAtalsWindow(WindowData atlasWindowData);
 		void Tick();
 		void SetMenuBar(bool power);
-		
+		void Release();
 		WindowData GetWindowData() { return mWindowData; }
 		WindowData GetAtlasWindowData() { return mAtlasWindowData; }
 		__forceinline HDC GetHDC() { return mWindowData.hdc; }

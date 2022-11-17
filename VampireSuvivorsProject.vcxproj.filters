@@ -58,6 +58,9 @@
     <Filter Include="GameObject\Game\Monster">
       <UniqueIdentifier>{c02dfe4e-0e98-4e74-acd5-034fddbfe6e0}</UniqueIdentifier>
     </Filter>
+    <Filter Include="GameObject\UI">
+      <UniqueIdentifier>{22721b8e-0137-41a1-a107-f7e2cbd2d2bc}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
@@ -180,6 +183,15 @@
     <ClInclude Include="yaGround.h">
       <Filter>GameObject\Game</Filter>
     </ClInclude>
+    <ClInclude Include="yaUIManager.h">
+      <Filter>Manager</Filter>
+    </ClInclude>
+    <ClInclude Include="yaUIBase.h">
+      <Filter>GameObject\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="yaGreenGhost.h">
+      <Filter>GameObject\Game\Monster</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Maths.cpp">
@@ -286,6 +298,15 @@
     </ClCompile>
     <ClCompile Include="yaGround.cpp">
       <Filter>GameObject\Game</Filter>
+    </ClCompile>
+    <ClCompile Include="yaUIManager.cpp">
+      <Filter>Manager</Filter>
+    </ClCompile>
+    <ClCompile Include="yaUIBase.cpp">
+      <Filter>GameObject\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="yaGreenGhost.cpp">
+      <Filter>GameObject\Game\Monster</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

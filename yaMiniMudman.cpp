@@ -31,7 +31,7 @@ namespace ya
 	//	AddComponent(new Collider());
 	//}
 	MiniMudman::MiniMudman(Vector2 pos)
-		: GameObject()
+		: GameObject(pos)
 		, mPen(CreatePen(PS_DASHDOTDOT, 3, RGB(0, 255, 255)))
 		, mBrush(CreateSolidBrush(RGB(153, 204, 255)))
 		, mpImage(nullptr)
@@ -42,7 +42,6 @@ namespace ya
 		, mAnimCount(5)
 		, mAnimDuration(0.15f)
 	{
-		mPos = pos;
 		SetName(L"MudMan");
 		mScale = { 2.0f, 2.0f };
 		mpImage = Resources::Load<Image>(L"MiniMudman", L"Resources\\Image\\Mudman5m.bmp");
@@ -59,8 +58,6 @@ namespace ya
 	void MiniMudman::Tick()
 	{
 		GameObject::Tick();
-		Vector2 pos = GetPos();
-		SetPos(pos);
 	}
 	void MiniMudman::Render(HDC hdc)
 	{

@@ -8,14 +8,12 @@
 #include "yaResources.h"
 #include "yaCollisionManager.h"
 #include "yaCamera.h"
+#include "yaUIManager.h"
 
 namespace ya
 {
 	Application::~Application()
 	{
-		SceneManager::Release();
-		ReleaseDC(mWindowData.hwnd, mWindowData.hdc);
-		ReleaseDC(mWindowData.hwnd, mWindowData.backBuffer);
 	}
 
 	void Application::Initialize(WindowData data)
@@ -25,10 +23,11 @@ namespace ya
 
 		initailizeWindow();
 
-		Camera::Initialize();
 		Time::Initialize();
 		Input::Initialize();
 		SceneManager::Initialze();
+		UIManager::Initialize();
+		Camera::Initialize();
 	}
 
 	void Application::InitializeAtalsWindow(WindowData atlasWindowData)
@@ -77,10 +76,11 @@ namespace ya
 	{
 		Time::Tick();
 		Input::Tick();
-		Camera::Tick();
 
 		SceneManager::Tick();
 		CollisionManager::Tick();
+		UIManager::Tick();
+		Camera::Tick();
 
 		HBRUSH hPrevBrush = (HBRUSH)SelectObject(mWindowData.backBuffer, mBrushes[(UINT)eBrushColor::GRAY]);
 
@@ -91,6 +91,7 @@ namespace ya
 		SelectObject(mWindowData.backBuffer, hPrevBrush);
 
 		SceneManager::Render(mWindowData.backBuffer);
+		UIManager::Render(mWindowData.backBuffer);
 		Camera::Render(mWindowData.backBuffer);
 		Input::Render(mWindowData.backBuffer);
 		Time::Render(mWindowData.backBuffer);
@@ -124,5 +125,12 @@ namespace ya
 			SWP_NOMOVE | SWP_NOZORDER
 		);
 		ShowWindow(mWindowData.hwnd, true);
+	}
+	void Application::Release()
+	{
+		SceneManager::Release();
+		ReleaseDC(mWindowData.hwnd, mWindowData.hdc);
+		ReleaseDC(mWindowData.hwnd, mWindowData.backBuffer);
+		UIManager::Release();
 	}
 }

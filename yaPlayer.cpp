@@ -14,6 +14,7 @@
 #include "yaBackpack.h"
 #include "yaObject.h"
 #include "yaRigidBody.h"
+#include "yaUIManager.h"
 
 namespace ya
 {
@@ -25,10 +26,8 @@ namespace ya
 		, mpIdleImage(nullptr)
 		, mpMoveImage(nullptr)
 		, mpMoveInvImage(nullptr)
-		, mAnimIdle(L"Idle")
 		, mAnimMove(L"Move")
 		, mAnimMoveInv(L"MoveInverse")
-		, mAnimIdleSize(30.5f, 34.0f)
 		, mAnimMoveSize(34.0f, 34.0f)
 		, mAnimOffset(-18.0f, -22.0f)
 		, mAnimCount(4)
@@ -40,8 +39,6 @@ namespace ya
 		SetName(L"Player");
 		mPos = { 100.0f, 500.0f };
 		mScale = { 2.0f, 2.0f };
-		mpIdleImage = Resources::Load<Image>(L"PlayerIdleAnim", L"Resources\\Image\\CharacterIdle.bmp");
-		assert(mpIdleImage != nullptr);		
 		mpMoveImage = Resources::Load<Image>(L"PlayerMoveAnim", L"Resources\\Image\\CharacterMove.bmp");
 		assert(mpMoveImage != nullptr);
 		mpMoveInvImage = Resources::Load<Image>(L"PlayerMoveInverseAnim", L"Resources\\Image\\CharacterMoveInverse.bmp");
@@ -49,15 +46,14 @@ namespace ya
 		
 		mpAnimator = new Animator();
 		AddComponent(mpAnimator);
-		createAnimation(mAnimIdle,		mpIdleImage,	Vector2::ZERO, mAnimIdleSize, mAnimOffset, mAnimCount, mAnimDuration);
 		createAnimation(mAnimMove,		mpMoveImage,	Vector2::ZERO, mAnimMoveSize, mAnimOffset, mAnimCount, mAnimDuration);
 		createAnimation(mAnimMoveInv,	mpMoveInvImage,	Vector2::ZERO, mAnimMoveSize, mAnimOffset, mAnimCount, mAnimDuration);
 
-		mpAnimator->GetCompleteEvent(mAnimIdle) = std::bind(&Player::WalkComplete, this);
+		// mpAnimator->GetCompleteEvent(mAnimIdle) = std::bind(&Player::WalkComplete, this);
 		// 이거 내가 따로 다시 공부해야함. 마지막 이벤트에 고고
-		//mpAnimator->mCompleteEvent = std::bind(&Player::WalkComplete, this);
+		// mpAnimator->mCompleteEvent = std::bind(&Player::WalkComplete, this);
 		AddComponent(new Collider(mColliderScale)); 
-		AddComponent(new RigidBody());
+		//AddComponent(new RigidBody());
 		Camera::SetTarget(this);
 	}
 
@@ -68,13 +64,16 @@ namespace ya
 	void Player::Tick()
 	{
 		GameObject::Tick();
-#if 0
+#if 1
 		if (IS_KEY_PRESSED(eKeyCode::W)) { mPos.y -= mSpeed * Time::DeltaTime(); }
 		if (IS_KEY_PRESSED(eKeyCode::S)) { mPos.y += mSpeed * Time::DeltaTime(); }
 		if (IS_KEY_PRESSED(eKeyCode::A)) { mPos.x -= mSpeed * Time::DeltaTime(); }
 		if (IS_KEY_PRESSED(eKeyCode::D)) { mPos.x += mSpeed * Time::DeltaTime(); }
 #endif
-#if 1
+
+
+// RigidBody PART
+#if 0
 		if (IS_KEY_PRESSED(eKeyCode::W)) { GetComponentOrNull<RigidBody>(eComponentType::RIGID_BODY)->AddForce({0.0f, -mSpeed }); }
 		if (IS_KEY_PRESSED(eKeyCode::S)) { GetComponentOrNull<RigidBody>(eComponentType::RIGID_BODY)->AddForce({ 0.0f, mSpeed }); }
 		if (IS_KEY_PRESSED(eKeyCode::A)) { GetComponentOrNull<RigidBody>(eComponentType::RIGID_BODY)->AddForce({ -mSpeed, 0.0f }); }
@@ -87,6 +86,7 @@ namespace ya
 		if (IS_KEY_DOWN(eKeyCode::A))	{ mpAnimator->Play(mAnimMoveInv, true); }
 		if (IS_KEY_UP(eKeyCode::A))		{ mpAnimator->Play(mAnimMoveInv, false); }
 		
+#if 0
 		if (IS_KEY_DOWN(eKeyCode::SPACE))
 		{
 			RigidBody* pRB = GetComponentOrNull<RigidBody>(eComponentType::RIGID_BODY);
@@ -94,8 +94,11 @@ namespace ya
 			velocity.y -= 500.0f;
 			pRB->SetVelocity(velocity);
 			pRB->SetIsGround(false);
+
+			// FOR TEST
+			// UIManager::Push(eUIType::INVENTORY);
 		}
-#if 0
+
 		if (IS_KEY_DOWN(eKeyCode::L_BUTTON))
 		{
 // FOR AsortLock class

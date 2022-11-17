@@ -154,6 +154,7 @@
     <ClInclude Include="yaEndingScene.h" />
     <ClInclude Include="yaEntity.h" />
     <ClInclude Include="yaGameObejct.h" />
+    <ClInclude Include="yaGreenGhost.h" />
     <ClInclude Include="yaGround.h" />
     <ClInclude Include="yaImage.h" />
     <ClInclude Include="yaInput.h" />
@@ -172,6 +173,8 @@
     <ClInclude Include="yaTime.h" />
     <ClInclude Include="yaTitleScene.h" />
     <ClInclude Include="yaToolScene.h" />
+    <ClInclude Include="yaUIBase.h" />
+    <ClInclude Include="yaUIManager.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Main.cpp" />
@@ -191,6 +194,7 @@
     <ClCompile Include="yaEndingScene.cpp" />
     <ClCompile Include="yaEntity.cpp" />
     <ClCompile Include="yaGameObejct.cpp" />
+    <ClCompile Include="yaGreenGhost.cpp" />
     <ClCompile Include="yaGround.cpp" />
     <ClCompile Include="yaImage.cpp" />
     <ClCompile Include="yaInput.cpp" />
@@ -209,6 +213,8 @@
     <ClCompile Include="yaTime.cpp" />
     <ClCompile Include="yaTitleScene.cpp" />
     <ClCompile Include="yaToolScene.cpp" />
+    <ClCompile Include="yaUIBase.cpp" />
+    <ClCompile Include="yaUIManager.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="VampireSuvivorsProject.rc" />
