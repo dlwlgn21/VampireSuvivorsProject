@@ -20,6 +20,9 @@ namespace ya
 
 		void WalkComplete();
 
+		inline void SetHp(int hp) { mHp = hp; }
+		inline int GetHp() { return mHp; }
+
 	private:
 		void createAnimation(
 			const std::wstring& name, Image* image, Vector2 leftTop,
@@ -45,6 +48,8 @@ namespace ya
 		Vector2 mColliderScale;
 
 		Vector2 dir;
+
+		int mHp;
 	};
 
 }

@@ -29,13 +29,15 @@ namespace ya
 		static void OnLoad(eUIType uiType);
 		static void Tick();
 		static void Render(HDC hdc);
-		static void OnComplete(UIBase* pAddedUIType);
+		static void OnComplete(UIBase* pAddedUI);
 		static void OnFail();
 
 		static void Push(eUIType uiType);
 		static void Pop(eUIType uiType);
 
 		static void Release();
+		static UIBase* GetUIInstance(eUIType type);
+
 	private:
 		static std::unordered_map<eUIType, UIBase*> mUIMap;
 		static std::queue<eUIType> mRequestUIQueue;

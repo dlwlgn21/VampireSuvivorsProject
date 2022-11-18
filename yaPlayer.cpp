@@ -35,9 +35,10 @@ namespace ya
 		, mAnimDuration(0.15f)
 		, mColliderScale(25.0f, 40.0f)
 		, dir(Vector2::ONE)
+		, mHp(100)
 	{
 		SetName(L"Player");
-		mPos = { 100.0f, 500.0f };
+		mPos = { 1500.0f, 500.0f };
 		mScale = { 2.0f, 2.0f };
 		mpMoveImage = Resources::Load<Image>(L"PlayerMoveAnim", L"Resources\\Image\\CharacterMove.bmp");
 		assert(mpMoveImage != nullptr);
@@ -86,19 +87,25 @@ namespace ya
 		if (IS_KEY_DOWN(eKeyCode::A))	{ mpAnimator->Play(mAnimMoveInv, true); }
 		if (IS_KEY_UP(eKeyCode::A))		{ mpAnimator->Play(mAnimMoveInv, false); }
 		
-#if 0
+#if 1
 		if (IS_KEY_DOWN(eKeyCode::SPACE))
 		{
+// RigidBodyPart
+#if 0
+
 			RigidBody* pRB = GetComponentOrNull<RigidBody>(eComponentType::RIGID_BODY);
 			Vector2 velocity = pRB->GetVelocity();
 			velocity.y -= 500.0f;
 			pRB->SetVelocity(velocity);
 			pRB->SetIsGround(false);
-
+#endif
 			// FOR TEST
-			// UIManager::Push(eUIType::INVENTORY);
+			// UIManager::Pop(eUIType::OPTIOIN);
 		}
+#endif
 
+
+#if 0
 		if (IS_KEY_DOWN(eKeyCode::L_BUTTON))
 		{
 // FOR AsortLock class
@@ -112,7 +119,6 @@ namespace ya
 		}
 #endif
 	}
-
 	void Player::Render(HDC hdc)
 	{
 		//Pen	pen(hdc, mPen);
@@ -161,6 +167,11 @@ namespace ya
 
 	void Player::OnCollisionEnter(Collider* other)
 	{
+		mHp -= 10;
+		if (mHp < 0)
+		{
+			mHp = 0;
+		}
 	}
 	void Player::OnCollisionStay(Collider* other)
 	{

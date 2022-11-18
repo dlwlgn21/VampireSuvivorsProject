@@ -61,6 +61,9 @@
     <Filter Include="GameObject\UI">
       <UniqueIdentifier>{22721b8e-0137-41a1-a107-f7e2cbd2d2bc}</UniqueIdentifier>
     </Filter>
+    <Filter Include="GameObject\UI\Base">
+      <UniqueIdentifier>{6fcba178-6c5f-47cc-9359-6e2e0c93b77f}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
@@ -186,11 +189,29 @@
     <ClInclude Include="yaUIManager.h">
       <Filter>Manager</Filter>
     </ClInclude>
-    <ClInclude Include="yaUIBase.h">
-      <Filter>GameObject\UI</Filter>
-    </ClInclude>
     <ClInclude Include="yaGreenGhost.h">
       <Filter>GameObject\Game\Monster</Filter>
+    </ClInclude>
+    <ClInclude Include="yaGrayMira.h">
+      <Filter>GameObject\Game\Monster</Filter>
+    </ClInclude>
+    <ClInclude Include="yaGreenMedusaHead.h">
+      <Filter>GameObject\Game\Monster</Filter>
+    </ClInclude>
+    <ClInclude Include="yaDurahanBoneKnight.h">
+      <Filter>GameObject\Game\Monster</Filter>
+    </ClInclude>
+    <ClInclude Include="yaUIBase.h">
+      <Filter>GameObject\UI\Base</Filter>
+    </ClInclude>
+    <ClInclude Include="yaButton.h">
+      <Filter>GameObject\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="yaPanel.h">
+      <Filter>GameObject\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="yaHUD.h">
+      <Filter>GameObject\UI</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -302,11 +323,29 @@
     <ClCompile Include="yaUIManager.cpp">
       <Filter>Manager</Filter>
     </ClCompile>
-    <ClCompile Include="yaUIBase.cpp">
-      <Filter>GameObject\UI</Filter>
-    </ClCompile>
     <ClCompile Include="yaGreenGhost.cpp">
       <Filter>GameObject\Game\Monster</Filter>
+    </ClCompile>
+    <ClCompile Include="yaGrayMira.cpp">
+      <Filter>GameObject\Game\Monster</Filter>
+    </ClCompile>
+    <ClCompile Include="yaGreenMedusaHead.cpp">
+      <Filter>GameObject\Game\Monster</Filter>
+    </ClCompile>
+    <ClCompile Include="yaDurahanBoneKnight.cpp">
+      <Filter>GameObject\Game\Monster</Filter>
+    </ClCompile>
+    <ClCompile Include="yaUIBase.cpp">
+      <Filter>GameObject\UI\Base</Filter>
+    </ClCompile>
+    <ClCompile Include="yaButton.cpp">
+      <Filter>GameObject\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="yaPanel.cpp">
+      <Filter>GameObject\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="yaHUD.cpp">
+      <Filter>GameObject\UI</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
