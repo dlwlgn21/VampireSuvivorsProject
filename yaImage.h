@@ -15,6 +15,10 @@ namespace ya
 		inline UINT GetHeight() { return mHeight; }
 
 		static Image* Create(const std::wstring& key, UINT width, UINT height);
+
+		Pixel GetPixel(int x, int y);
+		void SetPixel(int x, int y, Pixel pixel);
+
 	private:
 		HBITMAP mBitmap;
 		HDC mHdc;

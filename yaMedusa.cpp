@@ -1,4 +1,4 @@
-#include "yaGreenMedusaHead.h"
+#include "yaMedusa.h"
 #include "yaResources.h"
 #include "yaCollider.h"
 #include "yaAnimator.h"
@@ -7,46 +7,44 @@
 
 namespace ya
 {
-	GreenMedusaHead::GreenMedusaHead(Vector2 pos)
+	Medusa::Medusa(Vector2 pos)
 		: GameObject(pos)
 		, mPen(CreatePen(PS_DASHDOTDOT, 3, RGB(0, 255, 255)))
 		, mBrush(CreateSolidBrush(RGB(153, 204, 255)))
 		, mpImage(nullptr)
 		, mpAnimator(nullptr)
-		, mAnimMove(L"GreenMedusaHeadAnim")
-		, mAnimMoveSize(24.0f, 28.0f)
-		, mAnimOffset(-10.f, -15.f)
-		, mAnimCount(5)
+		, mAnimMove(L"MedusaAnim")
+		, mAnimMoveSize(48.0f, 52.0f)
+		, mAnimOffset(-10.f, -30.f)
+		, mAnimCount(4)
 		, mAnimDuration(0.15f)
 	{
-		SetName(L"GreenMedusaHead");
+		SetName(L"Medusa");
 		mScale = { 2.0f, 2.0f };
-		mpImage = Resources::Load<Image>(L"GreenMedusaHead", L"Resources\\Image\\GreenMedusaHeadAnim.bmp");
+		mpImage = Resources::Load<Image>(L"Medusa", L"Resources\\Image\\MedusaAnim.bmp");
 		assert(mpImage != nullptr);
 		mpAnimator = new Animator();
 		AddComponent(mpAnimator);
 		mpAnimator->CreateAnimation(mAnimMove, mpImage, Vector2::ZERO, mAnimMoveSize, mAnimOffset, mAnimCount, mAnimDuration);
 		mpAnimator->Play(mAnimMove, true);
-		AddComponent(new Collider(Vector2(20.0f, 20.0f)));
+		AddComponent(new Collider(Vector2(35.0f, 80.0f)));
 	}
-	GreenMedusaHead::~GreenMedusaHead()
-	{
-	}
-	void GreenMedusaHead::Tick()
+
+	void Medusa::Tick()
 	{
 		GameObject::Tick();
 	}
-	void GreenMedusaHead::Render(HDC hdc)
+	void Medusa::Render(HDC hdc)
 	{
 		GameObject::Render(hdc);
 	}
-	void GreenMedusaHead::OnCollisionEnter(Collider* other)
+	void Medusa::OnCollisionEnter(Collider* other)
 	{
 	}
-	void GreenMedusaHead::OnCollisionStay(Collider* other)
+	void Medusa::OnCollisionStay(Collider* other)
 	{
 	}
-	void GreenMedusaHead::OnCollisionExit(Collider* other)
+	void Medusa::OnCollisionExit(Collider* other)
 	{
 	}
 }

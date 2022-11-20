@@ -6,8 +6,8 @@ namespace ya
 	class Panel : public UIBase
 	{
 	public:
-		Panel();
-		virtual ~Panel();
+		Panel(eUIType type);
+		virtual ~Panel() = default;
 
 		void OnInitialize() override;
 		void OnActivate() override;
@@ -17,8 +17,9 @@ namespace ya
 		void OnUIClear() override;
 
 		void AddUIBase(UIBase* pUIBase);
+
 	private:
-		std::vector<UIBase*> mChilds;
+		BLENDFUNCTION mBlendFunc;
 	};
 
 }

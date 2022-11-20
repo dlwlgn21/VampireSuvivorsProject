@@ -76,4 +76,22 @@ namespace ya
 
 		return image;
 	}
+	Pixel Image::GetPixel(int x, int y)
+	{
+		// 비트맵 좌표계는 좌측하단이 0,0 임.
+		y = mHeight - (y + 1);					// Bitmap은 윈도우좌표계와는 달리 밑에서부터 올라가기 떄문에 역수 취해준 것. 
+		Pixel* pixel = reinterpret_cast<Pixel*>(mBitmap);
+		pixel += (mWidth * y) + x;
+
+		return *pixel;
+	}
+	void Image::SetPixel(int x, int y, Pixel pixel)
+	{
+		// 비트맵 좌표계는 좌측하단이 0,0 임.
+		y = mHeight - (y + 1);					// Bitmap은 윈도우좌표계와는 달리 밑에서부터 올라가기 떄문에 역수 취해준 것. 
+		Pixel* bitPixel = reinterpret_cast<Pixel*>(mBitmap);
+		bitPixel += (mWidth * y) + x;
+		pixel = *bitPixel;
+
+	}
 }

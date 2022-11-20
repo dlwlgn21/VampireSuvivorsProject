@@ -9,7 +9,7 @@ namespace ya
 	{
 	public:
 		BoomGhost(Vector2 pos);
-		virtual ~BoomGhost();
+		virtual ~BoomGhost() = default;
 
 		void Tick() override;
 		void Render(HDC hdc) override;

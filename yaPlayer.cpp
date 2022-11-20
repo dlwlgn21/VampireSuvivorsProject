@@ -170,7 +170,7 @@ namespace ya
 		mHp -= 10;
 		if (mHp < 0)
 		{
-			mHp = 0;
+			mHp = 100;
 		}
 	}
 	void Player::OnCollisionStay(Collider* other)

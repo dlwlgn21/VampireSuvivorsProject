@@ -9,7 +9,7 @@ namespace ya
 	{
 	public:
 		GrayMira(Vector2 pos);
-		virtual ~GrayMira();
+		virtual ~GrayMira() = default;
 
 		void Tick() override;
 		void Render(HDC hdc) override;

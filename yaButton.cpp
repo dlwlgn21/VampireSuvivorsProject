@@ -6,6 +6,7 @@ namespace ya
 {
 	Button::Button(eUIType type)
 		: UIBase(type)
+		, mbIsMouseOn(false)
 	{
 		mOnClick = std::bind(&Button::Click, this);
 		ZeroMemory(&mBlendFunc, sizeof(BLENDFUNCTION));
@@ -31,8 +32,8 @@ namespace ya
 	{
 		Vector2 mousePos = Input::GetMousePos();
 		Vector2 size = GetSize();
-		if (mousePos.x >= mScreenPos.x && mousePos.x <= mScreenPos.x + size.x &&
-			mousePos.y >= mScreenPos.y && mousePos.y <= mScreenPos.y + size.y)
+		if (mScreenPos.x <= mousePos.x && mousePos.x < mScreenPos.x + size.x
+			&& mScreenPos.y <= mousePos.y && mousePos.y < mScreenPos.y + size.y)
 		{ mbIsMouseOn = true; }
 		else
 		{ mbIsMouseOn = false; }
@@ -44,6 +45,7 @@ namespace ya
 	void Button::OnRender(HDC hdc)
 	{
 		if (mpImage == nullptr) { return; }
+
 		AlphaBlend(
 			hdc,
 			static_cast<int>(mScreenPos.x),

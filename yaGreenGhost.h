@@ -9,7 +9,7 @@ namespace ya
 	{
 	public:
 		GreenGhost(Vector2 pos);
-		virtual ~GreenGhost();
+		virtual ~GreenGhost() = default;
 
 		void Tick() override;
 		void Render(HDC hdc) override;

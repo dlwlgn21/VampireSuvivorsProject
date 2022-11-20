@@ -9,7 +9,7 @@ namespace ya
 	{
 	public:
 		MiniMudman(Vector2 pos);
-		virtual ~MiniMudman();
+		virtual ~MiniMudman() = default;
 
 		void Tick() override;
 		void Render(HDC hdc) override;

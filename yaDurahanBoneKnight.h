@@ -9,7 +9,7 @@ namespace ya
 	{
 	public:
 		DurahanBoneKnight(Vector2 pos);
-		virtual ~DurahanBoneKnight();
+		virtual ~DurahanBoneKnight() = default;
 
 		void Tick() override;
 		void Render(HDC hdc) override;

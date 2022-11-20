@@ -7,7 +7,7 @@ namespace ya
 	{
 	public:
 		HUD(eUIType type);
-		virtual ~HUD();
+		virtual ~HUD() = default;
 
 		void OnInitialize() override;
 		void OnActivate() override;

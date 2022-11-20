@@ -29,9 +29,6 @@ namespace ya
 		mpAnimator->Play(mAnimMove, true);
 		AddComponent(new Collider(Vector2(30.0f, 40.0f)));
 	}
-	DurahanBoneKnight::~DurahanBoneKnight()
-	{
-	}
 
 	void DurahanBoneKnight::Tick()
 	{

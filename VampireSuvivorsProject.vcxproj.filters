@@ -64,6 +64,9 @@
     <Filter Include="GameObject\UI\Base">
       <UniqueIdentifier>{6fcba178-6c5f-47cc-9359-6e2e0c93b77f}</UniqueIdentifier>
     </Filter>
+    <Filter Include="GameObject\Game\Monster\Boss">
+      <UniqueIdentifier>{421cad0b-4dff-43e0-ae45-741b0cd0057d}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
@@ -195,7 +198,7 @@
     <ClInclude Include="yaGrayMira.h">
       <Filter>GameObject\Game\Monster</Filter>
     </ClInclude>
-    <ClInclude Include="yaGreenMedusaHead.h">
+    <ClInclude Include="yaMedusaHead.h">
       <Filter>GameObject\Game\Monster</Filter>
     </ClInclude>
     <ClInclude Include="yaDurahanBoneKnight.h">
@@ -212,6 +215,54 @@
     </ClInclude>
     <ClInclude Include="yaHUD.h">
       <Filter>GameObject\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="yaSoundManager.h">
+      <Filter>Manager</Filter>
+    </ClInclude>
+    <ClInclude Include="yaSound.h">
+      <Filter>Resource</Filter>
+    </ClInclude>
+    <ClInclude Include="yaSkyColorGhost.h">
+      <Filter>GameObject\Game\Monster</Filter>
+    </ClInclude>
+    <ClInclude Include="yaLionHead.h">
+      <Filter>GameObject\Game\Monster</Filter>
+    </ClInclude>
+    <ClInclude Include="yaMagision.h">
+      <Filter>GameObject\Game\Monster</Filter>
+    </ClInclude>
+    <ClInclude Include="yaMiniHeadDurahan.h">
+      <Filter>GameObject\Game\Monster</Filter>
+    </ClInclude>
+    <ClInclude Include="yaBroomWitch.h">
+      <Filter>GameObject\Game\Monster</Filter>
+    </ClInclude>
+    <ClInclude Include="yaBlackBat.h">
+      <Filter>GameObject\Game\Monster</Filter>
+    </ClInclude>
+    <ClInclude Include="yaFlyingSkull.h">
+      <Filter>GameObject\Game\Monster</Filter>
+    </ClInclude>
+    <ClInclude Include="yaMedusa.h">
+      <Filter>GameObject\Game\Monster</Filter>
+    </ClInclude>
+    <ClInclude Include="yaBossBlackBat.h">
+      <Filter>GameObject\Game\Monster\Boss</Filter>
+    </ClInclude>
+    <ClInclude Include="yaBossMira.h">
+      <Filter>GameObject\Game\Monster\Boss</Filter>
+    </ClInclude>
+    <ClInclude Include="yaBossNesparados.h">
+      <Filter>GameObject\Game\Monster\Boss</Filter>
+    </ClInclude>
+    <ClInclude Include="yaBossWitch.h">
+      <Filter>GameObject\Game\Monster\Boss</Filter>
+    </ClInclude>
+    <ClInclude Include="yaBossBroomWitch.h">
+      <Filter>GameObject\Game\Monster\Boss</Filter>
+    </ClInclude>
+    <ClInclude Include="yaBossMedusa.h">
+      <Filter>GameObject\Game\Monster\Boss</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -329,7 +380,7 @@
     <ClCompile Include="yaGrayMira.cpp">
       <Filter>GameObject\Game\Monster</Filter>
     </ClCompile>
-    <ClCompile Include="yaGreenMedusaHead.cpp">
+    <ClCompile Include="yaMedusaHead.cpp">
       <Filter>GameObject\Game\Monster</Filter>
     </ClCompile>
     <ClCompile Include="yaDurahanBoneKnight.cpp">
@@ -346,6 +397,54 @@
     </ClCompile>
     <ClCompile Include="yaHUD.cpp">
       <Filter>GameObject\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="yaSoundManager.cpp">
+      <Filter>Manager</Filter>
+    </ClCompile>
+    <ClCompile Include="yaSound.cpp">
+      <Filter>Resource</Filter>
+    </ClCompile>
+    <ClCompile Include="yaSkyColorGhost.cpp">
+      <Filter>GameObject\Game\Monster</Filter>
+    </ClCompile>
+    <ClCompile Include="yaLionHead.cpp">
+      <Filter>GameObject\Game\Monster</Filter>
+    </ClCompile>
+    <ClCompile Include="yaMagision.cpp">
+      <Filter>GameObject\Game\Monster</Filter>
+    </ClCompile>
+    <ClCompile Include="yaMiniHeadDurahan.cpp">
+      <Filter>GameObject\Game\Monster</Filter>
+    </ClCompile>
+    <ClCompile Include="yaBroomWitch.cpp">
+      <Filter>GameObject\Game\Monster</Filter>
+    </ClCompile>
+    <ClCompile Include="yaBlackBat.cpp">
+      <Filter>GameObject\Game\Monster</Filter>
+    </ClCompile>
+    <ClCompile Include="yaFlyingSkull.cpp">
+      <Filter>GameObject\Game\Monster</Filter>
+    </ClCompile>
+    <ClCompile Include="yaMedusa.cpp">
+      <Filter>GameObject\Game\Monster</Filter>
+    </ClCompile>
+    <ClCompile Include="yaBossBlackBat.cpp">
+      <Filter>GameObject\Game\Monster\Boss</Filter>
+    </ClCompile>
+    <ClCompile Include="yaBossMira.cpp">
+      <Filter>GameObject\Game\Monster\Boss</Filter>
+    </ClCompile>
+    <ClCompile Include="yaBossNesparados.cpp">
+      <Filter>GameObject\Game\Monster\Boss</Filter>
+    </ClCompile>
+    <ClCompile Include="yaBossWitch.cpp">
+      <Filter>GameObject\Game\Monster\Boss</Filter>
+    </ClCompile>
+    <ClCompile Include="yaBossBroomWitch.cpp">
+      <Filter>GameObject\Game\Monster\Boss</Filter>
+    </ClCompile>
+    <ClCompile Include="yaBossMedusa.cpp">
+      <Filter>GameObject\Game\Monster\Boss</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

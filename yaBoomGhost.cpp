@@ -29,9 +29,7 @@ namespace ya
 		mpAnimator->Play(mAnimMove, true);
 		AddComponent(new Collider(Vector2(20.0f, 40.0f)));
 	}
-	BoomGhost::~BoomGhost()
-	{
-	}
+
 	void BoomGhost::Tick()
 	{
 		GameObject::Tick();

@@ -5,11 +5,11 @@ namespace ya
 {
 	class Image;
 	class Animator;
-	class GreenMedusaHead : public GameObject
+	class Medusa : public GameObject
 	{
 	public:
-		GreenMedusaHead(Vector2 pos);
-		virtual ~GreenMedusaHead();
+		Medusa(Vector2 pos);
+		virtual ~Medusa() = default;
 
 		void Tick() override;
 		void Render(HDC hdc) override;
@@ -29,5 +29,6 @@ namespace ya
 		UINT mAnimCount;
 		float mAnimDuration;
 	};
+
 }
 

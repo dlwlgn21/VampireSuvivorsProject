@@ -17,7 +17,29 @@
 #include "Maths.h"
 #include "def.h"
 
+// 렌더링 라이브러리
 #pragma comment(lib, "Msimg32.lib")
+
+// 사운드 라이브러리
+#include <mmsystem.h>
+#include <dsound.h>
+#include <dinput.h>
+
+#pragma comment(lib, "winmm.lib")
+#pragma comment(lib, "dsound.lib")
+
+struct Pixel
+{
+	BYTE R;
+	BYTE G;
+	BYTE B;
+	BYTE A;
+
+	Pixel(BYTE r, BYTE g, BYTE b, BYTE a)
+		: R(r), G(g), B(b), A(a)
+	{
+	}
+};
 
 struct WindowData
 {

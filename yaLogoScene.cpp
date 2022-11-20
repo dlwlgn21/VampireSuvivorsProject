@@ -7,12 +7,32 @@
 
 #include "yaBgImageObject.h"
 #include "yaBoomGhost.h"
+#include "yaBroomWitch.h"
+#include "yaBlackBat.h"
+#include "yaBossMira.h"
+#include "yaBossBlackBat.h"
+#include "yaBossNesparados.h"
+#include "yaBossWitch.h"
+#include "yaBossBroomWitch.h"
+#include "yaBossMedusa.h"
+
+
 #include "yaDurahanBoneKnight.h"
+#include "yaFlyingSkull.h"
 #include "yaGreenGhost.h"
 #include "yaGrayMira.h"
-#include "yaGreenMedusaHead.h"
+#include "yaMedusaHead.h"
 #include "yaMiniMudman.h"
+#include "yaSkyColorGhost.h"
+#include "yaLionHead.h"
+#include "yaMagision.h"
+#include "yaMiniHeadDurahan.h"
+#include "yaMedusa.h"
+
+
 #include "yaHUD.h"
+#include "yaButton.h"
+#include "yaPanel.h"
 
 //#include "yaGround.h"
 
@@ -53,7 +73,7 @@ namespace ya
 
 		for (int i = 0; i < monsterCount; ++i)
 		{
-			ya::object::InstantiateAtAnotherScene<GreenMedusaHead>(eColliderLayer::MONSTER, Vector2(100.f * i, 0.0f), GetSceneTpye());
+			ya::object::InstantiateAtAnotherScene<MedusaHead>(eColliderLayer::MONSTER, Vector2(100.f * i, 0.0f), GetSceneTpye());
 		}
 
 		for (int i = 0; i < monsterCount; ++i)
@@ -61,18 +81,91 @@ namespace ya
 			ya::object::InstantiateAtAnotherScene<DurahanBoneKnight>(eColliderLayer::MONSTER, Vector2(100.f * i, -50.0f), GetSceneTpye());
 		}
 
+		for (int i = 0; i < monsterCount; ++i)
+		{
+			ya::object::InstantiateAtAnotherScene<SkyColorGhost>(eColliderLayer::MONSTER, Vector2(100.f * i, -100.0f), GetSceneTpye());
+		}
+
+		for (int i = 0; i < monsterCount; ++i)
+		{
+			ya::object::InstantiateAtAnotherScene<LionHead>(eColliderLayer::MONSTER, Vector2(100.f * i, -150.0f), GetSceneTpye());
+		}
+
+		for (int i = 0; i < monsterCount; ++i)
+		{
+			ya::object::InstantiateAtAnotherScene<Magision>(eColliderLayer::MONSTER, Vector2(100.f * i, -200.0f), GetSceneTpye());
+		}
+
+		for (int i = 0; i < monsterCount; ++i)
+		{
+			ya::object::InstantiateAtAnotherScene<MiniHeadDurahan>(eColliderLayer::MONSTER, Vector2(100.f * i, -250.0f), GetSceneTpye());
+		}
+		
+		for (int i = 0; i < monsterCount; ++i)
+		{
+			ya::object::InstantiateAtAnotherScene<BroomWitch>(eColliderLayer::MONSTER, Vector2(100.f * i, -350.0f), GetSceneTpye());
+		}
+		for (int i = 0; i < monsterCount; ++i)
+		{
+			ya::object::InstantiateAtAnotherScene<BlackBat>(eColliderLayer::MONSTER, Vector2(100.f * i, -450.0f), GetSceneTpye());
+		}		
+		for (int i = 0; i < monsterCount; ++i)
+		{
+			ya::object::InstantiateAtAnotherScene<FlyingSkull>(eColliderLayer::MONSTER, Vector2(100.f * i, -500.0f), GetSceneTpye());
+		}		
+		for (int i = 0; i < monsterCount; ++i)
+		{
+			ya::object::InstantiateAtAnotherScene<Medusa>(eColliderLayer::MONSTER, Vector2(100.f * i, -600.0f), GetSceneTpye());
+		}		
+		for (int i = 0; i < monsterCount; ++i)
+		{
+			ya::object::InstantiateAtAnotherScene<BossMira>(eColliderLayer::MONSTER, Vector2(100.f * i, -700.0f), GetSceneTpye());
+		}		
+		for (int i = 0; i < monsterCount; ++i)
+		{
+			ya::object::InstantiateAtAnotherScene<BossBlackBat>(eColliderLayer::MONSTER, Vector2(100.f * i, -800.0f), GetSceneTpye());
+		}		
+		for (int i = 0; i < monsterCount; ++i)
+		{
+			ya::object::InstantiateAtAnotherScene<BossNesparados>(eColliderLayer::MONSTER, Vector2(100.f * i, -900.0f), GetSceneTpye());
+		}
+		
+		for (int i = 0; i < monsterCount; ++i)
+		{
+			ya::object::InstantiateAtAnotherScene<BossWitch>(eColliderLayer::MONSTER, Vector2(100.f * i + 10, -1000.0f), GetSceneTpye());
+		}		
+		
+		for (int i = 0; i < monsterCount; ++i)
+		{
+			ya::object::InstantiateAtAnotherScene<BossBroomWitch>(eColliderLayer::MONSTER, Vector2(100.f * i + 30, -1200.0f), GetSceneTpye());
+		}
+		for (int i = 0; i < monsterCount; ++i)
+		{
+			ya::object::InstantiateAtAnotherScene<BossMedusa>(eColliderLayer::MONSTER, Vector2(100.f * i + 30, -1400.0f), GetSceneTpye());
+		}
+
+		
+
 		//ya::object::Instantiate<Monster>(eColliderLayer::MONSTER, Vector2(200.f, 300.f));
 		//ya::object::Instantiate<Monster>(eColliderLayer::MONSTER, Vector2(500.f, 300.f));
 		//Ground* pG =  ya::object::Instantiate<Ground>(eColliderLayer::GROUND);
 		//pG->SetPos({300.0f, 800.0f});
 
 		Player* pPlayer = ya::object::Instantiate<Player>(eColliderLayer::PLAYER);
+		pPlayer->SetPos({ 300.0f, 200.0f });
 		CollisionManager::SetLayer(eColliderLayer::PLAYER, eColliderLayer::MONSTER, true);
 		CollisionManager::SetLayer(eColliderLayer::MONSTER, eColliderLayer::PLAYER_PROJECTTILE, true);
+
+
+// FOR UI
+#if 0
 		UIManager::Push(eUIType::HP);
-		HUD* pHUD = static_cast<HUD*>(UIManager::GetUIInstance(eUIType::HP));
+		UIManager::Push(eUIType::MP);
+		UIManager::Push(eUIType::INVENTORY);
+		HUD* pHUD = static_cast<HUD*>(UIManager::GetUIInstance(eUIType::MP));
 		assert(pHUD != nullptr);
 		pHUD->SetPlayer(pPlayer);
+#endif
 		//Application::GetInstance().SetMenuBar(true);
 		
 #if 0

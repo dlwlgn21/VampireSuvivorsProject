@@ -15,9 +15,7 @@ namespace ya
 		mBlendFunc.AlphaFormat = AC_SRC_ALPHA;
 		mBlendFunc.SourceConstantAlpha = 255;
 	}
-	HUD::~HUD()
-	{
-	}
+
 	void HUD::OnInitialize()
 	{
 	}

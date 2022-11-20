@@ -86,6 +86,7 @@ namespace ya
 				// 강제적으로 키를 떼어줌. UP으로 만들어줌.
 				if (eKeyState::DOWN == mKeys[i].state || eKeyState::PRESSED == mKeys[i].state) { mKeys[i].state = eKeyState::UP; }
 				else if (eKeyState::UP == mKeys[i].state) { mKeys[i].state = eKeyState::NONE; }
+				mKeys[i].bIsPressed = false;
 			}
 		}
 

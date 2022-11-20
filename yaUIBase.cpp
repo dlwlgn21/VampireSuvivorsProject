@@ -13,6 +13,7 @@ namespace ya
 		, mSize(Vector2::ZERO)
 		, mpImage(nullptr)
 	{
+		mChilds.reserve(16);
 	}
 
 	UIBase::~UIBase()
@@ -22,17 +23,31 @@ namespace ya
 	void UIBase::Initialize()
 	{
 		OnInitialize();
+		for (UIBase* pChild : mChilds)
+		{
+			pChild->OnInitialize();
+		}
 	}
 
 	void UIBase::Activate()
 	{
 		mbIsEnable = true;
 		OnActivate();
+		for (UIBase* pChild : mChilds)
+		{
+			pChild->mbIsEnable = true;
+			pChild->OnActivate();
+		}
 	}
 
 	void UIBase::InActivate()
 	{
 		mbIsEnable = false;
+		for (UIBase* pChild : mChilds)
+		{
+			pChild->OnInActivate();
+			pChild->mbIsEnable = false;
+		}
 		OnInActivate();
 	}
 
@@ -40,7 +55,19 @@ namespace ya
 	{
 		if (!mbIsEnable) 
 		{ return; }
+
 		OnTick();
+		if (mParent != nullptr)
+		{ mScreenPos = mParent->GetPos() + mPos; }
+		else
+		{ mScreenPos = mPos; }
+
+
+		for (UIBase* pChild : mChilds)
+		{
+			if (pChild->mbIsEnable)
+			{ pChild->Tick(); }
+		}
 	}
 
 	void UIBase::Render(HDC hdc)
@@ -48,11 +75,25 @@ namespace ya
 		if (!mbIsEnable) 
 		{ return; }
 		OnRender(hdc);
+		for (UIBase* pChild : mChilds)
+		{
+			if (pChild->mbIsEnable)
+			{
+				pChild->OnRender(hdc);
+			}
+		}
 
 	}
 
 	void UIBase::UIClear()
 	{
+		for (UIBase* pChild : mChilds)
+		{
+			if (pChild->mbIsEnable)
+			{
+				pChild->OnUIClear();
+			}
+		}
 		OnUIClear();
 	}
 
@@ -60,6 +101,12 @@ namespace ya
 	{
 		mpImage = Resources::Load<Image>(key, path);
 		mSize = Vector2(mpImage->GetWidth(), mpImage->GetHeight());
+	}
+
+	void UIBase::AddUIChild(UIBase* pUIBase)
+	{
+		mChilds.push_back(pUIBase);
+		pUIBase->mParent = this;
 	}
 
 }

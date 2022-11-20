@@ -40,10 +40,11 @@ namespace ya
 		void SetIsFullScreen(bool isFullScreen) { mbIsFullScreen = isFullScreen; }
 		void SetParent(UIBase* parent) { mParent = parent; }
 		void LoadUIImage(const std::wstring& key, const std::wstring& path);
-		__forceinline void SetPos(Vector2 pos) { mScreenPos = pos; }
-		__forceinline Vector2 GetPos() { return mScreenPos; }
+		__forceinline void SetPos(Vector2 pos) { mPos = pos; }
+		__forceinline Vector2 GetPos() { return mPos; }
 		__forceinline void SetSize(Vector2 size) { mSize = size; }
 		__forceinline Vector2 GetSize() { return mSize; }
+		void AddUIChild(UIBase* pUIBase);
 
 	protected:
 		virtual void OnInitialize()		{};
@@ -59,11 +60,12 @@ namespace ya
 		bool mbIsFullScreen;
 		bool mbIsEnable;
 		Image* mpImage;
-		
-		Vector2 mScreenPos;
 
+		Vector2 mScreenPos;
 		Vector2 mPos;
 		Vector2 mSize;
+	private:
+		std::vector<UIBase*> mChilds;
 	};
 }
 
