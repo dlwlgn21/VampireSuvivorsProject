@@ -20,7 +20,7 @@ namespace ya
 		, mAnimMoveSize(28.0f, 32.0f)
 		, mAnimOffset(-18.f, -25.f)
 		, mAnimCount(5)
-		, mAnimDuration(1.f)
+		, mAnimDuration(0.15f)
 	{
 		assert(mpImage != nullptr);
 		assert(mpInvImage != nullptr);
