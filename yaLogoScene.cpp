@@ -15,6 +15,11 @@
 #include "yaBossWitch.h"
 #include "yaBossBroomWitch.h"
 #include "yaBossMedusa.h"
+#include "yaBossMudMan.h"
+#include "yaBossMedusaHead.h"
+#include "yaBossGreenGhost.h"
+#include "yaBossLionHead.h"
+#include "yaBossWhiteBat.h"
 
 
 #include "yaDurahanBoneKnight.h"
@@ -22,7 +27,7 @@
 #include "yaGreenGhost.h"
 #include "yaGrayMira.h"
 #include "yaMedusaHead.h"
-#include "yaMiniMudman.h"
+#include "yaMudman.h"
 #include "yaSkyColorGhost.h"
 #include "yaLionHead.h"
 #include "yaMagision.h"
@@ -55,7 +60,7 @@ namespace ya
 		int monsterCount = 5;
 		for (int i = 0; i < monsterCount; ++i)
 		{
-			ya::object::InstantiateAtAnotherScene<MiniMudman>(eColliderLayer::MONSTER, Vector2(100.f * i, 300.f), GetSceneTpye());
+			ya::object::InstantiateAtAnotherScene<Mudman>(eColliderLayer::MONSTER, Vector2(100.f * i, 300.f), GetSceneTpye());
 		}
 
 		for (int i = 0; i < monsterCount; ++i)
@@ -90,7 +95,6 @@ namespace ya
 		{
 			ya::object::InstantiateAtAnotherScene<LionHead>(eColliderLayer::MONSTER, Vector2(100.f * i, -150.0f), GetSceneTpye());
 		}
-
 		for (int i = 0; i < monsterCount; ++i)
 		{
 			ya::object::InstantiateAtAnotherScene<Magision>(eColliderLayer::MONSTER, Vector2(100.f * i, -200.0f), GetSceneTpye());
@@ -129,12 +133,10 @@ namespace ya
 		{
 			ya::object::InstantiateAtAnotherScene<BossNesparados>(eColliderLayer::MONSTER, Vector2(100.f * i, -900.0f), GetSceneTpye());
 		}
-		
 		for (int i = 0; i < monsterCount; ++i)
 		{
 			ya::object::InstantiateAtAnotherScene<BossWitch>(eColliderLayer::MONSTER, Vector2(100.f * i + 10, -1000.0f), GetSceneTpye());
 		}		
-		
 		for (int i = 0; i < monsterCount; ++i)
 		{
 			ya::object::InstantiateAtAnotherScene<BossBroomWitch>(eColliderLayer::MONSTER, Vector2(100.f * i + 30, -1200.0f), GetSceneTpye());
@@ -142,6 +144,26 @@ namespace ya
 		for (int i = 0; i < monsterCount; ++i)
 		{
 			ya::object::InstantiateAtAnotherScene<BossMedusa>(eColliderLayer::MONSTER, Vector2(100.f * i + 30, -1400.0f), GetSceneTpye());
+		}
+		for (int i = 0; i < monsterCount; ++i)
+		{
+			ya::object::InstantiateAtAnotherScene<BossMedusaHead>(eColliderLayer::MONSTER, Vector2(100.f * i + 30, -1600.0f), GetSceneTpye());
+		}		
+		for (int i = 0; i < monsterCount; ++i)
+		{
+			ya::object::InstantiateAtAnotherScene<BossMudMan>(eColliderLayer::MONSTER, Vector2(100.f * i + 30, -1700.0f), GetSceneTpye());
+		}
+		for (int i = 0; i < monsterCount; ++i)
+		{
+			ya::object::InstantiateAtAnotherScene<BossGreenGhost>(eColliderLayer::MONSTER, Vector2(100.f * i + 30, -1800.0f), GetSceneTpye());
+		}
+		for (int i = 0; i < monsterCount; ++i)
+		{
+			ya::object::InstantiateAtAnotherScene<BossLionHead>(eColliderLayer::MONSTER, Vector2(100.f * i + 30, -1900.0f), GetSceneTpye());
+		}		
+		for (int i = 0; i < monsterCount; ++i)
+		{
+			ya::object::InstantiateAtAnotherScene<BossWhiteBat>(eColliderLayer::MONSTER, Vector2(100.f * i + 30, -2000.0f), GetSceneTpye());
 		}
 
 		

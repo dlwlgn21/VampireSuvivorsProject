@@ -21,9 +21,12 @@ namespace ya
 		HPEN mPen;
 		HBRUSH mBrush;
 		Image* mpImage;
+		Image* mpInvImage;
 		Animator* mpAnimator;
+		Collider* mpCollider;
 
 		const std::wstring mAnimMove;
+		const std::wstring mAnimInvMove;
 		Vector2 mAnimMoveSize;
 		Vector2 mAnimOffset;
 		UINT mAnimCount;

@@ -5,11 +5,12 @@ namespace ya
 {
 	class Image;
 	class Animator;
-	class MiniMudman : public GameObject
+	class Collider;
+	class BossGreenGhost : public GameObject
 	{
 	public:
-		MiniMudman(Vector2 pos);
-		virtual ~MiniMudman() = default;
+		BossGreenGhost(Vector2 pos);
+		virtual ~BossGreenGhost() = default;
 
 		void Tick() override;
 		void Render(HDC hdc) override;
@@ -21,14 +22,16 @@ namespace ya
 		HPEN mPen;
 		HBRUSH mBrush;
 		Image* mpImage;
+		Image* mpInvImage;
 		Animator* mpAnimator;
+		Collider* mpCollider;
 
 		const std::wstring mAnimMove;
+		const std::wstring mAnimInvMove;
 		Vector2 mAnimMoveSize;
 		Vector2 mAnimOffset;
 		UINT mAnimCount;
 		float mAnimDuration;
 	};
-
 }
 

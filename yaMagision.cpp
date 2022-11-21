@@ -11,23 +11,28 @@ namespace ya
 		: GameObject(pos)
 		, mPen(CreatePen(PS_DASHDOTDOT, 3, RGB(0, 255, 255)))
 		, mBrush(CreateSolidBrush(RGB(153, 204, 255)))
-		, mpImage(nullptr)
-		, mpAnimator(nullptr)
+		, mpImage(Resources::Load<Image>(L"Magision", L"Resources\\Image\\MagisionAnim.bmp"))
+		, mpInvImage(Resources::Load<Image>(L"MagisionInv", L"Resources\\Image\\MagisionInvAnim.bmp"))
+		, mpAnimator(new Animator())
+		, mpCollider(new Collider(Vector2(30.0f, 40.0f)))
 		, mAnimMove(L"MagisionAnim")
+		, mAnimInvMove(L"MagisionAnimInv")
 		, mAnimMoveSize(31.0f, 33.0f)
 		, mAnimOffset(-18.f, -25.f)
 		, mAnimCount(4)
 		, mAnimDuration(0.15f)
 	{
+		assert(mpImage != nullptr);
+		assert(mpInvImage != nullptr);
+		assert(mpAnimator != nullptr);
+		assert(mpCollider != nullptr);
 		SetName(L"Magision");
 		mScale = { 2.0f, 2.0f };
-		mpImage = Resources::Load<Image>(L"Magision", L"Resources\\Image\\MagisionAnim.bmp");
-		assert(mpImage != nullptr);
-		mpAnimator = new Animator();
 		AddComponent(mpAnimator);
+		AddComponent(mpCollider);
 		mpAnimator->CreateAnimation(mAnimMove, mpImage, Vector2::ZERO, mAnimMoveSize, mAnimOffset, mAnimCount, mAnimDuration);
-		mpAnimator->Play(mAnimMove, true);
-		AddComponent(new Collider(Vector2(30.0f, 40.0f)));
+		mpAnimator->CreateAnimation(mAnimInvMove, mpInvImage, Vector2::ZERO, mAnimMoveSize, mAnimOffset, mAnimCount, mAnimDuration);
+		mpAnimator->Play(mAnimInvMove, true);
 	}
 
 	void Magision::Tick()

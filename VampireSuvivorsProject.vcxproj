@@ -132,6 +132,9 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="yaBossGreenGhost.h" />
+    <ClInclude Include="yaBossLionHead.h" />
+    <ClInclude Include="yaBossMedusaHead.h" />
     <ClInclude Include="Common.h" />
     <ClInclude Include="Def.h" />
     <ClInclude Include="framework.h" />
@@ -150,8 +153,10 @@
     <ClInclude Include="yaBossBlackBat.h" />
     <ClInclude Include="yaBossBroomWitch.h" />
     <ClInclude Include="yaBossMedusa.h" />
+    <ClInclude Include="yaBossMudMan.h" />
     <ClInclude Include="yaBossNesparados.h" />
     <ClInclude Include="yaBossMira.h" />
+    <ClInclude Include="yaBossWhiteBat.h" />
     <ClInclude Include="yaBossWitch.h" />
     <ClInclude Include="yaBroomWitch.h" />
     <ClInclude Include="yaButton.h" />
@@ -178,7 +183,7 @@
     <ClInclude Include="yaMedusa.h" />
     <ClInclude Include="yaMiniHeadDurahan.h" />
     <ClInclude Include="yaMissile.h" />
-    <ClInclude Include="yaMiniMudman.h" />
+    <ClInclude Include="yaMudman.h" />
     <ClInclude Include="yaObject.h" />
     <ClInclude Include="yaPanel.h" />
     <ClInclude Include="yaPlayer.h" />
@@ -199,6 +204,9 @@
     <ClInclude Include="yaUIManager.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="yaBossGreenGhost.cpp" />
+    <ClCompile Include="yaBossLionHead.cpp" />
+    <ClCompile Include="yaBossMedusaHead.cpp" />
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="Maths.cpp" />
     <ClCompile Include="yaAnimation.cpp" />
@@ -212,8 +220,10 @@
     <ClCompile Include="yaBossBlackBat.cpp" />
     <ClCompile Include="yaBossBroomWitch.cpp" />
     <ClCompile Include="yaBossMedusa.cpp" />
+    <ClCompile Include="yaBossMudMan.cpp" />
     <ClCompile Include="yaBossNesparados.cpp" />
     <ClCompile Include="yaBossMira.cpp" />
+    <ClCompile Include="yaBossWhiteBat.cpp" />
     <ClCompile Include="yaBossWitch.cpp" />
     <ClCompile Include="yaBroomWitch.cpp" />
     <ClCompile Include="yaButton.cpp" />
@@ -240,7 +250,7 @@
     <ClCompile Include="yaMedusa.cpp" />
     <ClCompile Include="yaMiniHeadDurahan.cpp" />
     <ClCompile Include="yaMissile.cpp" />
-    <ClCompile Include="yaMiniMudman.cpp" />
+    <ClCompile Include="yaMudman.cpp" />
     <ClCompile Include="yaPanel.cpp" />
     <ClCompile Include="yaPlayer.cpp" />
     <ClCompile Include="yaPlayScene.cpp" />

@@ -11,23 +11,28 @@ namespace ya
 		: GameObject(pos)
 		, mPen(CreatePen(PS_DASHDOTDOT, 3, RGB(0, 255, 255)))
 		, mBrush(CreateSolidBrush(RGB(153, 204, 255)))
-		, mpImage(nullptr)
-		, mpAnimator(nullptr)
+		, mpImage(Resources::Load<Image>(L"BossBlackBat", L"Resources\\Image\\BossBlackBatAnim.bmp"))
+		, mpInvImage(Resources::Load<Image>(L"BossBlackBatInv", L"Resources\\Image\\BossBlackBatInvAnim.bmp"))
+		, mpAnimator(new Animator())
+		, mpCollider(new Collider(Vector2(25.0f, 20.0f)))
 		, mAnimMove(L"BossBlackBatAnim")
+		, mAnimInvMove(L"BossBlackBatInvAnim")
 		, mAnimMoveSize(25.0f, 23.0f)
 		, mAnimOffset(-9.f, -10.f)
 		, mAnimCount(3)
 		, mAnimDuration(0.20f)
 	{
+		assert(mpImage != nullptr);
+		assert(mpInvImage != nullptr);
+		assert(mpAnimator != nullptr);
+		assert(mpCollider != nullptr);
 		SetName(L"BossBlackBat");
 		mScale = { 2.0f, 2.0f };
-		mpImage = Resources::Load<Image>(L"BossBlackBat", L"Resources\\Image\\BossBlackBatAnim.bmp");
-		assert(mpImage != nullptr);
-		mpAnimator = new Animator();
 		AddComponent(mpAnimator);
+		AddComponent(mpCollider);
 		mpAnimator->CreateAnimation(mAnimMove, mpImage, Vector2::ZERO, mAnimMoveSize, mAnimOffset, mAnimCount, mAnimDuration);
+		mpAnimator->CreateAnimation(mAnimInvMove, mpInvImage, Vector2::ZERO, mAnimMoveSize, mAnimOffset, mAnimCount, mAnimDuration);
 		mpAnimator->Play(mAnimMove, true);
-		AddComponent(new Collider(Vector2(25.0f, 20.0f)));
 	}
 
 	void BossBlackBat::Tick()

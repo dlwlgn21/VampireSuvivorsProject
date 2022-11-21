@@ -5,6 +5,7 @@ namespace ya
 {
 	class Image;
 	class Animator;
+	class Collider;
 	class LionHead : public GameObject
 	{
 	public:
@@ -21,9 +22,12 @@ namespace ya
 		HPEN mPen;
 		HBRUSH mBrush;
 		Image* mpImage;
+		Image* mpInvImage;
 		Animator* mpAnimator;
+		Collider* mpCollider;
 
 		const std::wstring mAnimMove;
+		const std::wstring mAnimInvMove;
 		Vector2 mAnimMoveSize;
 		Vector2 mAnimOffset;
 		UINT mAnimCount;

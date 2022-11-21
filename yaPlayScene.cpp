@@ -3,7 +3,7 @@
 #include "yaInput.h"
 #include "yaSceneManager.h"
 #include "yaBgImageObject.h"
-#include "yaMiniMudman.h"
+#include "yaMudman.h"
 #include "yaSceneManager.h"
 #include "yaCollisionManager.h"
 #include "yaObject.h"

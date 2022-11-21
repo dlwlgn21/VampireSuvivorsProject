@@ -177,7 +177,7 @@
     <ClInclude Include="yaPlayer.h">
       <Filter>GameObject\Game</Filter>
     </ClInclude>
-    <ClInclude Include="yaMiniMudman.h">
+    <ClInclude Include="yaMudman.h">
       <Filter>GameObject\Game\Monster</Filter>
     </ClInclude>
     <ClInclude Include="yaBoomGhost.h">
@@ -262,6 +262,21 @@
       <Filter>GameObject\Game\Monster\Boss</Filter>
     </ClInclude>
     <ClInclude Include="yaBossMedusa.h">
+      <Filter>GameObject\Game\Monster\Boss</Filter>
+    </ClInclude>
+    <ClInclude Include="yaBossGreenGhost.h">
+      <Filter>GameObject\Game\Monster\Boss</Filter>
+    </ClInclude>
+    <ClInclude Include="yaBossLionHead.h">
+      <Filter>GameObject\Game\Monster\Boss</Filter>
+    </ClInclude>
+    <ClInclude Include="yaBossMedusaHead.h">
+      <Filter>GameObject\Game\Monster\Boss</Filter>
+    </ClInclude>
+    <ClInclude Include="yaBossWhiteBat.h">
+      <Filter>GameObject\Game\Monster\Boss</Filter>
+    </ClInclude>
+    <ClInclude Include="yaBossMudMan.h">
       <Filter>GameObject\Game\Monster\Boss</Filter>
     </ClInclude>
   </ItemGroup>
@@ -359,7 +374,7 @@
     <ClCompile Include="yaPlayer.cpp">
       <Filter>GameObject\Game</Filter>
     </ClCompile>
-    <ClCompile Include="yaMiniMudman.cpp">
+    <ClCompile Include="yaMudman.cpp">
       <Filter>GameObject\Game\Monster</Filter>
     </ClCompile>
     <ClCompile Include="yaBoomGhost.cpp">
@@ -444,6 +459,21 @@
       <Filter>GameObject\Game\Monster\Boss</Filter>
     </ClCompile>
     <ClCompile Include="yaBossMedusa.cpp">
+      <Filter>GameObject\Game\Monster\Boss</Filter>
+    </ClCompile>
+    <ClCompile Include="yaBossGreenGhost.cpp">
+      <Filter>GameObject\Game\Monster\Boss</Filter>
+    </ClCompile>
+    <ClCompile Include="yaBossLionHead.cpp">
+      <Filter>GameObject\Game\Monster\Boss</Filter>
+    </ClCompile>
+    <ClCompile Include="yaBossMedusaHead.cpp">
+      <Filter>GameObject\Game\Monster\Boss</Filter>
+    </ClCompile>
+    <ClCompile Include="yaBossWhiteBat.cpp">
+      <Filter>GameObject\Game\Monster\Boss</Filter>
+    </ClCompile>
+    <ClCompile Include="yaBossMudMan.cpp">
       <Filter>GameObject\Game\Monster\Boss</Filter>
     </ClCompile>
   </ItemGroup>

@@ -11,23 +11,28 @@ namespace ya
 		: GameObject(pos)
 		, mPen(CreatePen(PS_DASHDOTDOT, 3, RGB(0, 255, 255)))
 		, mBrush(CreateSolidBrush(RGB(153, 204, 255)))
-		, mpImage(nullptr)
-		, mpAnimator(nullptr)
+		, mpImage(Resources::Load<Image>(L"BroomWitch", L"Resources\\Image\\BroomWitchAnim.bmp"))
+		, mpInvImage(Resources::Load<Image>(L"BroomWitchInv", L"Resources\\Image\\BroomWitchInvAnim.bmp"))
+		, mpAnimator(new Animator())
+		, mpCollider(new Collider(Vector2(30.0f, 40.0f)))
 		, mAnimMove(L"BroomWitchAnim")
+		, mAnimInvMove(L"BroomWitchAnimInv")
 		, mAnimMoveSize(34.0f, 36.0f)
 		, mAnimOffset(-18.f, -25.f)
 		, mAnimCount(3)
 		, mAnimDuration(0.15f)
 	{
+		assert(mpImage != nullptr);
+		assert(mpInvImage != nullptr);
+		assert(mpAnimator != nullptr);
+		assert(mpCollider != nullptr);
 		SetName(L"BroomWitch");
 		mScale = { 2.0f, 2.0f };
-		mpImage = Resources::Load<Image>(L"BroomWitch", L"Resources\\Image\\BroomWitchAnim.bmp");
-		assert(mpImage != nullptr);
-		mpAnimator = new Animator();
 		AddComponent(mpAnimator);
+		AddComponent(mpCollider);
 		mpAnimator->CreateAnimation(mAnimMove, mpImage, Vector2::ZERO, mAnimMoveSize, mAnimOffset, mAnimCount, mAnimDuration);
-		mpAnimator->Play(mAnimMove, true);
-		AddComponent(new Collider(Vector2(30.0f, 40.0f)));
+		mpAnimator->CreateAnimation(mAnimInvMove, mpInvImage, Vector2::ZERO, mAnimMoveSize, mAnimOffset, mAnimCount, mAnimDuration);
+		mpAnimator->Play(mAnimInvMove, true);
 	}
 
 	void BroomWitch::Tick()
