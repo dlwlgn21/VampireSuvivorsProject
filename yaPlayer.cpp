@@ -3,12 +3,12 @@
 #include "yaPlayer.h"
 #include "yaTime.h"
 #include "yaInput.h"
+#include "yaPlayerCustomAnimation.h"
 #include "yaMissile.h"
 #include "yaSceneManager.h"
 #include "yaScene.h"
 #include "yaImage.h"
 #include "yaResources.h"
-#include "yaAnimator.h"
 #include "yaCollider.h"
 #include "yaCamera.h"
 #include "yaBackpack.h"
@@ -23,48 +23,77 @@ namespace ya
 		, mSpeed(500.0f)
 		, mPen(CreatePen(PS_DASHDOTDOT, 3, RGB(0, 255, 255)))
 		, mBrush(CreateSolidBrush(RGB(153, 204, 255)))
-		, mpIdleImage(nullptr)
-		, mpMoveImage(Resources::Load<Image>(L"PlayerMoveAnim", L"Resources\\Image\\CharacterMove.bmp"))
-		, mpMoveInvImage(Resources::Load<Image>(L"PlayerMoveInvAnim", L"Resources\\Image\\CharacterMoveInverse.bmp"))
-		, mpAnimator(new Animator())
-		, mpCollider(new Collider(mColliderScale))
-		, mAnimMove(L"Move")
-		, mAnimMoveInv(L"MoveInv")
-		, mAnimMoveSize(34.0f, 34.0f)
+		, mpLeftImage(Resources::Load<Image>(L"PlayerLeft", L"Resources\\Image\\PlayerLeftAnim.bmp"))
+		, mpRightImage(Resources::Load<Image>(L"PlayerRight", L"Resources\\Image\\PlayerRightAnim.bmp"))
+		, mAnimSize(34.0f, 34.0f)
 		, mAnimOffset(-18.0f, -22.0f)
 		, mAnimCount(4)
-		, mAnimRowInterval(130.0f)
-		, mAnimDuration(0.15f)
+		, mMinAnimInterval(0.15f)
 		, mColliderScale(25.0f, 40.0f)
 		, dir(Vector2::ONE)
+		, mpAnimator(new PlayerCustomAnimator())
+		, mpCollider(new Collider(mColliderScale))
 		, mHp(100)
+		, mEPlayerDir(ePlayerDirection::LEFT)
 	{
-		assert(mpMoveImage != nullptr);
-		assert(mpMoveInvImage != nullptr);
+		assert(mpLeftImage != nullptr);
+		assert(mpRightImage != nullptr);
 		assert(mpAnimator != nullptr);
 		assert(mpCollider != nullptr);
 		SetName(L"Player");
 		mScale = { 2.0f, 2.0f };
 		AddComponent(mpAnimator);
 		AddComponent(mpCollider);
-		createAnimation(mAnimMove,		mpMoveImage,	Vector2::ZERO, mAnimMoveSize, mAnimOffset, mAnimCount, mAnimDuration);
-		createAnimation(mAnimMoveInv,	mpMoveInvImage,	Vector2::ZERO, mAnimMoveSize, mAnimOffset, mAnimCount, mAnimDuration);
-
+		mpAnimator->CreateAnimation(mpLeftImage, Vector2::ZERO, mAnimSize, mAnimOffset, mAnimCount, mMinAnimInterval, ePlayerDirection::LEFT);
+		mpAnimator->CreateAnimation(mpRightImage, Vector2::ZERO, mAnimSize, mAnimOffset, mAnimCount, mMinAnimInterval, ePlayerDirection::RIGHT);
+		
 		// mpAnimator->GetCompleteEvent(mAnimIdle) = std::bind(&Player::WalkComplete, this);
 		// 이거 내가 따로 다시 공부해야함. 마지막 이벤트에 고고
 		// mpAnimator->mCompleteEvent = std::bind(&Player::WalkComplete, this);
 		//AddComponent(new RigidBody());
 		Camera::SetTarget(this);
+		mpAnimator->Play(mEPlayerDir);
 	}
 
 	void Player::Tick()
 	{
 		GameObject::Tick();
 #if 1
-		if (IS_KEY_PRESSED(eKeyCode::W)) { mPos.y -= mSpeed * Time::DeltaTime(); }
-		if (IS_KEY_PRESSED(eKeyCode::S)) { mPos.y += mSpeed * Time::DeltaTime(); }
-		if (IS_KEY_PRESSED(eKeyCode::A)) { mPos.x -= mSpeed * Time::DeltaTime(); }
-		if (IS_KEY_PRESSED(eKeyCode::D)) { mPos.x += mSpeed * Time::DeltaTime(); }
+		if (IS_KEY_DOWN(eKeyCode::D))
+		{
+			mEPlayerDir = ePlayerDirection::RIGHT;
+			mpAnimator->Play(mEPlayerDir);
+		}
+		//if (IS_KEY_DOWN(eKeyCode::W) || IS_KEY_DOWN(eKeyCode::S) || IS_KEY_DOWN(eKeyCode::D))
+		//if (IS_KEY_UP(eKeyCode::D))		{ mpAnimator->Play(mAnimMove, false); }
+		if (IS_KEY_DOWN(eKeyCode::A))
+		{
+			mEPlayerDir = ePlayerDirection::LEFT;
+			mpAnimator->Play(mEPlayerDir);
+		}
+
+		if (IS_KEY_PRESSED(eKeyCode::W)) 
+		{ 
+			mPos.y -= mSpeed * Time::DeltaTime(); 
+			mpAnimator->Play(mEPlayerDir);
+		}
+		if (IS_KEY_PRESSED(eKeyCode::S)) 
+		{ 
+			mPos.y += mSpeed * Time::DeltaTime(); 
+			mpAnimator->Play(mEPlayerDir);
+		}
+		if (IS_KEY_PRESSED(eKeyCode::A)) 
+		{ 
+			mPos.x -= mSpeed * Time::DeltaTime(); 
+			mEPlayerDir = ePlayerDirection::LEFT;
+			mpAnimator->Play(mEPlayerDir);
+		}
+		if (IS_KEY_PRESSED(eKeyCode::D)) 
+		{ 
+			mPos.x += mSpeed * Time::DeltaTime(); 
+			mEPlayerDir = ePlayerDirection::RIGHT;
+			mpAnimator->Play(mEPlayerDir);
+		}
 #endif
 
 
@@ -76,11 +105,8 @@ namespace ya
 		if (IS_KEY_PRESSED(eKeyCode::D)) { GetComponentOrNull<RigidBody>(eComponentType::RIGID_BODY)->AddForce({ mSpeed, 0.0f }); }
 
 #endif
-		if (IS_KEY_DOWN(eKeyCode::D)) { mpAnimator->Play(mAnimMove, true); }
-		//if (IS_KEY_DOWN(eKeyCode::W) || IS_KEY_DOWN(eKeyCode::S) || IS_KEY_DOWN(eKeyCode::D))
-		if (IS_KEY_UP(eKeyCode::D))		{ mpAnimator->Play(mAnimMove, false); }
-		if (IS_KEY_DOWN(eKeyCode::A))	{ mpAnimator->Play(mAnimMoveInv, true); }
-		if (IS_KEY_UP(eKeyCode::A))		{ mpAnimator->Play(mAnimMoveInv, false); }
+
+		//if (IS_KEY_UP(eKeyCode::A))		{ mpAnimator->Play(mAnimMoveInv, false); }
 		
 #if 0
 		if (IS_KEY_DOWN(eKeyCode::SPACE))
@@ -181,17 +207,5 @@ namespace ya
 		pMis->SetPos(mPos);*/
 	}
 
-	void Player::createAnimation(const std::wstring& name, Image* image, Vector2 leftTop, Vector2 size, Vector2 offset, UINT spriteCount, float duration)
-	{
-		mpAnimator->CreateAnimation(
-			name,
-			image,
-			leftTop,
-			size,
-			offset,
-			spriteCount,
-			duration
-		);
-	}
 
 }

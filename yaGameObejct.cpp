@@ -10,6 +10,7 @@ namespace ya
 		, mDeathTime(-100.0f)
 		, mbDeathTriggerFlag(false)
 	{
+		mComponents.reserve(static_cast<UINT>(eComponentType::COUNT));
 	}
 
 	GameObject::GameObject(Vector2 pos)
@@ -19,6 +20,7 @@ namespace ya
 		, mDeathTime(-100.0f)
 		, mbDeathTriggerFlag(false)
 	{
+		mComponents.reserve(static_cast<UINT>(eComponentType::COUNT));
 	}
 
 	GameObject::~GameObject()

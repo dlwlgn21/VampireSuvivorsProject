@@ -187,6 +187,8 @@
     <ClInclude Include="yaObject.h" />
     <ClInclude Include="yaPanel.h" />
     <ClInclude Include="yaPlayer.h" />
+    <ClInclude Include="yaPlayerCustomAnimation.h" />
+    <ClInclude Include="yaPlayerCustomAnimator.h" />
     <ClInclude Include="yaPlayScene.h" />
     <ClInclude Include="yaResource.h" />
     <ClInclude Include="yaResources.h" />
@@ -253,6 +255,8 @@
     <ClCompile Include="yaMudman.cpp" />
     <ClCompile Include="yaPanel.cpp" />
     <ClCompile Include="yaPlayer.cpp" />
+    <ClCompile Include="yaPlayerCustomAnimation.cpp" />
+    <ClCompile Include="yaPlayerCustomAnimator.cpp" />
     <ClCompile Include="yaPlayScene.cpp" />
     <ClCompile Include="yaResource.cpp" />
     <ClCompile Include="yaResources.cpp" />

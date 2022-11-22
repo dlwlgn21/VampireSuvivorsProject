@@ -100,7 +100,7 @@ namespace ya
 	void UIBase::LoadUIImage(const std::wstring& key, const std::wstring& path)
 	{
 		mpImage = Resources::Load<Image>(key, path);
-		mSize = Vector2(mpImage->GetWidth(), mpImage->GetHeight());
+		mSize = Vector2(static_cast<float>(mpImage->GetWidth()), static_cast<float>(mpImage->GetHeight()));
 	}
 
 	void UIBase::AddUIChild(UIBase* pUIBase)

@@ -31,12 +31,12 @@ namespace ya
 			if (GetFocus())
 			{
 				Vector2 mousePos = Input::GetMousePos();
-				int x = mousePos.x / (TILE_SIZE_X * TILE_SCALE);
-				int y = mousePos.y / (TILE_SIZE_Y * TILE_SCALE);
+				int x = static_cast<int>(mousePos.x / (TILE_SIZE_X * TILE_SCALE));
+				int y = static_cast<int>(mousePos.y / (TILE_SIZE_Y * TILE_SCALE));
 				ya::ToolScene* pToolScene = static_cast<ya::ToolScene*>(ya::SceneManager::GetCurrentScene());
 				assert(pToolScene != nullptr);
 
-				CreateTile(pToolScene->GetTileIdx(), Vector2(x, y));
+				CreateTile(pToolScene->GetTileIdx(), Vector2(static_cast<float>(x), static_cast<float>(y)));
 			}
 		}
 	}
@@ -48,8 +48,8 @@ namespace ya
 	void TilePalette::CreateTile(UINT idx, Vector2 idxPos)
 	{
 		UnionTileID key{};
-		key.left = idxPos.x;
-		key.right = idxPos.y;
+		key.left = static_cast<UINT32>(idxPos.x);
+		key.right = static_cast<UINT32>(idxPos.y);
 
 		auto iter = mTiles.find(key.ID);
 		if (iter != mTiles.end())
@@ -133,7 +133,7 @@ namespace ya
 			UnionTileID id;
 			if (fread(&tileIdx, sizeof(int), 1, pFile) == NULL)		{ break; }
 			if (fread(&id.ID, sizeof(UINT64), 1, pFile) == NULL)	{ break; }
-			CreateTile(tileIdx, Vector2(id.left, id.right));
+			CreateTile(tileIdx, Vector2(static_cast<float>(id.left), static_cast<float>(id.right)));
 		}
 		fclose(pFile);
 	}
@@ -150,7 +150,7 @@ namespace ya
 			UnionTileID id;
 			if (fread(&tileIdx, sizeof(int), 1, pFile) == NULL) { break; }
 			if (fread(&id.ID, sizeof(UINT64), 1, pFile) == NULL) { break; }
-			CreateTile(tileIdx, Vector2(id.left, id.right));
+			CreateTile(tileIdx, Vector2(static_cast<float>(id.left), static_cast<float>(id.right)));
 		}
 		fclose(pFile);
 	}

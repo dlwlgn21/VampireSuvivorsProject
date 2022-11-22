@@ -1,11 +1,10 @@
 #pragma once
 #include "yaGameObejct.h"
-#include "yaAnimator.h"
+#include "yaPlayerCustomAnimator.h"
 
 namespace ya
 {
 	class Image;
-	class Animator;
 	class Collider;
 	class Player final : public GameObject
 	{
@@ -25,33 +24,24 @@ namespace ya
 		inline int GetHp() { return mHp; }
 
 	private:
-		void createAnimation(
-			const std::wstring& name, Image* image, Vector2 leftTop,
-			Vector2 size, Vector2 offset,
-			UINT spriteCount, float duration);
-
-	private:
 		float mSpeed;
 		HPEN mPen;
 		HBRUSH mBrush;
-		Image* mpIdleImage;
-		Image* mpMoveImage;
-		Image* mpMoveInvImage;
-		Animator* mpAnimator;
+		Image* mpLeftImage;
+		Image* mpRightImage;
+		PlayerCustomAnimator* mpAnimator;
 		Collider* mpCollider;
 
-		const std::wstring mAnimMove;
-		const std::wstring mAnimMoveInv;
-		Vector2 mAnimMoveSize;
+		Vector2 mAnimSize;
 		Vector2 mAnimOffset;
 		UINT mAnimCount;
-		float mAnimDuration;
-		float mAnimRowInterval;
+		float mMinAnimInterval;
 		Vector2 mColliderScale;
 
 		Vector2 dir;
 
 		int mHp;
+		ePlayerDirection mEPlayerDir;
 	};
 
 }

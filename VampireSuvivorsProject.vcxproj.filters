@@ -279,6 +279,12 @@
     <ClInclude Include="yaBossMudMan.h">
       <Filter>GameObject\Game\Monster\Boss</Filter>
     </ClInclude>
+    <ClInclude Include="yaPlayerCustomAnimation.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="yaPlayerCustomAnimator.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Maths.cpp">
@@ -475,6 +481,12 @@
     </ClCompile>
     <ClCompile Include="yaBossMudMan.cpp">
       <Filter>GameObject\Game\Monster\Boss</Filter>
+    </ClCompile>
+    <ClCompile Include="yaPlayerCustomAnimation.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="yaPlayerCustomAnimator.cpp">
+      <Filter>소스 파일</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
