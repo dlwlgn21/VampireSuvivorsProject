@@ -18,11 +18,13 @@ namespace ya
 	{
 		for (auto& iter : mAnimations)
 		{
-			if (iter.second != nullptr) { delete iter.second; }
+			if (iter.second != nullptr) 
+				{ delete iter.second; }
 		}
 		for (auto& iter : mEvents)
 		{
-			if (iter.second != nullptr) { delete iter.second; }
+			if (iter.second != nullptr) 
+				{ delete iter.second; }
 		}
 	}
 
@@ -34,8 +36,10 @@ namespace ya
 			if (mbIsLooping && mpCurrAnimation->IsComplete())
 			{
 				Animator::Events * events = FindEvents(mpCurrAnimation->GetName());
-				if (events == nullptr)	{ assert(false); }
-				else { events->mCompleteEvent(); }
+				if (events == nullptr)	
+					{ assert(false); }
+				else 
+					{ events->mCompleteEvent(); }
 				mpCurrAnimation->Reset();
 			}
 		}
@@ -47,25 +51,29 @@ namespace ya
 	Animation* Animator::FindAnimation(const std::wstring& name)
 	{
 		auto iter = mAnimations.find(name);
-		if (iter == mAnimations.end())	{ return nullptr; }
+		if (iter == mAnimations.end())	
+			{ return nullptr; }
 		return iter->second;
 	}
-	void Animator::CreateAnimation(const std::wstring& name, Image* image, Vector2 leftTop, Vector2 size, Vector2 offset, UINT spriteLength, float duration, bool bIsAffectedCamera)
+	void Animator::CreateAnimation(const std::wstring& name, Image* image, Vector2 leftTop, Vector2 size, Vector2 offset, UINT spriteCount, float duration, bool bIsAffectedCamera)
 	{
 		Animation* animation = FindAnimation(name);
 		if (animation != nullptr)				{ assert(false); return; }
+
 		animation = new Animation();
-		animation->Create(image, leftTop, size, offset, spriteLength, duration, bIsAffectedCamera);
+		animation->Create(image, leftTop, size, offset, spriteCount, duration, bIsAffectedCamera);
 		animation->SetName(name);
 		animation->SetAnimator(this);
 		animation->SetScale(GetOwner()->GetScale());
 
 		auto insertAnimRes = mAnimations.insert(std::make_pair(name, animation));
-		if (insertAnimRes.second == false)		{ assert(false); return; }
+		if (insertAnimRes.second == false)		
+		{ assert(false); return; }
 
 		Events* events = new Events();
 		auto insertEventsRes = mEvents.insert(std::make_pair(name, events));
-		if (insertEventsRes.second == false)	{ assert(false); return; }
+		if (insertEventsRes.second == false)	
+		{ assert(false); return; }
 	}
 	void Animator::CreateAnimations(const std::wstring& path, const std::wstring& animName, float duration, Vector2 offset)
 	{
@@ -126,8 +134,10 @@ namespace ya
 	void Animator::Play(const std::wstring& name, bool bIsLooping)
 	{
 		Animator::Events* events = FindEvents(name);
-		if (events == nullptr)					{ assert(false); }
-		else									{ events->mStartEvent(); }
+		if (events == nullptr)					
+		{ assert(false); }
+		else									
+		{ events->mStartEvent(); }
 		
 		Animation* pPrevAnim = mpCurrAnimation;
 		mpCurrAnimation = FindAnimation(name);

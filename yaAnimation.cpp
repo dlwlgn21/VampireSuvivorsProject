@@ -22,18 +22,21 @@ namespace ya
 		mFunc.BlendFlags = 0;
 		mFunc.AlphaFormat = AC_SRC_ALPHA;
 		mFunc.SourceConstantAlpha = 255;
-		mSpriteSheet.reserve(32);
+		mSpriteSheet.reserve(8);
 	}
 
 	void Animation::Tick()
 	{
-		if (mbIsComplete) { return; }
+		if (mbIsComplete) 
+			{ return; }
 		mTime += Time::DeltaTime();
 		if (mSpriteSheet[mSpriteIdx].Durtation < mTime)
 		{
 			mTime = 0.0f;
-			if (mSpriteIdx + 1 >= mSpriteSheet.size())	{ mbIsComplete = true; }
-			else										{ ++mSpriteIdx; }
+			if (mSpriteIdx + 1 >= mSpriteSheet.size())	
+				{ mbIsComplete = true; }
+			else										
+				{ ++mSpriteIdx; }
 		}
 
 	}
@@ -56,8 +59,8 @@ namespace ya
 		//	mpImage->GetHeight(),
 		//	RGB(255, 0, 255)
 		//);
-		GameObject* gameObject = mpAnimator->GetOwner();
-		Vector2 pos = gameObject->GetPos();
+		GameObject* pGameObject = mpAnimator->GetOwner();
+		Vector2 pos = pGameObject->GetPos();
 		if (mbIsAffectedCamera) { pos = Camera::ToCameraPos(pos); }
 		pos += mSpriteSheet[mSpriteIdx].Offset;
 
@@ -77,11 +80,11 @@ namespace ya
 		);
 	}
 
-	void Animation::Create(Image* pImage, Vector2 leftTop, Vector2 size, Vector2 offset, UINT spriteLength, float duration, bool bIsAffectedCamera)
+	void Animation::Create(Image* pImage, Vector2 leftTop, Vector2 size, Vector2 offset, UINT spriteCount, float duration, bool bIsAffectedCamera)
 	{
 		mpImage = pImage;
 		mbIsAffectedCamera = bIsAffectedCamera;
-		for (UINT i = 0; i < spriteLength; ++i)
+		for (UINT i = 0; i < spriteCount; ++i)
 		{
 			Sprite sprite;
 			sprite.LeftTop.x = leftTop.x + (size.x * i);

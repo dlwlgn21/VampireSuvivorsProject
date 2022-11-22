@@ -6,11 +6,12 @@ namespace ya
 {
 	class Image;
 	class Animator;
+	class Collider;
 	class Player final : public GameObject
 	{
 	public:
 		Player();
-		virtual ~Player();
+		virtual ~Player() = default;
 
 		void Tick() override;
 		void Render(HDC hdc) override;
@@ -27,7 +28,7 @@ namespace ya
 		void createAnimation(
 			const std::wstring& name, Image* image, Vector2 leftTop,
 			Vector2 size, Vector2 offset,
-			UINT spriteLength, float duration);
+			UINT spriteCount, float duration);
 
 	private:
 		float mSpeed;
@@ -37,6 +38,7 @@ namespace ya
 		Image* mpMoveImage;
 		Image* mpMoveInvImage;
 		Animator* mpAnimator;
+		Collider* mpCollider;
 
 		const std::wstring mAnimMove;
 		const std::wstring mAnimMoveInv;

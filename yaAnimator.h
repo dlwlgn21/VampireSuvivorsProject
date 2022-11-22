@@ -39,7 +39,7 @@ namespace ya
 		void CreateAnimation(
 			const std::wstring& name, Image* image, Vector2 leftTop,
 			Vector2 size, Vector2 offset,
-			UINT spriteLength, float duration,
+			UINT spriteCount, float duration,
 			bool bIsAffectedCamera = true);
 		
 		void CreateAnimations(const std::wstring& name, const std::wstring& animName, float duration = 0.1f, Vector2 offset = Vector2::ZERO);

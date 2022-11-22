@@ -19,15 +19,17 @@
 namespace ya
 {
 	Player::Player()
-		: GameObject()
+		: GameObject({ 1500.0f, 500.0f })
 		, mSpeed(500.0f)
 		, mPen(CreatePen(PS_DASHDOTDOT, 3, RGB(0, 255, 255)))
 		, mBrush(CreateSolidBrush(RGB(153, 204, 255)))
 		, mpIdleImage(nullptr)
-		, mpMoveImage(nullptr)
-		, mpMoveInvImage(nullptr)
+		, mpMoveImage(Resources::Load<Image>(L"PlayerMoveAnim", L"Resources\\Image\\CharacterMove.bmp"))
+		, mpMoveInvImage(Resources::Load<Image>(L"PlayerMoveInvAnim", L"Resources\\Image\\CharacterMoveInverse.bmp"))
+		, mpAnimator(new Animator())
+		, mpCollider(new Collider(mColliderScale))
 		, mAnimMove(L"Move")
-		, mAnimMoveInv(L"MoveInverse")
+		, mAnimMoveInv(L"MoveInv")
 		, mAnimMoveSize(34.0f, 34.0f)
 		, mAnimOffset(-18.0f, -22.0f)
 		, mAnimCount(4)
@@ -37,29 +39,22 @@ namespace ya
 		, dir(Vector2::ONE)
 		, mHp(100)
 	{
-		SetName(L"Player");
-		mPos = { 1500.0f, 500.0f };
-		mScale = { 2.0f, 2.0f };
-		mpMoveImage = Resources::Load<Image>(L"PlayerMoveAnim", L"Resources\\Image\\CharacterMove.bmp");
 		assert(mpMoveImage != nullptr);
-		mpMoveInvImage = Resources::Load<Image>(L"PlayerMoveInverseAnim", L"Resources\\Image\\CharacterMoveInverse.bmp");
 		assert(mpMoveInvImage != nullptr);
-		
-		mpAnimator = new Animator();
+		assert(mpAnimator != nullptr);
+		assert(mpCollider != nullptr);
+		SetName(L"Player");
+		mScale = { 2.0f, 2.0f };
 		AddComponent(mpAnimator);
+		AddComponent(mpCollider);
 		createAnimation(mAnimMove,		mpMoveImage,	Vector2::ZERO, mAnimMoveSize, mAnimOffset, mAnimCount, mAnimDuration);
 		createAnimation(mAnimMoveInv,	mpMoveInvImage,	Vector2::ZERO, mAnimMoveSize, mAnimOffset, mAnimCount, mAnimDuration);
 
 		// mpAnimator->GetCompleteEvent(mAnimIdle) = std::bind(&Player::WalkComplete, this);
 		// 이거 내가 따로 다시 공부해야함. 마지막 이벤트에 고고
 		// mpAnimator->mCompleteEvent = std::bind(&Player::WalkComplete, this);
-		AddComponent(new Collider(mColliderScale)); 
 		//AddComponent(new RigidBody());
 		Camera::SetTarget(this);
-	}
-
-	Player::~Player()
-	{
 	}
 
 	void Player::Tick()
@@ -87,7 +82,7 @@ namespace ya
 		if (IS_KEY_DOWN(eKeyCode::A))	{ mpAnimator->Play(mAnimMoveInv, true); }
 		if (IS_KEY_UP(eKeyCode::A))		{ mpAnimator->Play(mAnimMoveInv, false); }
 		
-#if 1
+#if 0
 		if (IS_KEY_DOWN(eKeyCode::SPACE))
 		{
 // RigidBodyPart
@@ -186,7 +181,7 @@ namespace ya
 		pMis->SetPos(mPos);*/
 	}
 
-	void Player::createAnimation(const std::wstring& name, Image* image, Vector2 leftTop, Vector2 size, Vector2 offset, UINT spriteLength, float duration)
+	void Player::createAnimation(const std::wstring& name, Image* image, Vector2 leftTop, Vector2 size, Vector2 offset, UINT spriteCount, float duration)
 	{
 		mpAnimator->CreateAnimation(
 			name,
@@ -194,7 +189,7 @@ namespace ya
 			leftTop,
 			size,
 			offset,
-			spriteLength,
+			spriteCount,
 			duration
 		);
 	}

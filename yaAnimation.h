@@ -34,7 +34,7 @@ namespace ya
 		void Create(
 			Image* pImage, Vector2 leftTop,
 			Vector2 size, Vector2 offset,
-			UINT spriteLength, float duration,
+			UINT spriteCount, float duration,
 			bool bIsAffectedCamera = true);
 
 		void Reset();
