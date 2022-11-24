@@ -44,6 +44,7 @@ namespace ya
 		float mMinAnimInterval;
 		float mIntervalCounter;
 		Vector2 mScale;
+		bool mbIsKeyPressing;
 	};
 }
 

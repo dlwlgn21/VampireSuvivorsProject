@@ -62,7 +62,7 @@ namespace ya
 		{
 			ya::object::InstantiateAtAnotherScene<Mudman>(eColliderLayer::MONSTER, Vector2(100.f * i, 300.f), GetSceneTpye());
 		}
-
+#if 0
 		for (int i = 0; i < monsterCount; ++i)
 		{
 			ya::object::InstantiateAtAnotherScene<BoomGhost>(eColliderLayer::MONSTER, Vector2(100.f * i, 800.f), GetSceneTpye());
@@ -165,8 +165,8 @@ namespace ya
 		{
 			ya::object::InstantiateAtAnotherScene<BossWhiteBat>(eColliderLayer::MONSTER, Vector2(100.f * i + 30, -2000.0f), GetSceneTpye());
 		}
-
-		
+#endif
+	
 
 		//ya::object::Instantiate<Monster>(eColliderLayer::MONSTER, Vector2(200.f, 300.f));
 		//ya::object::Instantiate<Monster>(eColliderLayer::MONSTER, Vector2(500.f, 300.f));

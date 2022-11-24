@@ -29,10 +29,10 @@ namespace ya
 		, mAnimOffset(-18.0f, -22.0f)
 		, mAnimCount(4)
 		, mMinAnimInterval(0.15f)
-		, mColliderScale(25.0f, 40.0f)
+		, mColliderSize(25.0f, 40.0f)
 		, dir(Vector2::ONE)
 		, mpAnimator(new PlayerCustomAnimator())
-		, mpCollider(new Collider(mColliderScale))
+		, mpCollider(new Collider(mColliderSize))
 		, mHp(100)
 		, mEPlayerDir(ePlayerDirection::LEFT)
 	{
@@ -42,17 +42,14 @@ namespace ya
 		assert(mpCollider != nullptr);
 		SetName(L"Player");
 		mScale = { 2.0f, 2.0f };
+		
 		AddComponent(mpAnimator);
 		AddComponent(mpCollider);
 		mpAnimator->CreateAnimation(mpLeftImage, Vector2::ZERO, mAnimSize, mAnimOffset, mAnimCount, mMinAnimInterval, ePlayerDirection::LEFT);
 		mpAnimator->CreateAnimation(mpRightImage, Vector2::ZERO, mAnimSize, mAnimOffset, mAnimCount, mMinAnimInterval, ePlayerDirection::RIGHT);
-		
-		// mpAnimator->GetCompleteEvent(mAnimIdle) = std::bind(&Player::WalkComplete, this);
-		// 이거 내가 따로 다시 공부해야함. 마지막 이벤트에 고고
-		// mpAnimator->mCompleteEvent = std::bind(&Player::WalkComplete, this);
-		//AddComponent(new RigidBody());
-		Camera::SetTarget(this);
 		mpAnimator->Play(mEPlayerDir);
+		
+		Camera::SetTarget(this);
 	}
 
 	void Player::Tick()

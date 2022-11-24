@@ -1,5 +1,5 @@
 #include "yaBoomGhost.h"
-#include "yaImage.h";
+#include "yaImage.h"
 #include "yaResources.h"
 #include "yaAnimator.h"
 #include "yaCollider.h"

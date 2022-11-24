@@ -27,7 +27,8 @@ namespace ya
 	{
 		for (Component* component : mComponents)
 		{
-			if (component == nullptr) { continue; }
+			if (component == nullptr) 
+				{ continue; }
 			delete component;
 			component = nullptr;
 		}
@@ -42,15 +43,14 @@ namespace ya
 		{
 			mDeathTime -= Time::DeltaTime();
 			if (mDeathTime <= 0.0f)
-			{
-				DisableObject();
-			}
+				{ DisableObject(); }
 		}
 
 		// 모든 컴포넌트의 Tick 호출
 		for (Component* component : mComponents)
 		{
-			if (component == nullptr) { continue; }
+			if (component == nullptr) 
+				{ continue; }
 			component->Tick();
 		}
 	}
@@ -59,7 +59,8 @@ namespace ya
 		// 모든 컴포넌트의 Render 호출
 		for (Component* component : mComponents)
 		{
-			if (component == nullptr) { continue; }
+			if (component == nullptr) 
+				{ continue; }
 			component->Render(hdc);
 		}
 	}

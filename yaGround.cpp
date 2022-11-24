@@ -10,7 +10,7 @@ namespace ya
 		: GameObject()
 	{
 		Collider* pCollider = AddComponent<Collider>();
-		pCollider->SetScale(Vector2(600.0f, 100.0f));
+		pCollider->SetSize(Vector2(600.0f, 100.0f));
 
 	}
 	Ground::~Ground()

@@ -280,10 +280,10 @@
       <Filter>GameObject\Game\Monster\Boss</Filter>
     </ClInclude>
     <ClInclude Include="yaPlayerCustomAnimation.h">
-      <Filter>헤더 파일</Filter>
+      <Filter>Component</Filter>
     </ClInclude>
     <ClInclude Include="yaPlayerCustomAnimator.h">
-      <Filter>헤더 파일</Filter>
+      <Filter>Component</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -483,10 +483,10 @@
       <Filter>GameObject\Game\Monster\Boss</Filter>
     </ClCompile>
     <ClCompile Include="yaPlayerCustomAnimation.cpp">
-      <Filter>소스 파일</Filter>
+      <Filter>Component</Filter>
     </ClCompile>
     <ClCompile Include="yaPlayerCustomAnimator.cpp">
-      <Filter>소스 파일</Filter>
+      <Filter>Component</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

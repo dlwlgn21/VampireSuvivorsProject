@@ -16,6 +16,7 @@ namespace ya
 		, mIntervalCounter(0.0f)
 		, mScale(Vector2::ONE)
 		, mFunc({})
+		, mbIsKeyPressing(false)
 	{
 		mSpriteSheet.reserve(4);
 		mFunc.BlendOp = AC_SRC_OVER;
@@ -35,7 +36,18 @@ namespace ya
 				if (mCurrSpriteIdx >= mSpriteSheet.size())
 					{ mCurrSpriteIdx = 0; }
 			}
+
+			if (IS_KEY_PRESSED(eKeyCode::A))
+			{
+				mbIsKeyPressing = true;
+			}
+			else
+			{
+				mbIsKeyPressing = false;
+			}
 		}
+
+		
 	}
 
 	void PlayerCustomAnimation::Render(HDC hdc)
@@ -59,6 +71,30 @@ namespace ya
 			static_cast<int>(mSpriteSheet[mCurrSpriteIdx].Size.y),
 			mFunc
 		);
+
+		//AddedPart
+		if (mbIsKeyPressing)
+		{
+			float xDiff = 40.0f;
+			mFunc.SourceConstantAlpha = 32;
+			AlphaBlend(
+				hdc,
+				static_cast<int>((pos.x - mSpriteSheet[mCurrSpriteIdx].Size.x / 2.0f) + xDiff),
+				static_cast<int>(pos.y - mSpriteSheet[mCurrSpriteIdx].Size.y / 2.0f),
+				static_cast<int>(mSpriteSheet[mCurrSpriteIdx].Size.x * mScale.x),
+				static_cast<int>(mSpriteSheet[mCurrSpriteIdx].Size.y * mScale.y),
+
+				mpImage->GetDC(),
+				static_cast<int>(mSpriteSheet[mCurrSpriteIdx].LeftTop.x),
+				static_cast<int>(mSpriteSheet[mCurrSpriteIdx].LeftTop.y),
+				static_cast<int>(mSpriteSheet[mCurrSpriteIdx].Size.x),
+				static_cast<int>(mSpriteSheet[mCurrSpriteIdx].Size.y),
+				mFunc
+			);
+			mFunc.SourceConstantAlpha = 255;
+			mbIsKeyPressing = false;
+		}
+
 	}
 	void PlayerCustomAnimation::Create(Image* pImage, Vector2 leftTop, Vector2 size, Vector2 offset, UINT spriteCount)
 	{

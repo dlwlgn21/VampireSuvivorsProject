@@ -6,10 +6,10 @@
 
 namespace ya
 {
-	Collider::Collider(Vector2 scale)
+	Collider::Collider(Vector2 size)
 		: Component(eComponentType::COLLIDER)
 		, mPos(Vector2::ZERO)
-		, mScale(scale)
+		, mSize(size)
 		, mOffset(Vector2::ZERO)
 		, mCollisionCount(0)
 	{
@@ -17,11 +17,11 @@ namespace ya
 	Collider::Collider()
 		: Component(eComponentType::COLLIDER)
 		, mPos(Vector2::ZERO)
-		, mScale(Vector2::ONE)
+		, mSize(Vector2::ONE)
 		, mOffset(Vector2::ZERO)
 		, mCollisionCount(0)
 	{
-		mScale = Vector2(100.0f, 100.0f);
+		mSize = Vector2(100.0f, 100.0f);
 	}
 	Collider::~Collider()
 	{
@@ -49,20 +49,20 @@ namespace ya
 		{
 			prevPen = static_cast<HPEN>(SelectObject(hdc, greenPen));
 		}
-		Vector2 fPos;
-		fPos.x = mPos.x - mScale.x / 2;
-		fPos.y = mPos.y - mScale.y / 2;
-		Vector2 fScale;
-		fScale.x = mPos.x + mScale.x / 2;
-		fScale.y = mPos.y + mScale.y / 2;
-		fPos = Camera::ToCameraPos(fPos);
-		fScale = Camera::ToCameraPos(fScale);
+		Vector2 leftTop;
+		leftTop.x = mPos.x - mSize.x / 2;
+		leftTop.y = mPos.y - mSize.y / 2;
+		Vector2 rightBottom;
+		rightBottom.x = mPos.x + mSize.x / 2;
+		rightBottom.y = mPos.y + mSize.y / 2;
+		leftTop = Camera::ToCameraPos(leftTop);
+		rightBottom = Camera::ToCameraPos(rightBottom);
 		Rectangle(
 			hdc,
-			static_cast<int>(fPos.x),
-			static_cast<int>(fPos.y),
-			static_cast<int>(fScale.x),
-			static_cast<int>(fScale.y)
+			static_cast<int>(leftTop.x),
+			static_cast<int>(leftTop.y),
+			static_cast<int>(rightBottom.x),
+			static_cast<int>(rightBottom.y)
 		);
 		SelectObject(hdc, prevPen);
 		DeleteObject(redPen);

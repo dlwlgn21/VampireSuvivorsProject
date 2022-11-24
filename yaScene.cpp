@@ -13,7 +13,7 @@ namespace ya
 		mObjects.resize(MAX_COLLIDER_LAYER);
 		for (int i = 0; i < MAX_COLLIDER_LAYER; ++i)
 		{
-			mObjects[i].reserve(64);
+			mObjects[i].reserve(128);
 		}
 	}
 	Scene::~Scene()

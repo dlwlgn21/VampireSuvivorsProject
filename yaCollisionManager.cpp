@@ -47,8 +47,10 @@ namespace ya
 			col = iLeft;
 		}
 
-		if (value == true) { mMatrix[row] |= (1 << col); }
-		else { mMatrix[row] &= ~(1 << col); }
+		if (value == true) 
+			{ mMatrix[row] |= (1 << col); }
+		else 
+			{ mMatrix[row] &= ~(1 << col); }
 
 		/*if (value == true)	{ mBitMatrix[row] |= (0x1 << col); }
 		else				{ mBitMatrix[row] &= ~(0x1 << col); }*/
@@ -65,11 +67,13 @@ namespace ya
 		for (auto* leftObject : lefts)
 		{
 			chcheLeftCollider = leftObject->GetComponentOrNull<Collider>(eComponentType::COLLIDER);
-			if (chcheLeftCollider == nullptr) { continue; }
+			if (chcheLeftCollider == nullptr) 
+				{ continue; }
 			for (auto* rightObject : rights)
 			{
 				cacheRightCollider = rightObject->GetComponentOrNull<Collider>(eComponentType::COLLIDER);
-				if (cacheRightCollider == nullptr) { continue; }
+				if (cacheRightCollider == nullptr) 
+					{ continue; }
 
 				if (leftObject == rightObject || chcheLeftCollider == cacheRightCollider) { continue; }
 
@@ -90,10 +94,7 @@ namespace ya
 		{
 			auto insertResult = mCollisionInfo.insert(std::make_pair(id.ID, false));
 			if (insertResult.second == false)
-			{
-				assert(false);
-				// Something wrong... Never Enter this if statement
-			}
+				{ assert(false); }
 			collistionInfoIter = insertResult.first;
 		}
 
@@ -127,13 +128,9 @@ namespace ya
 	bool CollisionManager::CheckIntersect(Collider* lCollider, Collider* rCollider)
 	{
 		if (!lCollider->GetOwner()->IsAlive())
-		{
-			return false;
-		}
+			{ return false; }
 		if (!rCollider->GetOwner()->IsAlive())
-		{
-			return false;
-		}
+			{ return false; }
 		Vector2 leftPos = lCollider->GetPos();
 		Vector2 leftScale = lCollider->GetScale();
 		Vector2 rightPos = rCollider->GetPos();
@@ -141,9 +138,7 @@ namespace ya
 
 		if (fabs(leftPos.x - rightPos.x) < fabs(leftScale.x / 2 + rightScale.x / 2) &&
 			fabs(leftPos.y - rightPos.y) < fabs(leftScale.y / 2 + rightScale.y / 2))
-		{
-			return true;
-		}
+			{ return true; }
 		return false;
 	}
 	void CollisionManager::Clear()

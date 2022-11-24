@@ -36,7 +36,7 @@ namespace ya
 		Vector2 mAnimOffset;
 		UINT mAnimCount;
 		float mMinAnimInterval;
-		Vector2 mColliderScale;
+		Vector2 mColliderSize;
 
 		Vector2 dir;
 

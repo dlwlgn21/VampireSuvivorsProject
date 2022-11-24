@@ -20,16 +20,16 @@ namespace ya
 
 		__forceinline void SetOffset(Vector2 offset) { mOffset = offset; }
 		__forceinline void SetPos(Vector2 pos) { mPos = pos; }
-		__forceinline void SetScale(Vector2 scale) { mScale = scale; }
+		__forceinline void SetSize(Vector2 size) { mSize = size; }
 
 		__forceinline Vector2 GetOffset() { return mOffset; }
 		__forceinline Vector2 GetPos() { return mPos; }
-		__forceinline Vector2 GetScale() { return mScale; }
+		__forceinline Vector2 GetScale() { return mSize; }
 
 	private:
 		Vector2 mOffset;
 		Vector2 mPos;
-		Vector2 mScale;
+		Vector2 mSize;
 
 		char mCollisionCount;
 	};
