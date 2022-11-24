@@ -16,7 +16,12 @@ namespace ya
 		, mIntervalCounter(0.0f)
 		, mScale(Vector2::ONE)
 		, mFunc({})
-		, mbIsKeyPressing(false)
+		, mXAfterImageDiff(8.0f)
+		, mYAfterImageDiff(8.0f)
+		, mbIsLeftKeyPressing(false)
+		, mbIsRightKeyPressing(false)
+		, mbIsUpKeyPressing(false)
+		, mbIsDownKeyPressing(false)
 	{
 		mSpriteSheet.reserve(4);
 		mFunc.BlendOp = AC_SRC_OVER;
@@ -38,13 +43,13 @@ namespace ya
 			}
 
 			if (IS_KEY_PRESSED(eKeyCode::A))
-			{
-				mbIsKeyPressing = true;
-			}
-			else
-			{
-				mbIsKeyPressing = false;
-			}
+			{ mbIsLeftKeyPressing = true; }			
+			if (IS_KEY_PRESSED(eKeyCode::D))
+			{ mbIsRightKeyPressing = true; }			
+			if (IS_KEY_PRESSED(eKeyCode::W))
+			{ mbIsUpKeyPressing = true; }			
+			if (IS_KEY_PRESSED(eKeyCode::S))
+			{ mbIsDownKeyPressing = true; }
 		}
 
 		
@@ -72,14 +77,13 @@ namespace ya
 			mFunc
 		);
 
+		mFunc.SourceConstantAlpha = 128;
 		//AddedPart
-		if (mbIsKeyPressing)
+		if (mbIsLeftKeyPressing)
 		{
-			float xDiff = 40.0f;
-			mFunc.SourceConstantAlpha = 32;
 			AlphaBlend(
 				hdc,
-				static_cast<int>((pos.x - mSpriteSheet[mCurrSpriteIdx].Size.x / 2.0f) + xDiff),
+				static_cast<int>((pos.x - mSpriteSheet[mCurrSpriteIdx].Size.x / 2.0f) + mXAfterImageDiff),
 				static_cast<int>(pos.y - mSpriteSheet[mCurrSpriteIdx].Size.y / 2.0f),
 				static_cast<int>(mSpriteSheet[mCurrSpriteIdx].Size.x * mScale.x),
 				static_cast<int>(mSpriteSheet[mCurrSpriteIdx].Size.y * mScale.y),
@@ -91,10 +95,64 @@ namespace ya
 				static_cast<int>(mSpriteSheet[mCurrSpriteIdx].Size.y),
 				mFunc
 			);
-			mFunc.SourceConstantAlpha = 255;
-			mbIsKeyPressing = false;
+			mbIsLeftKeyPressing = false;
 		}
 
+		if (mbIsRightKeyPressing)
+		{
+			AlphaBlend(
+				hdc,
+				static_cast<int>((pos.x - mSpriteSheet[mCurrSpriteIdx].Size.x / 2.0f) + -mXAfterImageDiff),
+				static_cast<int>(pos.y - mSpriteSheet[mCurrSpriteIdx].Size.y / 2.0f),
+				static_cast<int>(mSpriteSheet[mCurrSpriteIdx].Size.x * mScale.x),
+				static_cast<int>(mSpriteSheet[mCurrSpriteIdx].Size.y * mScale.y),
+
+				mpImage->GetDC(),
+				static_cast<int>(mSpriteSheet[mCurrSpriteIdx].LeftTop.x),
+				static_cast<int>(mSpriteSheet[mCurrSpriteIdx].LeftTop.y),
+				static_cast<int>(mSpriteSheet[mCurrSpriteIdx].Size.x),
+				static_cast<int>(mSpriteSheet[mCurrSpriteIdx].Size.y),
+				mFunc
+			);
+			mbIsRightKeyPressing = false;
+		}
+		if (mbIsUpKeyPressing)
+		{
+			AlphaBlend(
+				hdc,
+				static_cast<int>(pos.x - mSpriteSheet[mCurrSpriteIdx].Size.x / 2.0f),
+				static_cast<int>((pos.y - mSpriteSheet[mCurrSpriteIdx].Size.y / 2.0f) +mYAfterImageDiff),
+				static_cast<int>(mSpriteSheet[mCurrSpriteIdx].Size.x * mScale.x),
+				static_cast<int>(mSpriteSheet[mCurrSpriteIdx].Size.y * mScale.y),
+
+				mpImage->GetDC(),
+				static_cast<int>(mSpriteSheet[mCurrSpriteIdx].LeftTop.x),
+				static_cast<int>(mSpriteSheet[mCurrSpriteIdx].LeftTop.y),
+				static_cast<int>(mSpriteSheet[mCurrSpriteIdx].Size.x),
+				static_cast<int>(mSpriteSheet[mCurrSpriteIdx].Size.y),
+				mFunc
+			);
+			mbIsUpKeyPressing = false;
+		}
+		if (mbIsDownKeyPressing)
+		{
+			AlphaBlend(
+				hdc,
+				static_cast<int>(pos.x - mSpriteSheet[mCurrSpriteIdx].Size.x / 2.0f),
+				static_cast<int>((pos.y - mSpriteSheet[mCurrSpriteIdx].Size.y / 2.0f) + -mYAfterImageDiff),
+				static_cast<int>(mSpriteSheet[mCurrSpriteIdx].Size.x * mScale.x),
+				static_cast<int>(mSpriteSheet[mCurrSpriteIdx].Size.y * mScale.y),
+
+				mpImage->GetDC(),
+				static_cast<int>(mSpriteSheet[mCurrSpriteIdx].LeftTop.x),
+				static_cast<int>(mSpriteSheet[mCurrSpriteIdx].LeftTop.y),
+				static_cast<int>(mSpriteSheet[mCurrSpriteIdx].Size.x),
+				static_cast<int>(mSpriteSheet[mCurrSpriteIdx].Size.y),
+				mFunc
+			);
+			mbIsDownKeyPressing = false;
+		}
+		mFunc.SourceConstantAlpha = 255;
 	}
 	void PlayerCustomAnimation::Create(Image* pImage, Vector2 leftTop, Vector2 size, Vector2 offset, UINT spriteCount)
 	{

@@ -43,8 +43,13 @@ namespace ya
 		BLENDFUNCTION mFunc;
 		float mMinAnimInterval;
 		float mIntervalCounter;
+		float mXAfterImageDiff;
+		float mYAfterImageDiff;
 		Vector2 mScale;
-		bool mbIsKeyPressing;
+		bool mbIsLeftKeyPressing;
+		bool mbIsRightKeyPressing;
+		bool mbIsUpKeyPressing;
+		bool mbIsDownKeyPressing;
 	};
 }
 
