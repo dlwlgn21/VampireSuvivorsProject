@@ -78,7 +78,7 @@ namespace ya
 		);
 
 		mFunc.SourceConstantAlpha = 128;
-		//AddedPart
+		// AfterImage Effect Part
 		if (mbIsLeftKeyPressing)
 		{
 			AlphaBlend(
@@ -97,8 +97,7 @@ namespace ya
 			);
 			mbIsLeftKeyPressing = false;
 		}
-
-		if (mbIsRightKeyPressing)
+		else if (mbIsRightKeyPressing)
 		{
 			AlphaBlend(
 				hdc,
@@ -116,7 +115,7 @@ namespace ya
 			);
 			mbIsRightKeyPressing = false;
 		}
-		if (mbIsUpKeyPressing)
+		else if (mbIsUpKeyPressing)
 		{
 			AlphaBlend(
 				hdc,
@@ -134,7 +133,7 @@ namespace ya
 			);
 			mbIsUpKeyPressing = false;
 		}
-		if (mbIsDownKeyPressing)
+		else if (mbIsDownKeyPressing)
 		{
 			AlphaBlend(
 				hdc,

@@ -20,24 +20,27 @@ namespace ya
 {
 	Player::Player()
 		: GameObject({ 1500.0f, 500.0f })
-		, mSpeed(500.0f)
+		, mSpeed(300.0f)
 		, mPen(CreatePen(PS_DASHDOTDOT, 3, RGB(0, 255, 255)))
 		, mBrush(CreateSolidBrush(RGB(153, 204, 255)))
 		, mpLeftImage(Resources::Load<Image>(L"PlayerLeft", L"Resources\\Image\\PlayerLeftAnim.bmp"))
 		, mpRightImage(Resources::Load<Image>(L"PlayerRight", L"Resources\\Image\\PlayerRightAnim.bmp"))
+		, mpLeftHittedImage(Resources::Load<Image>(L"PlayerLeftHitted", L"Resources\\Image\\PlayerLeftHittedAnim.bmp"))
+		, mpRightHittedImage(Resources::Load<Image>(L"PlayerRightHitted", L"Resources\\Image\\PlayerRightHittedAnim.bmp"))
 		, mAnimSize(34.0f, 34.0f)
-		, mAnimOffset(-18.0f, -22.0f)
+		, mAnimOffset(-19.0f, -15.0f)
 		, mAnimCount(4)
 		, mMinAnimInterval(0.15f)
-		, mColliderSize(25.0f, 40.0f)
 		, dir(Vector2::ONE)
 		, mpAnimator(new PlayerCustomAnimator())
-		, mpCollider(new Collider(mColliderSize))
+		, mpCollider(new Collider({20.0f, 40.0f}))
 		, mHp(100)
-		, mEPlayerDir(ePlayerDirection::LEFT)
+		, mePlayerAnimState(ePlayerAnimState::LEFT)
 	{
 		assert(mpLeftImage != nullptr);
 		assert(mpRightImage != nullptr);
+		assert(mpLeftHittedImage != nullptr);
+		assert(mpRightHittedImage != nullptr);
 		assert(mpAnimator != nullptr);
 		assert(mpCollider != nullptr);
 		SetName(L"Player");
@@ -45,9 +48,11 @@ namespace ya
 		
 		AddComponent(mpAnimator);
 		AddComponent(mpCollider);
-		mpAnimator->CreateAnimation(mpLeftImage, Vector2::ZERO, mAnimSize, mAnimOffset, mAnimCount, mMinAnimInterval, ePlayerDirection::LEFT);
-		mpAnimator->CreateAnimation(mpRightImage, Vector2::ZERO, mAnimSize, mAnimOffset, mAnimCount, mMinAnimInterval, ePlayerDirection::RIGHT);
-		mpAnimator->Play(mEPlayerDir);
+		mpAnimator->CreateAnimation(mpLeftImage, Vector2::ZERO, mAnimSize, mAnimOffset, mAnimCount, mMinAnimInterval, ePlayerAnimState::LEFT);
+		mpAnimator->CreateAnimation(mpRightImage, Vector2::ZERO, mAnimSize, mAnimOffset, mAnimCount, mMinAnimInterval, ePlayerAnimState::RIGHT);
+		mpAnimator->CreateAnimation(mpLeftHittedImage, Vector2::ZERO, mAnimSize, mAnimOffset, mAnimCount, mMinAnimInterval, ePlayerAnimState::LEFT_HITTED);
+		mpAnimator->CreateAnimation(mpRightHittedImage, Vector2::ZERO, mAnimSize, mAnimOffset, mAnimCount, mMinAnimInterval, ePlayerAnimState::RIGHT_HITTED);
+		mpAnimator->Play(mePlayerAnimState);
 		
 		Camera::SetTarget(this);
 	}
@@ -55,61 +60,67 @@ namespace ya
 	void Player::Tick()
 	{
 		GameObject::Tick();
-#if 1
 		if (IS_KEY_DOWN(eKeyCode::D))
 		{
-			mEPlayerDir = ePlayerDirection::RIGHT;
-			mpAnimator->Play(mEPlayerDir);
+			mePlayerAnimState = ePlayerAnimState::RIGHT;
+			mpAnimator->Play(mePlayerAnimState);
 		}
-		//if (IS_KEY_DOWN(eKeyCode::W) || IS_KEY_DOWN(eKeyCode::S) || IS_KEY_DOWN(eKeyCode::D))
-		//if (IS_KEY_UP(eKeyCode::D))		{ mpAnimator->Play(mAnimMove, false); }
 		if (IS_KEY_DOWN(eKeyCode::A))
 		{
-			mEPlayerDir = ePlayerDirection::LEFT;
-			mpAnimator->Play(mEPlayerDir);
+			mePlayerAnimState = ePlayerAnimState::LEFT;
+			mpAnimator->Play(mePlayerAnimState);
 		}
 
 		if (IS_KEY_PRESSED(eKeyCode::W)) 
 		{ 
-			mPos.y -= mSpeed * Time::DeltaTime(); 
-			mpAnimator->Play(mEPlayerDir);
+			float correctionVal = 0.75f;
+			if (IS_KEY_PRESSED(eKeyCode::A))
+			{
+				mPos.x -= mSpeed * Time::DeltaTime() * correctionVal;
+				mPos.y -= mSpeed * Time::DeltaTime() * correctionVal;
+				goto PLAY_ANIMATION;
+			}
+			else if (IS_KEY_PRESSED(eKeyCode::D))
+			{
+				mPos.x += mSpeed * Time::DeltaTime() * correctionVal;
+				mPos.y -= mSpeed * Time::DeltaTime() * correctionVal;
+				goto PLAY_ANIMATION;
+			}
+			else
+				{ mPos.y -= mSpeed * Time::DeltaTime(); }
 		}
 		if (IS_KEY_PRESSED(eKeyCode::S)) 
 		{ 
-			mPos.y += mSpeed * Time::DeltaTime(); 
-			mpAnimator->Play(mEPlayerDir);
+			float correctionVal = 0.75f;
+			if (IS_KEY_PRESSED(eKeyCode::A))
+			{
+				mPos.x -= mSpeed * Time::DeltaTime() * correctionVal;
+				mPos.y += mSpeed * Time::DeltaTime() * correctionVal;
+				goto PLAY_ANIMATION;
+			}
+			else if (IS_KEY_PRESSED(eKeyCode::D))
+			{
+				mPos.x += mSpeed * Time::DeltaTime() * correctionVal;
+				mPos.y += mSpeed * Time::DeltaTime() * correctionVal;
+				goto PLAY_ANIMATION;
+			}
+			else
+				{ mPos.y += mSpeed * Time::DeltaTime(); }
 		}
 		if (IS_KEY_PRESSED(eKeyCode::A)) 
 		{ 
 			mPos.x -= mSpeed * Time::DeltaTime(); 
-			mEPlayerDir = ePlayerDirection::LEFT;
-			mpAnimator->Play(mEPlayerDir);
+			mePlayerAnimState = ePlayerAnimState::LEFT;
 		}
 		if (IS_KEY_PRESSED(eKeyCode::D)) 
 		{ 
 			mPos.x += mSpeed * Time::DeltaTime(); 
-			mEPlayerDir = ePlayerDirection::RIGHT;
-			mpAnimator->Play(mEPlayerDir);
+			mePlayerAnimState = ePlayerAnimState::RIGHT;
 		}
-#endif
-
-
-// RigidBody PART
-#if 0
-		if (IS_KEY_PRESSED(eKeyCode::W)) { GetComponentOrNull<RigidBody>(eComponentType::RIGID_BODY)->AddForce({0.0f, -mSpeed }); }
-		if (IS_KEY_PRESSED(eKeyCode::S)) { GetComponentOrNull<RigidBody>(eComponentType::RIGID_BODY)->AddForce({ 0.0f, mSpeed }); }
-		if (IS_KEY_PRESSED(eKeyCode::A)) { GetComponentOrNull<RigidBody>(eComponentType::RIGID_BODY)->AddForce({ -mSpeed, 0.0f }); }
-		if (IS_KEY_PRESSED(eKeyCode::D)) { GetComponentOrNull<RigidBody>(eComponentType::RIGID_BODY)->AddForce({ mSpeed, 0.0f }); }
-
-#endif
-
-		//if (IS_KEY_UP(eKeyCode::A))		{ mpAnimator->Play(mAnimMoveInv, false); }
-		
 #if 0
 		if (IS_KEY_DOWN(eKeyCode::SPACE))
 		{
-// RigidBodyPart
-#if 0
+#if 0	// RigidBodyPart
 
 			RigidBody* pRB = GetComponentOrNull<RigidBody>(eComponentType::RIGID_BODY);
 			Vector2 velocity = pRB->GetVelocity();
@@ -136,7 +147,13 @@ namespace ya
 			pMis->mDir = dir;
 		}
 #endif
+
+	PLAY_ANIMATION:
+		{
+			mpAnimator->Play(mePlayerAnimState);
+		}
 	}
+
 	void Player::Render(HDC hdc)
 	{
 		//Pen	pen(hdc, mPen);
@@ -193,9 +210,33 @@ namespace ya
 	}
 	void Player::OnCollisionStay(Collider* other)
 	{
+		switch (mePlayerAnimState)
+		{
+		case ePlayerAnimState::LEFT:
+			mePlayerAnimState = ePlayerAnimState::LEFT_HITTED;
+			break;
+		case ePlayerAnimState::RIGHT:
+			mePlayerAnimState = ePlayerAnimState::RIGHT_HITTED;
+			break;
+		default:
+			break;
+		}
+		mpAnimator->Play(mePlayerAnimState);
 	}
 	void Player::OnCollisionExit(Collider* other)
 	{
+		switch (mePlayerAnimState)
+		{
+		case ePlayerAnimState::LEFT_HITTED:
+			mePlayerAnimState = ePlayerAnimState::LEFT;
+			break;
+		case ePlayerAnimState::RIGHT_HITTED:
+			mePlayerAnimState = ePlayerAnimState::RIGHT;
+			break;
+		default:
+			break;
+		}
+		mpAnimator->Play(mePlayerAnimState);
 	}
 
 	void Player::WalkComplete()

@@ -29,6 +29,8 @@ namespace ya
 		HBRUSH mBrush;
 		Image* mpLeftImage;
 		Image* mpRightImage;
+		Image* mpLeftHittedImage;
+		Image* mpRightHittedImage;
 		PlayerCustomAnimator* mpAnimator;
 		Collider* mpCollider;
 
@@ -36,12 +38,11 @@ namespace ya
 		Vector2 mAnimOffset;
 		UINT mAnimCount;
 		float mMinAnimInterval;
-		Vector2 mColliderSize;
 
 		Vector2 dir;
 
 		int mHp;
-		ePlayerDirection mEPlayerDir;
+		ePlayerAnimState mePlayerAnimState;
 	};
 
 }

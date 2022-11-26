@@ -3,10 +3,12 @@
 
 namespace ya
 {
-	enum class ePlayerDirection
+	enum class ePlayerAnimState
 	{
 		LEFT,
+		LEFT_HITTED,
 		RIGHT,
+		RIGHT_HITTED,
 		COUNT
 	};
 	class Image;
@@ -23,14 +25,14 @@ namespace ya
 		void CreateAnimation(
 			Image* pImage, Vector2 leftTop,
 			Vector2 size, Vector2 offset,
-			UINT spriteCount, float minAnimInterval, ePlayerDirection dir);
+			UINT spriteCount, float minAnimInterval, ePlayerAnimState dir);
 
-		void Play(ePlayerDirection dir);
-		__forceinline ePlayerDirection GetCurrDir() { return mCurrPlayerDirection; }
+		void Play(ePlayerAnimState dir);
+		__forceinline ePlayerAnimState GetCurrDir() { return mCurrPlayerDirection; }
 	private:
-		PlayerCustomAnimation* mpAnims[static_cast<UINT>(ePlayerDirection::COUNT)];
+		PlayerCustomAnimation* mpAnims[static_cast<UINT>(ePlayerAnimState::COUNT)];
 		PlayerCustomAnimation* mpCurrAnim;
-		ePlayerDirection mCurrPlayerDirection;
+		ePlayerAnimState mCurrPlayerDirection;
 	};
 }
 

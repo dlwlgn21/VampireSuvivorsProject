@@ -8,16 +8,16 @@ namespace ya
 	PlayerCustomAnimator::PlayerCustomAnimator()
 		: Component(eComponentType::PLAYER_ANIMATOR)
 		, mpCurrAnim(nullptr)
-		, mCurrPlayerDirection(ePlayerDirection::LEFT)
+		, mCurrPlayerDirection(ePlayerAnimState::LEFT)
 	{
-		for (int i = 0; i < static_cast<UINT>(ePlayerDirection::COUNT); ++i)
+		for (int i = 0; i < static_cast<UINT>(ePlayerAnimState::COUNT); ++i)
 		{
 			mpAnims[i] = nullptr;
 		}
 	}
 	PlayerCustomAnimator::~PlayerCustomAnimator()
 	{
-		for (int i = 0; i < static_cast<UINT>(ePlayerDirection::COUNT); ++i)
+		for (int i = 0; i < static_cast<UINT>(ePlayerAnimState::COUNT); ++i)
 		{
 			if (mpAnims[i] != nullptr)
 				{ delete mpAnims[i]; }
@@ -29,20 +29,19 @@ namespace ya
 		{
 			switch (mCurrPlayerDirection)
 			{
-			case ePlayerDirection::LEFT:
+			case ePlayerAnimState::LEFT:
 				if (IS_KEY_DOWN(eKeyCode::A) || IS_KEY_PRESSED(eKeyCode::A) || 
 					IS_KEY_DOWN(eKeyCode::W) || IS_KEY_PRESSED(eKeyCode::W) ||
 					IS_KEY_DOWN(eKeyCode::S) || IS_KEY_PRESSED(eKeyCode::S))
 					{ mpCurrAnim->Tick();}
 				break;
-			case ePlayerDirection::RIGHT:
+			case ePlayerAnimState::RIGHT:
 				if (IS_KEY_DOWN(eKeyCode::D) || IS_KEY_PRESSED(eKeyCode::D)	||
 					IS_KEY_DOWN(eKeyCode::W) || IS_KEY_PRESSED(eKeyCode::W) ||
 					IS_KEY_DOWN(eKeyCode::S) || IS_KEY_PRESSED(eKeyCode::S))
 					{ mpCurrAnim->Tick(); }
 				break;
 			default:
-				assert(false);
 				break;
 			}
 		}
@@ -53,7 +52,7 @@ namespace ya
 			{ mpCurrAnim->Render(hdc); }
 	}
 
-	void PlayerCustomAnimator::CreateAnimation(Image* pImage, Vector2 leftTop, Vector2 size, Vector2 offset, UINT spriteCount, float minAnimInterval, ePlayerDirection dir)
+	void PlayerCustomAnimator::CreateAnimation(Image* pImage, Vector2 leftTop, Vector2 size, Vector2 offset, UINT spriteCount, float minAnimInterval, ePlayerAnimState dir)
 	{
 		assert(pImage != nullptr);
 		mpAnims[static_cast<UINT>(dir)] = new PlayerCustomAnimation(minAnimInterval);
@@ -61,7 +60,7 @@ namespace ya
 		mpAnims[static_cast<UINT>(dir)]->SetAnimator(this);
 		mpAnims[static_cast<UINT>(dir)]->SetScale(GetOwner()->GetScale());
 	}
-	void PlayerCustomAnimator::Play(ePlayerDirection dir)
+	void PlayerCustomAnimator::Play(ePlayerAnimState dir)
 	{
 		mpCurrAnim = mpAnims[static_cast<UINT>(dir)];
 		mCurrPlayerDirection = dir;

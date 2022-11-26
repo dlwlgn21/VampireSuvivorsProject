@@ -62,6 +62,10 @@ namespace ya
 		{
 			ya::object::InstantiateAtAnotherScene<Mudman>(eColliderLayer::MONSTER, Vector2(100.f * i, 300.f), GetSceneTpye());
 		}
+		Player* pPlayer = ya::object::Instantiate<Player>(eColliderLayer::PLAYER);
+		pPlayer->SetPos({ 300.0f, 200.0f });
+		CollisionManager::SetLayer(eColliderLayer::PLAYER, eColliderLayer::MONSTER, true);
+		CollisionManager::SetLayer(eColliderLayer::MONSTER, eColliderLayer::PLAYER_PROJECTTILE, true);
 #if 0
 		for (int i = 0; i < monsterCount; ++i)
 		{
@@ -173,10 +177,7 @@ namespace ya
 		//Ground* pG =  ya::object::Instantiate<Ground>(eColliderLayer::GROUND);
 		//pG->SetPos({300.0f, 800.0f});
 
-		Player* pPlayer = ya::object::Instantiate<Player>(eColliderLayer::PLAYER);
-		pPlayer->SetPos({ 300.0f, 200.0f });
-		CollisionManager::SetLayer(eColliderLayer::PLAYER, eColliderLayer::MONSTER, true);
-		CollisionManager::SetLayer(eColliderLayer::MONSTER, eColliderLayer::PLAYER_PROJECTTILE, true);
+
 
 
 // FOR UI
