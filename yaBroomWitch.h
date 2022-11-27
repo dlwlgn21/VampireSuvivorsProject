@@ -12,8 +12,8 @@ namespace ya
 		BroomWitch(Vector2 pos);
 		virtual ~BroomWitch() = default;
 
-		void Tick() override;
-		void Render(HDC hdc) override;
+		virtual void Tick() override;
+		virtual void Render(HDC hdc) override;
 		void OnCollisionEnter(Collider* other) override;
 		void OnCollisionStay(Collider* other) override;
 		void OnCollisionExit(Collider* other) override;

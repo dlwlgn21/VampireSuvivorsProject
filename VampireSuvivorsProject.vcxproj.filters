@@ -285,6 +285,9 @@
     <ClInclude Include="yaPlayerCustomAnimator.h">
       <Filter>Component</Filter>
     </ClInclude>
+    <ClInclude Include="yaWeapon.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Maths.cpp">
@@ -487,6 +490,9 @@
     </ClCompile>
     <ClCompile Include="yaPlayerCustomAnimator.cpp">
       <Filter>Component</Filter>
+    </ClCompile>
+    <ClCompile Include="yaWeapon.cpp">
+      <Filter>소스 파일</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

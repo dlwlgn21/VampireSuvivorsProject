@@ -46,8 +46,8 @@ namespace ya
 			{ mbIsLeftKeyPressing = true; }			
 			if (IS_KEY_PRESSED(eKeyCode::D))
 			{ mbIsRightKeyPressing = true; }			
-			if (IS_KEY_PRESSED(eKeyCode::W))
-			{ mbIsUpKeyPressing = true; }			
+/*			if (IS_KEY_PRESSED(eKeyCode::W))
+			{ mbIsUpKeyPressing = true; }		*/	
 			if (IS_KEY_PRESSED(eKeyCode::S))
 			{ mbIsDownKeyPressing = true; }
 		}
@@ -115,24 +115,24 @@ namespace ya
 			);
 			mbIsRightKeyPressing = false;
 		}
-		else if (mbIsUpKeyPressing)
-		{
-			AlphaBlend(
-				hdc,
-				static_cast<int>(pos.x - mSpriteSheet[mCurrSpriteIdx].Size.x / 2.0f),
-				static_cast<int>((pos.y - mSpriteSheet[mCurrSpriteIdx].Size.y / 2.0f) +mYAfterImageDiff),
-				static_cast<int>(mSpriteSheet[mCurrSpriteIdx].Size.x * mScale.x),
-				static_cast<int>(mSpriteSheet[mCurrSpriteIdx].Size.y * mScale.y),
+		//else if (mbIsUpKeyPressing)
+		//{
+		//	AlphaBlend(
+		//		hdc,
+		//		static_cast<int>(pos.x - mSpriteSheet[mCurrSpriteIdx].Size.x / 2.0f),
+		//		static_cast<int>((pos.y - mSpriteSheet[mCurrSpriteIdx].Size.y / 2.0f) +mYAfterImageDiff),
+		//		static_cast<int>(mSpriteSheet[mCurrSpriteIdx].Size.x * mScale.x),
+		//		static_cast<int>(mSpriteSheet[mCurrSpriteIdx].Size.y * mScale.y),
 
-				mpImage->GetDC(),
-				static_cast<int>(mSpriteSheet[mCurrSpriteIdx].LeftTop.x),
-				static_cast<int>(mSpriteSheet[mCurrSpriteIdx].LeftTop.y),
-				static_cast<int>(mSpriteSheet[mCurrSpriteIdx].Size.x),
-				static_cast<int>(mSpriteSheet[mCurrSpriteIdx].Size.y),
-				mFunc
-			);
-			mbIsUpKeyPressing = false;
-		}
+		//		mpImage->GetDC(),
+		//		static_cast<int>(mSpriteSheet[mCurrSpriteIdx].LeftTop.x),
+		//		static_cast<int>(mSpriteSheet[mCurrSpriteIdx].LeftTop.y),
+		//		static_cast<int>(mSpriteSheet[mCurrSpriteIdx].Size.x),
+		//		static_cast<int>(mSpriteSheet[mCurrSpriteIdx].Size.y),
+		//		mFunc
+		//	);
+		//	mbIsUpKeyPressing = false;
+		//}
 		else if (mbIsDownKeyPressing)
 		{
 			AlphaBlend(
