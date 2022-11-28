@@ -1,6 +1,6 @@
 #pragma once
+#include <random>
 #include "yaGameObejct.h"
-
 namespace ya
 {
 	enum class eWeaponType
@@ -24,9 +24,14 @@ namespace ya
 		virtual void OnCollisionStay(Collider* other) override;
 		virtual void OnCollisionExit(Collider* other) override;
 
-		inline void SetSize(Vector2 size) { mSize = size; }
-		inline Vector2 GetSize() { return mSize; }
-
+		__forceinline eWeaponType GetWeaponType() { return meWeaponType; }
+		__forceinline void SetSize(Vector2 size) { mSize = size; }
+		__forceinline Vector2 GetSize() { return mSize; }
+		__forceinline int GetDamage() { return mDamage; }
+		__forceinline void SetDamage(int newDamage) { mDamage = newDamage; }
+		__forceinline void SetSpeed(float newSpeed) { mSpeed = newSpeed; }
+		__forceinline void SetShootInterval(float newInterval) { mShootInterval = newInterval; }
+		__forceinline void SetSpawnPos(Vector2 newPos) { mSpawnPosition = newPos; }
 	protected:
 		Collider* mpCollider;
 		eWeaponType meWeaponType;

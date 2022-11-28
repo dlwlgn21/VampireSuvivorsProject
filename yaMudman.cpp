@@ -8,7 +8,7 @@
 namespace ya
 {
 	Mudman::Mudman(Vector2 pos)
-		: GameObject(pos)
+		: Monster(pos, 15)
 		, mPen(CreatePen(PS_DASHDOTDOT, 3, RGB(0, 255, 255)))
 		, mBrush(CreateSolidBrush(RGB(153, 204, 255)))
 		, mpImage(Resources::Load<Image>(L"Mudman", L"Resources\\Image\\MudmanAnim.bmp"))

@@ -5,6 +5,7 @@
 #include "yaInput.h"
 #include "yaCamera.h"
 #include "yaCollider.h"
+#include "yaMonster.h"
 
 namespace ya
 {
@@ -44,6 +45,13 @@ namespace ya
 			break;
 		}
 		assert(mpKnifeImage != nullptr);
+
+		std::random_device rd;
+		std::mt19937 gen(rd());
+		std::uniform_int_distribution<> dist(-30, 30);
+
+		mPos.x += static_cast<float>(dist(gen));
+		mPos.y += static_cast<float>(dist(gen));
 		mSizeX = mpKnifeImage->GetWidth();
 		mSizeY = mpKnifeImage->GetHeight();
 		SetSize({ static_cast<float>(mSizeX), static_cast<float>(mSizeY) });
@@ -120,9 +128,9 @@ namespace ya
 	{
 		if (other != nullptr)
 		{
-			
+			Monster* pMonster = static_cast<Monster*>(other->GetOwner());
+			pMonster->DamagedFromWeapon(mDamage);
 		}
-		int a = 0;
 	}
 	void Knife::OnCollisionStay(Collider* other)
 	{

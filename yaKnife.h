@@ -36,14 +36,6 @@ namespace ya
 		int mSizeX;
 		int mSizeY;
 		const eKnifeDirection mKnifeDirection;
-		//bool mbIsLeftKeyPressed;
-		//bool mbIsRightKeyPressed;
-		//bool mbIsUpKeyPressed;
-		//bool mbIsDownKeyPressed;
-		//bool mbIsUpLeftKeyPressed;
-		//bool mbIsUpRightKeyPressed;
-		//bool mbIsDownLeftPressed;
-		//bool mbIsDownRightPressed;
 	};
 
 }

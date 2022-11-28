@@ -73,6 +73,9 @@
     <Filter Include="GameObject\Game\Weapon\Base">
       <UniqueIdentifier>{3b6382a2-2e58-40cd-aec3-36bb016dc2db}</UniqueIdentifier>
     </Filter>
+    <Filter Include="GameObject\Game\Monster\Base">
+      <UniqueIdentifier>{32d01c2a-b0f3-4a0c-bdca-563cabf7ca9b}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
@@ -298,7 +301,7 @@
       <Filter>GameObject\Game\Weapon</Filter>
     </ClInclude>
     <ClInclude Include="yaMonster.h">
-      <Filter>헤더 파일</Filter>
+      <Filter>GameObject\Game\Monster\Base</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -508,6 +511,9 @@
     </ClCompile>
     <ClCompile Include="yaKnife.cpp">
       <Filter>GameObject\Game\Weapon</Filter>
+    </ClCompile>
+    <ClCompile Include="yaMonster.cpp">
+      <Filter>GameObject\Game\Monster\Base</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

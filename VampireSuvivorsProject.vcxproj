@@ -256,6 +256,7 @@
     <ClCompile Include="yaMedusa.cpp" />
     <ClCompile Include="yaMiniHeadDurahan.cpp" />
     <ClCompile Include="yaMissile.cpp" />
+    <ClCompile Include="yaMonster.cpp" />
     <ClCompile Include="yaMudman.cpp" />
     <ClCompile Include="yaPanel.cpp" />
     <ClCompile Include="yaPlayer.cpp" />
