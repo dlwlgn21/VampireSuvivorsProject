@@ -15,6 +15,7 @@
 #include "yaObject.h"
 #include "yaRigidBody.h"
 #include "yaUIManager.h"
+#include "yaKnife.h"
 
 namespace ya
 {
@@ -36,6 +37,9 @@ namespace ya
 		, mpCollider(new Collider({20.0f, 40.0f}))
 		, mHp(100)
 		, mePlayerAnimState(ePlayerAnimState::LEFT)
+		, KnifeShootInterval(2.0f)
+		, KnifeTimer(0.0f)
+		, meLookDir(ePlayerLookDirection::RIGHT)
 	{
 		assert(mpLeftImage != nullptr);
 		assert(mpRightImage != nullptr);
@@ -60,78 +64,79 @@ namespace ya
 	void Player::Tick()
 	{
 		GameObject::Tick();
+		KnifeTimer += Time::DeltaTime();
+
+
 		if (IS_KEY_DOWN(eKeyCode::D))
 		{
 			mePlayerAnimState = ePlayerAnimState::RIGHT;
+			meLookDir = ePlayerLookDirection::RIGHT;
 			mpAnimator->Play(mePlayerAnimState);
 		}
 		if (IS_KEY_DOWN(eKeyCode::A))
 		{
 			mePlayerAnimState = ePlayerAnimState::LEFT;
+			meLookDir = ePlayerLookDirection::LEFT;
 			mpAnimator->Play(mePlayerAnimState);
 		}
 
 		if (IS_KEY_PRESSED(eKeyCode::W)) 
 		{ 
-			float correctionVal = 0.75f;
 			if (IS_KEY_PRESSED(eKeyCode::A))
 			{
-				mPos.x -= mSpeed * Time::DeltaTime() * correctionVal;
-				mPos.y -= mSpeed * Time::DeltaTime() * correctionVal;
+				mPos.x -= mSpeed * Time::DeltaTime() * DIAGONAL_CORRECTION_VALUE;
+				mPos.y -= mSpeed * Time::DeltaTime() * DIAGONAL_CORRECTION_VALUE;
+				meLookDir = ePlayerLookDirection::UP_LEFT;
 				goto PLAY_ANIMATION;
 			}
 			else if (IS_KEY_PRESSED(eKeyCode::D))
 			{
-				mPos.x += mSpeed * Time::DeltaTime() * correctionVal;
-				mPos.y -= mSpeed * Time::DeltaTime() * correctionVal;
+				mPos.x += mSpeed * Time::DeltaTime() * DIAGONAL_CORRECTION_VALUE;
+				mPos.y -= mSpeed * Time::DeltaTime() * DIAGONAL_CORRECTION_VALUE;
+				meLookDir = ePlayerLookDirection::UP_RIGHT;
 				goto PLAY_ANIMATION;
 			}
 			else
-				{ mPos.y -= mSpeed * Time::DeltaTime(); }
+			{ 
+				meLookDir = ePlayerLookDirection::UP;
+				mPos.y -= mSpeed * Time::DeltaTime(); 
+			}
 		}
 		if (IS_KEY_PRESSED(eKeyCode::S)) 
 		{ 
-			float correctionVal = 0.75f;
 			if (IS_KEY_PRESSED(eKeyCode::A))
 			{
-				mPos.x -= mSpeed * Time::DeltaTime() * correctionVal;
-				mPos.y += mSpeed * Time::DeltaTime() * correctionVal;
+				mPos.x -= mSpeed * Time::DeltaTime() * DIAGONAL_CORRECTION_VALUE;
+				mPos.y += mSpeed * Time::DeltaTime() * DIAGONAL_CORRECTION_VALUE;
+				meLookDir = ePlayerLookDirection::DOWN_LEFT;
+
 				goto PLAY_ANIMATION;
 			}
 			else if (IS_KEY_PRESSED(eKeyCode::D))
 			{
-				mPos.x += mSpeed * Time::DeltaTime() * correctionVal;
-				mPos.y += mSpeed * Time::DeltaTime() * correctionVal;
+				mPos.x += mSpeed * Time::DeltaTime() * DIAGONAL_CORRECTION_VALUE;
+				mPos.y += mSpeed * Time::DeltaTime() * DIAGONAL_CORRECTION_VALUE;
+				meLookDir = ePlayerLookDirection::DOWN_RIGHT;
 				goto PLAY_ANIMATION;
 			}
 			else
-				{ mPos.y += mSpeed * Time::DeltaTime(); }
+			{
+				meLookDir = ePlayerLookDirection::DOWN;
+				mPos.y += mSpeed * Time::DeltaTime(); 
+			}
 		}
 		if (IS_KEY_PRESSED(eKeyCode::A)) 
 		{ 
 			mPos.x -= mSpeed * Time::DeltaTime(); 
 			mePlayerAnimState = ePlayerAnimState::LEFT;
+			meLookDir = ePlayerLookDirection::LEFT;
 		}
 		if (IS_KEY_PRESSED(eKeyCode::D)) 
 		{ 
 			mPos.x += mSpeed * Time::DeltaTime(); 
 			mePlayerAnimState = ePlayerAnimState::RIGHT;
+			meLookDir = ePlayerLookDirection::RIGHT;
 		}
-#if 0
-		if (IS_KEY_DOWN(eKeyCode::SPACE))
-		{
-#if 0	// RigidBodyPart
-
-			RigidBody* pRB = GetComponentOrNull<RigidBody>(eComponentType::RIGID_BODY);
-			Vector2 velocity = pRB->GetVelocity();
-			velocity.y -= 500.0f;
-			pRB->SetVelocity(velocity);
-			pRB->SetIsGround(false);
-#endif
-			// FOR TEST
-			// UIManager::Pop(eUIType::OPTIOIN);
-		}
-#endif
 
 
 #if 0
@@ -151,6 +156,13 @@ namespace ya
 	PLAY_ANIMATION:
 		{
 			mpAnimator->Play(mePlayerAnimState);
+		}
+		if (KnifeTimer >= KnifeShootInterval)
+		{
+			GameObject* pKnife = static_cast<GameObject*>(new Knife(mPos, 10, 1, 400.0f, 1.0f, KnifeShootInterval, static_cast<eKnifeDirection>(meLookDir)));
+			Scene* scene = SceneManager::GetCurrentScene();
+			scene->AddGameObject(pKnife, eColliderLayer::PLAYER_PROJECTTILE);
+			KnifeTimer = 0.0f;
 		}
 	}
 

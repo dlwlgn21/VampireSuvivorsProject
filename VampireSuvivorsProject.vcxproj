@@ -172,6 +172,7 @@
     <ClInclude Include="yaGameObejct.h" />
     <ClInclude Include="yaGrayMira.h" />
     <ClInclude Include="yaGreenGhost.h" />
+    <ClInclude Include="yaKnife.h" />
     <ClInclude Include="yaMedusaHead.h" />
     <ClInclude Include="yaGround.h" />
     <ClInclude Include="yaHUD.h" />
@@ -183,6 +184,7 @@
     <ClInclude Include="yaMedusa.h" />
     <ClInclude Include="yaMiniHeadDurahan.h" />
     <ClInclude Include="yaMissile.h" />
+    <ClInclude Include="yaMonster.h" />
     <ClInclude Include="yaMudman.h" />
     <ClInclude Include="yaObject.h" />
     <ClInclude Include="yaPanel.h" />
@@ -242,6 +244,7 @@
     <ClCompile Include="yaGameObejct.cpp" />
     <ClCompile Include="yaGrayMira.cpp" />
     <ClCompile Include="yaGreenGhost.cpp" />
+    <ClCompile Include="yaKnife.cpp" />
     <ClCompile Include="yaMedusaHead.cpp" />
     <ClCompile Include="yaGround.cpp" />
     <ClCompile Include="yaHUD.cpp" />

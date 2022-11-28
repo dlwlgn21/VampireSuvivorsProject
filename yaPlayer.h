@@ -4,6 +4,18 @@
 
 namespace ya
 {
+	enum class ePlayerLookDirection
+	{
+		UP,
+		DOWN,
+		LEFT,
+		RIGHT,
+		UP_LEFT,
+		UP_RIGHT,
+		DOWN_LEFT,
+		DOWN_RIGHT,
+		COUNT
+	};
 	class Image;
 	class Collider;
 	class Player final : public GameObject
@@ -43,6 +55,9 @@ namespace ya
 
 		int mHp;
 		ePlayerAnimState mePlayerAnimState;
+		ePlayerLookDirection meLookDir;
+		float KnifeShootInterval;
+		float KnifeTimer;
 	};
 
 }

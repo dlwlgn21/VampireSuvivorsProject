@@ -11,20 +11,24 @@ namespace ya
 		COUNT
 	};
 
+	class Collider;
 	class Weapon : public GameObject
 	{
 	public:
-		Weapon(eWeaponType weaponType, Vector2 spwanPos, Vector2 size, int damage, int count, float speed, float mKnockBackValue);
+		Weapon(eWeaponType weaponType, Vector2 spwanPos, int damage, int count, float speed, float knockBackValue, float shootInterval);
 		virtual ~Weapon() = default;
 
-		void Tick() override;
-		void Render(HDC hdc) override;
-		void OnCollisionEnter(Collider* other) override;
-		void OnCollisionStay(Collider* other) override;
-		void OnCollisionExit(Collider* other) override;
+		virtual void Tick() override;
+		virtual void Render(HDC hdc) override;
+		virtual void OnCollisionEnter(Collider* other) override;
+		virtual void OnCollisionStay(Collider* other) override;
+		virtual void OnCollisionExit(Collider* other) override;
 
-		virtual void Shoot();
-	private:
+		inline void SetSize(Vector2 size) { mSize = size; }
+		inline Vector2 GetSize() { return mSize; }
+
+	protected:
+		Collider* mpCollider;
 		eWeaponType meWeaponType;
 		
 		Vector2 mSpawnPosition;
@@ -33,6 +37,9 @@ namespace ya
 		int mCount;
 		float mSpeed;
 		float mKnockBackValue;
+		float mShootInterval;
+		float mShootTimer;
+		BLENDFUNCTION mFunc;
 
 	};
 

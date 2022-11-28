@@ -99,4 +99,4 @@ enum class eCameraEffect
 #define TILE_COLUMN_COUNT (8)
 #define TILE_ROW_COUNT (3)
 #define TILE_SCALE (2)
-
+#define DIAGONAL_CORRECTION_VALUE (0.75f)

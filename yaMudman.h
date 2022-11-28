@@ -32,6 +32,8 @@ namespace ya
 		Vector2 mAnimOffset;
 		UINT mAnimCount;
 		float mAnimDuration;
+
+		int mHP;
 	};
 
 }

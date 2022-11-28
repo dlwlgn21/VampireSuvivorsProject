@@ -1,18 +1,27 @@
 #include "yaWeapon.h"
-
+#include "yaCollider.h"
 
 namespace ya
 {
-	Weapon::Weapon(eWeaponType weaponType, Vector2 spwanPos, Vector2 size, int damage, int count, float speed, float knockBackValue)
+	Weapon::Weapon(eWeaponType weaponType, Vector2 spwanPos, int damage, int count, float speed, float knockBackValue, float shootInterval)
 		: GameObject(spwanPos)
 		, meWeaponType(weaponType)
+		, mpCollider(new Collider())
 		, mSpawnPosition(spwanPos)
-		, mSize(size)
 		, mDamage(damage)
 		, mCount(count)
 		, mSpeed(speed)
 		, mKnockBackValue(knockBackValue)
+		, mShootInterval(shootInterval)
+		, mShootTimer(0)
+		, mFunc({})
 	{
+		assert(mpCollider != nullptr);
+		AddComponent(mpCollider);
+		mFunc.BlendOp = AC_SRC_OVER;
+		mFunc.BlendFlags = 0;
+		mFunc.AlphaFormat = AC_SRC_ALPHA;
+		mFunc.SourceConstantAlpha = 255;
 	}
 
 	void Weapon::Tick()
@@ -31,9 +40,6 @@ namespace ya
 	{
 	}
 	void Weapon::OnCollisionExit(Collider* other)
-	{
-	}
-	void Weapon::Shoot()
 	{
 	}
 }
