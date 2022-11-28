@@ -29,16 +29,16 @@ namespace ya
 			mpKnifeImage = Resources::Load<Image>(L"KnifeR", L"Resources\\Image\\KnifeR.bmp");
 			break;
 		case eKnifeDirection::UP_LEFT:
-			mpKnifeImage = Resources::Load<Image>(L"KnifeU", L"Resources\\Image\\KnifeU.bmp");
+			mpKnifeImage = Resources::Load<Image>(L"KnifeUL", L"Resources\\Image\\KnifeUL.bmp");
 			break;
 		case eKnifeDirection::UP_RIGHT:
-			mpKnifeImage = Resources::Load<Image>(L"KnifeU", L"Resources\\Image\\KnifeU.bmp");
+			mpKnifeImage = Resources::Load<Image>(L"KnifeUR", L"Resources\\Image\\KnifeUR.bmp");
 			break;
 		case eKnifeDirection::DOWN_LEFT:
-			mpKnifeImage = Resources::Load<Image>(L"KnifeD", L"Resources\\Image\\KnifeD.bmp");
+			mpKnifeImage = Resources::Load<Image>(L"KnifeDL", L"Resources\\Image\\KnifeDL.bmp");
 			break;
 		case eKnifeDirection::DOWN_RIGHT:
-			mpKnifeImage = Resources::Load<Image>(L"KnifeD", L"Resources\\Image\\KnifeD.bmp");
+			mpKnifeImage = Resources::Load<Image>(L"KnifeDR", L"Resources\\Image\\KnifeDR.bmp");
 			break;
 		default:
 			assert(false);

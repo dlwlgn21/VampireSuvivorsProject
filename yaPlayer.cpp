@@ -70,13 +70,11 @@ namespace ya
 		if (IS_KEY_DOWN(eKeyCode::D))
 		{
 			mePlayerAnimState = ePlayerAnimState::RIGHT;
-			meLookDir = ePlayerLookDirection::RIGHT;
 			mpAnimator->Play(mePlayerAnimState);
 		}
 		if (IS_KEY_DOWN(eKeyCode::A))
 		{
 			mePlayerAnimState = ePlayerAnimState::LEFT;
-			meLookDir = ePlayerLookDirection::LEFT;
 			mpAnimator->Play(mePlayerAnimState);
 		}
 
@@ -100,6 +98,7 @@ namespace ya
 			{ 
 				meLookDir = ePlayerLookDirection::UP;
 				mPos.y -= mSpeed * Time::DeltaTime(); 
+				goto PLAY_ANIMATION;
 			}
 		}
 		if (IS_KEY_PRESSED(eKeyCode::S)) 
@@ -123,6 +122,7 @@ namespace ya
 			{
 				meLookDir = ePlayerLookDirection::DOWN;
 				mPos.y += mSpeed * Time::DeltaTime(); 
+				goto PLAY_ANIMATION;
 			}
 		}
 		if (IS_KEY_PRESSED(eKeyCode::A)) 
@@ -159,7 +159,7 @@ namespace ya
 		}
 		if (KnifeTimer >= KnifeShootInterval)
 		{
-			GameObject* pKnife = static_cast<GameObject*>(new Knife(mPos, 10, 1, 400.0f, 1.0f, KnifeShootInterval, static_cast<eKnifeDirection>(meLookDir)));
+			GameObject* pKnife = static_cast<GameObject*>(new Knife(mPos, 10, 1, 1000.0f, 1.0f, KnifeShootInterval, static_cast<eKnifeDirection>(meLookDir)));
 			Scene* scene = SceneManager::GetCurrentScene();
 			scene->AddGameObject(pKnife, eColliderLayer::PLAYER_PROJECTTILE);
 			KnifeTimer = 0.0f;
