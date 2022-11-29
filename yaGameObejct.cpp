@@ -6,7 +6,8 @@ namespace ya
 	GameObject::GameObject()
 		: mPos(Vector2::ZERO)
 		, mScale(Vector2::ONE)
-		, mIsAlive(true)
+		, mbIsActive(true)
+		, mbIsAlive(true)
 		, mDeathTime(-100.0f)
 		, mbDeathTriggerFlag(false)
 	{
@@ -16,7 +17,8 @@ namespace ya
 	GameObject::GameObject(Vector2 pos)
 		: mPos(pos)
 		, mScale(Vector2::ONE)
-		, mIsAlive(true)
+		, mbIsActive(true)
+		, mbIsAlive(true)
 		, mDeathTime(-100.0f)
 		, mbDeathTriggerFlag(false)
 	{

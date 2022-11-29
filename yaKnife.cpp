@@ -6,13 +6,15 @@
 #include "yaCamera.h"
 #include "yaCollider.h"
 #include "yaMonster.h"
+#include "yaKnifeObjectPool.h"
 
 namespace ya
 {
-	Knife::Knife(Vector2 spwanPos, int damage, int count, float speed, float knockBackValue, float shootInterval, eKnifeDirection dir)
-		: Weapon(eWeaponType::NO_PENETRATING, spwanPos, damage, count, speed, knockBackValue, shootInterval)
+	Knife::Knife(Vector2 spwanPos, int damage, float speed, float knockBackValue, float shootInterval, eKnifeDirection dir, KnifeObjectPool* pPool)
+		: Weapon(eWeaponType::NO_PENETRATING, spwanPos, damage, speed, knockBackValue, shootInterval)
 		, mpKnifeImage(nullptr)
 		, mKnifeDirection(dir)
+		, mpKnifeObjPool(pPool)
 	{
 		switch (mKnifeDirection)
 		{
@@ -45,11 +47,11 @@ namespace ya
 			break;
 		}
 		assert(mpKnifeImage != nullptr);
+		assert(mpKnifeObjPool != nullptr);
 
 		std::random_device rd;
 		std::mt19937 gen(rd());
 		std::uniform_int_distribution<> dist(-30, 30);
-
 		mPos.x += static_cast<float>(dist(gen));
 		mPos.y += static_cast<float>(dist(gen));
 		mSizeX = mpKnifeImage->GetWidth();
@@ -65,7 +67,9 @@ namespace ya
 		mShootTimer += Time::DeltaTime();
 		if (mShootTimer >= mShootInterval)
 		{
-			mIsAlive = false;
+			mShootTimer = 0.0f;
+			SetActive(false);
+			mpKnifeObjPool->Return(this);
 			return;
 		}
 		switch (mKnifeDirection)
@@ -97,8 +101,6 @@ namespace ya
 		case eKnifeDirection::DOWN_RIGHT:
 			mPos.x += mSpeed * Time::DeltaTime() * DIAGONAL_CORRECTION_VALUE;
 			mPos.y += mSpeed * Time::DeltaTime() * DIAGONAL_CORRECTION_VALUE;
-			break;
-		case eKnifeDirection::COUNT:
 			break;
 		default:
 			break;
@@ -138,9 +140,51 @@ namespace ya
 	void Knife::OnCollisionExit(Collider* other)
 	{
 	}
-	void Knife::shoot()
+
+	void Knife::Initialize(Vector2 pos, eKnifeDirection knifeDirection)
 	{
-		// Image ±³Ã¼.
+		mKnifeDirection = knifeDirection;
+		switch (mKnifeDirection)
+		{
+		case eKnifeDirection::UP:
+			mpKnifeImage = Resources::Load<Image>(L"KnifeU", L"Resources\\Image\\KnifeU.bmp");
+			break;
+		case eKnifeDirection::DOWN:
+			mpKnifeImage = Resources::Load<Image>(L"KnifeD", L"Resources\\Image\\KnifeD.bmp");
+			break;
+		case eKnifeDirection::LEFT:
+			mpKnifeImage = Resources::Load<Image>(L"KnifeL", L"Resources\\Image\\KnifeL.bmp");
+			break;
+		case eKnifeDirection::RIGHT:
+			mpKnifeImage = Resources::Load<Image>(L"KnifeR", L"Resources\\Image\\KnifeR.bmp");
+			break;
+		case eKnifeDirection::UP_LEFT:
+			mpKnifeImage = Resources::Load<Image>(L"KnifeUL", L"Resources\\Image\\KnifeUL.bmp");
+			break;
+		case eKnifeDirection::UP_RIGHT:
+			mpKnifeImage = Resources::Load<Image>(L"KnifeUR", L"Resources\\Image\\KnifeUR.bmp");
+			break;
+		case eKnifeDirection::DOWN_LEFT:
+			mpKnifeImage = Resources::Load<Image>(L"KnifeDL", L"Resources\\Image\\KnifeDL.bmp");
+			break;
+		case eKnifeDirection::DOWN_RIGHT:
+			mpKnifeImage = Resources::Load<Image>(L"KnifeDR", L"Resources\\Image\\KnifeDR.bmp");
+			break;
+		default:
+			assert(false);
+			break;
+		}
 		assert(mpKnifeImage != nullptr);
+		std::random_device rd;
+		std::mt19937 gen(rd());
+		std::uniform_int_distribution<> dist(-30, 30);
+		mPos = pos;
+		mPos.x += static_cast<float>(dist(gen));
+		mPos.y += static_cast<float>(dist(gen));
+		mSizeX = mpKnifeImage->GetWidth();
+		mSizeY = mpKnifeImage->GetHeight();
+		SetSize({ static_cast<float>(mSizeX), static_cast<float>(mSizeY) });
+		SetScale({ 2.0f, 2.0f });
+		mpCollider->SetSize(GetSize());
 	}
 }

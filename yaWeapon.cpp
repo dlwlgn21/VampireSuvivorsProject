@@ -3,13 +3,12 @@
 
 namespace ya
 {
-	Weapon::Weapon(eWeaponType weaponType, Vector2 spwanPos, int damage, int count, float speed, float knockBackValue, float shootInterval)
+	Weapon::Weapon(eWeaponType weaponType, Vector2 spwanPos, int damage, float speed, float knockBackValue, float shootInterval)
 		: GameObject(spwanPos)
 		, meWeaponType(weaponType)
 		, mpCollider(new Collider())
 		, mSpawnPosition(spwanPos)
 		, mDamage(damage)
-		, mCount(count)
 		, mSpeed(speed)
 		, mKnockBackValue(knockBackValue)
 		, mShootInterval(shootInterval)

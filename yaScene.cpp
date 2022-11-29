@@ -36,7 +36,7 @@ namespace ya
 			for (int j = 0; j < mObjects[i].size(); ++j)
 			{
 				if (mObjects[i][j] == nullptr) { continue; }
-				if (mObjects[i][j]->IsAlive())
+				if (mObjects[i][j]->IsActive() && mObjects[i][j]->IsAlive())
 				{
 					mObjects[i][j]->Initialize();
 				}
@@ -51,7 +51,7 @@ namespace ya
 			for (int j = 0; j < mObjects[i].size(); ++j)
 			{
 				if (mObjects[i][j] == nullptr) { continue; }
-				if (mObjects[i][j]->IsAlive())
+				if (mObjects[i][j]->IsActive() && mObjects[i][j]->IsAlive())
 				{
 					mObjects[i][j]->Tick();
 				}
@@ -65,7 +65,7 @@ namespace ya
 			for (int j = 0; j < mObjects[i].size(); ++j)
 			{
 				if (mObjects[i][j] == nullptr) { continue; }
-				if (mObjects[i][j]->IsAlive())
+				if (mObjects[i][j]->IsActive() && mObjects[i][j]->IsAlive())
 				{
 					mObjects[i][j]->Render(hdc);
 				}
@@ -83,6 +83,20 @@ namespace ya
 	{
 		assert(object != nullptr);
 		mObjects[static_cast<UINT>(layer)].push_back(object);
+	}
+
+	void Scene::AddWeaponObject(GameObject* object)
+	{
+		assert(object != nullptr);
+		UINT projecttileLayerIdx = static_cast<UINT>(eColliderLayer::PLAYER_PROJECTTILE);
+		for (auto* p : mObjects[projecttileLayerIdx])
+		{
+			if (p == object)
+			{
+				return;
+			}
+		}
+		mObjects[projecttileLayerIdx].push_back(object);
 	}
 
 }

@@ -28,8 +28,10 @@ namespace ya
 		__forceinline Vector2 GetScale() { return mScale; }
 		//inline void SetHdc(HDC hdc) { mHdc = hdc; }
 		//inline HDC GetHdc() { return mHdc; }
-		__forceinline void DisableObject() { mIsAlive = false; }
-		__forceinline bool IsAlive() { return mIsAlive; }
+		__forceinline void DisableObject() { mbIsAlive = false; }
+		__forceinline bool IsAlive() { return mbIsAlive; }
+		__forceinline bool IsActive() { return mbIsActive; }
+		__forceinline void SetActive(bool isActive) { mbIsActive = isActive; }
 		__forceinline void SetDisableTime(float time);
 		void AddComponent(Component* component);
 
@@ -58,7 +60,8 @@ namespace ya
 		std::vector<Component*> mComponents;
 		Vector2 mPos;
 		Vector2 mScale;
-		bool mIsAlive;
+		bool mbIsActive;
+		bool mbIsAlive;
 		float mDeathTime;
 		bool mbDeathTriggerFlag;
 		//HDC mHdc;

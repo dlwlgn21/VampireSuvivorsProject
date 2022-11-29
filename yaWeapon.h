@@ -15,7 +15,7 @@ namespace ya
 	class Weapon : public GameObject
 	{
 	public:
-		Weapon(eWeaponType weaponType, Vector2 spwanPos, int damage, int count, float speed, float knockBackValue, float shootInterval);
+		Weapon(eWeaponType weaponType, Vector2 spwanPos, int damage, float speed, float knockBackValue, float shootInterval);
 		virtual ~Weapon() = default;
 
 		virtual void Tick() override;
@@ -39,7 +39,6 @@ namespace ya
 		Vector2 mSpawnPosition;
 		Vector2 mSize;
 		int mDamage;
-		int mCount;
 		float mSpeed;
 		float mKnockBackValue;
 		float mShootInterval;

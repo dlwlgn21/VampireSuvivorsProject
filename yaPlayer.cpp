@@ -16,6 +16,8 @@
 #include "yaRigidBody.h"
 #include "yaUIManager.h"
 #include "yaKnife.h"
+#include "yaKnifeObjectPool.h"
+
 
 namespace ya
 {
@@ -37,9 +39,10 @@ namespace ya
 		, mpCollider(new Collider({20.0f, 40.0f}))
 		, mHp(100)
 		, mePlayerAnimState(ePlayerAnimState::LEFT)
-		, KnifeShootInterval(2.0f)
-		, KnifeTimer(0.0f)
+		, mKnifeShootInterval(2.0f)
+		, mKnifeShootTimer(0.0f)
 		, meLookDir(ePlayerLookDirection::RIGHT)
+		, mpKnifeObjPool(new KnifeObjectPool(MAX_KNIFE_COUNT))
 	{
 		assert(mpLeftImage != nullptr);
 		assert(mpRightImage != nullptr);
@@ -61,11 +64,16 @@ namespace ya
 		Camera::SetTarget(this);
 	}
 
+	Player::~Player()
+	{
+		if (mpKnifeObjPool != nullptr)
+			{ delete mpKnifeObjPool; }
+	}
+
 	void Player::Tick()
 	{
 		GameObject::Tick();
-		KnifeTimer += Time::DeltaTime();
-
+		mKnifeShootTimer += Time::DeltaTime();
 
 		if (IS_KEY_DOWN(eKeyCode::D))
 		{
@@ -157,12 +165,13 @@ namespace ya
 		{
 			mpAnimator->Play(mePlayerAnimState);
 		}
-		if (KnifeTimer >= KnifeShootInterval)
+		if (mKnifeShootTimer >= mKnifeShootInterval)
 		{
-			GameObject* pKnife = static_cast<GameObject*>(new Knife(mPos, 10, 1, 1000.0f, 1.0f, KnifeShootInterval, static_cast<eKnifeDirection>(meLookDir)));
+			//mKnifeObjPool.Get(mPos, 10, 1, 1000.0f, 1.0f, KnifeShootInterval, static_cast<eKnifeDirection>(meLookDir));
+			GameObject* pKnife = static_cast<GameObject*>(mpKnifeObjPool->Get(mPos, 10, 1000.0f, 1.0f, mKnifeShootInterval, static_cast<eKnifeDirection>(meLookDir), mpKnifeObjPool));
 			Scene* scene = SceneManager::GetCurrentScene();
-			scene->AddGameObject(pKnife, eColliderLayer::PLAYER_PROJECTTILE);
-			KnifeTimer = 0.0f;
+			scene->AddWeaponObject(pKnife);
+			mKnifeShootTimer = 0.0f;
 		}
 	}
 

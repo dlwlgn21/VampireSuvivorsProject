@@ -100,3 +100,4 @@ enum class eCameraEffect
 #define TILE_ROW_COUNT (3)
 #define TILE_SCALE (2)
 #define DIAGONAL_CORRECTION_VALUE (0.75f)
+#define MAX_KNIFE_COUNT (10)

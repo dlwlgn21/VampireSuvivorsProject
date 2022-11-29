@@ -16,13 +16,14 @@ namespace ya
 		DOWN_RIGHT,
 		COUNT
 	};
+	class KnifeObjectPool;
 	class Image;
 	class Collider;
 	class Player final : public GameObject
 	{
 	public:
 		Player();
-		virtual ~Player() = default;
+		virtual ~Player();
 
 		void Tick() override;
 		void Render(HDC hdc) override;
@@ -56,8 +57,11 @@ namespace ya
 		int mHp;
 		ePlayerAnimState mePlayerAnimState;
 		ePlayerLookDirection meLookDir;
-		float KnifeShootInterval;
-		float KnifeTimer;
+		float mKnifeShootInterval;
+		float mKnifeShootTimer;
+
+		KnifeObjectPool* mpKnifeObjPool;
+
 	};
 
 }

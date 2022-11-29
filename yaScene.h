@@ -18,6 +18,7 @@ namespace ya
 		virtual void Exit();
 
 		void AddGameObject(GameObject* object, eColliderLayer layer);
+		void AddWeaponObject(GameObject* object);
 
 		__forceinline std::vector<GameObject*>& GetSpecifiedLayerGameObjects(eColliderLayer layer)
 		{

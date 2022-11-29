@@ -22,7 +22,7 @@ namespace ya
 			mHP -= damage; 
 			if (mHP <= 0)
 			{
-				mIsAlive = false;
+				mbIsAlive = false;
 			}
 		
 		};
