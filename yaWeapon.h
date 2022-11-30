@@ -1,6 +1,7 @@
 #pragma once
 #include <random>
 #include "yaGameObejct.h"
+
 namespace ya
 {
 	enum class eWeaponType

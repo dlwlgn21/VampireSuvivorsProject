@@ -72,19 +72,24 @@ namespace ya
 			mpKnifeObjPool->Return(this);
 			return;
 		}
+#if 1
 		switch (mKnifeDirection)
 		{
 		case eKnifeDirection::UP:
 			mPos.y -= mSpeed * Time::DeltaTime();
+			mpCollider->SetPos({ mPos.x + 3.5f, mPos.y + 3.0f });
 			break;
 		case eKnifeDirection::DOWN:
 			mPos.y += mSpeed * Time::DeltaTime();
+			mpCollider->SetPos({ mPos.x + 3.5f, mPos.y + 3.0f });
 			break;
 		case eKnifeDirection::LEFT:
 			mPos.x -= mSpeed * Time::DeltaTime();
+			mpCollider->SetPos({ mPos.x + 11.0f, mPos.y + 3.0f });
 			break;
 		case eKnifeDirection::RIGHT:
 			mPos.x += mSpeed * Time::DeltaTime();
+			mpCollider->SetPos({ mPos.x + 11.0f, mPos.y + 3.0f});
 			break;
 		case eKnifeDirection::UP_LEFT:
 			mPos.x -= mSpeed * Time::DeltaTime() * DIAGONAL_CORRECTION_VALUE;
@@ -93,19 +98,66 @@ namespace ya
 		case eKnifeDirection::UP_RIGHT:
 			mPos.x += mSpeed * Time::DeltaTime() * DIAGONAL_CORRECTION_VALUE;
 			mPos.y -= mSpeed * Time::DeltaTime() * DIAGONAL_CORRECTION_VALUE;
+			mpCollider->SetPos({ mPos.x + 11.0f, mPos.y + 3.0f });
 			break;
 		case eKnifeDirection::DOWN_LEFT:
 			mPos.x -= mSpeed * Time::DeltaTime() * DIAGONAL_CORRECTION_VALUE;
 			mPos.y += mSpeed * Time::DeltaTime() * DIAGONAL_CORRECTION_VALUE;
+			mpCollider->SetPos({ mPos.x + 11.0f, mPos.y + 3.0f });
 			break;
 		case eKnifeDirection::DOWN_RIGHT:
 			mPos.x += mSpeed * Time::DeltaTime() * DIAGONAL_CORRECTION_VALUE;
 			mPos.y += mSpeed * Time::DeltaTime() * DIAGONAL_CORRECTION_VALUE;
+			mpCollider->SetPos({ mPos.x + 11.0f, mPos.y + 3.0f });
 			break;
 		default:
 			break;
 		}
-		mpCollider->SetPos({ mPos.x + 11.0f, mPos.y + 3.0f});
+#endif
+
+		//Vector2 rotatePos = yamath::Rotate(mPos, yamath::DegreeToRad(15.0f));
+		//switch (mKnifeDirection)
+		//{
+		//case eKnifeDirection::UP:
+		//	mPos = rotatePos;
+		//	mPos.y -= mSpeed * Time::DeltaTime();
+		//	mpCollider->SetPos({ mPos.x + 3.5f, mPos.y + 3.0f });
+		//	break;
+		//case eKnifeDirection::DOWN:
+		//	mPos.y += mSpeed * Time::DeltaTime();
+		//	mpCollider->SetPos({ mPos.x + 3.5f, mPos.y + 3.0f });
+		//	break;
+		//case eKnifeDirection::LEFT:
+		//	mPos.x -= mSpeed * Time::DeltaTime();
+		//	mpCollider->SetPos({ mPos.x + 11.0f, mPos.y + 3.0f });
+		//	break;
+		//case eKnifeDirection::RIGHT:
+		//	mPos.x += mSpeed * Time::DeltaTime();
+		//	mpCollider->SetPos({ mPos.x + 11.0f, mPos.y + 3.0f });
+		//	break;
+		//case eKnifeDirection::UP_LEFT:
+		//	mPos.x -= mSpeed * Time::DeltaTime() * DIAGONAL_CORRECTION_VALUE;
+		//	mPos.y -= mSpeed * Time::DeltaTime() * DIAGONAL_CORRECTION_VALUE;
+		//	break;
+		//case eKnifeDirection::UP_RIGHT:
+		//	mPos.x += mSpeed * Time::DeltaTime() * DIAGONAL_CORRECTION_VALUE;
+		//	mPos.y -= mSpeed * Time::DeltaTime() * DIAGONAL_CORRECTION_VALUE;
+		//	mpCollider->SetPos({ mPos.x + 11.0f, mPos.y + 3.0f });
+		//	break;
+		//case eKnifeDirection::DOWN_LEFT:
+		//	mPos.x -= mSpeed * Time::DeltaTime() * DIAGONAL_CORRECTION_VALUE;
+		//	mPos.y += mSpeed * Time::DeltaTime() * DIAGONAL_CORRECTION_VALUE;
+		//	mpCollider->SetPos({ mPos.x + 11.0f, mPos.y + 3.0f });
+		//	break;
+		//case eKnifeDirection::DOWN_RIGHT:
+		//	mPos.x += mSpeed * Time::DeltaTime() * DIAGONAL_CORRECTION_VALUE;
+		//	mPos.y += mSpeed * Time::DeltaTime() * DIAGONAL_CORRECTION_VALUE;
+		//	mpCollider->SetPos({ mPos.x + 11.0f, mPos.y + 3.0f });
+		//	break;
+		//default:
+		//	break;
+		//}
+		//mpCollider->SetPos({ mPos.x + 11.0f, mPos.y + 3.0f});
 	}
 	void Knife::Render(HDC hdc)
 	{
@@ -132,6 +184,40 @@ namespace ya
 		{
 			Monster* pMonster = static_cast<Monster*>(other->GetOwner());
 			pMonster->DamagedFromWeapon(mDamage);
+			SetActive(false);
+			mpKnifeObjPool->Return(this);
+
+			Vector2 monPos = pMonster->GetPos();
+			switch (mKnifeDirection)
+			{
+			case eKnifeDirection::UP:
+				pMonster->SetPos({monPos.x , monPos.y + -mKnockBackValue});
+				break;
+			case eKnifeDirection::DOWN:
+				pMonster->SetPos({ monPos.x , monPos.y + mKnockBackValue });
+				break;
+			case eKnifeDirection::LEFT:
+				pMonster->SetPos({ monPos.x + -mKnockBackValue, monPos.y});
+				break;
+			case eKnifeDirection::RIGHT:
+				pMonster->SetPos({ monPos.x + mKnockBackValue, monPos.y });
+				break;
+			case eKnifeDirection::UP_LEFT:
+				pMonster->SetPos({ monPos.x + -mKnockBackValue, monPos.y + -mKnockBackValue});
+				break;
+			case eKnifeDirection::UP_RIGHT:
+				pMonster->SetPos({ monPos.x + mKnockBackValue, monPos.y + -mKnockBackValue });
+				break;
+			case eKnifeDirection::DOWN_LEFT:
+				pMonster->SetPos({ monPos.x + -mKnockBackValue, monPos.y + mKnockBackValue });
+				break;
+			case eKnifeDirection::DOWN_RIGHT:
+				pMonster->SetPos({ monPos.x + mKnockBackValue, monPos.y + mKnockBackValue });
+				break;
+			default:
+				assert(false);
+				break;
+			}
 		}
 	}
 	void Knife::OnCollisionStay(Collider* other)

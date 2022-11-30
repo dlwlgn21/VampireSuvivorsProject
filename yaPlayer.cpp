@@ -43,6 +43,8 @@ namespace ya
 		, mKnifeShootTimer(0.0f)
 		, meLookDir(ePlayerLookDirection::RIGHT)
 		, mpKnifeObjPool(new KnifeObjectPool(MAX_KNIFE_COUNT))
+		, mCurrKnifeCount(1)
+		, mKnockbackValue(0.5f)
 	{
 		assert(mpLeftImage != nullptr);
 		assert(mpRightImage != nullptr);
@@ -84,6 +86,12 @@ namespace ya
 		{
 			mePlayerAnimState = ePlayerAnimState::LEFT;
 			mpAnimator->Play(mePlayerAnimState);
+		}
+		if (IS_KEY_DOWN(eKeyCode::Z))
+		{
+			++mCurrKnifeCount;
+			if (mCurrKnifeCount > MAX_KNIFE_COUNT)
+				{ mCurrKnifeCount = MAX_KNIFE_COUNT; }
 		}
 
 		if (IS_KEY_PRESSED(eKeyCode::W)) 
@@ -168,9 +176,13 @@ namespace ya
 		if (mKnifeShootTimer >= mKnifeShootInterval)
 		{
 			//mKnifeObjPool.Get(mPos, 10, 1, 1000.0f, 1.0f, KnifeShootInterval, static_cast<eKnifeDirection>(meLookDir));
-			GameObject* pKnife = static_cast<GameObject*>(mpKnifeObjPool->Get(mPos, 10, 1000.0f, 1.0f, mKnifeShootInterval, static_cast<eKnifeDirection>(meLookDir), mpKnifeObjPool));
-			Scene* scene = SceneManager::GetCurrentScene();
-			scene->AddWeaponObject(pKnife);
+			
+			for (int i = 0; i < mCurrKnifeCount; ++i)
+			{
+				GameObject* pKnife = static_cast<GameObject*>(mpKnifeObjPool->Get(mPos, 10, 1000.0f, mKnockbackValue, mKnifeShootInterval, static_cast<eKnifeDirection>(meLookDir), mpKnifeObjPool));
+				Scene* scene = SceneManager::GetCurrentScene();
+				scene->AddWeaponObject(pKnife);
+			}
 			mKnifeShootTimer = 0.0f;
 		}
 	}

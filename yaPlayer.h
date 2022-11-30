@@ -61,7 +61,8 @@ namespace ya
 		float mKnifeShootTimer;
 
 		KnifeObjectPool* mpKnifeObjPool;
-
+		int mCurrKnifeCount;
+		float mKnockbackValue;
 	};
 
 }
