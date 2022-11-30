@@ -1,12 +1,14 @@
 #pragma once
 #include "yaWeapon.h"
-
+#include "yaWeaponObjectPool.h"
 namespace ya
 {
 	class Image;
+	template<typename T> class WeaponObjectPool;
 	class RuneTracer final : public Weapon
 	{
-		RuneTracer(Vector2 spawanPos, int damage, float speed, float knockBackValue, float shootInterval);
+		friend class WeaponObjectPool<RuneTracer>;
+		RuneTracer(Vector2 spawanPos, int damage, float speed, float knockBackValue, float shootInterval, WeaponObjectPool<RuneTracer>* pPool);
 		virtual ~RuneTracer() = default;
 
 		void Tick() override;
@@ -19,6 +21,7 @@ namespace ya
 
 	private:
 		Image* mpRuneTracerImage;
+		WeaponObjectPool<RuneTracer>* mpPool;
 		int mSizeX;
 		int mSizeY;
 	};

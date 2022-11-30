@@ -17,7 +17,8 @@
 #include "yaUIManager.h"
 #include "yaKnife.h"
 #include "yaKnifeObjectPool.h"
-
+#include "yaWeaponObjectPool.h"
+#include "yaRuneTracer.h"
 
 namespace ya
 {
@@ -36,7 +37,7 @@ namespace ya
 		, mMinAnimInterval(0.15f)
 		, dir(Vector2::ONE)
 		, mpAnimator(new PlayerCustomAnimator())
-		, mpCollider(new Collider({20.0f, 40.0f}))
+		, mpCollider(new Collider({ 20.0f, 40.0f }))
 		, mHp(100)
 		, mePlayerAnimState(ePlayerAnimState::LEFT)
 		, mKnifeShootInterval(2.0f)
@@ -45,6 +46,10 @@ namespace ya
 		, mpKnifeObjPool(new KnifeObjectPool(MAX_KNIFE_COUNT))
 		, mCurrKnifeCount(1)
 		, mKnockbackValue(0.5f)
+		, mpRuneTracerPool(new WeaponObjectPool<RuneTracer>(MAX_RUNE_TRACER_COUNT))
+		, mCurrRuneTracerCount(1)
+		, mRuneTracerShootInterval(3.0f)
+		, mRuneTracerShootTimer(0.0f)
 	{
 		assert(mpLeftImage != nullptr);
 		assert(mpRightImage != nullptr);
@@ -52,9 +57,12 @@ namespace ya
 		assert(mpRightHittedImage != nullptr);
 		assert(mpAnimator != nullptr);
 		assert(mpCollider != nullptr);
+		assert(mpKnifeObjPool != nullptr);
+		assert(mpRuneTracerPool != nullptr);
+
 		SetName(L"Player");
 		mScale = { 2.0f, 2.0f };
-		
+
 		AddComponent(mpAnimator);
 		AddComponent(mpCollider);
 		mpAnimator->CreateAnimation(mpLeftImage, Vector2::ZERO, mAnimSize, mAnimOffset, mAnimCount, mMinAnimInterval, ePlayerAnimState::LEFT);
@@ -62,20 +70,28 @@ namespace ya
 		mpAnimator->CreateAnimation(mpLeftHittedImage, Vector2::ZERO, mAnimSize, mAnimOffset, mAnimCount, mMinAnimInterval, ePlayerAnimState::LEFT_HITTED);
 		mpAnimator->CreateAnimation(mpRightHittedImage, Vector2::ZERO, mAnimSize, mAnimOffset, mAnimCount, mMinAnimInterval, ePlayerAnimState::RIGHT_HITTED);
 		mpAnimator->Play(mePlayerAnimState);
-		
+
 		Camera::SetTarget(this);
 	}
 
 	Player::~Player()
 	{
 		if (mpKnifeObjPool != nullptr)
-			{ delete mpKnifeObjPool; }
+		{
+			delete mpKnifeObjPool;
+		}
+		if (mpRuneTracerPool != nullptr)
+		{
+			delete mpRuneTracerPool;
+		}
 	}
 
 	void Player::Tick()
 	{
 		GameObject::Tick();
+
 		mKnifeShootTimer += Time::DeltaTime();
+		mRuneTracerShootTimer += Time::DeltaTime();
 
 		if (IS_KEY_DOWN(eKeyCode::D))
 		{
@@ -91,11 +107,13 @@ namespace ya
 		{
 			++mCurrKnifeCount;
 			if (mCurrKnifeCount > MAX_KNIFE_COUNT)
-				{ mCurrKnifeCount = MAX_KNIFE_COUNT; }
+			{
+				mCurrKnifeCount = MAX_KNIFE_COUNT;
+			}
 		}
 
-		if (IS_KEY_PRESSED(eKeyCode::W)) 
-		{ 
+		if (IS_KEY_PRESSED(eKeyCode::W))
+		{
 			if (IS_KEY_PRESSED(eKeyCode::A))
 			{
 				mPos.x -= mSpeed * Time::DeltaTime() * DIAGONAL_CORRECTION_VALUE;
@@ -111,14 +129,14 @@ namespace ya
 				goto PLAY_ANIMATION;
 			}
 			else
-			{ 
+			{
 				meLookDir = ePlayerLookDirection::UP;
-				mPos.y -= mSpeed * Time::DeltaTime(); 
+				mPos.y -= mSpeed * Time::DeltaTime();
 				goto PLAY_ANIMATION;
 			}
 		}
-		if (IS_KEY_PRESSED(eKeyCode::S)) 
-		{ 
+		if (IS_KEY_PRESSED(eKeyCode::S))
+		{
 			if (IS_KEY_PRESSED(eKeyCode::A))
 			{
 				mPos.x -= mSpeed * Time::DeltaTime() * DIAGONAL_CORRECTION_VALUE;
@@ -137,19 +155,19 @@ namespace ya
 			else
 			{
 				meLookDir = ePlayerLookDirection::DOWN;
-				mPos.y += mSpeed * Time::DeltaTime(); 
+				mPos.y += mSpeed * Time::DeltaTime();
 				goto PLAY_ANIMATION;
 			}
 		}
-		if (IS_KEY_PRESSED(eKeyCode::A)) 
-		{ 
-			mPos.x -= mSpeed * Time::DeltaTime(); 
+		if (IS_KEY_PRESSED(eKeyCode::A))
+		{
+			mPos.x -= mSpeed * Time::DeltaTime();
 			mePlayerAnimState = ePlayerAnimState::LEFT;
 			meLookDir = ePlayerLookDirection::LEFT;
 		}
-		if (IS_KEY_PRESSED(eKeyCode::D)) 
-		{ 
-			mPos.x += mSpeed * Time::DeltaTime(); 
+		if (IS_KEY_PRESSED(eKeyCode::D))
+		{
+			mPos.x += mSpeed * Time::DeltaTime();
 			mePlayerAnimState = ePlayerAnimState::RIGHT;
 			meLookDir = ePlayerLookDirection::RIGHT;
 		}
@@ -158,7 +176,7 @@ namespace ya
 #if 0
 		if (IS_KEY_DOWN(eKeyCode::L_BUTTON))
 		{
-// FOR AsortLock class
+			// FOR AsortLock class
 			Missile* pMis = ya::object::Instantiate<Missile>(eColliderLayer::PLAYER_PROJECTTILE);
 			//pMis->mDestPos = Input::GetMousePos();
 			//pMis->mDir = pMis->mDestPos - pMis->GetPos();
@@ -176,7 +194,7 @@ namespace ya
 		if (mKnifeShootTimer >= mKnifeShootInterval)
 		{
 			//mKnifeObjPool.Get(mPos, 10, 1, 1000.0f, 1.0f, KnifeShootInterval, static_cast<eKnifeDirection>(meLookDir));
-			
+
 			for (int i = 0; i < mCurrKnifeCount; ++i)
 			{
 				GameObject* pKnife = static_cast<GameObject*>(mpKnifeObjPool->Get(mPos, 10, 1000.0f, mKnockbackValue, mKnifeShootInterval, static_cast<eKnifeDirection>(meLookDir), mpKnifeObjPool));
@@ -184,6 +202,18 @@ namespace ya
 				scene->AddWeaponObject(pKnife);
 			}
 			mKnifeShootTimer = 0.0f;
+		}
+
+		if (mRuneTracerShootTimer >= mRuneTracerShootInterval)
+		{
+			for (int i = 0; i < mCurrRuneTracerCount; ++i)
+			{
+				GameObject* pRune = static_cast<GameObject*>(mpRuneTracerPool->Get(mPos, 10, 50.f, mKnockbackValue, mRuneTracerShootInterval, mpRuneTracerPool));
+				Scene* scene = SceneManager::GetCurrentScene();
+				scene->AddWeaponObject(pRune);
+			}
+
+			mRuneTracerShootTimer = 0.0f;
 		}
 	}
 
@@ -277,6 +307,5 @@ namespace ya
 		/*Missile* pMis = ya::object::Instantiate<Missile>(eColliderLayer::PLAYER_PROJECTTILE);
 		pMis->SetPos(mPos);*/
 	}
-
 
 }

@@ -8,7 +8,7 @@ namespace ya
 	class WeaponObjectPool final
 	{
 	public:
-		WeaponObjectPool();
+		WeaponObjectPool(UINT maxPoolSize);
 		WeaponObjectPool(const WeaponObjectPool& other) = delete;
 		WeaponObjectPool& operator=(const WeaponObjectPool& other) = delete;
 		~WeaponObjectPool() = default;
@@ -25,7 +25,47 @@ namespace ya
 	private:
 	};
 
+	template<typename T>
+	WeaponObjectPool<T>::WeaponObjectPool(UINT maxPoolSize)
+		: mMaxPoolSize(maxPoolSize)
+	{
+	}
 
-	
+	template<typename T>
+	T* WeaponObjectPool<T>::Get(Vector2 spwanPos, int damage, float speed, float knockBackValue, float shootInterval, WeaponObjectPool* pPool)
+	{
+		if (mQ.empty())
+		{
+			return new T(spwanPos, damage, speed, knockBackValue, shootInterval, pPool);
+		}
+		T* ptr = mQ.front();
+		ptr->Initialize(spwanPos);
+		ptr->SetActive(true);
+		mQ.pop();
+		return ptr;
+	}
+	template<typename T>
+	void WeaponObjectPool<T>::Return(T* ptr)
+	{
+		if (mQ.size() >= mMaxPoolSize)
+		{
+			/* CAN NOT ENTER THIS STATEMENT */
+			assert(false);
+			return;
+		}
+		mQ.push(ptr);
+	}
+	template<typename T>
+	UINT WeaponObjectPool<T>::GetFreeObjectCount() const
+	{
+		return mQ.size();
+	}
+
+	template<typename T>
+	UINT WeaponObjectPool<T>::GetMaxFreeObjectCount() const
+	{
+		return mMaxPoolSize;
+	}
+
 
 }

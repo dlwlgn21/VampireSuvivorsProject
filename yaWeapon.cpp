@@ -14,6 +14,7 @@ namespace ya
 		, mShootInterval(shootInterval)
 		, mShootTimer(0)
 		, mFunc({})
+		, mSize({ 0.0f, 0.0f})
 	{
 		assert(mpCollider != nullptr);
 		AddComponent(mpCollider);

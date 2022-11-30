@@ -33,6 +33,7 @@ namespace ya
 		__forceinline void SetSpeed(float newSpeed) { mSpeed = newSpeed; }
 		__forceinline void SetShootInterval(float newInterval) { mShootInterval = newInterval; }
 		__forceinline void SetSpawnPos(Vector2 newPos) { mSpawnPosition = newPos; }
+
 	protected:
 		Collider* mpCollider;
 		eWeaponType meWeaponType;

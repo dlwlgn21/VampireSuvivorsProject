@@ -19,6 +19,8 @@ namespace ya
 	class KnifeObjectPool;
 	class Image;
 	class Collider;
+	class RuneTracer;
+	template<typename T> class WeaponObjectPool;
 	class Player final : public GameObject
 	{
 	public:
@@ -63,6 +65,11 @@ namespace ya
 		KnifeObjectPool* mpKnifeObjPool;
 		int mCurrKnifeCount;
 		float mKnockbackValue;
+
+		WeaponObjectPool<RuneTracer>* mpRuneTracerPool;
+		int mCurrRuneTracerCount;
+		float mRuneTracerShootInterval;
+		float mRuneTracerShootTimer;
 	};
 
 }

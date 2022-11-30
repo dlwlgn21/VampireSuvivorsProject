@@ -4,16 +4,19 @@
 #include "yaCamera.h"
 #include "yaCollider.h"
 #include "yaTime.h"
+#include "yaWeaponObjectPool.h"
 
 namespace ya
 {
-	RuneTracer::RuneTracer(Vector2 spawanPos, int damage, float speed, float knockBackValue, float shootInterval)
+	RuneTracer::RuneTracer(Vector2 spawanPos, int damage, float speed, float knockBackValue, float shootInterval, WeaponObjectPool<RuneTracer>* pPool)
 		: Weapon(eWeaponType::COMPLETE_PENETRATING, spawanPos, damage, speed, knockBackValue, shootInterval)
 		, mpRuneTracerImage(Resources::Load<Image>(L"RuneTracer", L"Resources\\Image\\RuneTracer.bmp"))
 		, mSizeX(mpRuneTracerImage->GetWidth())
 		, mSizeY(mpRuneTracerImage->GetHeight())
+		, mpPool(pPool)
 	{
 		assert(mpRuneTracerImage != nullptr);
+		assert(mpPool != nullptr);
 		assert(mSizeX != 0);
 		assert(mSizeY != 0);
 
@@ -36,9 +39,12 @@ namespace ya
 		{
 			mShootTimer = 0.0f;
 			SetActive(false);
-			//mpKnifeObjPool->Return(this);
+			mpPool->Return(this);
 			return;
 		}
+
+		mPos.x += mSpeed * Time::DeltaTime();
+		mpCollider->SetPos({mPos.x + 6.0f, mPos.y + 6.0f});
 	}
 
 	void RuneTracer::Render(HDC hdc)
@@ -74,6 +80,6 @@ namespace ya
 	}
 	void RuneTracer::Initialize(Vector2 pos)
 	{
-
+		mPos = pos;
 	}
 }
