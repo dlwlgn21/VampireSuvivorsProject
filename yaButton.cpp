@@ -34,8 +34,9 @@ namespace ya
 		char buffer[128];
 		Vector2 mousePos = Input::GetMousePos();
 		Vector2 size = GetSize();
-		if (mScreenPos.x <= mousePos.x && mousePos.x < mScreenPos.x + size.x && 
-			mScreenPos.y <= mousePos.y && mousePos.y < mScreenPos.y + size.y)
+		mousePos.y -= 30.0f;
+		if (mPos.x <= mousePos.x && mousePos.x < mPos.x + size.x &&
+			mPos.y <= mousePos.y && mousePos.y < mPos.y + size.y)
 			{ mbIsMouseOn = true; }
 		else
 			{ mbIsMouseOn = false; }
@@ -60,8 +61,8 @@ namespace ya
 
 		AlphaBlend(
 			hdc,
-			static_cast<int>(mScreenPos.x),
-			static_cast<int>(mScreenPos.y),
+			static_cast<int>(mPos.x),
+			static_cast<int>(mPos.y),
 			static_cast<int>(mpImage->GetWidth()),
 			static_cast<int>(mpImage->GetHeight()),
 

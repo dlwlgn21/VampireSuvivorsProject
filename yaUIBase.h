@@ -42,8 +42,6 @@ namespace ya
 		__forceinline bool GetIsFullScreen() { return mbIsFullScreen; }
 		__forceinline void SetIsFullScreen(bool isFullScreen) { mbIsFullScreen = isFullScreen; }
 		__forceinline void SetParent(UIBase* parent) { assert(parent != nullptr); mParent = parent; }
-		__forceinline void SetScreenPos(Vector2 pos) { mScreenPos = pos; }
-		__forceinline Vector2 GetScreenPos() { return mScreenPos; }		
 		__forceinline void SetPos(Vector2 pos) { mPos = pos; }
 		__forceinline Vector2 GetPos() { return mPos; }
 		__forceinline void SetSize(Vector2 size) { mSize = size; }
@@ -64,7 +62,6 @@ namespace ya
 		bool mbIsEnable;
 		Image* mpImage;
 
-		Vector2 mScreenPos;
 		Vector2 mPos;
 		Vector2 mSize;
 	private:

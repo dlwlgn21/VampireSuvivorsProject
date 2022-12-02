@@ -21,19 +21,21 @@ namespace ya
 		pNewUI->LoadUIImage(L"HPBar", L"Resources\\Image\\HPBar.bmp");
 		//pNewUI->SetSize(Vector2(500.0f, 100.0f));
 #endif
-		UIBase* pNewUI = new Button(eUIType::HP);
-		mUIMap.insert(std::make_pair(eUIType::HP, pNewUI));
-		//pNewUI->SetPos(Vector2(200.0f, 200.0f));
-		pNewUI->LoadUIImage(L"HPBar", L"Resources\\Image\\HPBar.bmp");
+		UIBase* pHpBar = new Button(eUIType::HP);
+		mUIMap.insert(std::make_pair(eUIType::HP, pHpBar));
+		pHpBar->SetPos(Vector2(0.0f, 50.0f));
+		pHpBar->LoadUIImage(L"HPBar", L"Resources\\Image\\HPBar.bmp");
 
-		pNewUI = new Panel(eUIType::INVENTORY);
+		UIBase* pNewUI = new Panel(eUIType::INVENTORY);
 		mUIMap.insert(std::make_pair(eUIType::INVENTORY, pNewUI));
 		pNewUI->LoadUIImage(L"Backpack", L"Resources\\Image\\Backpack.bmp");
-		pNewUI->SetScreenPos(Vector2(200.0f, 200.0f));
+		pNewUI->SetPos(Vector2(500.0f, 500.0f));
+
+		pNewUI->AddUIChild(pHpBar);
 
 		pNewUI = new Button(eUIType::OPTIOIN);
 		mUIMap.insert(std::make_pair(eUIType::OPTIOIN, pNewUI));
-		pNewUI->SetIsFullScreen(true);
+		//pNewUI->SetIsFullScreen(true);
 	}
 	void UIManager::LoadUI(eUIType uiType)
 	{

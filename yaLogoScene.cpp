@@ -177,11 +177,9 @@ namespace ya
 		//Ground* pG =  ya::object::Instantiate<Ground>(eColliderLayer::GROUND);
 		//pG->SetPos({300.0f, 800.0f});
 
-
-
-
 // FOR UI
-		UIManager::Push(eUIType::HP);
+		//UIManager::Push(eUIType::HP);
+		UIManager::Push(eUIType::INVENTORY);
 
 #if 0
 		HUD* pHUD = static_cast<HUD*>(UIManager::GetUIInstanceOrNull(eUIType::HP));

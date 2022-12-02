@@ -10,7 +10,6 @@ namespace ya
 		, mbIsEnable(false)
 		, mParent(nullptr)
 		, mPos(Vector2::ZERO)
-		, mScreenPos(Vector2::ZERO)
 		, mSize(Vector2::ZERO)
 		, mpImage(nullptr)
 	{
@@ -34,6 +33,7 @@ namespace ya
 	{
 		mbIsEnable = true;
 		OnActive();
+		// 부모께 활성화 되면, 자식들 것도 활성화 되어야 함.
 		for (UIBase* pChild : mChilds)
 		{
 			pChild->mbIsEnable = true;
@@ -44,6 +44,7 @@ namespace ya
 	void UIBase::Inactive()
 	{
 		mbIsEnable = false;
+		// 부모께 비활성화 되면, 자식들 것도 비활성화 되어야 함. 자식들 것 먼저 꺼주어야 함.
 		for (UIBase* pChild : mChilds)
 		{
 			pChild->OnInactive();
@@ -59,9 +60,7 @@ namespace ya
 
 		OnTick();
 		if (mParent != nullptr)
-			{ mScreenPos = mParent->GetScreenPos() + mPos; }
-		else
-			{ mScreenPos = mPos; }
+			{ mPos = mParent->GetPos(); }
 
 
 		for (UIBase* pChild : mChilds)
@@ -81,7 +80,6 @@ namespace ya
 			if (pChild->mbIsEnable)
 				{ pChild->OnRender(hdc); }
 		}
-
 	}
 
 	void UIBase::UIClear()
@@ -105,6 +103,7 @@ namespace ya
 
 	void UIBase::AddUIChild(UIBase* pUIBase)
 	{
+		assert(pUIBase != nullptr);
 		mChilds.push_back(pUIBase);
 		pUIBase->mParent = this;
 	}
