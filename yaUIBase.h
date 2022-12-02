@@ -47,6 +47,7 @@ namespace ya
 		__forceinline void SetSize(Vector2 size) { mSize = size; }
 		__forceinline Vector2 GetSize() { return mSize; }
 
+		
 	protected:
 		virtual void OnInitialize()	= 0;
 		virtual void OnActive()	= 0;
@@ -64,6 +65,7 @@ namespace ya
 
 		Vector2 mPos;
 		Vector2 mSize;
+		Vector2 mScreenPos;
 	private:
 		std::vector<UIBase*> mChilds;
 	};

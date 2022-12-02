@@ -39,8 +39,8 @@ namespace ya
 
 		AlphaBlend(
 			hdc,
-			static_cast<int>(mPos.x),
-			static_cast<int>(mPos.y),
+			static_cast<int>(mScreenPos.x),
+			static_cast<int>(mScreenPos.y),
 			static_cast<int>(mpImage->GetWidth() * xRatio),
 			static_cast<int>(mpImage->GetHeight()),
 

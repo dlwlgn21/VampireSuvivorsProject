@@ -43,7 +43,6 @@ namespace ya
 
 	void UIBase::Inactive()
 	{
-		mbIsEnable = false;
 		// 부모께 비활성화 되면, 자식들 것도 비활성화 되어야 함. 자식들 것 먼저 꺼주어야 함.
 		for (UIBase* pChild : mChilds)
 		{
@@ -51,6 +50,7 @@ namespace ya
 			pChild->mbIsEnable = false;
 		}
 		OnInactive();
+		mbIsEnable = false;
 	}
 
 	void UIBase::Tick()
@@ -60,8 +60,9 @@ namespace ya
 
 		OnTick();
 		if (mParent != nullptr)
-			{ mPos = mParent->GetPos(); }
-
+			{ mScreenPos = mParent->GetPos() + mPos; }
+		else
+			{ mScreenPos = mPos; }
 
 		for (UIBase* pChild : mChilds)
 		{
