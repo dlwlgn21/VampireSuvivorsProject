@@ -2,6 +2,7 @@
 #include "yaButton.h"
 #include "yaImage.h"
 #include "yaInput.h"
+
 namespace ya
 {
 	Button::Button(eUIType type)
@@ -20,31 +21,42 @@ namespace ya
 	{
 	}
 
-	void Button::OnActivate()
+	void Button::OnActive()
 	{
 	}
 
-	void Button::OnInActivate()
+	void Button::OnInactive()
 	{
 	}
 
 	void Button::OnTick()
 	{
+		char buffer[128];
 		Vector2 mousePos = Input::GetMousePos();
 		Vector2 size = GetSize();
-		if (mScreenPos.x <= mousePos.x && mousePos.x < mScreenPos.x + size.x
-			&& mScreenPos.y <= mousePos.y && mousePos.y < mScreenPos.y + size.y)
-		{ mbIsMouseOn = true; }
+		if (mScreenPos.x <= mousePos.x && mousePos.x < mScreenPos.x + size.x && 
+			mScreenPos.y <= mousePos.y && mousePos.y < mScreenPos.y + size.y)
+			{ mbIsMouseOn = true; }
 		else
-		{ mbIsMouseOn = false; }
+			{ mbIsMouseOn = false; }
 
 		if (IS_KEY_DOWN(eKeyCode::L_BUTTON) && mbIsMouseOn)
-		{ mOnClick(); }
+		{ 
+			sprintf_s(buffer, "Mouse Pos.x{%3f}, Pos.y{%3f}\n\n", mousePos.x, mousePos.y);
+			OutputDebugStringA(buffer);
+			mOnClick(); 
+		}
+		if (IS_KEY_DOWN(eKeyCode::L_BUTTON))
+		{
+			sprintf_s(buffer, "Mouse Pos.x{%3f}, Pos.y{%3f}\n\n", mousePos.x, mousePos.y);
+			OutputDebugStringA(buffer);
+			//mOnClick();
+		}
 	}
 
 	void Button::OnRender(HDC hdc)
 	{
-		if (mpImage == nullptr) { return; }
+		assert(mpImage != nullptr);
 
 		AlphaBlend(
 			hdc,

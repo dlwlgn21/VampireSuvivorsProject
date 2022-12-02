@@ -33,7 +33,7 @@ namespace ya
 		}
 		Vector2 operator/(const float val)
 		{
-			Vector2 temp;
+			Vector2 temp{};
 			temp.x = x / val;
 			temp.y = y / val;
 			return temp;
@@ -41,14 +41,14 @@ namespace ya
 
 		Vector2 operator+(const Vector2& other)
 		{
-			Vector2 temp;
+			Vector2 temp{};
 			temp.x = x + other.x;
 			temp.y = y + other.y;
 			return temp;
 		}
 		Vector2 operator-(const Vector2& other)
 		{
-			Vector2 temp;
+			Vector2 temp{};
 			temp.x = x - other.x;
 			temp.y = y - other.y;
 			return temp;
@@ -56,7 +56,7 @@ namespace ya
 
 		Vector2 operator*(const Vector2& other)
 		{
-			Vector2 temp;
+			Vector2 temp{};
 			temp.x = x * other.x;
 			temp.y = y * other.y;
 			return temp;
@@ -64,7 +64,7 @@ namespace ya
 
 		Vector2 operator*(const float val)
 		{
-			Vector2 temp;
+			Vector2 temp{};
 			temp.x = x * val;
 			temp.y = y * val;
 			return temp;
@@ -145,6 +145,12 @@ namespace ya
 		__forceinline float Dot(const Vector2& v1, const Vector2& v2)
 		{
 			return (v1.x * v2.x) + (v1.y * v2.y);
+		}
+
+		__forceinline void GetSinCosValueAtDegree(float& out_sin, float& out_cos, float degree)
+		{
+			out_sin = sinf(DegreeToRad(degree));
+			out_cos = cosf(DegreeToRad(degree));
 		}
 
 		inline Vector2 Rotate(const Vector2 input, float degree)

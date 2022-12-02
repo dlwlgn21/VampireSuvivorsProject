@@ -7,6 +7,7 @@ namespace ya
 	Panel::Panel(eUIType type)
 		: UIBase(type)
 	{
+		mChilds.reserve(8);
 		ZeroMemory(&mBlendFunc, sizeof(BLENDFUNCTION));
 		mBlendFunc.BlendOp = AC_SRC_OVER;
 		mBlendFunc.BlendFlags = 0;
@@ -18,11 +19,11 @@ namespace ya
 	{
 	}
 
-	void Panel::OnActivate()
+	void Panel::OnActive()
 	{
 	}
 
-	void Panel::OnInActivate()
+	void Panel::OnInactive()
 	{
 	}
 
@@ -32,7 +33,8 @@ namespace ya
 
 	void Panel::OnRender(HDC hdc)
 	{
-		if (mpImage == nullptr) { return; }
+		assert(mpImage != nullptr);
+
 		AlphaBlend(
 			hdc,
 			static_cast<int>(mScreenPos.x),
@@ -55,6 +57,7 @@ namespace ya
 
 	void Panel::AddUIBase(UIBase* pUIBase)
 	{
+		mChilds.push_back(pUIBase);
 	}
 
 }

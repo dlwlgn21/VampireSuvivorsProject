@@ -31,7 +31,7 @@ namespace ya
 	}
 	UINT KnifeObjectPool::GetFreeObjectCount() const
 	{
-		return mQ.size();
+		return static_cast<UINT>(mQ.size());
 	}
 	UINT KnifeObjectPool::GetMaxFreeObjectCount() const
 	{

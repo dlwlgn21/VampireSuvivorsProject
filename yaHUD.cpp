@@ -19,10 +19,10 @@ namespace ya
 	void HUD::OnInitialize()
 	{
 	}
-	void HUD::OnActivate()
+	void HUD::OnActive()
 	{
 	}
-	void HUD::OnInActivate()
+	void HUD::OnInactive()
 	{
 
 	}
@@ -32,8 +32,8 @@ namespace ya
 
 	void HUD::OnRender(HDC hdc)
 	{
-		if (mpImage == nullptr) { return; }
-		if (mpPlayer == nullptr) { return; }
+		assert(mpImage != nullptr);
+		assert(mpPlayer != nullptr);
 
 		float xRatio = mpPlayer->GetHp() / 100.0f;
 
@@ -45,8 +45,8 @@ namespace ya
 			static_cast<int>(mpImage->GetHeight()),
 
 			mpImage->GetDC(),
-			static_cast<int>(0),
-			static_cast<int>(0),
+			0,
+			0,
 			static_cast<int>(mpImage->GetWidth()),
 			static_cast<int>(mpImage->GetHeight()),
 			mBlendFunc

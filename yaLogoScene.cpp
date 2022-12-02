@@ -181,11 +181,10 @@ namespace ya
 
 
 // FOR UI
-#if 0
 		UIManager::Push(eUIType::HP);
-		UIManager::Push(eUIType::MP);
-		UIManager::Push(eUIType::INVENTORY);
-		HUD* pHUD = static_cast<HUD*>(UIManager::GetUIInstance(eUIType::MP));
+
+#if 0
+		HUD* pHUD = static_cast<HUD*>(UIManager::GetUIInstanceOrNull(eUIType::HP));
 		assert(pHUD != nullptr);
 		pHUD->SetPlayer(pPlayer);
 #endif

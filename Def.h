@@ -69,7 +69,6 @@ enum class eColliderLayer
 enum class eUIType
 {
 	HP,
-	MP,
 	SHOP,
 	INVENTORY,
 	OPTIOIN,

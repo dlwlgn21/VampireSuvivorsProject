@@ -46,10 +46,10 @@ namespace ya
 		, mpKnifeObjPool(new KnifeObjectPool(MAX_KNIFE_COUNT))
 		, mCurrKnifeCount(1)
 		, mKnockbackValue(0.5f)
-		, mpRuneTracerPool(new WeaponObjectPool<RuneTracer>(MAX_RUNE_TRACER_COUNT))
-		, mCurrRuneTracerCount(1)
-		, mRuneTracerShootInterval(3.0f)
-		, mRuneTracerShootTimer(0.0f)
+		//, mpRuneTracerPool(new WeaponObjectPool<RuneTracer>(MAX_RUNE_TRACER_COUNT))
+		//, mCurrRuneTracerCount(1)
+		//, mRuneTracerShootInterval(1.0f)
+		//, mRuneTracerShootTimer(0.0f)
 	{
 		assert(mpLeftImage != nullptr);
 		assert(mpRightImage != nullptr);
@@ -58,7 +58,7 @@ namespace ya
 		assert(mpAnimator != nullptr);
 		assert(mpCollider != nullptr);
 		assert(mpKnifeObjPool != nullptr);
-		assert(mpRuneTracerPool != nullptr);
+		//assert(mpRuneTracerPool != nullptr);
 
 		SetName(L"Player");
 		mScale = { 2.0f, 2.0f };
@@ -80,10 +80,10 @@ namespace ya
 		{
 			delete mpKnifeObjPool;
 		}
-		if (mpRuneTracerPool != nullptr)
-		{
-			delete mpRuneTracerPool;
-		}
+		//if (mpRuneTracerPool != nullptr)
+		//{
+		//	delete mpRuneTracerPool;
+		//}
 	}
 
 	void Player::Tick()
@@ -91,7 +91,7 @@ namespace ya
 		GameObject::Tick();
 
 		mKnifeShootTimer += Time::DeltaTime();
-		mRuneTracerShootTimer += Time::DeltaTime();
+		//mRuneTracerShootTimer += Time::DeltaTime();
 
 		if (IS_KEY_DOWN(eKeyCode::D))
 		{
@@ -204,17 +204,16 @@ namespace ya
 			mKnifeShootTimer = 0.0f;
 		}
 
-		if (mRuneTracerShootTimer >= mRuneTracerShootInterval)
-		{
-			for (int i = 0; i < mCurrRuneTracerCount; ++i)
-			{
-				GameObject* pRune = static_cast<GameObject*>(mpRuneTracerPool->Get(mPos, 10, 50.f, mKnockbackValue, mRuneTracerShootInterval, mpRuneTracerPool));
-				Scene* scene = SceneManager::GetCurrentScene();
-				scene->AddWeaponObject(pRune);
-			}
-
-			mRuneTracerShootTimer = 0.0f;
-		}
+		//if (mRuneTracerShootTimer >= mRuneTracerShootInterval)
+		//{
+		//	for (int i = 0; i < mCurrRuneTracerCount; ++i)
+		//	{
+		//		GameObject* pRune = static_cast<GameObject*>(mpRuneTracerPool->Get(mPos, 10, 500.f, mKnockbackValue, mRuneTracerShootInterval, mpRuneTracerPool));
+		//		Scene* scene = SceneManager::GetCurrentScene();
+		//		scene->AddWeaponObject(pRune);
+		//	}
+		//	mRuneTracerShootTimer = 0.0f;
+		//}
 	}
 
 	void Player::Render(HDC hdc)

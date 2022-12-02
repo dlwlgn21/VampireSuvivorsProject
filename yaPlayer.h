@@ -66,10 +66,10 @@ namespace ya
 		int mCurrKnifeCount;
 		float mKnockbackValue;
 
-		WeaponObjectPool<RuneTracer>* mpRuneTracerPool;
-		int mCurrRuneTracerCount;
-		float mRuneTracerShootInterval;
-		float mRuneTracerShootTimer;
+		//WeaponObjectPool<RuneTracer>* mpRuneTracerPool;
+		//int mCurrRuneTracerCount;
+		//float mRuneTracerShootInterval;
+		//float mRuneTracerShootTimer;
 	};
 
 }

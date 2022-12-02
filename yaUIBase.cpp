@@ -10,6 +10,7 @@ namespace ya
 		, mbIsEnable(false)
 		, mParent(nullptr)
 		, mPos(Vector2::ZERO)
+		, mScreenPos(Vector2::ZERO)
 		, mSize(Vector2::ZERO)
 		, mpImage(nullptr)
 	{
@@ -29,58 +30,56 @@ namespace ya
 		}
 	}
 
-	void UIBase::Activate()
+	void UIBase::Active()
 	{
 		mbIsEnable = true;
-		OnActivate();
+		OnActive();
 		for (UIBase* pChild : mChilds)
 		{
 			pChild->mbIsEnable = true;
-			pChild->OnActivate();
+			pChild->OnActive();
 		}
 	}
 
-	void UIBase::InActivate()
+	void UIBase::Inactive()
 	{
 		mbIsEnable = false;
 		for (UIBase* pChild : mChilds)
 		{
-			pChild->OnInActivate();
+			pChild->OnInactive();
 			pChild->mbIsEnable = false;
 		}
-		OnInActivate();
+		OnInactive();
 	}
 
 	void UIBase::Tick()
 	{
 		if (!mbIsEnable) 
-		{ return; }
+			{ return; }
 
 		OnTick();
 		if (mParent != nullptr)
-		{ mScreenPos = mParent->GetPos() + mPos; }
+			{ mScreenPos = mParent->GetScreenPos() + mPos; }
 		else
-		{ mScreenPos = mPos; }
+			{ mScreenPos = mPos; }
 
 
 		for (UIBase* pChild : mChilds)
 		{
 			if (pChild->mbIsEnable)
-			{ pChild->Tick(); }
+				{ pChild->Tick(); }
 		}
 	}
 
 	void UIBase::Render(HDC hdc)
 	{
 		if (!mbIsEnable) 
-		{ return; }
+			{ return; }
 		OnRender(hdc);
 		for (UIBase* pChild : mChilds)
 		{
 			if (pChild->mbIsEnable)
-			{
-				pChild->OnRender(hdc);
-			}
+				{ pChild->OnRender(hdc); }
 		}
 
 	}
@@ -100,6 +99,7 @@ namespace ya
 	void UIBase::LoadUIImage(const std::wstring& key, const std::wstring& path)
 	{
 		mpImage = Resources::Load<Image>(key, path);
+		assert(mpImage != nullptr);
 		mSize = Vector2(static_cast<float>(mpImage->GetWidth()), static_cast<float>(mpImage->GetHeight()));
 	}
 

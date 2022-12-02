@@ -10,8 +10,8 @@ namespace ya
 		virtual ~Panel() = default;
 
 		void OnInitialize() override;
-		void OnActivate() override;
-		void OnInActivate() override;
+		void OnActive() override;
+		void OnInactive() override;
 		void OnTick() override;
 		void OnRender(HDC hdc) override;
 		void OnUIClear() override;
@@ -19,6 +19,7 @@ namespace ya
 		void AddUIBase(UIBase* pUIBase);
 
 	private:
+		std::vector<UIBase*> mChilds;
 		BLENDFUNCTION mBlendFunc;
 	};
 

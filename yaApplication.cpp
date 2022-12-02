@@ -26,7 +26,7 @@ namespace ya
 
 		Time::Initialize();
 		Input::Initialize();
-		//UIManager::Initialize();
+		UIManager::Initialize();
 		SceneManager::Initialze();
 		Camera::Initialize();
 		//SoundManager::Initialize();
@@ -81,7 +81,7 @@ namespace ya
 
 		SceneManager::Tick();
 		CollisionManager::Tick();
-		//UIManager::Tick();
+		UIManager::Tick();
 		Camera::Tick();
 
 		HBRUSH hPrevBrush = (HBRUSH)SelectObject(mWindowData.backBuffer, mBrushes[(UINT)eBrushColor::GRAY]);
@@ -93,7 +93,7 @@ namespace ya
 		SelectObject(mWindowData.backBuffer, hPrevBrush);
 
 		SceneManager::Render(mWindowData.backBuffer);
-		//UIManager::Render(mWindowData.backBuffer);
+		UIManager::Render(mWindowData.backBuffer);
 		Camera::Render(mWindowData.backBuffer);
 		Input::Render(mWindowData.backBuffer);
 		Time::Render(mWindowData.backBuffer);
@@ -133,6 +133,6 @@ namespace ya
 		SceneManager::Release();
 		ReleaseDC(mWindowData.hwnd, mWindowData.hdc);
 		ReleaseDC(mWindowData.hwnd, mWindowData.backBuffer);
-		//UIManager::Release();
+		UIManager::Release();
 	}
 }
