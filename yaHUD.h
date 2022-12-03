@@ -2,24 +2,21 @@
 #include "yaUIBase.h"
 namespace ya
 {
-	class Player;
 	class HUD : public UIBase
 	{
 	public:
 		HUD(eUIType type);
 		virtual ~HUD() = default;
 
-		void OnInitialize() override;
-		void OnActive() override;
-		void OnInactive() override;
-		void OnTick() override;
-		void OnRender(HDC hdc) override;
-		void OnUIClear() override;
+		virtual void OnInitialize() = 0;
+		virtual void OnActive() = 0;
+		virtual void OnInactive() = 0;
+		virtual void OnTick() = 0;
+		virtual void OnRender(HDC hdc) = 0;
+		virtual void OnUIClear() = 0;
 
-		inline void SetPlayer(Player* pPlayer) { mpPlayer = pPlayer; }
-	private:
+	protected:
 		BLENDFUNCTION mBlendFunc;
-		Player* mpPlayer;
 
 	};
 

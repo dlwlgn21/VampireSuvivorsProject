@@ -43,6 +43,14 @@ namespace ya
 			return gameObeject;
 		}
 
+		template<typename T>
+		static __forceinline T* InstantiateAtAnotherScene(eColliderLayer colliderLayer, const std::wstring& key, const std::wstring& path, eSceneType sceneType)
+		{
+			T* gameObeject = new T(key, path);
+			Scene* scene = SceneManager::GetSpecifiedScene(sceneType);
+			scene->AddGameObject(static_cast<GameObject*>(gameObeject), colliderLayer);
+			return gameObeject;
+		}
 
 		template<typename T>
 		static __forceinline T* InstantiateAtAnotherScene(eColliderLayer colliderLayer, const std::wstring& key, eSceneType sceneType, Vector2 pos)

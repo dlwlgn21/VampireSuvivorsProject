@@ -6,6 +6,7 @@
 #include "yaSceneManager.h"
 #include "yaObject.h"
 #include "yaButtonImageObject.h"
+#include "yaStartButton.h"
 
 namespace ya
 {
@@ -18,8 +19,9 @@ namespace ya
 	}
 	void TitleScene::Initialize()
 	{
-		ya::object::InstantiateAtAnotherScene<BGImageObject>(eColliderLayer::BACKGROUND, L"TitleBG.bmp", GetSceneTpye());
-
+		ya::object::InstantiateAtAnotherScene<BGImageObject>(eColliderLayer::BACKGROUND, L"TitleBGResize.bmp", GetSceneTpye());
+		ya::object::InstantiateAtAnotherScene<StartButton>(eColliderLayer::BACKGROUND, L"StartButton", L"Resources\\Image\\StartButton.bmp", GetSceneTpye());
+		
 	}
 	void TitleScene::Tick()
 	{

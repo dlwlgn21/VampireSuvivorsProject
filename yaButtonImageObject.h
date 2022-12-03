@@ -4,18 +4,18 @@
 namespace ya
 {
 	class Image;
-	class ButtonImageObject final : public GameObject
+	class ButtonImageObject : public GameObject
 	{
 	public:
-		ButtonImageObject(const std::wstring key);
-		virtual ~ButtonImageObject();
+		ButtonImageObject(const std::wstring& key, const std::wstring& path);
+		virtual ~ButtonImageObject() = default;
 
-		void Initialize() override;
-		void Tick() override;
-		void Render(HDC hdc) override;
-	private:
+		virtual void Initialize() = 0;
+		virtual void Tick() = 0;
+		virtual void Render(HDC hdc) = 0;
+
+	protected:
 		Image* mpImage;
-		std::wstring mKey;
 	};
 
 }

@@ -1,8 +1,8 @@
 #include "yaUIManager.h"
-#include "yaHUD.h"
 #include "yaUIBase.h"
 #include "yaButton.h"
 #include "yaPanel.h"
+#include "yaHealthBar.h"
 
 namespace ya
 {
@@ -14,28 +14,28 @@ namespace ya
 
 	void UIManager::Initialize()					// 여기에서 UI 메모리 할당
 	{
-#if 0
-		UIBase* pNewUI = new HUD(eUIType::HP);
+		UIBase* pNewUI = new HealthBar();
 		mUIMap.insert(std::make_pair(eUIType::HP, pNewUI));
-		//pNewUI->SetPos(Vector2(200.0f, 200.0f));
+		pNewUI->SetPos(Vector2(760.0f, 440.0f));
 		pNewUI->LoadUIImage(L"HPBar", L"Resources\\Image\\HPBar.bmp");
+
+
 		//pNewUI->SetSize(Vector2(500.0f, 100.0f));
-#endif
-		UIBase* pHpBar = new Button(eUIType::HP);
-		mUIMap.insert(std::make_pair(eUIType::HP, pHpBar));
-		pHpBar->SetPos(Vector2(0.0f, 50.0f));
-		pHpBar->LoadUIImage(L"HPBar", L"Resources\\Image\\HPBar.bmp");
+		//UIBase* pHpBar = new Button(eUIType::HP);
+		//mUIMap.insert(std::make_pair(eUIType::HP, pHpBar));
+		//pHpBar->SetPos(Vector2(0.0f, 50.0f));
+		//pHpBar->LoadUIImage(L"HPBar", L"Resources\\Image\\HPBar.bmp");
 
-		UIBase* pNewUI = new Panel(eUIType::INVENTORY);
-		mUIMap.insert(std::make_pair(eUIType::INVENTORY, pNewUI));
-		pNewUI->LoadUIImage(L"Backpack", L"Resources\\Image\\Backpack.bmp");
-		pNewUI->SetPos(Vector2(500.0f, 500.0f));
+		//UIBase* pNewUI = new Panel(eUIType::INVENTORY);
+		//mUIMap.insert(std::make_pair(eUIType::INVENTORY, pNewUI));
+		//pNewUI->LoadUIImage(L"Backpack", L"Resources\\Image\\Backpack.bmp");
+		//pNewUI->SetPos(Vector2(500.0f, 500.0f));
 
-		pNewUI->AddUIChild(pHpBar);
+		//pNewUI->AddUIChild(pHpBar);
 
-		pNewUI = new Button(eUIType::OPTIOIN);
-		mUIMap.insert(std::make_pair(eUIType::OPTIOIN, pNewUI));
-		//pNewUI->SetIsFullScreen(true);
+		//pNewUI = new Button(eUIType::OPTIOIN);
+		//mUIMap.insert(std::make_pair(eUIType::OPTIOIN, pNewUI));
+		////pNewUI->SetIsFullScreen(true);
 	}
 	void UIManager::LoadUI(eUIType uiType)
 	{

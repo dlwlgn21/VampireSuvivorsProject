@@ -32,7 +32,7 @@ namespace ya
 	{
 		TransparentBlt(
 			hdc,
-			static_cast<int>(mPos.x),
+			static_cast<int>(mPos.x + 160.0f),
 			static_cast<int>(mPos.y),
 			static_cast<int>(mpImage->GetWidth()),
 			static_cast<int>(mpImage->GetHeight()),
