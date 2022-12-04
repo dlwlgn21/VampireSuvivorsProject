@@ -132,6 +132,9 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="yaBGGmaeImage.h" />
+    <ClInclude Include="yaBGBlackBar.h" />
+    <ClInclude Include="yaBGGoldCount.h" />
     <ClInclude Include="yaBossGreenGhost.h" />
     <ClInclude Include="yaBossLionHead.h" />
     <ClInclude Include="yaBossMedusaHead.h" />
@@ -168,6 +171,7 @@
     <ClInclude Include="yaDurahanBoneKnight.h" />
     <ClInclude Include="yaEndingScene.h" />
     <ClInclude Include="yaEntity.h" />
+    <ClInclude Include="yaExitButton.h" />
     <ClInclude Include="yaFlyingSkull.h" />
     <ClInclude Include="yaGameObejct.h" />
     <ClInclude Include="yaGrayMira.h" />
@@ -190,6 +194,7 @@
     <ClInclude Include="yaMudman.h" />
     <ClInclude Include="yaObject.h" />
     <ClInclude Include="yaObjectPool.h" />
+    <ClInclude Include="yaOptionButton.h" />
     <ClInclude Include="yaPanel.h" />
     <ClInclude Include="yaPlayer.h" />
     <ClInclude Include="yaPlayerCustomAnimation.h" />
@@ -215,6 +220,9 @@
     <ClInclude Include="yaWeaponObjectPool.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="yaBGGmaeImage.cpp" />
+    <ClCompile Include="yaBGBlackBar.cpp" />
+    <ClCompile Include="yaBGGoldCount.cpp" />
     <ClCompile Include="yaBossGreenGhost.cpp" />
     <ClCompile Include="yaBossLionHead.cpp" />
     <ClCompile Include="yaBossMedusaHead.cpp" />
@@ -246,6 +254,7 @@
     <ClCompile Include="yaDurahanBoneKnight.cpp" />
     <ClCompile Include="yaEndingScene.cpp" />
     <ClCompile Include="yaEntity.cpp" />
+    <ClCompile Include="yaExitButton.cpp" />
     <ClCompile Include="yaFlyingSkull.cpp" />
     <ClCompile Include="yaGameObejct.cpp" />
     <ClCompile Include="yaGrayMira.cpp" />
@@ -267,6 +276,7 @@
     <ClCompile Include="yaMonster.cpp" />
     <ClCompile Include="yaMudman.cpp" />
     <ClCompile Include="yaObjectPool.cpp" />
+    <ClCompile Include="yaOptionButton.cpp" />
     <ClCompile Include="yaPanel.cpp" />
     <ClCompile Include="yaPlayer.cpp" />
     <ClCompile Include="yaPlayerCustomAnimation.cpp" />

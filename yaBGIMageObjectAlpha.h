@@ -4,19 +4,17 @@
 namespace ya
 {
 	class Image;
-	class BGImageObjectAlpha final : public GameObject
+	class BGImageObjectAlpha : public GameObject
 	{
 	public:
-		BGImageObjectAlpha(const std::wstring key);
-		virtual ~BGImageObjectAlpha();
+		BGImageObjectAlpha(const std::wstring& key, const std::wstring& path);
+		virtual ~BGImageObjectAlpha() = default;
 
-		void Initialize() override;
-		void Tick() override;
-		void Render(HDC hdc) override;
-	private:
+		virtual void Initialize() = 0;
+		virtual void Tick() = 0;
+		virtual void Render(HDC hdc) = 0;
+	protected:
 		Image* mpImage;
-		std::wstring mKey;
-		BLENDFUNCTION mFunc;
 	};
 
 }

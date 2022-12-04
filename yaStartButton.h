@@ -3,7 +3,6 @@
 
 namespace ya
 {
-	class Image;
 	class StartButton final : public ButtonImageObject
 	{
 	public:

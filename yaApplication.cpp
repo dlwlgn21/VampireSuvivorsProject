@@ -85,7 +85,7 @@ namespace ya
 		UIManager::Tick();
 		Camera::Tick();
 
-		HBRUSH hPrevBrush = (HBRUSH)SelectObject(mWindowData.backBuffer, mBrushes[(UINT)eBrushColor::GRAY]);
+		HBRUSH hPrevBrush = (HBRUSH)SelectObject(mWindowData.backBuffer, mBrushes[(UINT)eBrushColor::BLACK]);
 
 		// Clear 겁나 느리게 만듦.
 		Rectangle(

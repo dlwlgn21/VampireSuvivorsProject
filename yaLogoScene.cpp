@@ -179,10 +179,10 @@ namespace ya
 
 // FOR UI
 		//UIManager::Push(eUIType::HP);
-		UIManager::Push(eUIType::HP);
-		HealthBar* pHPBar = static_cast<HealthBar*>(UIManager::GetUIInstanceOrNull(eUIType::HP));
-		assert(pHPBar != nullptr);
-		pHPBar->SetPlayer(pPlayer);
+		//UIManager::Push(eUIType::HP);
+		//HealthBar* pHPBar = static_cast<HealthBar*>(UIManager::GetUIInstanceOrNull(eUIType::HP));
+		//assert(pHPBar != nullptr);
+		//pHPBar->SetPlayer(pPlayer);
 
 #if 0
 		HUD* pHUD = static_cast<HUD*>(UIManager::GetUIInstanceOrNull(eUIType::HP));

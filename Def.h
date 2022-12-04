@@ -101,3 +101,4 @@ enum class eCameraEffect
 #define DIAGONAL_CORRECTION_VALUE (0.75f)
 #define MAX_KNIFE_COUNT (10)
 #define MAX_RUNE_TRACER_COUNT (5)
+#define BG_BLACK_BAR_Y_DIFF (5.0f)

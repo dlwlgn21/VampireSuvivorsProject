@@ -76,6 +76,12 @@
     <Filter Include="GameObject\Game\Monster\Base">
       <UniqueIdentifier>{32d01c2a-b0f3-4a0c-bdca-563cabf7ca9b}</UniqueIdentifier>
     </Filter>
+    <Filter Include="GameObject\StartMenu">
+      <UniqueIdentifier>{f00dc2f7-a9e2-42cb-9c75-03f37b528273}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameObject\StartMenu\Base">
+      <UniqueIdentifier>{e20d44e8-e1b9-48be-8bf8-1f9c925547f8}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
@@ -169,15 +175,6 @@
       <Filter>GameObject\Tile</Filter>
     </ClInclude>
     <ClInclude Include="yaBackpack.h">
-      <Filter>GameObject\Game</Filter>
-    </ClInclude>
-    <ClInclude Include="yaBGImageObject.h">
-      <Filter>GameObject\Game</Filter>
-    </ClInclude>
-    <ClInclude Include="yaBGIMageObjectAlpha.h">
-      <Filter>GameObject\Game</Filter>
-    </ClInclude>
-    <ClInclude Include="yaButtonImageObject.h">
       <Filter>GameObject\Game</Filter>
     </ClInclude>
     <ClInclude Include="yaMissile.h">
@@ -318,8 +315,32 @@
     <ClInclude Include="yaHealthBar.h">
       <Filter>GameObject\UI</Filter>
     </ClInclude>
+    <ClInclude Include="yaBGBlackBar.h">
+      <Filter>GameObject\StartMenu</Filter>
+    </ClInclude>
     <ClInclude Include="yaStartButton.h">
-      <Filter>헤더 파일</Filter>
+      <Filter>GameObject\StartMenu</Filter>
+    </ClInclude>
+    <ClInclude Include="yaBGImageObject.h">
+      <Filter>GameObject\StartMenu\Base</Filter>
+    </ClInclude>
+    <ClInclude Include="yaBGIMageObjectAlpha.h">
+      <Filter>GameObject\StartMenu\Base</Filter>
+    </ClInclude>
+    <ClInclude Include="yaButtonImageObject.h">
+      <Filter>GameObject\StartMenu\Base</Filter>
+    </ClInclude>
+    <ClInclude Include="yaBGGmaeImage.h">
+      <Filter>GameObject\StartMenu</Filter>
+    </ClInclude>
+    <ClInclude Include="yaBGGoldCount.h">
+      <Filter>GameObject\StartMenu</Filter>
+    </ClInclude>
+    <ClInclude Include="yaExitButton.h">
+      <Filter>GameObject\StartMenu</Filter>
+    </ClInclude>
+    <ClInclude Include="yaOptionButton.h">
+      <Filter>GameObject\StartMenu</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -399,15 +420,6 @@
       <Filter>GameObject\Tile</Filter>
     </ClCompile>
     <ClCompile Include="yaBackpack.cpp">
-      <Filter>GameObject\Game</Filter>
-    </ClCompile>
-    <ClCompile Include="yaBGImageObject.cpp">
-      <Filter>GameObject\Game</Filter>
-    </ClCompile>
-    <ClCompile Include="yaBGIMageObjectAlpha.cpp">
-      <Filter>GameObject\Game</Filter>
-    </ClCompile>
-    <ClCompile Include="yaButtonImageObject.cpp">
       <Filter>GameObject\Game</Filter>
     </ClCompile>
     <ClCompile Include="yaMissile.cpp">
@@ -549,7 +561,31 @@
       <Filter>GameObject\UI</Filter>
     </ClCompile>
     <ClCompile Include="yaStartButton.cpp">
-      <Filter>소스 파일</Filter>
+      <Filter>GameObject\StartMenu</Filter>
+    </ClCompile>
+    <ClCompile Include="yaBGBlackBar.cpp">
+      <Filter>GameObject\StartMenu</Filter>
+    </ClCompile>
+    <ClCompile Include="yaBGImageObject.cpp">
+      <Filter>GameObject\StartMenu\Base</Filter>
+    </ClCompile>
+    <ClCompile Include="yaBGIMageObjectAlpha.cpp">
+      <Filter>GameObject\StartMenu\Base</Filter>
+    </ClCompile>
+    <ClCompile Include="yaButtonImageObject.cpp">
+      <Filter>GameObject\StartMenu\Base</Filter>
+    </ClCompile>
+    <ClCompile Include="yaBGGmaeImage.cpp">
+      <Filter>GameObject\StartMenu</Filter>
+    </ClCompile>
+    <ClCompile Include="yaBGGoldCount.cpp">
+      <Filter>GameObject\StartMenu</Filter>
+    </ClCompile>
+    <ClCompile Include="yaExitButton.cpp">
+      <Filter>GameObject\StartMenu</Filter>
+    </ClCompile>
+    <ClCompile Include="yaOptionButton.cpp">
+      <Filter>GameObject\StartMenu</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
