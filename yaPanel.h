@@ -9,17 +9,14 @@ namespace ya
 		Panel(eUIType type);
 		virtual ~Panel() = default;
 
-		void OnInitialize() override;
-		void OnActive() override;
-		void OnInactive() override;
-		void OnTick() override;
-		void OnRender(HDC hdc) override;
-		void OnUIClear() override;
+		virtual void OnInitialize() = 0;
+		virtual void OnActive() = 0;
+		virtual void OnInactive() = 0;
+		virtual void OnTick() = 0;
+		virtual void OnRender(HDC hdc) = 0;
+		virtual void OnUIClear() = 0;
 
-		void AddUIBase(UIBase* pUIBase);
-
-	private:
-		std::vector<UIBase*> mChilds;
+	protected:
 		BLENDFUNCTION mBlendFunc;
 	};
 

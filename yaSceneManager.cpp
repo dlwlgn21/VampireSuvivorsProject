@@ -26,7 +26,7 @@ namespace ya
 		mScenes[static_cast<UINT>(eSceneType::ENDING_SCENE)] = new EndingScene();
 		mScenes[static_cast<UINT>(eSceneType::ENDING_SCENE)]->Initialize();
 
-		ChangeSecne(eSceneType::LOGO_SCENE);
+		ChangeSecne(eSceneType::TITLE_SCENE);
 #if 0
 		mScenes[static_cast<UINT>(eSceneType::TOOL_SCENE)] = new ToolScene();
 		mScenes[static_cast<UINT>(eSceneType::TOOL_SCENE)]->Initialize();

@@ -3,6 +3,9 @@
 #include "yaButton.h"
 #include "yaPanel.h"
 #include "yaHealthBar.h"
+#include "yaCharacterSelectionPanel.h"
+#include "yaCharacterIcon.h"
+#include "yaCharacterInfo.h"
 
 namespace ya
 {
@@ -15,9 +18,26 @@ namespace ya
 	void UIManager::Initialize()					// 여기에서 UI 메모리 할당
 	{
 		UIBase* pNewUI = new HealthBar();
-		mUIMap.insert(std::make_pair(eUIType::HP, pNewUI));
+		mUIMap.insert(std::make_pair(eUIType::PLAY_INFO_HUD, pNewUI));
 		pNewUI->SetPos(Vector2(760.0f, 440.0f));
 		pNewUI->LoadUIImage(L"HPBar", L"Resources\\Image\\HPBar.bmp");
+
+
+		// CharacterSelection 파트
+		UIBase* pSelect = new CharacterSelectionPanel(eUIType::CHARACTER_SELECTION);
+		mUIMap.insert(std::make_pair(eUIType::CHARACTER_SELECTION, pSelect));
+		pSelect->SetPos(Vector2(350.0f, BLACK_BAR_HEIGHT));
+		pSelect->LoadUIImage(L"CharacterSelectionPanel", L"Resources\\Image\\CharacterSelectionPanelClean.bmp");
+		pSelect->SetIsFullScreen(true);
+		UIBase* pIcon = new CharacterIcon();
+		pIcon->LoadUIImage(L"GennaroIcon", L"Resources\\Image\\Gennaro.bmp");
+		pSelect->AddUIChild(pIcon);
+		pIcon->SetPos(Vector2(CHARACTOR_ICON_X_DIFF, CHARACTOR_IOCN_Y_DIFF));
+		UIBase* pInfo = new CharacterInfo();
+		pInfo->LoadUIImage(L"GennaroInfo", L"Resources\\Image\\GennaroInfo.bmp");
+		pSelect->AddUIChild(pInfo);
+		pInfo->SetPos(Vector2(15.0f, 525.0f));
+
 
 
 		//pNewUI->SetSize(Vector2(500.0f, 100.0f));

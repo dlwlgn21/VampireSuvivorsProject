@@ -1,5 +1,4 @@
 #include "yaHUD.h"
-#include "yaResources.h"
 #include "yaImage.h"
 #include "yaPlayer.h"
 
@@ -15,25 +14,5 @@ namespace ya
 		mBlendFunc.SourceConstantAlpha = 255;
 	}
 
-	void HUD::OnInitialize()
-	{
-	}
-	void HUD::OnActive()
-	{
-	}
-	void HUD::OnInactive()
-	{
 
-	}
-	void HUD::OnTick()
-	{
-	}
-
-	void HUD::OnRender(HDC hdc)
-	{
-	}
-
-	void HUD::OnUIClear()
-	{
-	}
 }

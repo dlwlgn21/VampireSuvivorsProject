@@ -5,7 +5,8 @@
 namespace ya
 {
 	HealthBar::HealthBar()
-		: HUD(eUIType::HP)
+		: HUD(eUIType::PLAY_INFO_HUD)
+		, mpPlayer(nullptr)
 	{
 	}
 	void HealthBar::OnInitialize()

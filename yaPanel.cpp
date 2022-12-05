@@ -55,9 +55,5 @@ namespace ya
 	{
 	}
 
-	void Panel::AddUIBase(UIBase* pUIBase)
-	{
-		mChilds.push_back(pUIBase);
-	}
 
 }

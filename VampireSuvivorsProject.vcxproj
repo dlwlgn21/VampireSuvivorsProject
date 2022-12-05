@@ -165,6 +165,8 @@
     <ClInclude Include="yaButton.h" />
     <ClInclude Include="yaButtonImageObject.h" />
     <ClInclude Include="yaCamera.h" />
+    <ClInclude Include="yaCharacterInfo.h" />
+    <ClInclude Include="yaCharacterSelectionPanel.h" />
     <ClInclude Include="yaCollider.h" />
     <ClInclude Include="yaCollisionManager.h" />
     <ClInclude Include="yaComponent.h" />
@@ -174,6 +176,7 @@
     <ClInclude Include="yaExitButton.h" />
     <ClInclude Include="yaFlyingSkull.h" />
     <ClInclude Include="yaGameObejct.h" />
+    <ClInclude Include="yaCharacterIcon.h" />
     <ClInclude Include="yaGrayMira.h" />
     <ClInclude Include="yaGreenGhost.h" />
     <ClInclude Include="yaHealthBar.h" />
@@ -248,6 +251,8 @@
     <ClCompile Include="yaButton.cpp" />
     <ClCompile Include="yaButtonImageObject.cpp" />
     <ClCompile Include="yaCamera.cpp" />
+    <ClCompile Include="yaCharacterInfo.cpp" />
+    <ClCompile Include="yaCharacterSelectionPanel.cpp" />
     <ClCompile Include="yaCollider.cpp" />
     <ClCompile Include="yaCollisionManager.cpp" />
     <ClCompile Include="yaComponent.cpp" />
@@ -257,6 +262,7 @@
     <ClCompile Include="yaExitButton.cpp" />
     <ClCompile Include="yaFlyingSkull.cpp" />
     <ClCompile Include="yaGameObejct.cpp" />
+    <ClCompile Include="yaCharacterIcon.cpp" />
     <ClCompile Include="yaGrayMira.cpp" />
     <ClCompile Include="yaGreenGhost.cpp" />
     <ClCompile Include="yaHealthBar.cpp" />

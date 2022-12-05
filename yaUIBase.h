@@ -26,7 +26,7 @@ namespace ya
 		virtual ~UIBase();
 
 		void Initialize();					// UI가 로드되었을 때, 호출하는 초기화 함수
-		void Active();					// UI가 활성화 되면, 호출하는 함수
+		void Active();						// UI가 활성화 되면, 호출하는 함수
 		void Inactive();					// UI가 비활성화 되면, 호출하는 함수
 		
 		void Tick();
@@ -66,7 +66,6 @@ namespace ya
 		Vector2 mPos;
 		Vector2 mSize;
 		Vector2 mScreenPos;
-	private:
 		std::vector<UIBase*> mChilds;
 	};
 }

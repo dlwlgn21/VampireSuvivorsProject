@@ -68,10 +68,9 @@ enum class eColliderLayer
 
 enum class eUIType
 {
-	HP,
-	SHOP,
-	INVENTORY,
-	OPTIOIN,
+	CHARACTER_SELECTION,
+	STAGE_SELECTION,
+	PLAY_INFO_HUD,
 	COUNT
 };
 
@@ -102,3 +101,9 @@ enum class eCameraEffect
 #define MAX_KNIFE_COUNT (10)
 #define MAX_RUNE_TRACER_COUNT (5)
 #define BG_BLACK_BAR_Y_DIFF (5.0f)
+#define GAME_SCREEN_X_DIFF (160.0f)
+#define GAME_SCREEN_WIDTH_FLOAT (1200.0f)
+#define GAME_SCREEN_HEIGTH_FLOAT (800.0f)
+#define BLACK_BAR_HEIGHT (90.0f)
+#define CHARACTOR_ICON_X_DIFF (20.0f)
+#define CHARACTOR_IOCN_Y_DIFF (80.0f)

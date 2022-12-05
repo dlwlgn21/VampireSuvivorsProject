@@ -13,11 +13,16 @@ namespace ya
 		, mSize(Vector2::ZERO)
 		, mpImage(nullptr)
 	{
-		mChilds.reserve(16);
+		mChilds.reserve(8);
 	}
 
 	UIBase::~UIBase()
 	{
+		for (UIBase* pChild : mChilds)
+		{
+			if (pChild != nullptr)
+				{ delete pChild; }
+		}
 	}
 
 	void UIBase::Initialize()

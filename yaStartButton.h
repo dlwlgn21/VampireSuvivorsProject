@@ -15,6 +15,8 @@ namespace ya
 		void Initialize() override;
 		void Tick() override;
 		void Render(HDC hdc) override;
+	private:
+		bool mbIsSelected;
 	};
 }
 
