@@ -17,6 +17,8 @@ namespace ya
 		void Initialize() override;
 		void Tick() override;
 		void Render(HDC hdc) override;
+		void ButtonClicked() override;
+
 	private:
 		Image* mpAnimImage;
 		Animator* mpAnimator;

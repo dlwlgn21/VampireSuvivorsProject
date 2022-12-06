@@ -13,9 +13,9 @@ namespace ya
 		virtual void Initialize() = 0;
 		virtual void Tick() = 0;
 		virtual void Render(HDC hdc) = 0;
-
-		bool IsSelected() const { return mbIsSelected; }
-		void SetIsSelected(bool isSelected) { mbIsSelected = isSelected; }
+		virtual void ButtonClicked() = 0;
+		__forceinline bool IsSelected() const { return mbIsSelected; }
+		__forceinline void SetIsSelected(bool isSelected) { mbIsSelected = isSelected; }
 	protected:
 		Image* mpImage;
 		bool mbIsSelected;

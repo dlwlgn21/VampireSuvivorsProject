@@ -38,6 +38,7 @@ namespace ya
 			bool bIsAffectedCamera = true);
 
 		void Reset();
+		void ResetWithoutSpriteIdx();
 		__forceinline void SetScale(Vector2 scale) { mScale = scale; }
 		__forceinline bool IsComplete() { return mbIsComplete; }
 		__forceinline void SetAnimator(Animator* animator) { mpAnimator = animator; };

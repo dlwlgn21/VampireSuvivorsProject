@@ -17,6 +17,7 @@ namespace ya
 		, mAnimOffset(140.0f, 60.0f)
 		, mAnimCount(7)
 		, mAnimDuration(0.2f)
+		, mbIsUiPop(false)
 	{
 		assert(mpAnimImage != nullptr);
 		assert(mpAnimator != nullptr);
@@ -25,7 +26,7 @@ namespace ya
 		AddComponent(mpAnimator);
 		mpAnimator->CreateAnimation(mAnimSelected, mpAnimImage, Vector2::ZERO, mAnimSize, mAnimOffset, mAnimCount, mAnimDuration, false);
 		mpAnimator->CreateAnimation(mAnimNoSelected, mpImage, Vector2::ZERO, Vector2(305.0f, 95.0f), mAnimOffset, 1, mAnimDuration, false);
-		mpAnimator->Play(mAnimSelected, true);
+		mpAnimator->PlayWithoutSpriteIdxReset(mAnimSelected, true);
 	}
 	void StartButton::Initialize()
 	{
@@ -34,34 +35,29 @@ namespace ya
 	{
 		GameObject::Tick();
 		
-		if (IS_KEY_DOWN(eKeyCode::Q) && !mbIsSelected)
-		{
-			UIManager::Push(eUIType::CHARACTER_SELECTION);
-			mbIsSelected = true;
-			mpAnimator->Play(mAnimSelected, true);
-		}
+		if (mbIsSelected)
+			{ mpAnimator->PlayWithoutSpriteIdxReset(mAnimSelected, true); }
+		else
+			{ mpAnimator->PlayWithoutSpriteIdxReset(mAnimNoSelected, true); }
 
-		if (IS_KEY_DOWN(eKeyCode::R) && mbIsSelected)
+		if (IS_KEY_UP(eKeyCode::ESC) && mbIsSelected && mbIsUiPop)
 		{
 			UIManager::Pop(eUIType::CHARACTER_SELECTION);
-			mbIsSelected = false;
+			mbIsUiPop = false;
 		}
-
-		if (IS_KEY_DOWN(eKeyCode::W) || IS_KEY_DOWN(eKeyCode::UP))
-		{
-			mbIsSelected = false;
-			mpAnimator->Play(mAnimNoSelected, true);
-		}
-		else if (IS_KEY_DOWN(eKeyCode::S) || IS_KEY_DOWN(eKeyCode::DOWN))
-		{
-			mbIsSelected = true;
-			mpAnimator->Play(mAnimSelected, true);
-		}
-
 
 	}
 	void StartButton::Render(HDC hdc)
 	{
 		GameObject::Render(hdc);
+	}
+	void StartButton::ButtonClicked()
+	{
+		if (mbIsUiPop)
+		{
+			return;
+		}
+		UIManager::Push(eUIType::CHARACTER_SELECTION);
+		mbIsUiPop = true;
 	}
 }

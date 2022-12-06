@@ -23,7 +23,7 @@ namespace ya
 		AddComponent(mpAnimator);
 		mpAnimator->CreateAnimation(mAnimSelected, mpAnimImage, Vector2::ZERO, mAnimSize, mAnimOffset, mAnimCount, mAnimDuration, false);
 		mpAnimator->CreateAnimation(mAnimNoSelected, mpImage, Vector2::ZERO, Vector2(152.0f, 89.0f), mAnimOffset, 1, mAnimDuration, false);
-		mpAnimator->Play(mAnimNoSelected, true);
+		mpAnimator->PlayWithoutSpriteIdxReset(mAnimNoSelected, true);
 	}
 
 	void OptionButton::Initialize()
@@ -33,36 +33,20 @@ namespace ya
 	void OptionButton::Tick()
 	{
 		GameObject::Tick();
-		if (IS_KEY_DOWN(eKeyCode::W) || IS_KEY_DOWN(eKeyCode::UP))
-		{
-			if (!mbIsUpKeyDown)
-			{
-				mbIsUpKeyDown = true;
-				mbIsSelected = true;
-				mpAnimator->Play(mAnimSelected, true);
-			}
-		} 
-		else if (IS_KEY_DOWN(eKeyCode::A) || IS_KEY_DOWN(eKeyCode::LEFT) && mbIsSelected && mbIsUpKeyDown)
-		{
-			mpAnimator->Play(mAnimNoSelected, true);
-			mbIsSelected = false;
-		} 
-		else if ((IS_KEY_DOWN(eKeyCode::D) || IS_KEY_DOWN(eKeyCode::RIGHT) && !mbIsSelected) && mbIsUpKeyDown)
-		{
-			mpAnimator->Play(mAnimSelected, true);
-			mbIsSelected = true;
-		} 
-		else if (IS_KEY_DOWN(eKeyCode::S) && mbIsSelected && mbIsUpKeyDown)
-		{
-			mpAnimator->Play(mAnimNoSelected, true);
-			mbIsSelected = false;
-			mbIsUpKeyDown = false;
-		}
+		if (mbIsSelected)
+			{ mpAnimator->PlayWithoutSpriteIdxReset(mAnimSelected, true); }
+		else
+			{ mpAnimator->PlayWithoutSpriteIdxReset(mAnimNoSelected, true); }
 	}
 
 	void OptionButton::Render(HDC hdc)
 	{
 		GameObject::Render(hdc);
+	}
+
+	void OptionButton::ButtonClicked()
+	{
+		OutputDebugStringA("\n\nOptionButtonClicked!!!\n\n");
 	}
 
 }

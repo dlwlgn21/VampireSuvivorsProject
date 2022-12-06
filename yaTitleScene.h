@@ -3,6 +3,15 @@
 
 namespace ya
 {
+	enum class eTitleSceneMenu
+	{
+		START,
+		OPTION,
+		EXIT,
+		COUNT
+	};
+
+	class ButtonImageObject;
 	class TitleScene : public Scene
 	{
 
@@ -16,9 +25,12 @@ namespace ya
 
 		void Enter() override;
 		void Exit() override;
-		inline eSceneType GetSceneTpye() { return mSceneType; }
+		__forceinline eSceneType GetSceneTpye() { return mSceneType; }
 	private:
 		eSceneType mSceneType;
+		ButtonImageObject* mpButtons[static_cast<UINT>(eTitleSceneMenu::COUNT)];
+		bool mbIsUpKeyDown;
+		bool mbIsDownKeyDown;
 	};
 }
 

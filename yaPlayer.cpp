@@ -218,46 +218,6 @@ namespace ya
 
 	void Player::Render(HDC hdc)
 	{
-		//Pen	pen(hdc, mPen);
-		//Brush brush(hdc, mBrush);
-
-		//Rectangle(hdc,
-		//	static_cast<int>(mPos.x),
-		//	static_cast<int>(mPos.y),
-		//	static_cast<int>(mPos.x + mScale.x),
-		//	static_cast<int>(mPos.y + mScale.y)
-		//);
-		//BitBlt(
-		//	hdc,
-		//	static_cast<int>(mPos.x),
-		//	static_cast<int>(mPos.y),
-		//	mImage->GetWidth(),
-		//	mImage->GetHeight(),
-		//	
-		//	mImage->GetDC(),
-		//	0,
-		//	0,
-		//	SRCCOPY
-		//);
-
-	/*	Vector2 fPos;
-		fPos.x = mPos.x - mImage->GetWidth() * (mScale.x / 2);
-		fPos.y = mPos.y - mImage->GetWidth() * (mScale.x / 2);
-		fPos = Camera::ToCameraPos(fPos);
-		TransparentBlt(
-			hdc,
-			static_cast<int>(fPos.x),
-			static_cast<int>(fPos.y),
-			static_cast<int>(mImage->GetWidth() * mScale.x),
-			static_cast<int>(mImage->GetHeight() * mScale.y),
-
-			mImage->GetDC(),
-			0, 0,
-			mImage->GetWidth(),
-			mImage->GetHeight(),
-			RGB(255, 0, 255)
-		);*/
-
 		GameObject::Render(hdc);
 	}
 

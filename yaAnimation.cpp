@@ -106,4 +106,9 @@ namespace ya
 		mTime = 0.0f;
 		mbIsComplete = false;
 	}
+	void Animation::ResetWithoutSpriteIdx()
+	{
+		mTime = 0.0f;
+		mbIsComplete = false;
+	}
 }

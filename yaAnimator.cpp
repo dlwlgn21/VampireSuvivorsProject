@@ -153,6 +153,32 @@ namespace ya
 		}
 	}
 
+	void Animator::PlayWithoutSpriteIdxReset(const std::wstring& name, bool bIsLooping)
+	{
+		Animator::Events* events = FindEvents(name);
+		if (events == nullptr)
+		{
+			assert(false);
+		}
+		else
+		{
+			events->mStartEvent();
+		}
+
+		Animation* pPrevAnim = mpCurrAnimation;
+		mpCurrAnimation = FindAnimation(name);
+		assert(mpCurrAnimation != nullptr);
+		mpCurrAnimation->ResetWithoutSpriteIdx();
+		mbIsLooping = bIsLooping;
+		if (pPrevAnim != mpCurrAnimation)
+		{
+			if (events != nullptr)
+			{
+				events->mEndEvent();
+			}
+		}
+	}
+
 	Animator::Events* Animator::FindEvents(const std::wstring& key)
 	{
 		auto iter = mEvents.find(key);

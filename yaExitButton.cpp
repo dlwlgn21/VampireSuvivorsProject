@@ -16,7 +16,6 @@ namespace ya
 		, mAnimOffset(0.f, 40.f)
 		, mAnimCount(7)
 		, mAnimDuration(0.2f)
-		, mbIsUpKeyDown(false)
 	{
 		assert(mpAnimImage != nullptr);
 		assert(mpAnimator != nullptr);
@@ -24,7 +23,7 @@ namespace ya
 		AddComponent(mpAnimator);
 		mpAnimator->CreateAnimation(mAnimSelected, mpAnimImage, Vector2::ZERO, mAnimSize, mAnimOffset, mAnimCount, mAnimDuration, false);
 		mpAnimator->CreateAnimation(mAnimNoSelected, mpImage, Vector2::ZERO, Vector2(152.0f, 89.0f), mAnimOffset, 1, mAnimDuration, false);
-		mpAnimator->Play(mAnimNoSelected, true);
+		mpAnimator->PlayWithoutSpriteIdxReset(mAnimNoSelected, true);
 	}
 	void ExitButton::Initialize()
 	{
@@ -32,30 +31,18 @@ namespace ya
 	void ExitButton::Tick()
 	{
 		GameObject::Tick();
-		if (IS_KEY_DOWN(eKeyCode::W) || IS_KEY_DOWN(eKeyCode::UP) && !mbIsSelected)
-		{
-			mbIsUpKeyDown = true;
-		}
-
-		if (IS_KEY_DOWN(eKeyCode::A) && !mbIsSelected && mbIsUpKeyDown)
-		{
-			mpAnimator->Play(mAnimSelected, true);
-			mbIsSelected = true;
-		}
-		else if (IS_KEY_DOWN(eKeyCode::D) && mbIsSelected && mbIsUpKeyDown)
-		{
-			mpAnimator->Play(mAnimNoSelected, true);
-			mbIsSelected = false;
-		}
-		else if (IS_KEY_DOWN(eKeyCode::S) && mbIsSelected)
-		{
-			mpAnimator->Play(mAnimNoSelected, true);
-			mbIsSelected = false;
-			mbIsUpKeyDown = false;
-		}
+		if (mbIsSelected)
+			{ mpAnimator->PlayWithoutSpriteIdxReset(mAnimSelected, true); }
+		else
+			{ mpAnimator->PlayWithoutSpriteIdxReset(mAnimNoSelected, true); }
 	}
 	void ExitButton::Render(HDC hdc)
 	{
 		GameObject::Render(hdc);
+	}
+	void ExitButton::ButtonClicked()
+	{
+		OutputDebugStringA("\n\nExitButtonClicked!!!\n\n");
+		PostQuitMessage(0);
 	}
 }
