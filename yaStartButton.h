@@ -3,6 +3,7 @@
 
 namespace ya
 {
+	class Animator;
 	class StartButton final : public ButtonImageObject
 	{
 	public:
@@ -16,7 +17,15 @@ namespace ya
 		void Tick() override;
 		void Render(HDC hdc) override;
 	private:
-		bool mbIsSelected;
+		Image* mpAnimImage;
+		Animator* mpAnimator;
+
+		const std::wstring mAnimSelected;
+		const std::wstring mAnimNoSelected;
+		Vector2 mAnimSize;
+		Vector2 mAnimOffset;
+		UINT mAnimCount;
+		float mAnimDuration;
 	};
 }
 

@@ -33,8 +33,12 @@ namespace ya
 		if (mSpriteSheet[mSpriteIdx].Durtation < mTime)
 		{
 			mTime = 0.0f;
+			//++mSpriteIdx;
 			if (mSpriteIdx + 1 >= mSpriteSheet.size())	
-				{ mbIsComplete = true; }
+				{ 
+					mSpriteIdx = 0;
+					mbIsComplete = true; 
+				}
 			else										
 				{ ++mSpriteIdx; }
 		}

@@ -21,11 +21,11 @@ namespace ya
 	void TitleScene::Initialize()
 	{
 		ya::object::InstantiateAtAnotherScene<BGGmaeImage>(eColliderLayer::BACKGROUND, L"BGGmaeImage", L"Resources\\Image\\TitleBGResize.bmp", GetSceneTpye());
-		ya::object::InstantiateAtAnotherScene<StartButton>(eColliderLayer::BACKGROUND, L"BGStartButton", L"Resources\\Image\\StartButton.bmp", GetSceneTpye());
+		ya::object::InstantiateAtAnotherScene<StartButton>(eColliderLayer::BACKGROUND, L"BGStartButton", L"Resources\\Image\\StartButtonAlpha2.bmp", GetSceneTpye());
 		ya::object::InstantiateAtAnotherScene<BGBlackBar>(eColliderLayer::BACKGROUND, L"BGBlackBar", L"Resources\\Image\\BlackBar.bmp", GetSceneTpye());
 		ya::object::InstantiateAtAnotherScene<BGGoldCount>(eColliderLayer::BACKGROUND, L"BGGoldCount", L"Resources\\Image\\GoldCountBox.bmp", GetSceneTpye());
-		ya::object::InstantiateAtAnotherScene<ExitButton>(eColliderLayer::BACKGROUND, L"BGExitButton", L"Resources\\Image\\ExitButton.bmp", GetSceneTpye());
-		ya::object::InstantiateAtAnotherScene<OptionButton>(eColliderLayer::BACKGROUND, L"BGOptionButton", L"Resources\\Image\\OptionButton.bmp", GetSceneTpye());
+		ya::object::InstantiateAtAnotherScene<ExitButton>(eColliderLayer::BACKGROUND, L"BGExitButton", L"Resources\\Image\\ExitButtonAlpha.bmp", GetSceneTpye());
+		ya::object::InstantiateAtAnotherScene<OptionButton>(eColliderLayer::BACKGROUND, L"BGOptionButton", L"Resources\\Image\\OptionButtonAlpha.bmp", GetSceneTpye());
 	}
 	void TitleScene::Tick()
 	{
