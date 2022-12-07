@@ -42,7 +42,6 @@ namespace ya
 			UINT spriteCount, float duration,
 			bool bIsAffectedCamera = true);
 		
-		void CreateAnimations(const std::wstring& name, const std::wstring& animName, float duration = 0.1f, Vector2 offset = Vector2::ZERO);
 		void Play(const std::wstring& name, bool bIsLooping);
 		void PlayWithoutSpriteIdxReset(const std::wstring& name, bool bIsLooping);
 		Events* FindEvents(const std::wstring& key);

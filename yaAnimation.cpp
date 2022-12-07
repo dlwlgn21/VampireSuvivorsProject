@@ -11,7 +11,7 @@ namespace ya
 		, mpImage(nullptr)
 		, mpAnimator(nullptr)
 		, mSpriteIdx(0)
-		, mTime(0.0f)
+		, mTimer(0.0f)
 		, mScale(Vector2::ONE)
 		, mbIsStart(false)
 		, mbIsEnd(false)
@@ -27,12 +27,13 @@ namespace ya
 
 	void Animation::Tick()
 	{
-		if (mbIsComplete) 
-			{ return; }
-		mTime += Time::DeltaTime();
-		if (mSpriteSheet[mSpriteIdx].Durtation < mTime)
+		//if (mbIsComplete) 
+		//	{ return; }
+		mTimer += Time::DeltaTime();
+		// mIntervalCounter >= mMinAnimInterval
+		if (mTimer >= mSpriteSheet[mSpriteIdx].Durtation)
 		{
-			mTime = 0.0f;
+			mTimer = 0.0f;
 			//++mSpriteIdx;
 			if (mSpriteIdx + 1 >= mSpriteSheet.size())	
 				{ 
@@ -103,12 +104,12 @@ namespace ya
 	void Animation::Reset()
 	{
 		mSpriteIdx = 0;
-		mTime = 0.0f;
+		mTimer = 0.0f;
 		mbIsComplete = false;
 	}
 	void Animation::ResetWithoutSpriteIdx()
 	{
-		mTime = 0.0f;
+		//mTimer = 0.0f;
 		mbIsComplete = false;
 	}
 }

@@ -1,11 +1,14 @@
 #include "yaCharacterInfo.h"
 #include "yaImage.h"
+#include "yaResources.h"
 
 namespace ya
 {
 	CharacterInfo::CharacterInfo()
-		: HUD(eUIType::CHARACTER_SELECTION)
+		: SelectionMenuIcon(L"GennaroIconInfoSelected", L"Resources\\Image\\GennaroIconInfoSelected.bmp")
 	{
+		mpImage = Resources::Load<Image>(L"GennaroInfo", L"Resources\\Image\\GennaroInfo.bmp");
+		mpCurrRenderImage = mpImage;
 	}
 
 	void CharacterInfo::OnInitialize()
@@ -26,19 +29,19 @@ namespace ya
 
 	void CharacterInfo::OnRender(HDC hdc)
 	{
-		assert(mpImage != nullptr);
+		assert(mpCurrRenderImage != nullptr);
 		AlphaBlend(
 			hdc,
 			static_cast<int>(mScreenPos.x),
 			static_cast<int>(mScreenPos.y),
-			static_cast<int>(mpImage->GetWidth()),
-			static_cast<int>(mpImage->GetHeight()),
+			static_cast<int>(mpCurrRenderImage->GetWidth()),
+			static_cast<int>(mpCurrRenderImage->GetHeight()),
 
-			mpImage->GetDC(),
+			mpCurrRenderImage->GetDC(),
 			0,
 			0,
-			static_cast<int>(mpImage->GetWidth()),
-			static_cast<int>(mpImage->GetHeight()),
+			static_cast<int>(mpCurrRenderImage->GetWidth()),
+			static_cast<int>(mpCurrRenderImage->GetHeight()),
 			mBlendFunc
 		);
 	}

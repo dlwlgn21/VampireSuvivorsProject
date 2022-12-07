@@ -1,5 +1,6 @@
 #pragma once
 #include "yaGameObejct.h"
+#include "yaTitleScene.h"
 
 namespace ya
 {
@@ -14,6 +15,7 @@ namespace ya
 		virtual void Tick() = 0;
 		virtual void Render(HDC hdc) = 0;
 		virtual void ButtonClicked() = 0;
+		virtual eTitleSceneMenu GetType() = 0;
 		__forceinline bool IsSelected() const { return mbIsSelected; }
 		__forceinline void SetIsSelected(bool isSelected) { mbIsSelected = isSelected; }
 	protected:

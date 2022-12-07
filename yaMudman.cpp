@@ -42,24 +42,6 @@ namespace ya
 	}
 	void Mudman::Render(HDC hdc)
 	{
-	/*	Vector2 fPos;
-		fPos.x = mPos.x - mpImage->GetWidth() * (mScale.x / 2);
-		fPos.y = mPos.y - mpImage->GetWidth() * (mScale.x / 2);
-		fPos = Camera::ToCameraPos(fPos);
-		TransparentBlt(
-			hdc,
-			static_cast<int>(fPos.x),
-			static_cast<int>(fPos.y),
-			static_cast<int>(mpImage->GetWidth() * mScale.x),
-			static_cast<int>(mpImage->GetHeight() * mScale.y),
-
-			mpImage->GetDC(),
-			0, 0,
-			mpImage->GetWidth(),
-			mpImage->GetHeight(),
-			RGB(255, 0, 255)
-		);*/
-
 		GameObject::Render(hdc);
 	}
 

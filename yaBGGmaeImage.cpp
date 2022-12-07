@@ -6,7 +6,7 @@ namespace ya
 	BGGmaeImage::BGGmaeImage(const std::wstring& key, const std::wstring& path)
 		: BGImageObject(key, path)
 	{
-		mPos = Vector2(160.0f, 0.0f);
+		mPos = Vector2(0.0f, 0.0f);
 	}
 	void BGGmaeImage::Initialize()
 	{

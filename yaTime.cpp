@@ -33,21 +33,31 @@ namespace ya
 	void Time::Render(HDC hdc)
 	{
 		mTime += Time::DeltaTime();
-		if (mTime > 1.0f)
-		{
-			wchar_t buffer[64];
+		//if (mTime > 1.0f)
+		//{
+		//	wchar_t buffer[64] = {};
 
-			// DeltaTime == 한 프레임 도는데 걸린 시간.
-			float fps = 1.0f / mDeltaTime;
-			swprintf_s(buffer, 64, L"FramePerSecond : %.0f", fps);
-			size_t strLen = wcsnlen_s(buffer, 64);
+		//	// DeltaTime == 한 프레임 도는데 걸린 시간.
+		//	float fps = 1.0f / mDeltaTime;
+		//	swprintf_s(buffer, 64, L"FramePerSecond : %.0f", fps);
+		//	size_t strLen = wcsnlen_s(buffer, 64);
+		//	TextOut(hdc, 10, 10, buffer, static_cast<int>(strLen));
+		//	HWND hWnd
+		//		= Application::GetInstance().GetWindowData().hwnd;
+		//	//SetWindowTextW(mHwnd, buffer);
+		//	mTime = 0.0f;
+		//}
+		wchar_t buffer[64] = {};
 
-			//TextOut(hdc, 10, 10, buffer, strLen);
-			//HWND hWnd
-			//	= Application::GetInstance().GetWindowData().hwnd;
-			SetWindowTextW(mHwnd, buffer);
-			mTime = 0.0f;
-		}
+		// DeltaTime == 한 프레임 도는데 걸린 시간.
+		float fps = 1.0f / mDeltaTime;
+		swprintf_s(buffer, 64, L"FramePerSecond : %.0f", fps);
+		size_t strLen = wcsnlen_s(buffer, 64);
+		TextOutW(hdc, 10, 10, buffer, static_cast<int>(strLen));
+		HWND hWnd
+			= Application::GetInstance().GetWindowData().hwnd;
+		//SetWindowTextW(mHwnd, buffer);
+		mTime = 0.0f;
 	}
 
 }

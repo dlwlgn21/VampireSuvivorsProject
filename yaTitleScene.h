@@ -10,7 +10,7 @@ namespace ya
 		EXIT,
 		COUNT
 	};
-
+	class StartButton;
 	class ButtonImageObject;
 	class TitleScene : public Scene
 	{
@@ -29,8 +29,10 @@ namespace ya
 	private:
 		eSceneType mSceneType;
 		ButtonImageObject* mpButtons[static_cast<UINT>(eTitleSceneMenu::COUNT)];
+		StartButton* mpStartButton;
 		bool mbIsUpKeyDown;
 		bool mbIsDownKeyDown;
+		bool mbIsUiPoped;
 	};
 }
 

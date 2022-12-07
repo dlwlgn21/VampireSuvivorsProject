@@ -109,9 +109,10 @@ BOOL InitInstance(HINSTANCE hInstance, int nCmdShow)
 {
     hInst = hInstance;
 
+
     WindowData windowData = {};
-    windowData.width = 1600;
-    windowData.height = 800;
+    windowData.width = 1920;
+    windowData.height = 1080;
 
     HWND hWnd = CreateWindowW(
         szWindowClass, 
@@ -131,6 +132,31 @@ BOOL InitInstance(HINSTANCE hInstance, int nCmdShow)
         assert(false);
         return FALSE;
     }
+    windowData.hwnd = hWnd;
+    windowData.hdc = nullptr;
+
+    // New Part
+    HMONITOR hMonitor = MonitorFromWindow(hWnd, MONITOR_DEFAULTTONEAREST);
+    MONITORINFO monitorInfo = { sizeof(MONITORINFO) };
+    if (!GetMonitorInfo(hMonitor, &monitorInfo))
+    {
+        assert(false);
+    }
+    hWnd = CreateWindowW(
+        szWindowClass,
+        szTitle,
+        WS_POPUP | WS_VISIBLE,
+        monitorInfo.rcMonitor.left,
+        monitorInfo.rcMonitor.top,
+        monitorInfo.rcMonitor.right - monitorInfo.rcMonitor.left,
+        monitorInfo.rcMonitor.bottom - monitorInfo.rcMonitor.top,
+        nullptr,
+        nullptr,
+        hInstance,
+        nullptr
+    );
+
+    // NewPart
     windowData.hwnd = hWnd;
     windowData.hdc = nullptr;
 

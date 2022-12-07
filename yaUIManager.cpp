@@ -26,17 +26,15 @@ namespace ya
 		// CharacterSelection ÆÄÆ®
 		UIBase* pSelect = new CharacterSelectionPanel(eUIType::CHARACTER_SELECTION);
 		mUIMap.insert(std::make_pair(eUIType::CHARACTER_SELECTION, pSelect));
-		pSelect->SetPos(Vector2(350.0f, BLACK_BAR_HEIGHT));
 		pSelect->LoadUIImage(L"CharacterSelectionPanel", L"Resources\\Image\\CharacterSelectionPanelClean.bmp");
+		pSelect->SetPos(Vector2(SCREEN_WIDTH / 2 - pSelect->GetSize().x / 2, BLACK_BAR_HEIGHT));
 		pSelect->SetIsFullScreen(true);
 		UIBase* pIcon = new CharacterIcon();
-		pIcon->LoadUIImage(L"GennaroIcon", L"Resources\\Image\\Gennaro.bmp");
 		pSelect->AddUIChild(pIcon);
 		pIcon->SetPos(Vector2(CHARACTOR_ICON_X_DIFF, CHARACTOR_IOCN_Y_DIFF));
 		UIBase* pInfo = new CharacterInfo();
-		pInfo->LoadUIImage(L"GennaroInfo", L"Resources\\Image\\GennaroInfo.bmp");
 		pSelect->AddUIChild(pInfo);
-		pInfo->SetPos(Vector2(15.0f, 525.0f));
+		pInfo->SetPos(Vector2(15.0f, 800.0f));
 
 
 

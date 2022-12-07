@@ -1,9 +1,9 @@
 #pragma once
-#include "yaHUD.h"
+#include "yaSelectionMenuIcon.h"
 
 namespace ya 
 {
-	class CharacterIcon final : public HUD
+	class CharacterIcon final : public SelectionMenuIcon
 	{
 	public:
 		CharacterIcon();

@@ -17,6 +17,8 @@ namespace ya
 		void OnTick() override;
 		void OnRender(HDC hdc) override;
 		void OnUIClear() override;
+	private:
+		bool mbIsEntered;
 	};
 
 }

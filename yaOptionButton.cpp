@@ -13,16 +13,17 @@ namespace ya
 		, mAnimNoSelected(L"OptionButtonNoAnim")
 		, mAnimSize(247.0f, 89.0f)
 		, mAnimOffset(0.f, 40.f)
-		, mAnimCount(7)
-		, mAnimDuration(0.2f)
+		, mAnimCount(8)
+		, mAnimDuration(ARROW_ANIM_DURATION)
 		, mbIsUpKeyDown(false)
 	{
 		assert(mpAnimImage != nullptr);
 		assert(mpAnimator != nullptr);
-		mPos = Vector2(1025.0f, BG_BLACK_BAR_Y_DIFF);
+		Vector2 noSelectedImgSize(152.0f, 89.0f);
+		mPos = Vector2(SCREEN_WIDTH / 2 + noSelectedImgSize.x * 2, BG_BLACK_BAR_Y_DIFF);
 		AddComponent(mpAnimator);
 		mpAnimator->CreateAnimation(mAnimSelected, mpAnimImage, Vector2::ZERO, mAnimSize, mAnimOffset, mAnimCount, mAnimDuration, false);
-		mpAnimator->CreateAnimation(mAnimNoSelected, mpImage, Vector2::ZERO, Vector2(152.0f, 89.0f), mAnimOffset, 1, mAnimDuration, false);
+		mpAnimator->CreateAnimation(mAnimNoSelected, mpImage, Vector2::ZERO, noSelectedImgSize, mAnimOffset, 1, mAnimDuration, false);
 		mpAnimator->PlayWithoutSpriteIdxReset(mAnimNoSelected, true);
 	}
 

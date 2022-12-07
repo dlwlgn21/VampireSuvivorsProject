@@ -18,6 +18,7 @@ namespace ya
 		void Tick() override;
 		void Render(HDC hdc) override;
 		void ButtonClicked() override;
+		__forceinline eTitleSceneMenu GetType() override { return eTitleSceneMenu::OPTION; }
 
 	private:
 		Image* mpAnimImage;

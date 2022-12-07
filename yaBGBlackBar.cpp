@@ -7,7 +7,7 @@ namespace ya
 	BGBlackBar::BGBlackBar(const std::wstring& key, const std::wstring& path)
 		: BGImageObjectAlpha(key, path)
 	{
-		mPos = Vector2(160.0f, 0.0f);
+		mPos = Vector2(BLACK_BAR_X_DIFF, 0.0f);
 		mFunc.BlendOp = AC_SRC_OVER;
 		mFunc.BlendFlags = 0;
 		mFunc.AlphaFormat = AC_SRC_ALPHA;

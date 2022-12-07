@@ -49,7 +49,7 @@ namespace ya
 		std::vector<Sprite> mSpriteSheet;
 		BLENDFUNCTION mFunc;
 		UINT mSpriteIdx;
-		float mTime;
+		float mTimer;
 		Vector2 mScale;
 
 		bool mbIsStart;

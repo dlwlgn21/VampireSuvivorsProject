@@ -1,11 +1,15 @@
 #include "yaCharacterSelectionPanel.h"
 #include "yaImage.h"
+#include "yaResources.h"
+#include "yaInput.h"
+#include "yaSelectionMenuIcon.h"
 
 namespace ya
 {
 
 	CharacterSelectionPanel::CharacterSelectionPanel(eUIType type)
 		: Panel(eUIType::CHARACTER_SELECTION)
+		, mbIsEntered(false)
 	{
 	}
 	void CharacterSelectionPanel::OnInitialize()
@@ -19,6 +23,15 @@ namespace ya
 	}
 	void CharacterSelectionPanel::OnTick()
 	{
+		if (IS_KEY_UP(eKeyCode::ENTER) || IS_KEY_UP(eKeyCode::SPACE))
+		{
+			mbIsEntered = true;
+			assert(mChilds.size() != 0);
+			for (int i = 0; i < mChilds.size(); ++i)
+			{
+				static_cast<SelectionMenuIcon*>(mChilds[i])->ChangeRenderImage();
+			}
+		}
 	}
 	void CharacterSelectionPanel::OnRender(HDC hdc)
 	{

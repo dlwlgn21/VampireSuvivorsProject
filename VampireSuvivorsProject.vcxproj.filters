@@ -309,9 +309,6 @@
     <ClInclude Include="yaBGBlackBar.h">
       <Filter>GameObject\StartMenu</Filter>
     </ClInclude>
-    <ClInclude Include="yaStartButton.h">
-      <Filter>GameObject\StartMenu</Filter>
-    </ClInclude>
     <ClInclude Include="yaBGImageObject.h">
       <Filter>GameObject\StartMenu\Base</Filter>
     </ClInclude>
@@ -350,6 +347,12 @@
     </ClInclude>
     <ClInclude Include="yaCharacterInfo.h">
       <Filter>GameObject\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="yaStartButton.h">
+      <Filter>GameObject\StartMenu</Filter>
+    </ClInclude>
+    <ClInclude Include="yaSelectionMenuIcon.h">
+      <Filter>GameObject\UI\Base</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -604,6 +607,9 @@
     </ClCompile>
     <ClCompile Include="yaCharacterInfo.cpp">
       <Filter>GameObject\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="yaSelectionMenuIcon.cpp">
+      <Filter>GameObject\UI\Base</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

@@ -15,18 +15,18 @@ namespace ya
 		, mAnimNoSelected(L"StartButtonNoAnim")
 		, mAnimSize(399.0f, 95.0f)
 		, mAnimOffset(140.0f, 60.0f)
-		, mAnimCount(7)
-		, mAnimDuration(0.2f)
+		, mAnimCount(8)
+		, mAnimDuration(ARROW_ANIM_DURATION)
 		, mbIsUiPop(false)
 	{
 		assert(mpAnimImage != nullptr);
 		assert(mpAnimator != nullptr);
 		mbIsSelected = true;
-		mPos = Vector2(1200/2 + 15.0f, 900/2 + 60.0f);
+		Vector2 noSelectedImgSize(305.0f, 95.0f);
+		mPos = Vector2((SCREEN_WIDTH / 2) - (noSelectedImgSize.x / 2), SCREEN_HEIGHT / 2 + noSelectedImgSize.y);
 		AddComponent(mpAnimator);
 		mpAnimator->CreateAnimation(mAnimSelected, mpAnimImage, Vector2::ZERO, mAnimSize, mAnimOffset, mAnimCount, mAnimDuration, false);
-		mpAnimator->CreateAnimation(mAnimNoSelected, mpImage, Vector2::ZERO, Vector2(305.0f, 95.0f), mAnimOffset, 1, mAnimDuration, false);
-		mpAnimator->PlayWithoutSpriteIdxReset(mAnimSelected, true);
+		mpAnimator->CreateAnimation(mAnimNoSelected, mpImage, Vector2::ZERO, noSelectedImgSize, mAnimOffset, 1, mAnimDuration, false);
 	}
 	void StartButton::Initialize()
 	{
@@ -45,7 +45,6 @@ namespace ya
 			UIManager::Pop(eUIType::CHARACTER_SELECTION);
 			mbIsUiPop = false;
 		}
-
 	}
 	void StartButton::Render(HDC hdc)
 	{
