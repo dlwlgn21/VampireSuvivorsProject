@@ -23,7 +23,7 @@ namespace ya
 		void Render(HDC hdc) override;
 
 		void CreateAnimation(
-			Image* pImage, Vector2 leftTop,
+			Image* pImage,
 			Vector2 size, Vector2 offset,
 			UINT spriteCount, float minAnimInterval, ePlayerAnimState dir);
 

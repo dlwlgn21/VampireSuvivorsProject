@@ -7,7 +7,7 @@ namespace ya
 	BGGoldCount::BGGoldCount(const std::wstring& key, const std::wstring& path)
 		: BGImageObject(key, path)
 	{
-		mPos = Vector2((SCREEN_WIDTH / 2) - (mpImage->GetWidth() / 2), BG_BLACK_BAR_Y_DIFF);
+		mPos = Vector2((SCREEN_WIDTH / 2.0f) - (mpImage->GetWidth() / 2.0f), BG_BLACK_BAR_Y_DIFF);
 	}
 	void BGGoldCount::Initialize()
 	{

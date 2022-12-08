@@ -153,15 +153,15 @@ namespace ya
 		}
 		mFunc.SourceConstantAlpha = 255;
 	}
-	void PlayerCustomAnimation::Create(Image* pImage, Vector2 leftTop, Vector2 size, Vector2 offset, UINT spriteCount)
+	void PlayerCustomAnimation::Create(Image* pImage, Vector2 size, Vector2 offset, UINT spriteCount)
 	{
 		assert(pImage != nullptr);
 		mpImage = pImage;
 		for (UINT i = 0; i < spriteCount; ++i)
 		{
 			PlayerSprite sprite;
-			sprite.LeftTop.x = leftTop.x + (size.x * i);
-			sprite.LeftTop.y = leftTop.y;
+			sprite.LeftTop.x = size.x * i;
+			sprite.LeftTop.y = 0.0f;
 			sprite.Size = size;
 			sprite.Offset = offset;
 			mSpriteSheet.push_back(sprite);

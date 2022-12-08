@@ -10,7 +10,7 @@
 #include "yaExitButton.h"
 #include "yaOptionButton.h"
 #include "yaButtonImageObject.h"
-
+#include "yaUIManager.h"
 namespace ya
 {
 	TitleScene::TitleScene()
@@ -34,59 +34,32 @@ namespace ya
 		ya::object::InstantiateAtAnotherScene<BGBlackBar>(eColliderLayer::BACKGROUND, L"BGBlackBar", L"Resources\\Image\\BlackBar.bmp", GetSceneTpye());
 		ya::object::InstantiateAtAnotherScene<BGGoldCount>(eColliderLayer::BACKGROUND, L"BGGoldCount", L"Resources\\Image\\GoldCountBox.bmp", GetSceneTpye());
 
-		mpButtons[static_cast<UINT>(eTitleSceneMenu::START)] = static_cast<ButtonImageObject*>(ya::object::InstantiateAtAnotherScene<StartButton>(eColliderLayer::BACKGROUND, L"BGStartButton", L"Resources\\Image\\StartButtonAlpha2.bmp", GetSceneTpye()));
-		mpButtons[static_cast<UINT>(eTitleSceneMenu::OPTION)] = static_cast<ButtonImageObject*>(ya::object::InstantiateAtAnotherScene<OptionButton>(eColliderLayer::BACKGROUND, L"BGOptionButton", L"Resources\\Image\\OptionButtonAlpha.bmp", GetSceneTpye()));
-		mpButtons[static_cast<UINT>(eTitleSceneMenu::EXIT)] = static_cast<ButtonImageObject*>(ya::object::InstantiateAtAnotherScene<ExitButton>(eColliderLayer::BACKGROUND, L"BGExitButton", L"Resources\\Image\\ExitButtonAlpha.bmp", GetSceneTpye()));
-		mpStartButton = static_cast<StartButton*>(mpButtons[static_cast<UINT>(eTitleSceneMenu::START)]);
+		//mpButtons[static_cast<UINT>(eTitleSceneMenu::START)] = static_cast<ButtonImageObject*>(ya::object::InstantiateAtAnotherScene<StartButton>(eColliderLayer::BACKGROUND, L"BGStartButton", L"Resources\\Image\\StartButtonAlpha2.bmp", GetSceneTpye()));
+		//mpButtons[static_cast<UINT>(eTitleSceneMenu::OPTION)] = static_cast<ButtonImageObject*>(ya::object::InstantiateAtAnotherScene<OptionButton>(eColliderLayer::BACKGROUND, L"BGOptionButton", L"Resources\\Image\\OptionButtonAlpha.bmp", GetSceneTpye()));
+		//mpButtons[static_cast<UINT>(eTitleSceneMenu::EXIT)] = static_cast<ButtonImageObject*>(ya::object::InstantiateAtAnotherScene<ExitButton>(eColliderLayer::BACKGROUND, L"BGExitButton", L"Resources\\Image\\ExitButtonAlpha.bmp", GetSceneTpye()));
+		//mpStartButton = static_cast<StartButton*>(mpButtons[static_cast<UINT>(eTitleSceneMenu::START)]);
+		UIManager::Push(eUIType::START_MENU_SELECTION);
 	}
 	void TitleScene::Tick()
 	{
 		Scene::Tick();
-		if (mpStartButton->GetIsUIPop())
-			{ return; }
-
-		if (IS_KEY_DOWN(eKeyCode::W) || IS_KEY_DOWN(eKeyCode::UP) && !mbIsUpKeyDown)
-		{
-			if (!mpButtons[static_cast<UINT>(eTitleSceneMenu::EXIT)]->IsSelected())
-			{
-				mpButtons[static_cast<UINT>(eTitleSceneMenu::START)]->SetIsSelected(false);
-				mpButtons[static_cast<UINT>(eTitleSceneMenu::OPTION)]->SetIsSelected(true);
-				mbIsUpKeyDown = true;
-			}
-		}
-		else if ((IS_KEY_DOWN(eKeyCode::D) || IS_KEY_DOWN(eKeyCode::RIGHT)) && mbIsUpKeyDown)
-		{
-			mpButtons[static_cast<UINT>(eTitleSceneMenu::OPTION)]->SetIsSelected(true);
-			mpButtons[static_cast<UINT>(eTitleSceneMenu::EXIT)]->SetIsSelected(false);
-			mpButtons[static_cast<UINT>(eTitleSceneMenu::START)]->SetIsSelected(false);
-		}
-		else if ((IS_KEY_DOWN(eKeyCode::A) || IS_KEY_DOWN(eKeyCode::LEFT)) && mbIsUpKeyDown)
-		{
-			mpButtons[static_cast<UINT>(eTitleSceneMenu::OPTION)]->SetIsSelected(false);
-			mpButtons[static_cast<UINT>(eTitleSceneMenu::EXIT)]->SetIsSelected(true);
-		}
-		else if (IS_KEY_DOWN(eKeyCode::S) || IS_KEY_DOWN(eKeyCode::DOWN))
-		{
-			mpButtons[static_cast<UINT>(eTitleSceneMenu::START)]->SetIsSelected(true);
-			mpButtons[static_cast<UINT>(eTitleSceneMenu::OPTION)]->SetIsSelected(false);
-			mpButtons[static_cast<UINT>(eTitleSceneMenu::EXIT)]->SetIsSelected(false);
-			mbIsUpKeyDown = false;
-		}
+		//if (mpStartButton->GetIsUIPop())
+		//	{ return; }
 		if (IS_KEY_UP(eKeyCode::N))
 		{
 			SceneManager::ChangeSecne(eSceneType::PLAY_SCENE);
 		}
 
-		if (IS_KEY_UP(eKeyCode::ENTER) || IS_KEY_UP(eKeyCode::SPACE))
-		{
-			for (int i = 0; i < static_cast<int>(eTitleSceneMenu::COUNT); ++i)
-			{
-				if (mpButtons[i]->IsSelected())
-				{
-					mpButtons[i]->ButtonClicked();
-				}
-			}
-		}
+		//if (IS_KEY_UP(eKeyCode::ENTER) || IS_KEY_UP(eKeyCode::SPACE))
+		//{
+		//	for (int i = 0; i < static_cast<int>(eTitleSceneMenu::COUNT); ++i)
+		//	{
+		//		if (mpButtons[i]->IsSelected())
+		//		{
+		//			mpButtons[i]->ButtonClicked();
+		//		}
+		//	}
+		//}
 	}
 	void TitleScene::Render(HDC hdc)
 	{

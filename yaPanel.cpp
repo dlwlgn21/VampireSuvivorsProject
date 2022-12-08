@@ -14,46 +14,4 @@ namespace ya
 		mBlendFunc.AlphaFormat = AC_SRC_ALPHA;
 		mBlendFunc.SourceConstantAlpha = 255;
 	}
-
-	void Panel::OnInitialize()
-	{
-	}
-
-	void Panel::OnActive()
-	{
-	}
-
-	void Panel::OnInactive()
-	{
-	}
-
-	void Panel::OnTick()
-	{
-	}
-
-	void Panel::OnRender(HDC hdc)
-	{
-		assert(mpImage != nullptr);
-
-		AlphaBlend(
-			hdc,
-			static_cast<int>(mScreenPos.x),
-			static_cast<int>(mScreenPos.y),
-			static_cast<int>(mpImage->GetWidth()),
-			static_cast<int>(mpImage->GetHeight()),
-
-			mpImage->GetDC(),
-			static_cast<int>(0),
-			static_cast<int>(0),
-			static_cast<int>(mpImage->GetWidth()),
-			static_cast<int>(mpImage->GetHeight()),
-			mBlendFunc
-		);
-	}
-
-	void Panel::OnUIClear()
-	{
-	}
-
-
 }

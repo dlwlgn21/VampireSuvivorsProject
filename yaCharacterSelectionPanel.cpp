@@ -3,6 +3,7 @@
 #include "yaResources.h"
 #include "yaInput.h"
 #include "yaSelectionMenuIcon.h"
+#include "yaUIManager.h"
 
 namespace ya
 {
@@ -23,6 +24,10 @@ namespace ya
 	}
 	void CharacterSelectionPanel::OnTick()
 	{
+		if (IS_KEY_UP(eKeyCode::ESC))
+		{
+			UIManager::Pop(eUIType::CHARACTER_SELECTION);
+		}
 		if (IS_KEY_UP(eKeyCode::ENTER) || IS_KEY_UP(eKeyCode::SPACE))
 		{
 			mbIsEntered = true;

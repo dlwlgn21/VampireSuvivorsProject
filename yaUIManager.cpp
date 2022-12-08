@@ -6,10 +6,13 @@
 #include "yaCharacterSelectionPanel.h"
 #include "yaCharacterIcon.h"
 #include "yaCharacterInfo.h"
+#include "yaTitleSceneStartUIButton.h"
+#include "yaTitleSceneOptionUIButton.h"
+#include "yaTitleSceneExitUIButton.h"
+#include "yaStartMenuPanel.h"
 
 namespace ya
 {
-
 	std::unordered_map<eUIType, UIBase*> UIManager::mUIMap;
 	std::queue<eUIType> UIManager::mRequestUIQueue;
 	std::stack<UIBase*> UIManager::mUIStack;
@@ -17,10 +20,25 @@ namespace ya
 
 	void UIManager::Initialize()					// 여기에서 UI 메모리 할당
 	{
-		UIBase* pNewUI = new HealthBar();
-		mUIMap.insert(std::make_pair(eUIType::PLAY_INFO_HUD, pNewUI));
-		pNewUI->SetPos(Vector2(760.0f, 440.0f));
-		pNewUI->LoadUIImage(L"HPBar", L"Resources\\Image\\HPBar.bmp");
+		// TitleSceneUIButton 파트
+		StartMenuPanel* pStartMenuPanel = new StartMenuPanel();
+		mUIMap.insert(std::make_pair(eUIType::START_MENU_SELECTION, pStartMenuPanel));
+		UIBase* pStartButton = new TitleSceneStartUIButton();
+		mUIMap.insert(std::make_pair(eUIType::START_MENU_SELECTION, pStartButton));
+		UIBase* pOptionButton = new TitleSceneOptionUIButton();
+		mUIMap.insert(std::make_pair(eUIType::START_MENU_SELECTION, pOptionButton));
+		UIBase* pExitButton = new TitleSceneExitUIButton();
+		mUIMap.insert(std::make_pair(eUIType::START_MENU_SELECTION, pExitButton));
+
+		pStartMenuPanel->AddUIChild(pStartButton);
+		pStartMenuPanel->AddUIChild(pOptionButton);
+		pStartMenuPanel->AddUIChild(pExitButton);
+		//static_cast<UIAnimObject*>(pStartButton)->GetAnimSize().x
+		pStartButton->SetPos(Vector2(SCREEN_WIDTH / 2.0f - static_cast<UIAnimObject*>(pStartButton)->GetAnimSize().x / 2, SCREEN_HEIGHT / 2 + 100.0f));
+		pOptionButton->SetPos(Vector2(SCREEN_WIDTH / 2.0f, BLACK_BAR_HEIGHT * 2));
+		pExitButton->SetPos(Vector2(SCREEN_WIDTH / 2.0f, BLACK_BAR_HEIGHT));
+		pStartMenuPanel->SetButtonPtr();
+
 
 
 		// CharacterSelection 파트
@@ -36,7 +54,10 @@ namespace ya
 		pSelect->AddUIChild(pInfo);
 		pInfo->SetPos(Vector2(15.0f, 800.0f));
 
-
+		UIBase* pNewUI = new HealthBar();
+		mUIMap.insert(std::make_pair(eUIType::PLAY_INFO_HUD, pNewUI));
+		pNewUI->SetPos(Vector2(760.0f, 440.0f));
+		pNewUI->LoadUIImage(L"HPBar", L"Resources\\Image\\HPBar.bmp");
 
 		//pNewUI->SetSize(Vector2(500.0f, 100.0f));
 		//UIBase* pHpBar = new Button(eUIType::HP);
@@ -99,7 +120,7 @@ namespace ya
 			}
 		}
 
-		// 전체화면 UI 다 끄고 난뒤, 새로 추가된 UI 스택에 Push
+		// 전체화면 UI 다 끄고 난뒤, UI 스택에 Push
 		mUIStack.push(pAddedUI);
 	}
 

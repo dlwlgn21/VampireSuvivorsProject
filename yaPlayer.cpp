@@ -65,10 +65,10 @@ namespace ya
 
 		AddComponent(mpAnimator);
 		AddComponent(mpCollider);
-		mpAnimator->CreateAnimation(mpLeftImage, Vector2::ZERO, mAnimSize, mAnimOffset, mAnimCount, mMinAnimInterval, ePlayerAnimState::LEFT);
-		mpAnimator->CreateAnimation(mpRightImage, Vector2::ZERO, mAnimSize, mAnimOffset, mAnimCount, mMinAnimInterval, ePlayerAnimState::RIGHT);
-		mpAnimator->CreateAnimation(mpLeftHittedImage, Vector2::ZERO, mAnimSize, mAnimOffset, mAnimCount, mMinAnimInterval, ePlayerAnimState::LEFT_HITTED);
-		mpAnimator->CreateAnimation(mpRightHittedImage, Vector2::ZERO, mAnimSize, mAnimOffset, mAnimCount, mMinAnimInterval, ePlayerAnimState::RIGHT_HITTED);
+		mpAnimator->CreateAnimation(mpLeftImage, mAnimSize, mAnimOffset, mAnimCount, mMinAnimInterval, ePlayerAnimState::LEFT);
+		mpAnimator->CreateAnimation(mpRightImage, mAnimSize, mAnimOffset, mAnimCount, mMinAnimInterval, ePlayerAnimState::RIGHT);
+		mpAnimator->CreateAnimation(mpLeftHittedImage, mAnimSize, mAnimOffset, mAnimCount, mMinAnimInterval, ePlayerAnimState::LEFT_HITTED);
+		mpAnimator->CreateAnimation(mpRightHittedImage,  mAnimSize, mAnimOffset, mAnimCount, mMinAnimInterval, ePlayerAnimState::RIGHT_HITTED);
 		mpAnimator->Play(mePlayerAnimState);
 
 		Camera::SetTarget(this);

@@ -82,6 +82,12 @@
     <Filter Include="GameObject\StartMenu\Base">
       <UniqueIdentifier>{e20d44e8-e1b9-48be-8bf8-1f9c925547f8}</UniqueIdentifier>
     </Filter>
+    <Filter Include="GameObject\UI\TitleSceneStartMenu">
+      <UniqueIdentifier>{16380d53-ab25-4e9e-aff5-a686a3405f23}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameObject\UI\CharacterSelectionMenu">
+      <UniqueIdentifier>{85c04282-aaf9-46c3-8c98-878055c7fe5b}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
@@ -330,12 +336,6 @@
     <ClInclude Include="yaOptionButton.h">
       <Filter>GameObject\StartMenu</Filter>
     </ClInclude>
-    <ClInclude Include="yaCharacterSelectionPanel.h">
-      <Filter>GameObject\UI</Filter>
-    </ClInclude>
-    <ClInclude Include="yaCharacterIcon.h">
-      <Filter>GameObject\UI</Filter>
-    </ClInclude>
     <ClInclude Include="yaHUD.h">
       <Filter>GameObject\UI\Base</Filter>
     </ClInclude>
@@ -345,14 +345,35 @@
     <ClInclude Include="yaButton.h">
       <Filter>GameObject\UI\Base</Filter>
     </ClInclude>
-    <ClInclude Include="yaCharacterInfo.h">
-      <Filter>GameObject\UI</Filter>
-    </ClInclude>
     <ClInclude Include="yaStartButton.h">
       <Filter>GameObject\StartMenu</Filter>
     </ClInclude>
     <ClInclude Include="yaSelectionMenuIcon.h">
       <Filter>GameObject\UI\Base</Filter>
+    </ClInclude>
+    <ClInclude Include="yaUIAnimObject.h">
+      <Filter>GameObject\UI\Base</Filter>
+    </ClInclude>
+    <ClInclude Include="yaTitleSceneStartUIButton.h">
+      <Filter>GameObject\UI\TitleSceneStartMenu</Filter>
+    </ClInclude>
+    <ClInclude Include="yaTitleSceneOptionUIButton.h">
+      <Filter>GameObject\UI\TitleSceneStartMenu</Filter>
+    </ClInclude>
+    <ClInclude Include="yaTitleSceneExitUIButton.h">
+      <Filter>GameObject\UI\TitleSceneStartMenu</Filter>
+    </ClInclude>
+    <ClInclude Include="yaStartMenuPanel.h">
+      <Filter>GameObject\UI\TitleSceneStartMenu</Filter>
+    </ClInclude>
+    <ClInclude Include="yaCharacterIcon.h">
+      <Filter>GameObject\UI\CharacterSelectionMenu</Filter>
+    </ClInclude>
+    <ClInclude Include="yaCharacterInfo.h">
+      <Filter>GameObject\UI\CharacterSelectionMenu</Filter>
+    </ClInclude>
+    <ClInclude Include="yaCharacterSelectionPanel.h">
+      <Filter>GameObject\UI\CharacterSelectionMenu</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -590,12 +611,6 @@
     <ClCompile Include="yaOptionButton.cpp">
       <Filter>GameObject\StartMenu</Filter>
     </ClCompile>
-    <ClCompile Include="yaCharacterSelectionPanel.cpp">
-      <Filter>GameObject\UI</Filter>
-    </ClCompile>
-    <ClCompile Include="yaCharacterIcon.cpp">
-      <Filter>GameObject\UI</Filter>
-    </ClCompile>
     <ClCompile Include="yaHUD.cpp">
       <Filter>GameObject\UI\Base</Filter>
     </ClCompile>
@@ -605,11 +620,32 @@
     <ClCompile Include="yaButton.cpp">
       <Filter>GameObject\UI\Base</Filter>
     </ClCompile>
-    <ClCompile Include="yaCharacterInfo.cpp">
-      <Filter>GameObject\UI</Filter>
-    </ClCompile>
     <ClCompile Include="yaSelectionMenuIcon.cpp">
       <Filter>GameObject\UI\Base</Filter>
+    </ClCompile>
+    <ClCompile Include="yaUIAnimObject.cpp">
+      <Filter>GameObject\UI\Base</Filter>
+    </ClCompile>
+    <ClCompile Include="yaTitleSceneStartUIButton.cpp">
+      <Filter>GameObject\UI\TitleSceneStartMenu</Filter>
+    </ClCompile>
+    <ClCompile Include="yaTitleSceneOptionUIButton.cpp">
+      <Filter>GameObject\UI\TitleSceneStartMenu</Filter>
+    </ClCompile>
+    <ClCompile Include="yaTitleSceneExitUIButton.cpp">
+      <Filter>GameObject\UI\TitleSceneStartMenu</Filter>
+    </ClCompile>
+    <ClCompile Include="yaStartMenuPanel.cpp">
+      <Filter>GameObject\UI\TitleSceneStartMenu</Filter>
+    </ClCompile>
+    <ClCompile Include="yaCharacterIcon.cpp">
+      <Filter>GameObject\UI\CharacterSelectionMenu</Filter>
+    </ClCompile>
+    <ClCompile Include="yaCharacterInfo.cpp">
+      <Filter>GameObject\UI\CharacterSelectionMenu</Filter>
+    </ClCompile>
+    <ClCompile Include="yaCharacterSelectionPanel.cpp">
+      <Filter>GameObject\UI\CharacterSelectionMenu</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

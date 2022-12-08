@@ -132,6 +132,10 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="yaStartMenuPanel.h" />
+    <ClInclude Include="yaTitleSceneExitUIButton.h" />
+    <ClInclude Include="yaTitleSceneOptionUIButton.h" />
+    <ClInclude Include="yaTitleSceneStartUIButton.h" />
     <ClInclude Include="yaBGGmaeImage.h" />
     <ClInclude Include="yaBGBlackBar.h" />
     <ClInclude Include="yaBGGoldCount.h" />
@@ -218,12 +222,17 @@
     <ClInclude Include="yaTime.h" />
     <ClInclude Include="yaTitleScene.h" />
     <ClInclude Include="yaToolScene.h" />
+    <ClInclude Include="yaUIAnimObject.h" />
     <ClInclude Include="yaUIBase.h" />
     <ClInclude Include="yaUIManager.h" />
     <ClInclude Include="yaWeapon.h" />
     <ClInclude Include="yaWeaponObjectPool.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="yaStartMenuPanel.cpp" />
+    <ClCompile Include="yaTitleSceneExitUIButton.cpp" />
+    <ClCompile Include="yaTitleSceneOptionUIButton.cpp" />
+    <ClCompile Include="yaTitleSceneStartUIButton.cpp" />
     <ClCompile Include="yaBGGmaeImage.cpp" />
     <ClCompile Include="yaBGBlackBar.cpp" />
     <ClCompile Include="yaBGGoldCount.cpp" />
@@ -305,6 +314,7 @@
     <ClCompile Include="yaTime.cpp" />
     <ClCompile Include="yaTitleScene.cpp" />
     <ClCompile Include="yaToolScene.cpp" />
+    <ClCompile Include="yaUIAnimObject.cpp" />
     <ClCompile Include="yaUIBase.cpp" />
     <ClCompile Include="yaUIManager.cpp" />
     <ClCompile Include="yaWeapon.cpp" />

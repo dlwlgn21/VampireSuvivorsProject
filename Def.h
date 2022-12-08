@@ -2,9 +2,9 @@
 #include <cassert>
 #include "Common.h"
 
-#define IS_KEY_PRESSED(KEY) ya::Input::GetKeyState(KEY) == ya::eKeyState::PRESSED
-#define IS_KEY_DOWN(KEY) ya::Input::GetKeyState(KEY) == ya::eKeyState::DOWN
-#define IS_KEY_UP(KEY) ya::Input::GetKeyState(KEY) == ya::eKeyState::UP
+#define IS_KEY_PRESSED(KEY) (ya::Input::GetKeyState(KEY) == ya::eKeyState::PRESSED)
+#define IS_KEY_DOWN(KEY) (ya::Input::GetKeyState(KEY) == ya::eKeyState::DOWN)
+#define IS_KEY_UP(KEY) (ya::Input::GetKeyState(KEY) == ya::eKeyState::UP)
 
 enum class eSceneType
 {
@@ -68,6 +68,7 @@ enum class eColliderLayer
 
 enum class eUIType
 {
+	START_MENU_SELECTION,
 	CHARACTER_SELECTION,
 	STAGE_SELECTION,
 	PLAY_INFO_HUD,

@@ -28,7 +28,7 @@ namespace ya
 		void Render(HDC hdc) override;
 
 		void Create(
-			Image* pImage, Vector2 leftTop,
+			Image* pImage,
 			Vector2 size, Vector2 offset,
 			UINT spriteCount);
 

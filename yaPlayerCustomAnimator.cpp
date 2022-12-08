@@ -52,11 +52,11 @@ namespace ya
 			{ mpCurrAnim->Render(hdc); }
 	}
 
-	void PlayerCustomAnimator::CreateAnimation(Image* pImage, Vector2 leftTop, Vector2 size, Vector2 offset, UINT spriteCount, float minAnimInterval, ePlayerAnimState dir)
+	void PlayerCustomAnimator::CreateAnimation(Image* pImage, Vector2 size, Vector2 offset, UINT spriteCount, float minAnimInterval, ePlayerAnimState dir)
 	{
 		assert(pImage != nullptr);
 		mpAnims[static_cast<UINT>(dir)] = new PlayerCustomAnimation(minAnimInterval);
-		mpAnims[static_cast<UINT>(dir)]->Create(pImage, leftTop, size, offset, spriteCount);
+		mpAnims[static_cast<UINT>(dir)]->Create(pImage,  size, offset, spriteCount);
 		mpAnims[static_cast<UINT>(dir)]->SetAnimator(this);
 		mpAnims[static_cast<UINT>(dir)]->SetScale(GetOwner()->GetScale());
 	}
