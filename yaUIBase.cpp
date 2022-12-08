@@ -12,6 +12,7 @@ namespace ya
 		, mPos(Vector2::ZERO)
 		, mSize(Vector2::ZERO)
 		, mpImage(nullptr)
+		, mScreenPos(Vector2::ZERO)
 	{
 		mChilds.reserve(8);
 	}
@@ -30,7 +31,7 @@ namespace ya
 		OnInitialize();
 		for (UIBase* pChild : mChilds)
 		{
-			pChild->OnInitialize();
+			pChild->Initialize();
 		}
 	}
 
@@ -42,7 +43,7 @@ namespace ya
 		for (UIBase* pChild : mChilds)
 		{
 			pChild->mbIsEnable = true;
-			pChild->OnActive();
+			pChild->Active();
 		}
 	}
 
@@ -51,7 +52,7 @@ namespace ya
 		// 부모께 비활성화 되면, 자식들 것도 비활성화 되어야 함. 자식들 것 먼저 꺼주어야 함.
 		for (UIBase* pChild : mChilds)
 		{
-			pChild->OnInactive();
+			pChild->Inactive();
 			pChild->mbIsEnable = false;
 		}
 		OnInactive();
@@ -84,7 +85,7 @@ namespace ya
 		for (UIBase* pChild : mChilds)
 		{
 			if (pChild->mbIsEnable)
-				{ pChild->OnRender(hdc); }
+				{ pChild->Render(hdc); }
 		}
 	}
 

@@ -124,13 +124,35 @@ namespace ya
 	}
 	void UIManager::Render(HDC hdc)
 	{
-		std::stack<UIBase*> uiTmpStack = mUIStack;
-		while (!uiTmpStack.empty())
+		// 기존
+		//std::stack<UIBase*> uiTmpStack = mUIStack;
+		//while (!uiTmpStack.empty())
+		//{
+		//	UIBase* pUIBase = uiTmpStack.top();
+		//	assert(pUIBase != nullptr);
+		//	pUIBase->Render(hdc);
+		//	uiTmpStack.pop();
+		//}
+
+		std::stack<UIBase*> tmpStack = mUIStack;
+		std::stack<UIBase*> tmpShowStack;
+
+		// 뒤집어서 렌더링을 해준다.
+		while (!tmpStack.empty())
 		{
-			UIBase* pUIBase = uiTmpStack.top();
-			assert(pUIBase != nullptr);
-			pUIBase->Render(hdc);
-			uiTmpStack.pop();
+			UIBase* pUIBase = tmpStack.top();
+			tmpShowStack.push(pUIBase);
+			tmpStack.pop();
+		}
+
+		while (!tmpShowStack.empty())
+		{
+			UIBase* pUIBase = tmpShowStack.top();
+			if (pUIBase != nullptr)
+			{
+				pUIBase->Render(hdc);
+			}
+			tmpShowStack.pop();
 		}
 	}
 
