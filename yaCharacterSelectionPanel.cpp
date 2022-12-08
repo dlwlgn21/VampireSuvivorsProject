@@ -3,6 +3,7 @@
 #include "yaResources.h"
 #include "yaInput.h"
 #include "yaSelectionMenuIcon.h"
+#include "yaUIAnimObject.h"
 #include "yaUIManager.h"
 
 namespace ya
@@ -27,15 +28,17 @@ namespace ya
 		if (IS_KEY_UP(eKeyCode::ESC))
 		{
 			UIManager::Pop(eUIType::CHARACTER_SELECTION);
+			UIManager::Push(eUIType::START_MENU_SELECTION);
 		}
-		if (IS_KEY_UP(eKeyCode::ENTER) || IS_KEY_UP(eKeyCode::SPACE))
+		if (IS_KEY_DOWN(eKeyCode::ENTER) || IS_KEY_DOWN(eKeyCode::SPACE))
 		{
-			mbIsEntered = true;
 			assert(mChilds.size() != 0);
-			for (int i = 0; i < mChilds.size(); ++i)
+			assert(mChilds.size() == 3);
+			for (int i = 0; i < mChilds.size() - 1; ++i)
 			{
 				static_cast<SelectionMenuIcon*>(mChilds[i])->ChangeRenderImage();
 			}
+			static_cast<UIAnimObject*>(mChilds[2])->SetIsSelected(true);
 		}
 	}
 	void CharacterSelectionPanel::OnRender(HDC hdc)

@@ -1,40 +1,42 @@
-#include "yaTitleSceneOptionUIButton.h"
+#include "yaCharacterWordButton.h"
 #include "yaImage.h"
 #include "yaResources.h"
+#include "yaUIManager.h"
 
 namespace ya
 {
-	TitleSceneOptionUIButton::TitleSceneOptionUIButton()
-		: UIAnimObject(eUIType::START_MENU_SELECTION)
+	CharacterWordButton::CharacterWordButton()
+		: UIAnimObject(eUIType::CHARACTER_SELECTION)
 		, mImgWidth(0)
 		, mImgHeight(0)
 	{
-		mpImage = Resources::Load<Image>(L"OptionButtonNoAnim", L"Resources\\Image\\OptionButtonAlpha.bmp");
+		mpImage = Resources::Load<Image>(L"WordNoAnim", L"Resources\\Image\\CharacterSelectionNoSelected.bmp");
 		assert(mpImage != nullptr);
-		mpAnimImage = Resources::Load<Image>(L"OptionButtonAnim", L"Resources\\Image\\OptionButtonSelectedAnim.bmp");
+		mpAnimImage = Resources::Load<Image>(L"WordAnim", L"Resources\\Image\\CharacterSelectionSelectedAnim.bmp");
 		assert(mpAnimImage != nullptr);
-		Create(mpAnimImage, Vector2(247.0f, 89.0f), Vector2(77.0f, 45.0f), 8, ARROW_ANIM_DURATION, false);
+		Create(mpAnimImage, Vector2(411.0f, 89.0f), Vector2(158.0f, 45.0f), 8, ARROW_ANIM_DURATION, false);
 		mImgWidth = mpImage->GetWidth();
 		mImgHeight = mpImage->GetHeight();
 		mSize = Vector2(static_cast<float>(mImgWidth), static_cast<float>(mImgHeight));
-		mAnimSize = Vector2(247.0f, 89.0f);
+		mAnimSize = Vector2(411.0f, 89.0f);
 	}
-	void TitleSceneOptionUIButton::OnInitialize()
+	void CharacterWordButton::OnInitialize()
+	{
+		mbIsSelected = false;
+	}
+	void CharacterWordButton::OnActive()
 	{
 	}
-	void TitleSceneOptionUIButton::OnActive()
+	void CharacterWordButton::OnInactive()
 	{
 	}
-	void TitleSceneOptionUIButton::OnInactive()
-	{
-	}
-	void TitleSceneOptionUIButton::OnTick()
+	void CharacterWordButton::OnTick()
 	{
 		UIAnimObject::OnTick();
 	}
-	void TitleSceneOptionUIButton::OnRender(HDC hdc)
+	void CharacterWordButton::OnRender(HDC hdc)
 	{
-		if (mbIsSelected)
+		if (mbIsSelected == false)
 		{
 			Sprite& sprite = mSpriteSheet[mCurrSpriteIdx];
 			Vector2 offset = sprite.Offset;
@@ -71,13 +73,10 @@ namespace ya
 			);
 		}
 	}
-	void TitleSceneOptionUIButton::OnUIClear()
+	void CharacterWordButton::OnUIClear()
 	{
 	}
-	void TitleSceneOptionUIButton::ButtonClicked()
+	void CharacterWordButton::ButtonClicked()
 	{
-		char buffer[64];
-		sprintf_s(buffer, 64, "\nOption Button Clicked!\n\n");
-		OutputDebugStringA(buffer);
 	}
 }

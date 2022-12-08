@@ -375,6 +375,9 @@
     <ClInclude Include="yaCharacterSelectionPanel.h">
       <Filter>GameObject\UI\CharacterSelectionMenu</Filter>
     </ClInclude>
+    <ClInclude Include="yaCharacterWordButton.h">
+      <Filter>GameObject\UI\CharacterSelectionMenu</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Maths.cpp">
@@ -645,6 +648,9 @@
       <Filter>GameObject\UI\CharacterSelectionMenu</Filter>
     </ClCompile>
     <ClCompile Include="yaCharacterSelectionPanel.cpp">
+      <Filter>GameObject\UI\CharacterSelectionMenu</Filter>
+    </ClCompile>
+    <ClCompile Include="yaCharacterWordButton.cpp">
       <Filter>GameObject\UI\CharacterSelectionMenu</Filter>
     </ClCompile>
   </ItemGroup>

@@ -7,7 +7,7 @@ namespace ya
 	StartMenuPanel::StartMenuPanel()
 		: Panel(eUIType::START_MENU_SELECTION)
 		, mbIsUpKeyDown(false)
-		, mbIsUIPoped(false)
+		, mbIsCharacterSelectionUIPoped(false)
 	{
 		mSize = Vector2(static_cast<float>(SCREEN_WIDTH), static_cast<float>(SCREEN_HEIGHT));
 		for (UINT i = 0; i < static_cast<UINT>(eStartSelection::COUNT); ++i)
@@ -17,6 +17,7 @@ namespace ya
 	}
 	void StartMenuPanel::OnInitialize()
 	{
+		mbIsCharacterSelectionUIPoped = false;
 	}
 	void StartMenuPanel::OnActive()
 	{
@@ -26,6 +27,8 @@ namespace ya
 	}
 	void StartMenuPanel::OnTick()
 	{
+		if (mbIsCharacterSelectionUIPoped)
+			{ return; }
 		if (IS_KEY_DOWN(eKeyCode::W) || IS_KEY_DOWN(eKeyCode::UP) && !mbIsUpKeyDown)
 		{
 			if (!mpButtonsPtr[static_cast<UINT>(eStartSelection::EXIT)]->IsSelected())
@@ -55,10 +58,14 @@ namespace ya
 		}
 		if (IS_KEY_UP(eKeyCode::ENTER) || IS_KEY_UP(eKeyCode::SPACE))
 		{
-			for (int i = 0; i < static_cast<int>(eStartSelection::COUNT); ++i)
+			for (UINT i = 0; i < static_cast<UINT>(eStartSelection::COUNT); ++i)
 			{
 				if (mpButtonsPtr[i]->IsSelected())
 				{
+					if (mpButtonsPtr[i] == mpButtonsPtr[static_cast<UINT>(eStartSelection::START)])
+					{
+						mbIsCharacterSelectionUIPoped = true;
+					}
 					mpButtonsPtr[i]->ButtonClicked();
 				}
 			}

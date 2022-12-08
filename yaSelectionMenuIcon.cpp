@@ -9,6 +9,7 @@ namespace ya
 		, mpSelectedImage(Resources::Load<Image>(key, path))
 		, mpCurrRenderImage(nullptr)
 	{
+		assert(mpSelectedImage != nullptr);
 	}
 	void SelectionMenuIcon::ChangeRenderImage()
 	{

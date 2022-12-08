@@ -5,15 +5,6 @@
 
 namespace ya
 {
-	/*
-		Image* mpAnimImage;
-		std::vector<Sprite> mSpriteSheet;
-		BLENDFUNCTION mFunc;
-		UINT mSpriteIdx;
-		Vector2 mScale;
-		float mTimer;
-		bool mbIsAffectedCamera;
-	*/
 	UIAnimObject::UIAnimObject(eUIType type)
 		: UIBase(type)
 		, mpAnimImage(nullptr)
@@ -33,7 +24,6 @@ namespace ya
 		mBlendFunc.SourceConstantAlpha = 255;
 		mSpriteSheet.reserve(8);
 		mpNonAnimImage = mpImage;
-		//assert(mpNonAnimImage != nullptr);
 	}
 
 	void UIAnimObject::Create(Image* pImage, Vector2 size, Vector2 offset, UINT spriteCount, float duration, bool bIsAffectedCamera)

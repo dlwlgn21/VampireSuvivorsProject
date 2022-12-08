@@ -17,6 +17,9 @@ namespace ya
 		void OnTick() override;
 		void OnRender(HDC hdc) override;
 		void OnUIClear() override;
+	private:
+		int mImgWidth;
+		int mImgHeight;
 	};
 }
 

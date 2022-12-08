@@ -9,6 +9,7 @@
 #include "yaTitleSceneStartUIButton.h"
 #include "yaTitleSceneOptionUIButton.h"
 #include "yaTitleSceneExitUIButton.h"
+#include "yaCharacterWordButton.h"
 #include "yaStartMenuPanel.h"
 
 namespace ya
@@ -20,7 +21,7 @@ namespace ya
 
 	void UIManager::Initialize()					// 여기에서 UI 메모리 할당
 	{
-		// TitleSceneUIButton 파트
+		// TitleSceneUIButton Section
 		StartMenuPanel* pStartMenuPanel = new StartMenuPanel();
 		mUIMap.insert(std::make_pair(eUIType::START_MENU_SELECTION, pStartMenuPanel));
 		UIBase* pStartButton = new TitleSceneStartUIButton();
@@ -34,14 +35,14 @@ namespace ya
 		pStartMenuPanel->AddUIChild(pOptionButton);
 		pStartMenuPanel->AddUIChild(pExitButton);
 		//static_cast<UIAnimObject*>(pStartButton)->GetAnimSize().x
-		pStartButton->SetPos(Vector2(SCREEN_WIDTH / 2.0f - static_cast<UIAnimObject*>(pStartButton)->GetAnimSize().x / 2, SCREEN_HEIGHT / 2 + 100.0f));
-		pOptionButton->SetPos(Vector2(SCREEN_WIDTH / 2.0f, BLACK_BAR_HEIGHT * 2));
-		pExitButton->SetPos(Vector2(SCREEN_WIDTH / 2.0f, BLACK_BAR_HEIGHT));
+		pStartButton->SetPos(Vector2(SCREEN_WIDTH / 2.0f - static_cast<UIAnimObject*>(pStartButton)->GetSize().x / 2, SCREEN_HEIGHT / 2 + 100.0f));
+		pOptionButton->SetPos(Vector2(SCREEN_WIDTH / 2.0f + static_cast<UIAnimObject*>(pOptionButton)->GetSize().x * 2, 5.0f));
+		pExitButton->SetPos(Vector2(SCREEN_WIDTH / 2.0f - static_cast<UIAnimObject*>(pExitButton)->GetSize().x * 3, 5.0f));
 		pStartMenuPanel->SetButtonPtr();
 
 
 
-		// CharacterSelection 파트
+		// CharacterSelection Section
 		UIBase* pSelect = new CharacterSelectionPanel(eUIType::CHARACTER_SELECTION);
 		mUIMap.insert(std::make_pair(eUIType::CHARACTER_SELECTION, pSelect));
 		pSelect->LoadUIImage(L"CharacterSelectionPanel", L"Resources\\Image\\CharacterSelectionPanelClean.bmp");
@@ -53,7 +54,13 @@ namespace ya
 		UIBase* pInfo = new CharacterInfo();
 		pSelect->AddUIChild(pInfo);
 		pInfo->SetPos(Vector2(15.0f, 800.0f));
+		UIBase* pWordButton = new CharacterWordButton();
+		pSelect->AddUIChild(pWordButton);
+		pWordButton->SetPos(Vector2(880.0f, 800.0f));
 
+
+
+		// PLAY_INFO_HUD Section
 		UIBase* pNewUI = new HealthBar();
 		mUIMap.insert(std::make_pair(eUIType::PLAY_INFO_HUD, pNewUI));
 		pNewUI->SetPos(Vector2(760.0f, 440.0f));

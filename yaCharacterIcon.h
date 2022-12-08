@@ -17,6 +17,12 @@ namespace ya
 		void OnTick() override;
 		void OnRender(HDC hdc) override;
 		void OnUIClear() override;
+	private:
+		int mNoSelelctedImgWidth;
+		int mNoSelelctedImgHeight;
+		int mSelelctedImgWidth;
+		int mSelelctedImgHeight;
+		Vector2 mOffset;
 	};
 }
 

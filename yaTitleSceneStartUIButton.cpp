@@ -10,11 +10,11 @@ namespace ya
 		, mImgWidth(0)
 		, mImgHeight(0)
 	{
-		mpImage = Resources::Load<Image>(L"StartButtonNoAnim", L"Resources\\Image\\StartButtonAlpha.bmp");
+		mpImage = Resources::Load<Image>(L"StartButtonNoAnim", L"Resources\\Image\\StartButtonAlpha2.bmp");
 		assert(mpImage != nullptr);
 		mpAnimImage = Resources::Load<Image>(L"StartButtonAnim", L"Resources\\Image\\StartButtonAnim.bmp");
 		assert(mpAnimImage != nullptr);
-		Create(mpAnimImage, Vector2(399.0f, 95.0f), Vector2::ZERO, 8, ARROW_ANIM_DURATION, false);
+		Create(mpAnimImage, Vector2(399.0f, 95.0f), Vector2(152.0f, 48.0f), 8, ARROW_ANIM_DURATION, false);
 		mImgWidth = mpImage->GetWidth();
 		mImgHeight = mpImage->GetHeight();
 		mSize = Vector2(static_cast<float>(mImgWidth), static_cast<float>(mImgHeight));
@@ -39,10 +39,11 @@ namespace ya
 		if (mbIsSelected)
 		{
 			Sprite& sprite = mSpriteSheet[mCurrSpriteIdx];
+			Vector2 offset = sprite.Offset;
 			AlphaBlend(
 				hdc,
-				static_cast<int>(mScreenPos.x),
-				static_cast<int>(mScreenPos.y),
+				static_cast<int>(mScreenPos.x + offset.x - sprite.Size.x / 2),
+				static_cast<int>(mScreenPos.y + offset.y - sprite.Size.y / 2),
 				static_cast<int>(sprite.Size.x),
 				static_cast<int>(sprite.Size.y),
 

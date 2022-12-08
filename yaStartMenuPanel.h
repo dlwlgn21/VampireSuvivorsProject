@@ -27,7 +27,7 @@ namespace ya
 		void SetButtonPtr();
 	private:
 		bool mbIsUpKeyDown;
-		bool mbIsUIPoped;
+		bool mbIsCharacterSelectionUIPoped;
 		UIAnimObject* mpButtonsPtr[static_cast<UINT>(eStartSelection::COUNT)];
 	};
 }

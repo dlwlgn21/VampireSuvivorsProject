@@ -109,6 +109,7 @@ enum class eCameraEffect
 #define BLACK_BAR_HEIGHT (101.0f)
 #define CHARACTOR_ICON_X_DIFF (20.0f)
 #define CHARACTOR_IOCN_Y_DIFF (80.0f)
-#define ARROW_ANIM_DURATION (0.1f)
+#define ARROW_ANIM_DURATION (0.25f)
+
 #define SCREEN_WIDTH (1920)
 #define SCREEN_HEIGHT (1080)
