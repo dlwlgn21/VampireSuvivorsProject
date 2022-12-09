@@ -16,6 +16,11 @@
 #include "yaPlaySceneHUDPanel.h"
 #include "yaWeaponBox.h"
 #include "yaExpBar.h"
+#include "yaPlayScenePausedHUDPanel.h"
+#include "yaPauseWeaponInfoBox.h"
+#include "yaPausePlayerStartInfoBox.h"
+#include "yaPauseUIContinueButton.h"
+#include "yaPauseUIExitButton.h"
 
 namespace ya
 {
@@ -88,6 +93,29 @@ namespace ya
 		UIBase* pWeaponBox = new WeaponBox();
 		mUIMap.insert(std::make_pair(eUIType::PLAY_INFO_HUD, pWeaponBox));
 		pPlayScenePanel->AddUIChild(pWeaponBox);
+
+
+		// PLAY_PAUSED Section
+		UIBase* pPlayPausedPanel = new PlayScenePausedHUDPanel();
+		mUIMap.insert(std::make_pair(eUIType::PLAY_PAUSED, pPlayPausedPanel));
+
+		UIBase* pContinueButton = new PauseUIContinueButton();
+		mUIMap.insert(std::make_pair(eUIType::PLAY_PAUSED, pContinueButton));
+		pPlayPausedPanel->AddUIChild(pContinueButton);
+
+		UIBase* pPauseExitButton = new PauseUIExitButton();
+		mUIMap.insert(std::make_pair(eUIType::PLAY_PAUSED, pPauseExitButton));
+		pPlayPausedPanel->AddUIChild(pPauseExitButton);
+		static_cast<PlayScenePausedHUDPanel*>(pPlayPausedPanel)->SetButtonPtrs();
+
+		UIBase* pWeaponInfoBox = new PauseWeaponInfoBox();
+		mUIMap.insert(std::make_pair(eUIType::PLAY_PAUSED, pWeaponInfoBox));
+		pPlayPausedPanel->AddUIChild(pWeaponInfoBox);
+
+		UIBase* pPlayerStatInfo = new PausePlayerStartInfoBox();
+		mUIMap.insert(std::make_pair(eUIType::PLAY_PAUSED, pPlayerStatInfo));
+		pPlayPausedPanel->AddUIChild(pPlayerStatInfo);
+
 
 
 		//pNewUI->SetSize(Vector2(500.0f, 100.0f));

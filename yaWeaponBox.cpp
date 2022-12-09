@@ -11,13 +11,13 @@ namespace ya
 		, mImgWidth(0)
 		, mImgHeight(0)
 	{
-		mpImage = Resources::Load<Image>(L"WeaponBox", L"Resources\\Image\\WeaponPanel.bmp");
+		mpImage = Resources::Load<Image>(L"WeaponPanel", L"Resources\\Image\\WeaponPanel.bmp");
 		assert(mpImage != nullptr);
 		mPos = Vector2(static_cast<float>(BLACK_BAR_X_DIFF) + 8.0f, 60.0f);
 		mImgWidth = mpImage->GetWidth();
 		mImgHeight = mpImage->GetHeight();
 		mBlendFunc.SourceConstantAlpha = 128;
-		WeaponKnifeIcon* pKnifeIcon = new WeaponKnifeIcon();
+		WeaponKnifeIcon* pKnifeIcon = new WeaponKnifeIcon(mUIType);
 		AddUIChild(pKnifeIcon);
 	}
 	void WeaponBox::OnInitialize()

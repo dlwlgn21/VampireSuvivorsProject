@@ -40,14 +40,14 @@ namespace ya
 			hdc,
 			static_cast<int>(mScreenPos.x),
 			static_cast<int>(mScreenPos.y),
-			static_cast<int>(mImgWidth),
-			static_cast<int>(mImgHeight),
+			mImgWidth,
+			mImgHeight,
 
 			mpCurrRenderImage->GetDC(),
 			0,
 			0,
-			static_cast<int>(mImgWidth),
-			static_cast<int>(mImgHeight),
+			mImgWidth,
+			mImgHeight,
 			mBlendFunc
 		);
 	}

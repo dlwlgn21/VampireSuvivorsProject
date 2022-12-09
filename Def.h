@@ -72,6 +72,7 @@ enum class eUIType
 	CHARACTER_SELECTION,
 	STAGE_SELECTION,
 	PLAY_INFO_HUD,
+	PLAY_PAUSED,
 	COUNT
 };
 
@@ -113,3 +114,5 @@ enum class eCameraEffect
 
 #define SCREEN_WIDTH (1920)
 #define SCREEN_HEIGHT (1080)
+#define ACTUAL_GAME_SCREEN_WIDTH (1727)
+#define ACTUAL_GAME_SCREEN_X_DIFF (96)

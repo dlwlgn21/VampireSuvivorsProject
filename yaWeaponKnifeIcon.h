@@ -6,7 +6,7 @@ namespace ya
 	class WeaponKnifeIcon final : public HUD
 	{
 	public:
-		WeaponKnifeIcon();
+		WeaponKnifeIcon(eUIType type);
 		WeaponKnifeIcon(const WeaponKnifeIcon& other) = delete;
 		WeaponKnifeIcon& operator=(const WeaponKnifeIcon& other) = delete;
 		virtual ~WeaponKnifeIcon() = default;

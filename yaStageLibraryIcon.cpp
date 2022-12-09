@@ -43,14 +43,14 @@ namespace ya
 				hdc,
 				static_cast<int>(mScreenPos.x),
 				static_cast<int>(mScreenPos.y),
-				static_cast<int>(mNoSelelctedImgWidth),
-				static_cast<int>(mNoSelelctedImgHeight),
+				mNoSelelctedImgWidth,
+				mNoSelelctedImgHeight,
 
 				mpCurrRenderImage->GetDC(),
 				0,
 				0,
-				static_cast<int>(mNoSelelctedImgWidth),
-				static_cast<int>(mNoSelelctedImgHeight),
+				mNoSelelctedImgWidth,
+				mNoSelelctedImgHeight,
 				mBlendFunc
 			);
 		}
@@ -60,14 +60,14 @@ namespace ya
 				hdc,
 				static_cast<int>(mScreenPos.x + mOffset.x),
 				static_cast<int>(mScreenPos.y + mOffset.y),
-				static_cast<int>(mSelelctedImgWidth),
-				static_cast<int>(mSelelctedImgHeight),
+				mSelelctedImgWidth,
+				mSelelctedImgHeight,
 
 				mpCurrRenderImage->GetDC(),
 				0,
 				0,
-				static_cast<int>(mSelelctedImgWidth),
-				static_cast<int>(mSelelctedImgHeight),
+				mSelelctedImgWidth,
+				mSelelctedImgHeight,
 				mBlendFunc
 			);
 		}

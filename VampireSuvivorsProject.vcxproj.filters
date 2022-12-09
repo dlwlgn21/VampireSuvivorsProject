@@ -94,6 +94,9 @@
     <Filter Include="GameObject\UI\PlaySceneUI">
       <UniqueIdentifier>{2dd9f810-3245-44db-84ed-b53a31dfe5ff}</UniqueIdentifier>
     </Filter>
+    <Filter Include="GameObject\UI\PauseUI">
+      <UniqueIdentifier>{d60d4ee0-5ccd-42f0-a3d2-f626c5456343}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
@@ -103,9 +106,6 @@
       <Filter>헤더 파일</Filter>
     </ClInclude>
     <ClInclude Include="Resource.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
-    <ClInclude Include="VampireSuvivorsProject.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
     <ClInclude Include="Common.h">
@@ -402,6 +402,24 @@
     <ClInclude Include="yaWeaponKnifeIcon.h">
       <Filter>GameObject\UI\PlaySceneUI</Filter>
     </ClInclude>
+    <ClInclude Include="yaPlayScenePausedHUDPanel.h">
+      <Filter>GameObject\UI\PauseUI</Filter>
+    </ClInclude>
+    <ClInclude Include="yaPauseWeaponInfoBox.h">
+      <Filter>GameObject\UI\PauseUI</Filter>
+    </ClInclude>
+    <ClInclude Include="yaPausePlayerStartInfoBox.h">
+      <Filter>GameObject\UI\PauseUI</Filter>
+    </ClInclude>
+    <ClInclude Include="VampireSuvivorsProject.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="yaPauseUIContinueButton.h">
+      <Filter>GameObject\UI\PauseUI</Filter>
+    </ClInclude>
+    <ClInclude Include="yaPauseUIExitButton.h">
+      <Filter>GameObject\UI\PauseUI</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Maths.cpp">
@@ -694,6 +712,21 @@
     </ClCompile>
     <ClCompile Include="yaWeaponKnifeIcon.cpp">
       <Filter>GameObject\UI\PlaySceneUI</Filter>
+    </ClCompile>
+    <ClCompile Include="yaPlayScenePausedHUDPanel.cpp">
+      <Filter>GameObject\UI\PauseUI</Filter>
+    </ClCompile>
+    <ClCompile Include="yaPauseWeaponInfoBox.cpp">
+      <Filter>GameObject\UI\PauseUI</Filter>
+    </ClCompile>
+    <ClCompile Include="yaPausePlayerStartInfoBox.cpp">
+      <Filter>GameObject\UI\PauseUI</Filter>
+    </ClCompile>
+    <ClCompile Include="yaPauseUIContinueButton.cpp">
+      <Filter>GameObject\UI\PauseUI</Filter>
+    </ClCompile>
+    <ClCompile Include="yaPauseUIExitButton.cpp">
+      <Filter>GameObject\UI\PauseUI</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

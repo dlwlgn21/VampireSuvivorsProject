@@ -21,6 +21,7 @@ namespace ya
 	private:
 		eSceneType mSceneType;
 		Player* mpPlayer;
+		bool mbUiFlag;
 	};
 }
 

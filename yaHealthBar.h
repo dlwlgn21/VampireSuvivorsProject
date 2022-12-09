@@ -20,7 +20,8 @@ namespace ya
 		__forceinline void SetPlayer(Player* pPlayer) { mpPlayer = pPlayer; }
 	private:
 		Player* mpPlayer;
-
+		int mImgWidth;
+		int mImgHeight;
 	};
 
 }

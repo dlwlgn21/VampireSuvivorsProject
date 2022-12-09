@@ -4,8 +4,8 @@
 
 namespace ya
 {
-	WeaponKnifeIcon::WeaponKnifeIcon()
-		: HUD(eUIType::PLAY_INFO_HUD)
+	WeaponKnifeIcon::WeaponKnifeIcon(eUIType type)
+		: HUD(type)
 		, mImgWidth(0)
 		, mImgHeight(0)
 	{

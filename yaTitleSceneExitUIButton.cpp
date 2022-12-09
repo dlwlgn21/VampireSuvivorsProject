@@ -13,11 +13,11 @@ namespace ya
 		assert(mpImage != nullptr);
 		mpAnimImage = Resources::Load<Image>(L"ExitButtonAnim", L"Resources\\Image\\ExitButtonSelectedAnim.bmp");
 		assert(mpAnimImage != nullptr);
-		Create(mpAnimImage, Vector2(247.0f, 89.0f), Vector2(76.0f, 45.0f), 8, ARROW_ANIM_DURATION, false);
+		mAnimSize = Vector2(247.0f, 89.0f);
+		Create(mpAnimImage, mAnimSize, Vector2(76.0f, 45.0f), 8, ARROW_ANIM_DURATION, false);
 		mImgWidth = mpImage->GetWidth();
 		mImgHeight = mpImage->GetHeight();
 		mSize = Vector2(static_cast<float>(mImgWidth), static_cast<float>(mImgHeight));
-		mAnimSize = Vector2(247.0f, 89.0f);
 	}
 	void TitleSceneExitUIButton::OnInitialize()
 	{

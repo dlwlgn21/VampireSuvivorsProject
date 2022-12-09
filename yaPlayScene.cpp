@@ -16,6 +16,7 @@ namespace ya
 	PlayScene::PlayScene()
 		: mSceneType(eSceneType::PLAY_SCENE)
 		, mpPlayer(nullptr)
+		, mbUiFlag(true)
 	{
 	}
 	PlayScene::~PlayScene()
@@ -57,7 +58,17 @@ namespace ya
 		Scene::Tick();
 		if (IS_KEY_DOWN(eKeyCode::ESC))
 		{
-			SceneManager::ChangeSecne(eSceneType::TITLE_SCENE);
+			if (mbUiFlag)
+			{
+				UIManager::Pop(eUIType::PLAY_INFO_HUD);
+				UIManager::Push(eUIType::PLAY_PAUSED);
+			}
+			else
+			{
+				UIManager::Pop(eUIType::PLAY_PAUSED);
+				UIManager::Push(eUIType::PLAY_INFO_HUD);
+			}
+			mbUiFlag = !mbUiFlag;
 		}
 	}
 	void PlayScene::Render(HDC hdc)

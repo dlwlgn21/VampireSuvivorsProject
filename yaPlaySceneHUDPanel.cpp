@@ -1,5 +1,7 @@
 #include "yaPlaySceneHUDPanel.h"
 #include "yaHealthBar.h"
+#include "yaInput.h"
+#include "yaUIManager.h"
 
 namespace ya
 {

@@ -59,7 +59,7 @@ namespace ya
 			mpButtonsPtr[static_cast<UINT>(eStartSelection::EXIT)]->SetIsSelected(false);
 			mbIsUpKeyDown = false;
 		}
-		if (IS_KEY_UP(eKeyCode::ENTER) || IS_KEY_UP(eKeyCode::SPACE))
+		if (IS_KEY_DOWN(eKeyCode::ENTER) || IS_KEY_DOWN(eKeyCode::SPACE))
 		{
 			for (UINT i = 0; i < static_cast<UINT>(eStartSelection::COUNT); ++i)
 			{
