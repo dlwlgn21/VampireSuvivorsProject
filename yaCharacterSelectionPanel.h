@@ -19,6 +19,8 @@ namespace ya
 		void OnUIClear() override;
 	private:
 		bool mbIsEntered;
+		int mImgWidth;
+		int mImgHeight;
 	};
 
 }

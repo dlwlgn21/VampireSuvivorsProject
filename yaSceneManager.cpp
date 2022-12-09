@@ -14,19 +14,13 @@ namespace ya
 	void SceneManager::Initialze()
 	{
 		// 모든 씬들을 초기화
-		mScenes[static_cast<UINT>(eSceneType::LOGO_SCENE)] = new LogoScene();
-		mScenes[static_cast<UINT>(eSceneType::LOGO_SCENE)]->Initialize();
-
 		mScenes[static_cast<UINT>(eSceneType::TITLE_SCENE)] = new TitleScene();
 		mScenes[static_cast<UINT>(eSceneType::TITLE_SCENE)]->Initialize();
 
 		mScenes[static_cast<UINT>(eSceneType::PLAY_SCENE)] = new PlayScene();
 		mScenes[static_cast<UINT>(eSceneType::PLAY_SCENE)]->Initialize();
-
-		mScenes[static_cast<UINT>(eSceneType::ENDING_SCENE)] = new EndingScene();
-		mScenes[static_cast<UINT>(eSceneType::ENDING_SCENE)]->Initialize();
-
 		ChangeSecne(eSceneType::TITLE_SCENE);
+
 #if 0
 		mScenes[static_cast<UINT>(eSceneType::TOOL_SCENE)] = new ToolScene();
 		mScenes[static_cast<UINT>(eSceneType::TOOL_SCENE)]->Initialize();
@@ -58,7 +52,7 @@ namespace ya
 	}
 	void SceneManager::ChangeSecne(eSceneType scene)
 	{
-		if (mScenes[static_cast<UINT>(scene)] == nullptr) { assert(false); return; }
+		assert(mScenes[static_cast<UINT>(scene)] != nullptr);
 		mCurrentScenes->Exit();
 		mCurrentScenes = mScenes[static_cast<UINT>(scene)];
 		mCurrentScenes->Enter();

@@ -132,7 +132,11 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="yaExpBar.h" />
+    <ClInclude Include="yaPlaySceneHUDPanel.h" />
     <ClInclude Include="yaCharacterWordButton.h" />
+    <ClInclude Include="yaStageLibraryIcon.h" />
+    <ClInclude Include="yaStageSelectionPanel.h" />
     <ClInclude Include="yaStartMenuPanel.h" />
     <ClInclude Include="yaTitleSceneExitUIButton.h" />
     <ClInclude Include="yaTitleSceneOptionUIButton.h" />
@@ -227,10 +231,16 @@
     <ClInclude Include="yaUIBase.h" />
     <ClInclude Include="yaUIManager.h" />
     <ClInclude Include="yaWeapon.h" />
+    <ClInclude Include="yaWeaponBox.h" />
+    <ClInclude Include="yaWeaponKnifeIcon.h" />
     <ClInclude Include="yaWeaponObjectPool.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="yaExpBar.cpp" />
+    <ClCompile Include="yaPlaySceneHUDPanel.cpp" />
     <ClCompile Include="yaCharacterWordButton.cpp" />
+    <ClCompile Include="yaStageLibraryIcon.cpp" />
+    <ClCompile Include="yaStageSelectionPanel.cpp" />
     <ClCompile Include="yaStartMenuPanel.cpp" />
     <ClCompile Include="yaTitleSceneExitUIButton.cpp" />
     <ClCompile Include="yaTitleSceneOptionUIButton.cpp" />
@@ -320,6 +330,8 @@
     <ClCompile Include="yaUIBase.cpp" />
     <ClCompile Include="yaUIManager.cpp" />
     <ClCompile Include="yaWeapon.cpp" />
+    <ClCompile Include="yaWeaponBox.cpp" />
+    <ClCompile Include="yaWeaponKnifeIcon.cpp" />
     <ClCompile Include="yaWeaponObjectPool.cpp" />
   </ItemGroup>
   <ItemGroup>

@@ -1,38 +1,39 @@
-#include "yaCharacterIcon.h"
+#include "yaStageLibraryIcon.h"
 #include "yaImage.h"
 #include "yaResources.h"
-
 namespace ya
 {
-	CharacterIcon::CharacterIcon()
-		: SelectionMenuIcon(L"GennaroIconSelected", L"Resources\\Image\\GennaroIconSelected.bmp")
-		, mOffset(11.0f, 11.0f)
+	StageLibraryIcon::StageLibraryIcon()
+		: SelectionMenuIcon(L"StageLibrarySelected", L"Resources\\Image\\StageSelectionIcon.bmp")
+		, mOffset(2.0f, 2.0f)
 		, mNoSelelctedImgWidth(0)
 		, mNoSelelctedImgHeight(0)
 		, mSelelctedImgWidth(0)
 		, mSelelctedImgHeight(0)
 	{
-		mpImage = Resources::Load<Image>(L"GennaroIcon", L"Resources\\Image\\GennaroChoiceBox.bmp");
+		mpImage = Resources::Load<Image>(L"StageLibraryNoSelected", L"Resources\\Image\\StageNoSelectionIcon.bmp");
+		assert(mpImage != nullptr);
 		mpCurrRenderImage = mpImage;
 		mNoSelelctedImgWidth = mpImage->GetWidth();
 		mNoSelelctedImgHeight = mpImage->GetHeight();
 		mSelelctedImgWidth = mpSelectedImage->GetWidth();
 		mSelelctedImgHeight = mpSelectedImage->GetHeight();
+		mbIsFullScreen = true;
 	}
-	void CharacterIcon::OnInitialize()
+	void StageLibraryIcon::OnInitialize()
 	{
 		mpCurrRenderImage = mpImage;
 	}
-	void CharacterIcon::OnActive()
+	void StageLibraryIcon::OnActive()
 	{
 	}
-	void CharacterIcon::OnInactive()
+	void StageLibraryIcon::OnInactive()
 	{
 	}
-	void CharacterIcon::OnTick()
+	void StageLibraryIcon::OnTick()
 	{
 	}
-	void CharacterIcon::OnRender(HDC hdc)
+	void StageLibraryIcon::OnRender(HDC hdc)
 	{
 		assert(mpCurrRenderImage != nullptr);
 
@@ -44,7 +45,7 @@ namespace ya
 				static_cast<int>(mScreenPos.y),
 				static_cast<int>(mNoSelelctedImgWidth),
 				static_cast<int>(mNoSelelctedImgHeight),
-			
+
 				mpCurrRenderImage->GetDC(),
 				0,
 				0,
@@ -71,7 +72,7 @@ namespace ya
 			);
 		}
 	}
-	void CharacterIcon::OnUIClear()
+	void StageLibraryIcon::OnUIClear()
 	{
 	}
 }

@@ -2,6 +2,7 @@
 #include "yaScene.h"
 namespace ya
 {
+	class Player;
 	class PlayScene : public Scene
 	{
 
@@ -19,7 +20,7 @@ namespace ya
 
 	private:
 		eSceneType mSceneType;
-		
+		Player* mpPlayer;
 	};
 }
 

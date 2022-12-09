@@ -14,6 +14,7 @@ namespace ya
 		{
 			mpButtonsPtr[i] = nullptr;
 		}
+		mbIsFullScreen = true;
 	}
 	void StartMenuPanel::OnInitialize()
 	{
@@ -21,6 +22,8 @@ namespace ya
 	}
 	void StartMenuPanel::OnActive()
 	{
+		//mbIsFullScreen = true;
+		//mbIsCharacterSelectionUIPoped = false;
 	}
 	void StartMenuPanel::OnInactive()
 	{

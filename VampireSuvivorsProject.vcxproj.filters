@@ -88,6 +88,12 @@
     <Filter Include="GameObject\UI\CharacterSelectionMenu">
       <UniqueIdentifier>{85c04282-aaf9-46c3-8c98-878055c7fe5b}</UniqueIdentifier>
     </Filter>
+    <Filter Include="GameObject\UI\StageSelectionMenu">
+      <UniqueIdentifier>{b54a97b2-4271-45eb-9b19-e6610bc34519}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameObject\UI\PlaySceneUI">
+      <UniqueIdentifier>{2dd9f810-3245-44db-84ed-b53a31dfe5ff}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
@@ -309,9 +315,6 @@
     <ClInclude Include="yaWeaponObjectPool.h">
       <Filter>Manager</Filter>
     </ClInclude>
-    <ClInclude Include="yaHealthBar.h">
-      <Filter>GameObject\UI</Filter>
-    </ClInclude>
     <ClInclude Include="yaBGBlackBar.h">
       <Filter>GameObject\StartMenu</Filter>
     </ClInclude>
@@ -377,6 +380,27 @@
     </ClInclude>
     <ClInclude Include="yaCharacterWordButton.h">
       <Filter>GameObject\UI\CharacterSelectionMenu</Filter>
+    </ClInclude>
+    <ClInclude Include="yaStageSelectionPanel.h">
+      <Filter>GameObject\UI\StageSelectionMenu</Filter>
+    </ClInclude>
+    <ClInclude Include="yaStageLibraryIcon.h">
+      <Filter>GameObject\UI\StageSelectionMenu</Filter>
+    </ClInclude>
+    <ClInclude Include="yaHealthBar.h">
+      <Filter>GameObject\UI\PlaySceneUI</Filter>
+    </ClInclude>
+    <ClInclude Include="yaPlaySceneHUDPanel.h">
+      <Filter>GameObject\UI\PlaySceneUI</Filter>
+    </ClInclude>
+    <ClInclude Include="yaExpBar.h">
+      <Filter>GameObject\UI\PlaySceneUI</Filter>
+    </ClInclude>
+    <ClInclude Include="yaWeaponBox.h">
+      <Filter>GameObject\UI\PlaySceneUI</Filter>
+    </ClInclude>
+    <ClInclude Include="yaWeaponKnifeIcon.h">
+      <Filter>GameObject\UI\PlaySceneUI</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -584,9 +608,6 @@
     <ClCompile Include="yaWeaponObjectPool.cpp">
       <Filter>Manager</Filter>
     </ClCompile>
-    <ClCompile Include="yaHealthBar.cpp">
-      <Filter>GameObject\UI</Filter>
-    </ClCompile>
     <ClCompile Include="yaStartButton.cpp">
       <Filter>GameObject\StartMenu</Filter>
     </ClCompile>
@@ -652,6 +673,27 @@
     </ClCompile>
     <ClCompile Include="yaCharacterWordButton.cpp">
       <Filter>GameObject\UI\CharacterSelectionMenu</Filter>
+    </ClCompile>
+    <ClCompile Include="yaStageSelectionPanel.cpp">
+      <Filter>GameObject\UI\StageSelectionMenu</Filter>
+    </ClCompile>
+    <ClCompile Include="yaStageLibraryIcon.cpp">
+      <Filter>GameObject\UI\StageSelectionMenu</Filter>
+    </ClCompile>
+    <ClCompile Include="yaHealthBar.cpp">
+      <Filter>GameObject\UI\PlaySceneUI</Filter>
+    </ClCompile>
+    <ClCompile Include="yaPlaySceneHUDPanel.cpp">
+      <Filter>GameObject\UI\PlaySceneUI</Filter>
+    </ClCompile>
+    <ClCompile Include="yaExpBar.cpp">
+      <Filter>GameObject\UI\PlaySceneUI</Filter>
+    </ClCompile>
+    <ClCompile Include="yaWeaponBox.cpp">
+      <Filter>GameObject\UI\PlaySceneUI</Filter>
+    </ClCompile>
+    <ClCompile Include="yaWeaponKnifeIcon.cpp">
+      <Filter>GameObject\UI\PlaySceneUI</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

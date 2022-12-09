@@ -7,11 +7,15 @@
 #include "yaSceneManager.h"
 #include "yaCollisionManager.h"
 #include "yaObject.h"
+#include "yaUIManager.h"
+#include "yaHealthBar.h"
+#include "yaPlaySceneHUDPanel.h"
 
 namespace ya
 {
 	PlayScene::PlayScene()
 		: mSceneType(eSceneType::PLAY_SCENE)
+		, mpPlayer(nullptr)
 	{
 	}
 	PlayScene::~PlayScene()
@@ -19,6 +23,16 @@ namespace ya
 	}
 	void PlayScene::Initialize()
 	{
+		int monsterCount = 5;
+		for (int i = 0; i < monsterCount; ++i)
+		{
+			ya::object::InstantiateAtAnotherScene<Mudman>(eColliderLayer::MONSTER, Vector2(100.f * i, 300.f), GetSceneTpye());
+		}
+		mpPlayer = ya::object::Instantiate<Player>(eColliderLayer::PLAYER);
+		mpPlayer->SetPos({ 300.0f, 200.0f });
+		CollisionManager::SetLayer(eColliderLayer::PLAYER, eColliderLayer::MONSTER, true);
+		CollisionManager::SetLayer(eColliderLayer::MONSTER, eColliderLayer::PLAYER_PROJECTTILE, true);
+
 		/*BgImageObject* bg = new BgImageObject();
 		AddGameObject(bg);*/
 		//AddGameObject(new Player(), eColliderLayer::PLAYER);
@@ -41,25 +55,31 @@ namespace ya
 	void PlayScene::Tick()
 	{
 		Scene::Tick();
-		if (IS_KEY_UP(eKeyCode::N))
+		if (IS_KEY_DOWN(eKeyCode::ESC))
 		{
-			SceneManager::ChangeSecne(eSceneType::ENDING_SCENE);
+			SceneManager::ChangeSecne(eSceneType::TITLE_SCENE);
 		}
 	}
 	void PlayScene::Render(HDC hdc)
 	{
 		Scene::Render(hdc);
 
-		wchar_t buffer[64];
+		char buffer[64];
 
-		swprintf_s(buffer, 64, L"Play Scene");
-		size_t strLen = wcsnlen_s(buffer, 64);
+		sprintf_s(buffer, 64, "Play Scene");
+		size_t strLen = strnlen_s(buffer, 64);
 
-		TextOut(hdc, 10, 30, buffer, strLen);
+		TextOutA(hdc, 10, 30, buffer, strLen);
 	}
 	void PlayScene::Enter()
 	{
 		Scene::Enter();
+		CollisionManager::SetLayer(eColliderLayer::PLAYER, eColliderLayer::MONSTER, true);
+		CollisionManager::SetLayer(eColliderLayer::MONSTER, eColliderLayer::PLAYER_PROJECTTILE, true);
+		CollisionManager::SetLayer(eColliderLayer::GROUND, eColliderLayer::PLAYER, true);
+		PlaySceneHUDPanel* pPanel = static_cast<PlaySceneHUDPanel*>(UIManager::GetUIInstanceOrNull(eUIType::PLAY_INFO_HUD));
+
+		pPanel->SetHpBarToPlayer(mpPlayer);
 	}
 
 	void PlayScene::Exit()

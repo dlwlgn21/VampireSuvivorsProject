@@ -11,6 +11,11 @@
 #include "yaTitleSceneExitUIButton.h"
 #include "yaCharacterWordButton.h"
 #include "yaStartMenuPanel.h"
+#include "yaStageSelectionPanel.h"
+#include "yaStageLibraryIcon.h"
+#include "yaPlaySceneHUDPanel.h"
+#include "yaWeaponBox.h"
+#include "yaExpBar.h"
 
 namespace ya
 {
@@ -34,7 +39,6 @@ namespace ya
 		pStartMenuPanel->AddUIChild(pStartButton);
 		pStartMenuPanel->AddUIChild(pOptionButton);
 		pStartMenuPanel->AddUIChild(pExitButton);
-		//static_cast<UIAnimObject*>(pStartButton)->GetAnimSize().x
 		pStartButton->SetPos(Vector2(SCREEN_WIDTH / 2.0f - static_cast<UIAnimObject*>(pStartButton)->GetSize().x / 2, SCREEN_HEIGHT / 2 + 100.0f));
 		pOptionButton->SetPos(Vector2(SCREEN_WIDTH / 2.0f + static_cast<UIAnimObject*>(pOptionButton)->GetSize().x * 2, 5.0f));
 		pExitButton->SetPos(Vector2(SCREEN_WIDTH / 2.0f - static_cast<UIAnimObject*>(pExitButton)->GetSize().x * 3, 5.0f));
@@ -45,9 +49,7 @@ namespace ya
 		// CharacterSelection Section
 		UIBase* pSelect = new CharacterSelectionPanel(eUIType::CHARACTER_SELECTION);
 		mUIMap.insert(std::make_pair(eUIType::CHARACTER_SELECTION, pSelect));
-		pSelect->LoadUIImage(L"CharacterSelectionPanel", L"Resources\\Image\\CharacterSelectionPanelClean.bmp");
 		pSelect->SetPos(Vector2(SCREEN_WIDTH / 2 - pSelect->GetSize().x / 2, BLACK_BAR_HEIGHT));
-		pSelect->SetIsFullScreen(true);
 		UIBase* pIcon = new CharacterIcon();
 		pSelect->AddUIChild(pIcon);
 		pIcon->SetPos(Vector2(CHARACTOR_ICON_X_DIFF, CHARACTOR_IOCN_Y_DIFF));
@@ -59,16 +61,38 @@ namespace ya
 		pWordButton->SetPos(Vector2(880.0f, 800.0f));
 
 
+		// StageSelection Section
+		UIBase* pStageSelection = new StageSelectionPanel();
+		mUIMap.insert(std::make_pair(eUIType::STAGE_SELECTION, pStageSelection));
+		pStageSelection->SetPos(Vector2(SCREEN_WIDTH / 2 - pStageSelection->GetSize().x / 2, BLACK_BAR_HEIGHT));
+		UIBase* pStageIcon = new StageLibraryIcon();
+		pStageSelection->AddUIChild(pStageIcon);
+		pStageIcon->SetPos(Vector2(CHARACTOR_ICON_X_DIFF + 15.0f, CHARACTOR_IOCN_Y_DIFF + 30.0f));
+		UIBase* pStageButton = new CharacterWordButton();
+		pStageSelection->AddUIChild(pStageButton);
+		pStageButton->SetPos(Vector2(880.0f, 800.0f));
+
 
 		// PLAY_INFO_HUD Section
-		UIBase* pNewUI = new HealthBar();
-		mUIMap.insert(std::make_pair(eUIType::PLAY_INFO_HUD, pNewUI));
-		pNewUI->SetPos(Vector2(760.0f, 440.0f));
-		pNewUI->LoadUIImage(L"HPBar", L"Resources\\Image\\HPBar.bmp");
+		UIBase* pPlayScenePanel = new PlaySceneHUDPanel();
+		mUIMap.insert(std::make_pair(eUIType::PLAY_INFO_HUD, pPlayScenePanel));
+
+		UIBase* pHpBar = new HealthBar();
+		mUIMap.insert(std::make_pair(eUIType::PLAY_INFO_HUD, pHpBar));
+		pPlayScenePanel->AddUIChild(pHpBar);
+
+		UIBase* pEXPBar = new ExpBar();
+		mUIMap.insert(std::make_pair(eUIType::PLAY_INFO_HUD, pEXPBar));
+		pPlayScenePanel->AddUIChild(pEXPBar);
+
+		UIBase* pWeaponBox = new WeaponBox();
+		mUIMap.insert(std::make_pair(eUIType::PLAY_INFO_HUD, pWeaponBox));
+		pPlayScenePanel->AddUIChild(pWeaponBox);
+
 
 		//pNewUI->SetSize(Vector2(500.0f, 100.0f));
 		//UIBase* pHpBar = new Button(eUIType::HP);
-		//mUIMap.insert(std::make_pair(eUIType::HP, pHpBar));
+		//mUIMap.insert(std::make_pair(eUIType::HP, pHpBar));[
 		//pHpBar->SetPos(Vector2(0.0f, 50.0f));
 		//pHpBar->LoadUIImage(L"HPBar", L"Resources\\Image\\HPBar.bmp");
 

@@ -1,6 +1,7 @@
 #include "yaHealthBar.h"
 #include "yaPlayer.h"
 #include "yaImage.h"
+#include "yaResources.h"
 
 namespace ya
 {
@@ -8,6 +9,9 @@ namespace ya
 		: HUD(eUIType::PLAY_INFO_HUD)
 		, mpPlayer(nullptr)
 	{
+		mpImage = Resources::Load<Image>(L"HPBar", L"Resources\\Image\\HPBar.bmp");
+		assert(mpImage != nullptr);
+		mPos = Vector2(SCREEN_WIDTH / 2 - 42.0f, SCREEN_HEIGHT / 2 + 43.0f);
 	}
 	void HealthBar::OnInitialize()
 	{

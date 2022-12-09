@@ -78,6 +78,7 @@ namespace ya
 	}
 	void TitleSceneStartUIButton::ButtonClicked()
 	{
+		UIManager::Pop(eUIType::START_MENU_SELECTION);
 		UIManager::Push(eUIType::CHARACTER_SELECTION);
 	}
 }
