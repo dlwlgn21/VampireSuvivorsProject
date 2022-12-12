@@ -38,7 +38,6 @@ namespace ya
 		//mpButtons[static_cast<UINT>(eTitleSceneMenu::OPTION)] = static_cast<ButtonImageObject*>(ya::object::InstantiateAtAnotherScene<OptionButton>(eColliderLayer::BACKGROUND, L"BGOptionButton", L"Resources\\Image\\OptionButtonAlpha.bmp", GetSceneTpye()));
 		//mpButtons[static_cast<UINT>(eTitleSceneMenu::EXIT)] = static_cast<ButtonImageObject*>(ya::object::InstantiateAtAnotherScene<ExitButton>(eColliderLayer::BACKGROUND, L"BGExitButton", L"Resources\\Image\\ExitButtonAlpha.bmp", GetSceneTpye()));
 		//mpStartButton = static_cast<StartButton*>(mpButtons[static_cast<UINT>(eTitleSceneMenu::START)]);
-		UIManager::Push(eUIType::START_MENU_SELECTION);
 	}
 	void TitleScene::Tick()
 	{
@@ -75,6 +74,8 @@ namespace ya
 	void TitleScene::Enter()
 	{
 		Scene::Enter();
+
+		UIManager::Push(eUIType::START_MENU_SELECTION);
 	}
 	void TitleScene::Exit()
 	{

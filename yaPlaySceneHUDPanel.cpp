@@ -22,6 +22,11 @@ namespace ya
 	}
 	void PlaySceneHUDPanel::OnTick()
 	{
+		if (IS_KEY_DOWN(eKeyCode::ESC))
+		{
+			UIManager::Pop(eUIType::PLAY_INFO_HUD);
+			UIManager::Push(eUIType::PLAY_PAUSED);
+		}
 	}
 	void PlaySceneHUDPanel::OnRender(HDC hdc)
 	{

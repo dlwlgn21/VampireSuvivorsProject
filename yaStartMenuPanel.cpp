@@ -19,6 +19,7 @@ namespace ya
 	void StartMenuPanel::OnInitialize()
 	{
 		mbIsCharacterSelectionUIPoped = false;
+		Input::Initialize();
 	}
 	void StartMenuPanel::OnActive()
 	{

@@ -56,20 +56,20 @@ namespace ya
 	void PlayScene::Tick()
 	{
 		Scene::Tick();
-		if (IS_KEY_DOWN(eKeyCode::ESC))
-		{
-			if (mbUiFlag)
-			{
-				UIManager::Pop(eUIType::PLAY_INFO_HUD);
-				UIManager::Push(eUIType::PLAY_PAUSED);
-			}
-			else
-			{
-				UIManager::Pop(eUIType::PLAY_PAUSED);
-				UIManager::Push(eUIType::PLAY_INFO_HUD);
-			}
-			mbUiFlag = !mbUiFlag;
-		}
+		//if (IS_KEY_DOWN(eKeyCode::ESC))
+		//{
+		//	if (mbUiFlag)
+		//	{
+		//		UIManager::Pop(eUIType::PLAY_INFO_HUD);
+		//		UIManager::Push(eUIType::PLAY_PAUSED);
+		//	}
+		//	else
+		//	{
+		//		UIManager::Pop(eUIType::PLAY_PAUSED);
+		//		UIManager::Push(eUIType::PLAY_INFO_HUD);
+		//	}
+		//	mbUiFlag = !mbUiFlag;
+		//}
 	}
 	void PlayScene::Render(HDC hdc)
 	{

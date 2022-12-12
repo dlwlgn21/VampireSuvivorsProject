@@ -24,6 +24,7 @@ namespace ya
 	}
 	void CharacterSelectionPanel::OnInitialize()
 	{
+		Input::Initialize();
 	}
 	void CharacterSelectionPanel::OnActive()
 	{
@@ -33,7 +34,7 @@ namespace ya
 	}
 	void CharacterSelectionPanel::OnTick()
 	{
-		if (IS_KEY_UP(eKeyCode::ESC))
+		if (IS_KEY_DOWN(eKeyCode::ESC))
 		{
 			UIManager::Pop(eUIType::CHARACTER_SELECTION);
 			UIManager::Push(eUIType::START_MENU_SELECTION);

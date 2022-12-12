@@ -25,6 +25,7 @@ namespace ya
 	}
 	void StageSelectionPanel::OnInitialize()
 	{
+		Input::Initialize();
 	}
 	void StageSelectionPanel::OnActive()
 	{
@@ -44,8 +45,8 @@ namespace ya
 			if (static_cast<UIAnimObject*>(mChilds[1])->IsSelected())
 			{
 				UIManager::Pop(eUIType::STAGE_SELECTION);
-				SceneManager::ChangeSecne(eSceneType::PLAY_SCENE);
 				UIManager::Push(eUIType::PLAY_INFO_HUD);
+				SceneManager::ChangeSecne(eSceneType::PLAY_SCENE);
 			}
 			assert(mChilds.size() != 0);
 			assert(mChilds.size() == 2);

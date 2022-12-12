@@ -41,6 +41,7 @@ namespace ya
 	HWND Input::mHwnd = Application::GetInstance().GetWindowData().hwnd;
 	void Input::Initialize()
 	{
+		mKeys.clear();
 		mKeys.reserve(128);
 		for (int i = 0; i < static_cast<UINT>(eKeyCode::COUNT); ++i)
 		{

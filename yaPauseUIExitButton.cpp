@@ -81,7 +81,7 @@ namespace ya
 	void PauseUIExitButton::ButtonClicked()
 	{
 		UIManager::Pop(eUIType::PLAY_PAUSED);
-		UIManager::Push(eUIType::START_MENU_SELECTION);
+		//RegisterApplicationRestart(NULL, RESTART_NO_CRASH);
 		SceneManager::ChangeSecne(eSceneType::TITLE_SCENE);
 	}
 }
