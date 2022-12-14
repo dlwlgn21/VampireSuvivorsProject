@@ -19,7 +19,8 @@ namespace ya
 		void OnRender(HDC hdc) override;
 		void OnUIClear() override;
 
-		void SetHpBarToPlayer(Player* pPlayer);
+		void SetPlayerToHpBar(Player* pPlayer);
+		void SetPlayerToExpBar(Player* pPlayer);
 	};
 }
 

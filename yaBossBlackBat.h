@@ -1,11 +1,12 @@
 #pragma once
-#include "yaMonster.h"
+#include "yaGameObejct.h"
 
 namespace ya
 {
 	class Image;
 	class Animator;
-	class BossBlackBat : public Monster
+	class Player;
+	class BossBlackBat : public GameObject
 	{
 	public:
 		BossBlackBat(Vector2 pos);

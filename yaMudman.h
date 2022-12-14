@@ -6,15 +6,15 @@ namespace ya
 	class Image;
 	class Animator;
 	class Collider;
+	class Player;
 	class Mudman final : public Monster
 	{
 	public:
-		Mudman(Vector2 pos);
+		Mudman(Vector2 pos, Player* pPlayer);
 		virtual ~Mudman() = default;
 
 		void Tick() override;
 		void Render(HDC hdc) override;
-		void OnCollisionEnter(Collider* other) override;
 		void OnCollisionStay(Collider* other) override;
 		void OnCollisionExit(Collider* other) override;
 
@@ -32,8 +32,6 @@ namespace ya
 		Vector2 mAnimOffset;
 		UINT mAnimCount;
 		float mAnimDuration;
-
-		int mHP;
 	};
 
 }

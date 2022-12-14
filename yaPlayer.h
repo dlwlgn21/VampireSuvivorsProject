@@ -34,9 +34,21 @@ namespace ya
 		void OnCollisionExit(Collider* other) override;
 
 		void WalkComplete();
+		void DamageFromMonster(int damage);
 
-		inline void SetHp(int hp) { mHp = hp; }
-		inline int GetHp() { return mHp; }
+		__forceinline void SetHp(int hp) { mHp = hp; }
+		__forceinline int GetHp() const { return mHp; }
+		__forceinline void IncreaseExp(int exp) 
+		{ 
+			mExp += exp;
+			if (mExp >= 100)
+			{
+				mExp = 0;
+				++mLevel;
+			}
+		}
+		__forceinline int GetExp() const { return mExp; }
+		__forceinline int GetLevel() const { return mLevel; }
 
 	private:
 		float mSpeed;
@@ -56,6 +68,8 @@ namespace ya
 
 		Vector2 dir;
 
+		int mLevel;
+		int mExp;
 		int mHp;
 		ePlayerAnimState mePlayerAnimState;
 		ePlayerLookDirection meLookDir;

@@ -10,6 +10,7 @@
 #include "yaUIManager.h"
 #include "yaHealthBar.h"
 #include "yaPlaySceneHUDPanel.h"
+#include "yaExpBar.h"
 
 namespace ya
 {
@@ -24,13 +25,13 @@ namespace ya
 	}
 	void PlayScene::Initialize()
 	{
+		mpPlayer = ya::object::Instantiate<Player>(eColliderLayer::PLAYER);
+		mpPlayer->SetPos({ 300.0f, 200.0f });
 		int monsterCount = 5;
 		for (int i = 0; i < monsterCount; ++i)
 		{
-			ya::object::InstantiateAtAnotherScene<Mudman>(eColliderLayer::MONSTER, Vector2(100.f * i, 300.f), GetSceneTpye());
+			ya::object::InstantiateAtAnotherScene<Mudman>(eColliderLayer::MONSTER, Vector2(100.f * i, 300.f), mpPlayer, GetSceneTpye());
 		}
-		mpPlayer = ya::object::Instantiate<Player>(eColliderLayer::PLAYER);
-		mpPlayer->SetPos({ 300.0f, 200.0f });
 		CollisionManager::SetLayer(eColliderLayer::PLAYER, eColliderLayer::MONSTER, true);
 		CollisionManager::SetLayer(eColliderLayer::MONSTER, eColliderLayer::PLAYER_PROJECTTILE, true);
 
@@ -89,8 +90,9 @@ namespace ya
 		CollisionManager::SetLayer(eColliderLayer::MONSTER, eColliderLayer::PLAYER_PROJECTTILE, true);
 		CollisionManager::SetLayer(eColliderLayer::GROUND, eColliderLayer::PLAYER, true);
 		PlaySceneHUDPanel* pPanel = static_cast<PlaySceneHUDPanel*>(UIManager::GetUIInstanceOrNull(eUIType::PLAY_INFO_HUD));
-
-		pPanel->SetHpBarToPlayer(mpPlayer);
+		assert(pPanel != nullptr);
+		pPanel->SetPlayerToHpBar(mpPlayer);
+		pPanel->SetPlayerToExpBar(mpPlayer);
 	}
 
 	void PlayScene::Exit()

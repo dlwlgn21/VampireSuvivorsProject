@@ -62,10 +62,19 @@ namespace ya
 			return gameObeject;
 		}
 
+		//template<typename T>
+		//static __forceinline T* InstantiateAtAnotherScene(eColliderLayer colliderLayer, Vector2 pos, eSceneType sceneType)
+		//{
+		//	T* gameObeject = new T(pos);
+		//	Scene* scene = SceneManager::GetSpecifiedScene(sceneType);
+		//	scene->AddGameObject(static_cast<GameObject*>(gameObeject), colliderLayer);
+		//	return gameObeject;
+		//}
+
 		template<typename T>
-		static __forceinline T* InstantiateAtAnotherScene(eColliderLayer colliderLayer, Vector2 pos, eSceneType sceneType)
+		static __forceinline T* InstantiateAtAnotherScene(eColliderLayer colliderLayer, Vector2 pos, Player* pPlayer, eSceneType sceneType)
 		{
-			T* gameObeject = new T(pos);
+			T* gameObeject = new T(pos, pPlayer);
 			Scene* scene = SceneManager::GetSpecifiedScene(sceneType);
 			scene->AddGameObject(static_cast<GameObject*>(gameObeject), colliderLayer);
 			return gameObeject;

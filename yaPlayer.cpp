@@ -19,6 +19,7 @@
 #include "yaKnifeObjectPool.h"
 #include "yaWeaponObjectPool.h"
 #include "yaRuneTracer.h"
+#include "yaMonster.h"
 
 namespace ya
 {
@@ -38,6 +39,8 @@ namespace ya
 		, dir(Vector2::ONE)
 		, mpAnimator(new PlayerCustomAnimator())
 		, mpCollider(new Collider({ 20.0f, 40.0f }))
+		, mLevel(1)
+		, mExp(0)
 		, mHp(100)
 		, mePlayerAnimState(ePlayerAnimState::LEFT)
 		, mKnifeShootInterval(2.0f)
@@ -224,11 +227,6 @@ namespace ya
 
 	void Player::OnCollisionEnter(Collider* other)
 	{
-		mHp -= 10;
-		if (mHp < 0)
-		{
-			mHp = 100;
-		}
 	}
 	void Player::OnCollisionStay(Collider* other)
 	{
@@ -259,6 +257,15 @@ namespace ya
 			break;
 		}
 		mpAnimator->Play(mePlayerAnimState);
+	}
+
+	void Player::DamageFromMonster(int damage)
+	{
+		mHp -= damage;
+		if (mHp <= 0)
+		{
+			mHp = 100;
+		}
 	}
 
 	void Player::WalkComplete()

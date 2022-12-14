@@ -4,11 +4,12 @@
 #include "yaAnimator.h"
 #include "yaImage.h"
 #include "yaCamera.h"
+#include "yaPlayer.h"
 
 namespace ya
 {
-	Mudman::Mudman(Vector2 pos)
-		: Monster(pos, 15)
+	Mudman::Mudman(Vector2 pos, Player* pPlayer)
+		: Monster(pos, pPlayer, MUDMAN_INITIAL_HP, MUDMAN_INITIAL_DAMAGE, ONE_MIN_NORMAL_MONSTER_EXP)
 		, mPen(CreatePen(PS_DASHDOTDOT, 3, RGB(0, 255, 255)))
 		, mBrush(CreateSolidBrush(RGB(153, 204, 255)))
 		, mpImage(Resources::Load<Image>(L"Mudman", L"Resources\\Image\\MudmanAnim.bmp"))
@@ -21,7 +22,6 @@ namespace ya
 		, mAnimOffset(-15.f, -20.f)
 		, mAnimCount(5)
 		, mAnimDuration(0.15f)
-		, mHP(15)
 	{
 		assert(mpImage != nullptr);
 		assert(mpInvImage != nullptr);
@@ -45,10 +45,7 @@ namespace ya
 		GameObject::Render(hdc);
 	}
 
-	void Mudman::OnCollisionEnter(Collider* other)
-	{
 
-	}
 	void Mudman::OnCollisionStay(Collider* other)
 	{
 

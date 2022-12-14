@@ -4,6 +4,7 @@
 namespace ya
 {
 	class Player;
+	class Image;
 	class HealthBar final : public HUD
 	{
 	public:
@@ -18,7 +19,9 @@ namespace ya
 		void OnUIClear() override;
 
 		__forceinline void SetPlayer(Player* pPlayer) { mpPlayer = pPlayer; }
+
 	private:
+		Image* mpBlackBarImage;
 		Player* mpPlayer;
 		int mImgWidth;
 		int mImgHeight;

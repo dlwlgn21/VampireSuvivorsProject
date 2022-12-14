@@ -4,11 +4,12 @@
 #include "yaAnimator.h"
 #include "yaImage.h"
 #include "yaCamera.h"
+#include "yaPlayer.h"
 
 namespace ya
 {
 	BossBlackBat::BossBlackBat(Vector2 pos)
-		: Monster(pos, 15)
+		: GameObject(pos)
 		, mPen(CreatePen(PS_DASHDOTDOT, 3, RGB(0, 255, 255)))
 		, mBrush(CreateSolidBrush(RGB(153, 204, 255)))
 		, mpImage(Resources::Load<Image>(L"BossBlackBat", L"Resources\\Image\\BossBlackBatAnim.bmp"))

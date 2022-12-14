@@ -3,6 +3,8 @@
 
 namespace ya
 {
+	class Image;
+	class Player;
 	class ExpBar final : public HUD
 	{
 	public:
@@ -17,9 +19,15 @@ namespace ya
 		void OnTick() override;
 		void OnRender(HDC hdc) override;
 		void OnUIClear() override;
+
+		__forceinline void SetPlayer(Player* pPlayer) { mpPlayer = pPlayer; }
 	private:
+		Image* mpExpAmountBarImage;
+		Player* mpPlayer;
 		int mImgWidth;
 		int mImgHeight;
+		int mAmountBarWidth;
+		int mAmountBarHeight;
 	};
 }
 

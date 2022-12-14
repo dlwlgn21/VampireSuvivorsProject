@@ -1,5 +1,6 @@
 #include "yaPlaySceneHUDPanel.h"
 #include "yaHealthBar.h"
+#include "yaExpBar.h"
 #include "yaInput.h"
 #include "yaUIManager.h"
 
@@ -34,9 +35,14 @@ namespace ya
 	void PlaySceneHUDPanel::OnUIClear()
 	{
 	}
-	void PlaySceneHUDPanel::SetHpBarToPlayer(Player* pPlayer)
+	void PlaySceneHUDPanel::SetPlayerToHpBar(Player* pPlayer)
 	{
 		assert(mChilds[0] != nullptr);
 		static_cast<HealthBar*>(mChilds[0])->SetPlayer(pPlayer);
+	}
+	void PlaySceneHUDPanel::SetPlayerToExpBar(Player* pPlayer)
+	{
+		assert(mChilds[1] != nullptr);
+		static_cast<ExpBar*>(mChilds[1])->SetPlayer(pPlayer);
 	}
 }

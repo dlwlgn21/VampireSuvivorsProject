@@ -34,8 +34,6 @@ namespace ya
 	}
 	void WeaponBox::OnRender(HDC hdc)
 	{
-		assert(mpImage != nullptr);
-
 		AlphaBlend(
 			hdc,
 			static_cast<int>(mScreenPos.x),
