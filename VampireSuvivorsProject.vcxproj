@@ -132,12 +132,14 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="yaLevelUpArrow.h" />
     <ClInclude Include="yaPauseUIContinueButton.h" />
     <ClInclude Include="yaExpBar.h" />
     <ClInclude Include="yaPausePlayerStartInfoBox.h" />
     <ClInclude Include="yaPauseUIExitButton.h" />
     <ClInclude Include="yaPlaySceneHUDPanel.h" />
     <ClInclude Include="yaCharacterWordButton.h" />
+    <ClInclude Include="yaPlaySceneLevelUpHUDPanel.h" />
     <ClInclude Include="yaPlayScenePausedHUDPanel.h" />
     <ClInclude Include="yaStageLibraryIcon.h" />
     <ClInclude Include="yaStageSelectionPanel.h" />
@@ -247,6 +249,7 @@
     <ClCompile Include="yaPauseUIExitButton.cpp" />
     <ClCompile Include="yaPlaySceneHUDPanel.cpp" />
     <ClCompile Include="yaCharacterWordButton.cpp" />
+    <ClCompile Include="yaPlaySceneLevelUpHUDPanel.cpp" />
     <ClCompile Include="yaPlayScenePausedHUDPanel.cpp" />
     <ClCompile Include="yaStageLibraryIcon.cpp" />
     <ClCompile Include="yaStageSelectionPanel.cpp" />

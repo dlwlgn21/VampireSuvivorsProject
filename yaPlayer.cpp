@@ -49,6 +49,7 @@ namespace ya
 		, mpKnifeObjPool(new KnifeObjectPool(MAX_KNIFE_COUNT))
 		, mCurrKnifeCount(1)
 		, mKnockbackValue(0.5f)
+		, mPlyerItemLevelStat(PlayerItemLevelStat())
 		//, mpRuneTracerPool(new WeaponObjectPool<RuneTracer>(MAX_RUNE_TRACER_COUNT))
 		//, mCurrRuneTracerCount(1)
 		//, mRuneTracerShootInterval(1.0f)
@@ -274,4 +275,16 @@ namespace ya
 		pMis->SetPos(mPos);*/
 	}
 
+
+	void Player::IncreaseExp(int exp)
+	{
+		mExp += exp;
+		if (mExp >= 100)
+		{
+			mExp = 0;
+			++mLevel;
+			UIManager::Pop(eUIType::PLAY_INFO_HUD);
+			UIManager::Push(eUIType::PLAY_LEVEL_UP);
+		}
+	}
 }

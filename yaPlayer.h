@@ -23,6 +23,28 @@ namespace ya
 	template<typename T> class WeaponObjectPool;
 	class Player final : public GameObject
 	{
+		struct PlayerItemLevelStat
+		{
+			unsigned char WeaponKnifeLevel;
+			unsigned char WeaponFireWandLevel;
+			unsigned char WeaponRuneLevel;
+			unsigned char WeaponAxeLevel;
+			unsigned char WeaponSpeedLevel;
+			unsigned char WeaponDamageLevel;
+			unsigned char PlayerMoveSpeedLevel;
+			unsigned char PlayerAmourLevel;
+			PlayerItemLevelStat()
+				: WeaponKnifeLevel(1)
+				, WeaponFireWandLevel(0)
+				, WeaponRuneLevel(0)
+				, WeaponAxeLevel(0)
+				, WeaponSpeedLevel(0)
+				, WeaponDamageLevel(0)
+				, PlayerMoveSpeedLevel(0)
+				, PlayerAmourLevel(0)
+			{
+			}
+		};
 	public:
 		Player();
 		virtual ~Player();
@@ -35,20 +57,13 @@ namespace ya
 
 		void WalkComplete();
 		void DamageFromMonster(int damage);
+		void IncreaseExp(int exp);
 
 		__forceinline void SetHp(int hp) { mHp = hp; }
 		__forceinline int GetHp() const { return mHp; }
-		__forceinline void IncreaseExp(int exp) 
-		{ 
-			mExp += exp;
-			if (mExp >= 100)
-			{
-				mExp = 0;
-				++mLevel;
-			}
-		}
 		__forceinline int GetExp() const { return mExp; }
 		__forceinline int GetLevel() const { return mLevel; }
+		__forceinline PlayerItemLevelStat GetItemStat() { return mPlyerItemLevelStat; }
 
 	private:
 		float mSpeed;
@@ -79,11 +94,7 @@ namespace ya
 		KnifeObjectPool* mpKnifeObjPool;
 		int mCurrKnifeCount;
 		float mKnockbackValue;
-
-		//WeaponObjectPool<RuneTracer>* mpRuneTracerPool;
-		//int mCurrRuneTracerCount;
-		//float mRuneTracerShootInterval;
-		//float mRuneTracerShootTimer;
+		PlayerItemLevelStat mPlyerItemLevelStat;
 	};
 
 }

@@ -11,7 +11,7 @@
 namespace ya
 {
 	Knife::Knife(Vector2 spwanPos, int damage, float speed, float knockBackValue, float shootInterval, eKnifeDirection dir, KnifeObjectPool* pPool)
-		: Weapon(eWeaponType::NO_PENETRATING, spwanPos, damage, speed, knockBackValue, shootInterval)
+		: Weapon(eWeaponPenetratingType::NO_PENETRATING, spwanPos, damage, speed, knockBackValue, shootInterval)
 		, mpKnifeImage(nullptr)
 		, mKnifeDirection(dir)
 		, mpKnifeObjPool(pPool)

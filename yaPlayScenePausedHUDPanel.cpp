@@ -11,6 +11,7 @@ namespace ya
 		: Panel(eUIType::PLAY_PAUSED)
 		, mImgWidth(0)
 		, mImgHeight(0)
+		, mpButtons{}
 	{
 		mpImage = Resources::Load<Image>(L"BlackMask", L"Resources\\Image\\BlackMask.bmp");
 		assert(mpImage != nullptr);

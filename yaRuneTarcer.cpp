@@ -9,7 +9,7 @@
 namespace ya
 {
 	RuneTracer::RuneTracer(Vector2 spawanPos, int damage, float speed, float knockBackValue, float shootInterval, WeaponObjectPool<RuneTracer>* pPool)
-		: Weapon(eWeaponType::COMPLETE_PENETRATING, spawanPos, damage, speed, knockBackValue, shootInterval)
+		: Weapon(eWeaponPenetratingType::COMPLETE_PENETRATING, spawanPos, damage, speed, knockBackValue, shootInterval)
 		, mpRuneTracerImage(Resources::Load<Image>(L"RuneTracer", L"Resources\\Image\\RuneTracer.bmp"))
 		, mSizeX(mpRuneTracerImage->GetWidth())
 		, mSizeY(mpRuneTracerImage->GetHeight())

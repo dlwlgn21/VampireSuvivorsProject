@@ -72,6 +72,7 @@ enum class eUIType
 	CHARACTER_SELECTION,
 	STAGE_SELECTION,
 	PLAY_INFO_HUD,
+	PLAY_LEVEL_UP,
 	PLAY_PAUSED,
 	COUNT
 };
@@ -91,6 +92,24 @@ enum class eCameraEffect
 {
 	FADE_IN,
 	FADE_OUT,
+	COUNT
+};
+
+enum class eWeaponTypes
+{
+	KNIFE,
+	FIRE_WAND,
+	RUNE,
+	AXE,
+	COUNT
+};
+
+enum class eStatBurfItemType
+{
+	WEAPON_SPEED,
+	WEAPON_DAMAGE,
+	MOVE_SPEED,
+	PLAYER_AMOUR,
 	COUNT
 };
 
@@ -117,6 +136,12 @@ enum class eCameraEffect
 #define ACTUAL_GAME_SCREEN_WIDTH (1727)
 #define ACTUAL_GAME_SCREEN_X_DIFF (96)
 
-#define ONE_MIN_NORMAL_MONSTER_EXP (20)
+#define ONE_MIN_NORMAL_MONSTER_EXP (40)
 #define MUDMAN_INITIAL_HP (5)
 #define MUDMAN_INITIAL_DAMAGE (5)
+
+#define TOTAL_WEAPON_COUNT (4)
+#define TOTAL_STAT_BURF_ITEM_COUNT (4)
+#define MAX_WEAPON_LEVEL (8)
+#define MAX_STAT_BURF_ITEM_LEVEL (4)
+

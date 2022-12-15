@@ -97,6 +97,9 @@
     <Filter Include="GameObject\UI\PauseUI">
       <UniqueIdentifier>{d60d4ee0-5ccd-42f0-a3d2-f626c5456343}</UniqueIdentifier>
     </Filter>
+    <Filter Include="GameObject\UI\LevelUpUI">
+      <UniqueIdentifier>{e32b006d-6a25-4521-b726-a07f649ead27}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
@@ -420,6 +423,12 @@
     <ClInclude Include="yaPauseUIExitButton.h">
       <Filter>GameObject\UI\PauseUI</Filter>
     </ClInclude>
+    <ClInclude Include="yaPlaySceneLevelUpHUDPanel.h">
+      <Filter>GameObject\UI\LevelUpUI</Filter>
+    </ClInclude>
+    <ClInclude Include="yaLevelUpArrow.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Maths.cpp">
@@ -727,6 +736,9 @@
     </ClCompile>
     <ClCompile Include="yaPauseUIExitButton.cpp">
       <Filter>GameObject\UI\PauseUI</Filter>
+    </ClCompile>
+    <ClCompile Include="yaPlaySceneLevelUpHUDPanel.cpp">
+      <Filter>GameObject\UI\LevelUpUI</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

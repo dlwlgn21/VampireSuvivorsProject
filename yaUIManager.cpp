@@ -21,6 +21,7 @@
 #include "yaPausePlayerStartInfoBox.h"
 #include "yaPauseUIContinueButton.h"
 #include "yaPauseUIExitButton.h"
+#include "yaPlaySceneLevelUpHUDPanel.h"
 
 namespace ya
 {
@@ -93,6 +94,11 @@ namespace ya
 		UIBase* pWeaponBox = new WeaponBox();
 		mUIMap.insert(std::make_pair(eUIType::PLAY_INFO_HUD, pWeaponBox));
 		pPlayScenePanel->AddUIChild(pWeaponBox);
+
+
+		// PLAY_LEVEL_UP
+		UIBase* pLevelUpPanel = new PlaySceneLevelUpHUDPanel();
+		mUIMap.insert(std::make_pair(eUIType::PLAY_LEVEL_UP, pLevelUpPanel));
 
 
 		// PLAY_PAUSED Section

@@ -4,7 +4,7 @@
 
 namespace ya
 {
-	enum class eWeaponType
+	enum class eWeaponPenetratingType
 	{
 		COMPLETE_PENETRATING,
 		PARTIAL_PENETRATING,
@@ -16,7 +16,7 @@ namespace ya
 	class Weapon : public GameObject
 	{
 	public:
-		Weapon(eWeaponType weaponType, Vector2 spwanPos, int damage, float speed, float knockBackValue, float shootInterval);
+		Weapon(eWeaponPenetratingType weaponPenetratingType, Vector2 spwanPos, int damage, float speed, float knockBackValue, float shootInterval);
 		virtual ~Weapon() = default;
 
 		virtual void Tick() override;
@@ -25,7 +25,7 @@ namespace ya
 		virtual void OnCollisionStay(Collider* other) override;
 		virtual void OnCollisionExit(Collider* other) override;
 
-		__forceinline eWeaponType GetWeaponType() { return meWeaponType; }
+		__forceinline eWeaponPenetratingType GetWeaponType() { return meWeaponPenetratingType; }
 		__forceinline void SetSize(Vector2 size) { mSize = size; }
 		__forceinline Vector2 GetSize() { return mSize; }
 		__forceinline int GetDamage() { return mDamage; }
@@ -36,7 +36,7 @@ namespace ya
 
 	protected:
 		Collider* mpCollider;
-		eWeaponType meWeaponType;
+		eWeaponPenetratingType meWeaponPenetratingType;
 		
 		Vector2 mSpawnPosition;
 		Vector2 mSize;
