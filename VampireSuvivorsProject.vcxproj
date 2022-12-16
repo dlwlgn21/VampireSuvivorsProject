@@ -133,10 +133,14 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="yaLevelUpArrow.h" />
+    <ClInclude Include="yaLevelUpHUDBot.h" />
+    <ClInclude Include="yaLevelUpHUDMid.h" />
+    <ClInclude Include="yaLevelUpHUDTop.h" />
     <ClInclude Include="yaPauseUIContinueButton.h" />
     <ClInclude Include="yaExpBar.h" />
     <ClInclude Include="yaPausePlayerStartInfoBox.h" />
     <ClInclude Include="yaPauseUIExitButton.h" />
+    <ClInclude Include="yaPlayerLevelUpManager.h" />
     <ClInclude Include="yaPlaySceneHUDPanel.h" />
     <ClInclude Include="yaCharacterWordButton.h" />
     <ClInclude Include="yaPlaySceneLevelUpHUDPanel.h" />
@@ -243,10 +247,15 @@
     <ClInclude Include="yaWeaponObjectPool.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="yaLevelUpArrow.cpp" />
+    <ClCompile Include="yaLevelUpHUDBot.cpp" />
+    <ClCompile Include="yaLevelUpHUDMid.cpp" />
+    <ClCompile Include="yaLevelUpHUDTop.cpp" />
     <ClCompile Include="yaPauseUIContinueButton.cpp" />
     <ClCompile Include="yaExpBar.cpp" />
     <ClCompile Include="yaPausePlayerStartInfoBox.cpp" />
     <ClCompile Include="yaPauseUIExitButton.cpp" />
+    <ClCompile Include="yaPlayerLevelUpManager.cpp" />
     <ClCompile Include="yaPlaySceneHUDPanel.cpp" />
     <ClCompile Include="yaCharacterWordButton.cpp" />
     <ClCompile Include="yaPlaySceneLevelUpHUDPanel.cpp" />

@@ -95,17 +95,12 @@ enum class eCameraEffect
 	COUNT
 };
 
-enum class eWeaponTypes
+enum class eWeaponAndItemTypes
 {
 	KNIFE,
 	FIRE_WAND,
 	RUNE,
 	AXE,
-	COUNT
-};
-
-enum class eStatBurfItemType
-{
 	WEAPON_SPEED,
 	WEAPON_DAMAGE,
 	MOVE_SPEED,
@@ -142,6 +137,7 @@ enum class eStatBurfItemType
 
 #define TOTAL_WEAPON_COUNT (4)
 #define TOTAL_STAT_BURF_ITEM_COUNT (4)
+#define MAX_WEAPON_STAT_BURF_ITEM_COUNT (TOTAL_WEAPON_COUNT + TOTAL_STAT_BURF_ITEM_COUNT)
 #define MAX_WEAPON_LEVEL (8)
 #define MAX_STAT_BURF_ITEM_LEVEL (4)
-
+#define LEVEL_IMG_HEIGHT (174.0f)

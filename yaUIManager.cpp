@@ -22,6 +22,10 @@
 #include "yaPauseUIContinueButton.h"
 #include "yaPauseUIExitButton.h"
 #include "yaPlaySceneLevelUpHUDPanel.h"
+#include "yaLevelUpArrow.h"
+#include "yaLevelUpHUDTop.h"
+#include "yaLevelUpHUDMid.h"
+#include "yaLevelUpHUDBot.h"
 
 namespace ya
 {
@@ -99,6 +103,28 @@ namespace ya
 		// PLAY_LEVEL_UP
 		UIBase* pLevelUpPanel = new PlaySceneLevelUpHUDPanel();
 		mUIMap.insert(std::make_pair(eUIType::PLAY_LEVEL_UP, pLevelUpPanel));
+
+		UIBase* pLevelUpArrow = new LevelUpArrow();
+		mUIMap.insert(std::make_pair(eUIType::PLAY_LEVEL_UP, pLevelUpArrow));
+		pLevelUpPanel->AddUIChild(pLevelUpArrow);
+
+		UIBase* pLevelUpTop = new LevelUpHUDTop();
+		mUIMap.insert(std::make_pair(eUIType::PLAY_LEVEL_UP, pLevelUpTop));
+		pLevelUpPanel->AddUIChild(pLevelUpTop);
+
+		UIBase* pLevelUpMid = new LevelUpHUDMid();
+		mUIMap.insert(std::make_pair(eUIType::PLAY_LEVEL_UP, pLevelUpMid));
+		pLevelUpPanel->AddUIChild(pLevelUpMid);
+
+		UIBase* pLevelUpBot = new LevelUpHUDBot();
+		mUIMap.insert(std::make_pair(eUIType::PLAY_LEVEL_UP, pLevelUpBot));
+		pLevelUpPanel->AddUIChild(pLevelUpBot);
+		const float LEVEL_IMG_X_DIFF = 16.0f;
+		const float LEVEL_IMG_Y_DIFF = 156.0f;
+		pLevelUpTop->SetPos(Vector2(LEVEL_IMG_X_DIFF, LEVEL_IMG_Y_DIFF));
+		pLevelUpMid->SetPos(Vector2(LEVEL_IMG_X_DIFF, LEVEL_IMG_Y_DIFF + LEVEL_IMG_HEIGHT));
+		pLevelUpBot->SetPos(Vector2(LEVEL_IMG_X_DIFF, LEVEL_IMG_Y_DIFF + LEVEL_IMG_HEIGHT * 2));
+
 
 
 		// PLAY_PAUSED Section

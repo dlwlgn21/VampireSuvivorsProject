@@ -20,6 +20,7 @@
 #include "yaWeaponObjectPool.h"
 #include "yaRuneTracer.h"
 #include "yaMonster.h"
+#include "yaPlayerLevelUpManager.h"
 
 namespace ya
 {
@@ -43,7 +44,7 @@ namespace ya
 		, mExp(0)
 		, mHp(100)
 		, mePlayerAnimState(ePlayerAnimState::LEFT)
-		, mKnifeShootInterval(2.0f)
+		, mKnifeShootInterval(0.5f)
 		, mKnifeShootTimer(0.0f)
 		, meLookDir(ePlayerLookDirection::RIGHT)
 		, mpKnifeObjPool(new KnifeObjectPool(MAX_KNIFE_COUNT))
@@ -74,7 +75,7 @@ namespace ya
 		mpAnimator->CreateAnimation(mpLeftHittedImage, mAnimSize, mAnimOffset, mAnimCount, mMinAnimInterval, ePlayerAnimState::LEFT_HITTED);
 		mpAnimator->CreateAnimation(mpRightHittedImage,  mAnimSize, mAnimOffset, mAnimCount, mMinAnimInterval, ePlayerAnimState::RIGHT_HITTED);
 		mpAnimator->Play(mePlayerAnimState);
-
+		LevelUpUIManager::GetInstance().SetPlayer(this);
 		Camera::SetTarget(this);
 	}
 

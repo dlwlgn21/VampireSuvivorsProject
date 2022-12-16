@@ -10,6 +10,7 @@
 #include "yaCamera.h"
 #include "yaSoundManager.h"
 #include "yaUIManager.h"
+#include "yaPlayerLevelUpManager.h"
 
 namespace ya
 {
@@ -26,6 +27,7 @@ namespace ya
 
 		Time::Initialize();
 		Input::Initialize();
+		LevelUpUIManager::GetInstance().Initialize();
 		UIManager::Initialize();
 		SceneManager::Initialze();
 		Camera::Initialize();

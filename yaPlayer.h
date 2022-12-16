@@ -23,26 +23,14 @@ namespace ya
 	template<typename T> class WeaponObjectPool;
 	class Player final : public GameObject
 	{
-		struct PlayerItemLevelStat
+	public:
+		struct PlayerItemLevelStat 
 		{
-			unsigned char WeaponKnifeLevel;
-			unsigned char WeaponFireWandLevel;
-			unsigned char WeaponRuneLevel;
-			unsigned char WeaponAxeLevel;
-			unsigned char WeaponSpeedLevel;
-			unsigned char WeaponDamageLevel;
-			unsigned char PlayerMoveSpeedLevel;
-			unsigned char PlayerAmourLevel;
+			unsigned char ItemLevels[static_cast<UINT>(eWeaponAndItemTypes::COUNT)];
 			PlayerItemLevelStat()
-				: WeaponKnifeLevel(1)
-				, WeaponFireWandLevel(0)
-				, WeaponRuneLevel(0)
-				, WeaponAxeLevel(0)
-				, WeaponSpeedLevel(0)
-				, WeaponDamageLevel(0)
-				, PlayerMoveSpeedLevel(0)
-				, PlayerAmourLevel(0)
+				: ItemLevels{0, }
 			{
+				ItemLevels[static_cast<UINT>(eWeaponAndItemTypes::KNIFE)] = 1;
 			}
 		};
 	public:
@@ -63,7 +51,7 @@ namespace ya
 		__forceinline int GetHp() const { return mHp; }
 		__forceinline int GetExp() const { return mExp; }
 		__forceinline int GetLevel() const { return mLevel; }
-		__forceinline PlayerItemLevelStat GetItemStat() { return mPlyerItemLevelStat; }
+		const PlayerItemLevelStat& GetItemStat() const { return mPlyerItemLevelStat; }
 
 	private:
 		float mSpeed;
