@@ -5,6 +5,8 @@
 #include "yaInput.h"
 #include "yaUIAnimObject.h"
 #include "yaLevelUpArrow.h"
+#include "yaLevelUpHUD.h"
+#include "yaPlayerLevelUpManager.h"
 
 namespace ya
 {
@@ -39,15 +41,21 @@ namespace ya
 		if (IS_KEY_DOWN(eKeyCode::ENTER) || IS_KEY_DOWN(eKeyCode::SPACE))
 		{
 			int pos = static_cast<int>(mpArrow->GetPos().y);
+			eWeaponAndItemTypes type;
 			if (pos == M_TOP_POS)
 			{
+				type = static_cast<LevelUpHUD*>(mChilds[static_cast<UINT>(eLevelUpUI::TOP) + 1])->GetType();
 			}
 			else if (pos == M_MID_POS)
 			{
+				type = static_cast<LevelUpHUD*>(mChilds[static_cast<UINT>(eLevelUpUI::MID) + 1])->GetType();
 			}
 			else
 			{
+				type = static_cast<LevelUpHUD*>(mChilds[static_cast<UINT>(eLevelUpUI::BOT) + 1])->GetType();
 			}
+			LevelUpUIManager::GetInstance().IncreasePlayerStat(type);
+
 			UIManager::Pop(eUIType::PLAY_LEVEL_UP);
 			UIManager::Push(eUIType::PLAY_INFO_HUD);
 		}

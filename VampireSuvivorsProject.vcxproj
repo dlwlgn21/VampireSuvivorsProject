@@ -133,6 +133,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="yaLevelUpArrow.h" />
+    <ClInclude Include="yaLevelUpHUD.h" />
     <ClInclude Include="yaLevelUpHUDBot.h" />
     <ClInclude Include="yaLevelUpHUDMid.h" />
     <ClInclude Include="yaLevelUpHUDTop.h" />
@@ -248,6 +249,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="yaLevelUpArrow.cpp" />
+    <ClCompile Include="yaLevelUpHUD.cpp" />
     <ClCompile Include="yaLevelUpHUDBot.cpp" />
     <ClCompile Include="yaLevelUpHUDMid.cpp" />
     <ClCompile Include="yaLevelUpHUDTop.cpp" />

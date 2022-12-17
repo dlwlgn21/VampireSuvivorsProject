@@ -1,10 +1,9 @@
 #pragma once
-#include "yaHUD.h"
-#include "yaPlayerLevelUpManager.h"
+#include "yaLevelUpHUD.h"
 
 namespace ya
 {
-	class LevelUpHUDTop final : public HUD
+	class LevelUpHUDTop final : public LevelUpHUD
 	{
 	public:
 		LevelUpHUDTop();
@@ -17,8 +16,6 @@ namespace ya
 		void OnRender(HDC hdc) override;
 		void OnUIClear() override;
 	private:
-		eWeaponAndItemTypes mCurrShowingType;
-		UINT mCurrShowingIdx;
 		int mImgWidth;
 		int mImgHeight;
 	};

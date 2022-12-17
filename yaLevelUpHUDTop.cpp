@@ -5,7 +5,7 @@
 namespace ya
 {
 	LevelUpHUDTop::LevelUpHUDTop()
-		: HUD(eUIType::PLAY_LEVEL_UP)
+		: LevelUpHUD()
 		, mImgWidth(0)
 		, mImgHeight(0)
 	{
@@ -13,7 +13,7 @@ namespace ya
 
 	void LevelUpHUDTop::OnInitialize()
 	{
-		mpImage = LevelUpUIManager::GetInstance().GetPickupedImage(eLevelUpUI::TOP);
+		mpImage = LevelUpUIManager::GetInstance().GetPickupedImage(eLevelUpUI::TOP, mCurrType);
 		mImgWidth = mpImage->GetWidth();
 		mImgHeight = mpImage->GetHeight();
 	}

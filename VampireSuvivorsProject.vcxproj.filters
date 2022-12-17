@@ -441,6 +441,9 @@
     <ClInclude Include="yaLevelUpHUDBot.h">
       <Filter>GameObject\UI\LevelUpUI</Filter>
     </ClInclude>
+    <ClInclude Include="yaLevelUpHUD.h">
+      <Filter>GameObject\UI\Base</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Maths.cpp">
@@ -766,6 +769,9 @@
     </ClCompile>
     <ClCompile Include="yaLevelUpHUDBot.cpp">
       <Filter>GameObject\UI\LevelUpUI</Filter>
+    </ClCompile>
+    <ClCompile Include="yaLevelUpHUD.cpp">
+      <Filter>GameObject\UI\Base</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

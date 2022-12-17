@@ -23,7 +23,7 @@ namespace ya
 		mBlendFunc.SourceConstantAlpha = 128;
 		for (UINT i = 0; i < static_cast<UINT>(ePauseButton::COUNT); ++i)
 		{
-			mpButtons[i] == nullptr;
+			mpButtons[i] = nullptr;
 		}
 	}
 	void PlayScenePausedHUDPanel::OnInitialize()

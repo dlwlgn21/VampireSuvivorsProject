@@ -51,10 +51,29 @@ namespace ya
 		__forceinline int GetHp() const { return mHp; }
 		__forceinline int GetExp() const { return mExp; }
 		__forceinline int GetLevel() const { return mLevel; }
-		const PlayerItemLevelStat& GetItemStat() const { return mPlyerItemLevelStat; }
+		__forceinline void IncreaseWeaponDamageCoefficient() 
+		{ 
+			++mPlyerItemLevelStat.ItemLevels[static_cast<UINT>(eWeaponAndItemTypes::WEAPON_DAMAGE)];
+			mWeaponDamageCoefficient += 0.1f; 
+		}
+		__forceinline void IncreaseWeaponSpeedCoefficient() 
+		{ 
+			++mPlyerItemLevelStat.ItemLevels[static_cast<UINT>(eWeaponAndItemTypes::WEAPON_SPEED)];
+			mWeaponSpeedCoefficient += 0.1f; 
+		}
+		__forceinline void IncreaseAmour() 
+		{ 
+			++mPlyerItemLevelStat.ItemLevels[static_cast<UINT>(eWeaponAndItemTypes::PLAYER_AMOUR)];
+			++mAmour; 
+		}
+		__forceinline void IncreaseMoveSpeed()
+		{
+			++mPlyerItemLevelStat.ItemLevels[static_cast<UINT>(eWeaponAndItemTypes::MOVE_SPEED)];
+			mMoveSpeed *= 1.1f; 
+		}
+		const PlayerItemLevelStat& GetItemLevelStat() const { return mPlyerItemLevelStat; }
 
 	private:
-		float mSpeed;
 		HPEN mPen;
 		HBRUSH mBrush;
 		Image* mpLeftImage;
@@ -74,6 +93,14 @@ namespace ya
 		int mLevel;
 		int mExp;
 		int mHp;
+
+		// Upgradable
+		int mAmour;
+		float mMoveSpeed;
+		float mWeaponSpeed;
+		float mWeaponDamageCoefficient;
+		float mWeaponSpeedCoefficient;
+
 		ePlayerAnimState mePlayerAnimState;
 		ePlayerLookDirection meLookDir;
 		float mKnifeShootInterval;

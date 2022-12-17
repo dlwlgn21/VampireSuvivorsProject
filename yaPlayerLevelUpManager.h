@@ -26,7 +26,7 @@ namespace ya
 		void SetPlayer(Player* pPlayer) { assert(pPlayer != nullptr); mpPlayer = pPlayer; };
 
 		Image* GetImage(eWeaponAndItemTypes type, UINT idx);
-		Image* GetPickupedImage(eLevelUpUI type);
+		Image* GetPickupedImage(eLevelUpUI type, eWeaponAndItemTypes& out_type);
 		void IncreasePlayerStat(eWeaponAndItemTypes type);
 
 	private:
@@ -36,5 +36,7 @@ namespace ya
 		Player* mpPlayer;
 		std::vector<std::vector<Image*>> mpImages;
 		Image* mpPickupedImages[static_cast<UINT>(eLevelUpUI::COUNT)];
+		eWeaponAndItemTypes meWAndITypeMap[static_cast<UINT>(eWeaponAndItemTypes::COUNT)];
+		eWeaponAndItemTypes meWAndITypeForLevelUpHUD[static_cast<UINT>(eLevelUpUI::COUNT)];
 	};
 }

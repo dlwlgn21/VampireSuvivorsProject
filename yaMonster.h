@@ -31,7 +31,7 @@ namespace ya
 				mExp -= mpPlayer->GetLevel();
 				if (mExp <= 1)
 				{
-					mExp -= 0.02;
+					mExp -= 0.02f;
 				}
 				mpPlayer->IncreaseExp(mExp);
 			}

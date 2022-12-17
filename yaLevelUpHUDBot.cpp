@@ -5,14 +5,14 @@
 namespace ya
 {
 	LevelUpHUDBot::LevelUpHUDBot()
-		: HUD(eUIType::PLAY_LEVEL_UP)
+		: LevelUpHUD()
 		, mImgWidth(0)
 		, mImgHeight(0)
 	{
 	}
 	void LevelUpHUDBot::OnInitialize()
 	{
-		mpImage = LevelUpUIManager::GetInstance().GetPickupedImage(eLevelUpUI::BOT);
+		mpImage = LevelUpUIManager::GetInstance().GetPickupedImage(eLevelUpUI::BOT, mCurrType);
 		mImgWidth = mpImage->GetWidth();
 		mImgHeight = mpImage->GetHeight();
 	}

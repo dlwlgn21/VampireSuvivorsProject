@@ -35,6 +35,15 @@ namespace ya
 			}
 		}
 
+		meWAndITypeMap[static_cast<UINT>(eWeaponAndItemTypes::KNIFE)] = eWeaponAndItemTypes::KNIFE;
+		meWAndITypeMap[static_cast<UINT>(eWeaponAndItemTypes::FIRE_WAND)] = eWeaponAndItemTypes::FIRE_WAND;
+		meWAndITypeMap[static_cast<UINT>(eWeaponAndItemTypes::RUNE)] = eWeaponAndItemTypes::RUNE;
+		meWAndITypeMap[static_cast<UINT>(eWeaponAndItemTypes::AXE)] = eWeaponAndItemTypes::AXE;
+		meWAndITypeMap[static_cast<UINT>(eWeaponAndItemTypes::WEAPON_SPEED)] = eWeaponAndItemTypes::WEAPON_SPEED;
+		meWAndITypeMap[static_cast<UINT>(eWeaponAndItemTypes::WEAPON_DAMAGE)] = eWeaponAndItemTypes::WEAPON_DAMAGE;
+		meWAndITypeMap[static_cast<UINT>(eWeaponAndItemTypes::MOVE_SPEED)] = eWeaponAndItemTypes::MOVE_SPEED;
+		meWAndITypeMap[static_cast<UINT>(eWeaponAndItemTypes::PLAYER_AMOUR)] = eWeaponAndItemTypes::PLAYER_AMOUR;
+
 		for (int i = 1; i < MAX_WEAPON_LEVEL; ++i)
 		{
 			swprintf_s(keyName, MAX_KEY_NAME_LENGTH, L"KnifeLevel%d", i + 1);
@@ -107,7 +116,7 @@ namespace ya
 		// TODO : LevelUP에 따른 이미지 뽑기 구현해야함.
 		assert(mpPlayer != nullptr);
 		const int MAX_SELECTION_COUNT = 3;
-		const Player::PlayerItemLevelStat& stat = mpPlayer->GetItemStat();
+		const Player::PlayerItemLevelStat& stat = mpPlayer->GetItemLevelStat();
 		
 		std::random_device rd;
 		std::mt19937 gen(rd());
@@ -133,6 +142,7 @@ namespace ya
 		for (int i = 0; i < MAX_SELECTION_COUNT; ++i)
 		{
 			mpPickupedImages[i] = mpImages[choice[i]][stat.ItemLevels[choice[i]]];
+			meWAndITypeForLevelUpHUD[i] = meWAndITypeMap[choice[i]];
 		}
 	}
 	Image* LevelUpUIManager::GetImage(eWeaponAndItemTypes type, UINT idx)
@@ -141,13 +151,95 @@ namespace ya
 		return mpImages[static_cast<UINT>(type)][idx];
 	}
 
-	Image* LevelUpUIManager::GetPickupedImage(eLevelUpUI type)
+	Image* LevelUpUIManager::GetPickupedImage(eLevelUpUI type, eWeaponAndItemTypes& out_type)
 	{
 		assert(mpPickupedImages[static_cast<UINT>(type)] != nullptr);
+		out_type = meWAndITypeForLevelUpHUD[static_cast<UINT>(type)];
 		return mpPickupedImages[static_cast<UINT>(type)];
 	}
 	void LevelUpUIManager::IncreasePlayerStat(eWeaponAndItemTypes type)
 	{
 		assert(mpPlayer != nullptr);
+		const Player::PlayerItemLevelStat& stat = mpPlayer->GetItemLevelStat();
+		switch (type)
+		{
+		case eWeaponAndItemTypes::KNIFE:
+		{
+			unsigned char knifeLevel = stat.ItemLevels[static_cast<UINT>(eWeaponAndItemTypes::KNIFE)];
+			switch (knifeLevel)
+			{
+			case 2u:
+				// 투사체 1개 더 발사
+				break;
+			case 3u:
+				// 투사체 1개 더 발사
+				// 기본피해 5 증가
+				break;
+			case 4u:
+				// 투사체 1개 더 발사
+				break;
+			case 5u:
+				// 적 1마리 추가 관통
+				break;
+			case 6u:
+				// 투사체 1개 더 발사
+				break;
+			case 7u:
+				// 투사체 1개 더 발사
+				// 기본피해 5 증가
+				break;
+			case 8:
+				// 적 1마리 추가 관통
+				break;
+			default:
+				assert(false);
+				break;
+			}
+			break;
+		}
+		case eWeaponAndItemTypes::FIRE_WAND:
+		{
+
+			break;
+		}
+		case eWeaponAndItemTypes::RUNE:
+		{
+
+			break;
+		}
+		case eWeaponAndItemTypes::AXE:
+		{
+
+			break;
+		}
+		case eWeaponAndItemTypes::WEAPON_SPEED:
+		{
+			// 모든 무기 속도 10% 증가
+			mpPlayer->IncreaseWeaponSpeedCoefficient();
+			break;
+		}
+		case eWeaponAndItemTypes::WEAPON_DAMAGE:
+		{
+			// 모든 무기 데미지 10% 증가
+			mpPlayer->IncreaseWeaponDamageCoefficient();
+			break;
+		}
+		case eWeaponAndItemTypes::MOVE_SPEED:
+		{
+			// 이동속도 10% 증가
+			mpPlayer->IncreaseMoveSpeed();
+			break;
+		}
+		case eWeaponAndItemTypes::PLAYER_AMOUR:
+		{
+			// 받는피해 1 감소
+			mpPlayer->IncreaseAmour();
+			break;
+		}
+		default:
+			assert(false);
+			break;
+		}
+
 	}
 }

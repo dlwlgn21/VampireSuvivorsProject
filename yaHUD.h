@@ -17,7 +17,6 @@ namespace ya
 
 	protected:
 		BLENDFUNCTION mBlendFunc;
-
 	};
 
 }

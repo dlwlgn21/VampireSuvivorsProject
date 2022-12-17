@@ -1,9 +1,9 @@
 #pragma once
-#include "yaHUD.h"
+#include "yaLevelUpHUD.h"
 
 namespace ya
 {
-	class LevelUpHUDMid final : public HUD
+	class LevelUpHUDMid final : public LevelUpHUD
 	{
 	public:
 		LevelUpHUDMid();

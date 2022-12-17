@@ -26,7 +26,7 @@ namespace ya
 {
 	Player::Player()
 		: GameObject({ 1500.0f, 500.0f })
-		, mSpeed(300.0f)
+		, mMoveSpeed(300.0f)
 		, mPen(CreatePen(PS_DASHDOTDOT, 3, RGB(0, 255, 255)))
 		, mBrush(CreateSolidBrush(RGB(153, 204, 255)))
 		, mpLeftImage(Resources::Load<Image>(L"PlayerLeft", L"Resources\\Image\\PlayerLeftAnim.bmp"))
@@ -43,6 +43,10 @@ namespace ya
 		, mLevel(1)
 		, mExp(0)
 		, mHp(100)
+		, mAmour(0)
+		, mWeaponSpeed(700.0f)
+		, mWeaponDamageCoefficient(1.0f)
+		, mWeaponSpeedCoefficient(1.0f)
 		, mePlayerAnimState(ePlayerAnimState::LEFT)
 		, mKnifeShootInterval(0.5f)
 		, mKnifeShootTimer(0.0f)
@@ -121,22 +125,22 @@ namespace ya
 		{
 			if (IS_KEY_PRESSED(eKeyCode::A))
 			{
-				mPos.x -= mSpeed * Time::DeltaTime() * DIAGONAL_CORRECTION_VALUE;
-				mPos.y -= mSpeed * Time::DeltaTime() * DIAGONAL_CORRECTION_VALUE;
+				mPos.x -= mMoveSpeed * Time::DeltaTime() * DIAGONAL_CORRECTION_VALUE;
+				mPos.y -= mMoveSpeed * Time::DeltaTime() * DIAGONAL_CORRECTION_VALUE;
 				meLookDir = ePlayerLookDirection::UP_LEFT;
 				goto PLAY_ANIMATION;
 			}
 			else if (IS_KEY_PRESSED(eKeyCode::D))
 			{
-				mPos.x += mSpeed * Time::DeltaTime() * DIAGONAL_CORRECTION_VALUE;
-				mPos.y -= mSpeed * Time::DeltaTime() * DIAGONAL_CORRECTION_VALUE;
+				mPos.x += mMoveSpeed * Time::DeltaTime() * DIAGONAL_CORRECTION_VALUE;
+				mPos.y -= mMoveSpeed * Time::DeltaTime() * DIAGONAL_CORRECTION_VALUE;
 				meLookDir = ePlayerLookDirection::UP_RIGHT;
 				goto PLAY_ANIMATION;
 			}
 			else
 			{
 				meLookDir = ePlayerLookDirection::UP;
-				mPos.y -= mSpeed * Time::DeltaTime();
+				mPos.y -= mMoveSpeed * Time::DeltaTime();
 				goto PLAY_ANIMATION;
 			}
 		}
@@ -144,35 +148,35 @@ namespace ya
 		{
 			if (IS_KEY_PRESSED(eKeyCode::A))
 			{
-				mPos.x -= mSpeed * Time::DeltaTime() * DIAGONAL_CORRECTION_VALUE;
-				mPos.y += mSpeed * Time::DeltaTime() * DIAGONAL_CORRECTION_VALUE;
+				mPos.x -= mMoveSpeed * Time::DeltaTime() * DIAGONAL_CORRECTION_VALUE;
+				mPos.y += mMoveSpeed * Time::DeltaTime() * DIAGONAL_CORRECTION_VALUE;
 				meLookDir = ePlayerLookDirection::DOWN_LEFT;
 
 				goto PLAY_ANIMATION;
 			}
 			else if (IS_KEY_PRESSED(eKeyCode::D))
 			{
-				mPos.x += mSpeed * Time::DeltaTime() * DIAGONAL_CORRECTION_VALUE;
-				mPos.y += mSpeed * Time::DeltaTime() * DIAGONAL_CORRECTION_VALUE;
+				mPos.x += mMoveSpeed * Time::DeltaTime() * DIAGONAL_CORRECTION_VALUE;
+				mPos.y += mMoveSpeed * Time::DeltaTime() * DIAGONAL_CORRECTION_VALUE;
 				meLookDir = ePlayerLookDirection::DOWN_RIGHT;
 				goto PLAY_ANIMATION;
 			}
 			else
 			{
 				meLookDir = ePlayerLookDirection::DOWN;
-				mPos.y += mSpeed * Time::DeltaTime();
+				mPos.y += mMoveSpeed * Time::DeltaTime();
 				goto PLAY_ANIMATION;
 			}
 		}
 		if (IS_KEY_PRESSED(eKeyCode::A))
 		{
-			mPos.x -= mSpeed * Time::DeltaTime();
+			mPos.x -= mMoveSpeed * Time::DeltaTime();
 			mePlayerAnimState = ePlayerAnimState::LEFT;
 			meLookDir = ePlayerLookDirection::LEFT;
 		}
 		if (IS_KEY_PRESSED(eKeyCode::D))
 		{
-			mPos.x += mSpeed * Time::DeltaTime();
+			mPos.x += mMoveSpeed * Time::DeltaTime();
 			mePlayerAnimState = ePlayerAnimState::RIGHT;
 			meLookDir = ePlayerLookDirection::RIGHT;
 		}
@@ -202,7 +206,7 @@ namespace ya
 
 			for (int i = 0; i < mCurrKnifeCount; ++i)
 			{
-				GameObject* pKnife = static_cast<GameObject*>(mpKnifeObjPool->Get(mPos, 10, 1000.0f, mKnockbackValue, mKnifeShootInterval, static_cast<eKnifeDirection>(meLookDir), mpKnifeObjPool));
+				GameObject* pKnife = static_cast<GameObject*>(mpKnifeObjPool->Get(mPos, 10, mWeaponSpeed * mWeaponSpeedCoefficient, mKnockbackValue, mKnifeShootInterval, static_cast<eKnifeDirection>(meLookDir), mpKnifeObjPool));
 				Scene* scene = SceneManager::GetCurrentScene();
 				scene->AddWeaponObject(pKnife);
 			}
