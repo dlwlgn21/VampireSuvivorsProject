@@ -284,6 +284,7 @@ namespace ya
 		{
 			mExp = 0;
 			++mLevel;
+			LevelUpUIManager::GetInstance().PickUpImage();
 			UIManager::Pop(eUIType::PLAY_INFO_HUD);
 			UIManager::Push(eUIType::PLAY_LEVEL_UP);
 		}

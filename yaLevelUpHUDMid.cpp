@@ -9,13 +9,12 @@ namespace ya
 		, mImgWidth(0)
 		, mImgHeight(0)
 	{
-		mpImage = LevelUpUIManager::GetInstance().mpImages[static_cast<UINT>(eWeaponAndItemTypes::PLAYER_AMOUR)][0];
-		assert(mpImage != nullptr);
-		mImgWidth = mpImage->GetWidth();
-		mImgHeight = mpImage->GetHeight();
 	}
 	void LevelUpHUDMid::OnInitialize()
 	{
+		mpImage = LevelUpUIManager::GetInstance().GetPickupedImage(eLevelUpUI::MID);
+		mImgWidth = mpImage->GetWidth();
+		mImgHeight = mpImage->GetHeight();
 	}
 	void LevelUpHUDMid::OnActive()
 	{

@@ -9,13 +9,12 @@ namespace ya
 		, mImgWidth(0)
 		, mImgHeight(0)
 	{
-		mpImage = LevelUpUIManager::GetInstance().GetImage(eWeaponAndItemTypes::MOVE_SPEED, 0);
-		assert(mpImage != nullptr);
-		mImgWidth = mpImage->GetWidth();
-		mImgHeight = mpImage->GetHeight();
 	}
 	void LevelUpHUDBot::OnInitialize()
 	{
+		mpImage = LevelUpUIManager::GetInstance().GetPickupedImage(eLevelUpUI::BOT);
+		mImgWidth = mpImage->GetWidth();
+		mImgHeight = mpImage->GetHeight();
 	}
 	void LevelUpHUDBot::OnActive()
 	{

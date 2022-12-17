@@ -9,14 +9,13 @@ namespace ya
 		, mImgWidth(0)
 		, mImgHeight(0)
 	{
-		mpImage = LevelUpUIManager::GetInstance().mpImages[static_cast<UINT>(eWeaponAndItemTypes::KNIFE)][1];
-		assert(mpImage != nullptr);
-		mImgWidth = mpImage->GetWidth();
-		mImgHeight = mpImage->GetHeight();
 	}
 
 	void LevelUpHUDTop::OnInitialize()
 	{
+		mpImage = LevelUpUIManager::GetInstance().GetPickupedImage(eLevelUpUI::TOP);
+		mImgWidth = mpImage->GetWidth();
+		mImgHeight = mpImage->GetHeight();
 	}
 	void LevelUpHUDTop::OnActive()
 	{

@@ -3,6 +3,7 @@
 
 namespace ya
 {
+	class LevelUpArrow;
 	class PlaySceneLevelUpHUDPanel final : public Panel
 	{
 	public:
@@ -18,9 +19,14 @@ namespace ya
 		void OnRender(HDC hdc) override;
 		void OnUIClear() override;
 
+		void SetArrow(LevelUpArrow* pArrow);
 	private:
+		LevelUpArrow* mpArrow;
 		int mImgWidth;
 		int mImgHeight;
+		const int M_TOP_POS;
+		const int M_MID_POS;
+		const int M_BOT_POS;
 	};
 }
 

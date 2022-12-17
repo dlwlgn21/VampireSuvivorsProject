@@ -108,6 +108,8 @@ namespace ya
 		mUIMap.insert(std::make_pair(eUIType::PLAY_LEVEL_UP, pLevelUpArrow));
 		pLevelUpPanel->AddUIChild(pLevelUpArrow);
 
+		static_cast<PlaySceneLevelUpHUDPanel*>(pLevelUpPanel)->SetArrow(static_cast<LevelUpArrow*>(pLevelUpArrow));
+
 		UIBase* pLevelUpTop = new LevelUpHUDTop();
 		mUIMap.insert(std::make_pair(eUIType::PLAY_LEVEL_UP, pLevelUpTop));
 		pLevelUpPanel->AddUIChild(pLevelUpTop);

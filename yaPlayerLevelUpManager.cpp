@@ -43,58 +43,111 @@ namespace ya
 			assert(mpImages[static_cast<UINT>(eWeaponAndItemTypes::KNIFE)][i] != nullptr);
 		}
 
+
+		// FOR TEST
+		mpImages[static_cast<UINT>(eWeaponAndItemTypes::FIRE_WAND)][0] = Resources::Load<Image>(L"FireWand2", L"Resources\\Image\\LevelUpImage\\FireWand2.bmp");
+		assert(mpImages[static_cast<UINT>(eWeaponAndItemTypes::FIRE_WAND)][0] != nullptr);
+		for (int i = 1; i < MAX_WEAPON_LEVEL; ++i)
+		{
+			mpImages[static_cast<UINT>(eWeaponAndItemTypes::FIRE_WAND)][i] = mpImages[static_cast<UINT>(eWeaponAndItemTypes::FIRE_WAND)][0];
+		}
+
+		// FOR TEST
+		mpImages[static_cast<UINT>(eWeaponAndItemTypes::AXE)][0] = Resources::Load<Image>(L"FireWand3", L"Resources\\Image\\LevelUpImage\\FireWand3.bmp");
+		assert(mpImages[static_cast<UINT>(eWeaponAndItemTypes::AXE)][0] != nullptr);
+		for (int i = 1; i < MAX_WEAPON_LEVEL; ++i)
+		{
+			mpImages[static_cast<UINT>(eWeaponAndItemTypes::AXE)][i] = mpImages[static_cast<UINT>(eWeaponAndItemTypes::AXE)][0];
+		}
+
+		// FOR TEST
+		mpImages[static_cast<UINT>(eWeaponAndItemTypes::RUNE)][0] = Resources::Load<Image>(L"FireWand4", L"Resources\\Image\\LevelUpImage\\FireWand4.bmp");
+		assert(mpImages[static_cast<UINT>(eWeaponAndItemTypes::RUNE)][0] != nullptr);
+		for (int i = 1; i < MAX_WEAPON_LEVEL; ++i)
+		{
+			mpImages[static_cast<UINT>(eWeaponAndItemTypes::RUNE)][i] = mpImages[static_cast<UINT>(eWeaponAndItemTypes::RUNE)][0];
+		}
+
+		// FOR TEST
 		mpImages[static_cast<UINT>(eWeaponAndItemTypes::WEAPON_SPEED)][0] = Resources::Load<Image>(L"WeaponSpeed1", L"Resources\\Image\\LevelUpImage\\WeaponSpeed1.bmp");
 		assert(mpImages[static_cast<UINT>(eWeaponAndItemTypes::WEAPON_SPEED)][0] != nullptr);
-		
+		for (int i = 1; i < MAX_STAT_BURF_ITEM_LEVEL; ++i)
+		{
+			mpImages[static_cast<UINT>(eWeaponAndItemTypes::WEAPON_SPEED)][i] = mpImages[static_cast<UINT>(eWeaponAndItemTypes::WEAPON_SPEED)][0];
+		}
+
+		// FOR TEST
 		mpImages[static_cast<UINT>(eWeaponAndItemTypes::WEAPON_DAMAGE)][0] = Resources::Load<Image>(L"WeaponDamage1", L"Resources\\Image\\LevelUpImage\\WeaponDamage1.bmp");
 		assert(mpImages[static_cast<UINT>(eWeaponAndItemTypes::WEAPON_DAMAGE)][0] != nullptr);
-		
+		for (int i = 1; i < MAX_STAT_BURF_ITEM_LEVEL; ++i)
+		{
+			mpImages[static_cast<UINT>(eWeaponAndItemTypes::WEAPON_DAMAGE)][i] = mpImages[static_cast<UINT>(eWeaponAndItemTypes::WEAPON_DAMAGE)][0];
+		}
+
+		// FOR TEST
 		mpImages[static_cast<UINT>(eWeaponAndItemTypes::MOVE_SPEED)][0] = Resources::Load<Image>(L"MoveSpeed1", L"Resources\\Image\\LevelUpImage\\MoveSpeed1.bmp");
 		assert(mpImages[static_cast<UINT>(eWeaponAndItemTypes::MOVE_SPEED)][0] != nullptr);
-		
+		for (int i = 1; i < MAX_STAT_BURF_ITEM_LEVEL; ++i)
+		{
+			mpImages[static_cast<UINT>(eWeaponAndItemTypes::MOVE_SPEED)][i] = mpImages[static_cast<UINT>(eWeaponAndItemTypes::MOVE_SPEED)][0];
+		}
+
+		// FOR TEST
 		mpImages[static_cast<UINT>(eWeaponAndItemTypes::PLAYER_AMOUR)][0] = Resources::Load<Image>(L"Amour1", L"Resources\\Image\\LevelUpImage\\Amour1.bmp");
 		assert(mpImages[static_cast<UINT>(eWeaponAndItemTypes::PLAYER_AMOUR)][0] != nullptr);
+		for (int i = 1; i < MAX_STAT_BURF_ITEM_LEVEL; ++i)
+		{
+			mpImages[static_cast<UINT>(eWeaponAndItemTypes::PLAYER_AMOUR)][i] = mpImages[static_cast<UINT>(eWeaponAndItemTypes::PLAYER_AMOUR)][0];
+		}
 
 	}
 
-	void LevelUpUIManager::ArrangeImage()
+	void LevelUpUIManager::PickUpImage()
 	{
-		//// TODO : LevelUP에 따른 이미지 뽑기 구현해야함.
-		//assert(mpPlayer != nullptr);
-		//const int MAX_SELECTION_COUNT = 3;
-		//const Player::PlayerItemLevelStat& stat = mpPlayer->GetItemStat();
-		//
-		//std::random_device rd;
-		//std::mt19937 gen(rd());
-		//std::uniform_int_distribution<> weponDist(1, TOTAL_WEAPON_COUNT);
-		//std::uniform_int_distribution<> randomDist(1, MAX_WEAPON_STAT_BURF_ITEM_COUNT);
-		//int choice[MAX_SELECTION_COUNT] = { 0, };
-		//choice[0] = weponDist(gen);
+		// TODO : LevelUP에 따른 이미지 뽑기 구현해야함.
+		assert(mpPlayer != nullptr);
+		const int MAX_SELECTION_COUNT = 3;
+		const Player::PlayerItemLevelStat& stat = mpPlayer->GetItemStat();
+		
+		std::random_device rd;
+		std::mt19937 gen(rd());
+		std::uniform_int_distribution<> randomDist(1, MAX_WEAPON_STAT_BURF_ITEM_COUNT);
+		int choice[MAX_SELECTION_COUNT] = { 0, };
+		choice[0] = randomDist(gen);
 
-		//// NO DUPLICATTED CHECK Random Shuffle
-		//for (int i = 1; i < MAX_SELECTION_COUNT; ++i)
-		//{
-		//	choice[i] = randomDist(gen);
-		//	if (choice[i] == choice[i - 1] || 
-		//		choice[i] <= TOTAL_WEAPON_COUNT && stat.ItemLevels[choice[i]] >= MAX_WEAPON_LEVEL ||
-		//		choice[i] > TOTAL_WEAPON_COUNT && stat.ItemLevels[choice[i]] >= MAX_STAT_BURF_ITEM_LEVEL)
-		//	{
-		//		// 중복되는 번호가 나오거나, 최대 무기레벨보다 높거나, 최대 스탯버프레벨보다 높으면 다시뽑즈아.
-		//		--i;
-		//		continue;
-		//	}
-		//}
+		// NO DUPLICATTED CHECK Random Shuffle
+		for (int i = 1; i < MAX_SELECTION_COUNT; ++i)
+		{
+			choice[i] = randomDist(gen);
+			if (choice[i] == choice[i - 1] || 
+				choice[i] <= TOTAL_WEAPON_COUNT && stat.ItemLevels[choice[i]] >= MAX_WEAPON_LEVEL ||
+				choice[i] > TOTAL_WEAPON_COUNT && stat.ItemLevels[choice[i]] >= MAX_STAT_BURF_ITEM_LEVEL)
+			{
+				// 중복되는 번호가 나오거나, 최대 무기레벨보다 높거나, 최대 스탯버프레벨보다 높으면 다시뽑즈아.
+				--i;
+				continue;
+			}
+		}
 
-		//// 저장해놓은 이미지 불러오기.
-		//for (int i = 0; i < MAX_SELECTION_COUNT; ++i)
-		//{
-
-		//}
-
+		// 저장해놓은 이미지 불러오기.
+		for (int i = 0; i < MAX_SELECTION_COUNT; ++i)
+		{
+			mpPickupedImages[i] = mpImages[choice[i]][stat.ItemLevels[choice[i]]];
+		}
 	}
 	Image* LevelUpUIManager::GetImage(eWeaponAndItemTypes type, UINT idx)
 	{
 		assert(mpImages[static_cast<UINT>(type)][idx] != nullptr);
 		return mpImages[static_cast<UINT>(type)][idx];
+	}
+
+	Image* LevelUpUIManager::GetPickupedImage(eLevelUpUI type)
+	{
+		assert(mpPickupedImages[static_cast<UINT>(type)] != nullptr);
+		return mpPickupedImages[static_cast<UINT>(type)];
+	}
+	void LevelUpUIManager::IncreasePlayerStat(eWeaponAndItemTypes type)
+	{
+		assert(mpPlayer != nullptr);
 	}
 }
