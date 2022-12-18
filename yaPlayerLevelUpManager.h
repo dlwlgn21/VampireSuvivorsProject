@@ -30,7 +30,14 @@ namespace ya
 		void IncreasePlayerStat(eWeaponAndItemTypes type);
 
 	private:
-		LevelUpUIManager() = default;
+		LevelUpUIManager()
+			: mpPlayer(nullptr)
+			, mpPickupedImages{}
+			, meWAndITypeMap{}
+			, meWAndITypeForLevelUpHUD{}
+		{
+
+		}
 
 	public:
 		Player* mpPlayer;

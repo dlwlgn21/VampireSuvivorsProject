@@ -46,68 +46,71 @@ namespace ya
 
 		for (int i = 1; i < MAX_WEAPON_LEVEL; ++i)
 		{
-			swprintf_s(keyName, MAX_KEY_NAME_LENGTH, L"KnifeLevel%d", i + 1);
+			swprintf_s(keyName, MAX_KEY_NAME_LENGTH, L"KnifeL%d", i + 1);
 			swprintf_s(filePath, MAX_FILE_PATH_LENTH, L"Resources\\Image\\LevelUpImage\\KnifeLevel%d.bmp", i + 1);
 			mpImages[static_cast<UINT>(eWeaponAndItemTypes::KNIFE)][i] = Resources::Load<Image>(keyName, filePath);
 			assert(mpImages[static_cast<UINT>(eWeaponAndItemTypes::KNIFE)][i] != nullptr);
 		}
 
-
-		// FOR TEST
-		mpImages[static_cast<UINT>(eWeaponAndItemTypes::FIRE_WAND)][0] = Resources::Load<Image>(L"FireWand2", L"Resources\\Image\\LevelUpImage\\FireWand2.bmp");
-		assert(mpImages[static_cast<UINT>(eWeaponAndItemTypes::FIRE_WAND)][0] != nullptr);
-		for (int i = 1; i < MAX_WEAPON_LEVEL; ++i)
+		for (int i = 0; i < MAX_WEAPON_LEVEL; ++i)
 		{
-			mpImages[static_cast<UINT>(eWeaponAndItemTypes::FIRE_WAND)][i] = mpImages[static_cast<UINT>(eWeaponAndItemTypes::FIRE_WAND)][0];
+			swprintf_s(keyName, MAX_KEY_NAME_LENGTH, L"FireWand%d", i + 1);
+			swprintf_s(filePath, MAX_FILE_PATH_LENTH, L"Resources\\Image\\LevelUpImage\\FireWand%d.bmp", i + 1);
+			mpImages[static_cast<UINT>(eWeaponAndItemTypes::FIRE_WAND)][i] = Resources::Load<Image>(keyName, filePath);
+			assert(mpImages[static_cast<UINT>(eWeaponAndItemTypes::FIRE_WAND)][i] != nullptr);
 		}
 
-		// FOR TEST
-		mpImages[static_cast<UINT>(eWeaponAndItemTypes::AXE)][0] = Resources::Load<Image>(L"FireWand3", L"Resources\\Image\\LevelUpImage\\FireWand3.bmp");
-		assert(mpImages[static_cast<UINT>(eWeaponAndItemTypes::AXE)][0] != nullptr);
-		for (int i = 1; i < MAX_WEAPON_LEVEL; ++i)
+		for (int i = 0; i < MAX_WEAPON_LEVEL; ++i)
 		{
-			mpImages[static_cast<UINT>(eWeaponAndItemTypes::AXE)][i] = mpImages[static_cast<UINT>(eWeaponAndItemTypes::AXE)][0];
+			swprintf_s(keyName, MAX_KEY_NAME_LENGTH, L"Axe%d", i + 1);
+			swprintf_s(filePath, MAX_FILE_PATH_LENTH, L"Resources\\Image\\LevelUpImage\\Axe%d.bmp", i + 1);
+			mpImages[static_cast<UINT>(eWeaponAndItemTypes::AXE)][i] = Resources::Load<Image>(keyName, filePath);
+			assert(mpImages[static_cast<UINT>(eWeaponAndItemTypes::AXE)][i] != nullptr);
 		}
 
-		// FOR TEST
-		mpImages[static_cast<UINT>(eWeaponAndItemTypes::RUNE)][0] = Resources::Load<Image>(L"FireWand4", L"Resources\\Image\\LevelUpImage\\FireWand4.bmp");
-		assert(mpImages[static_cast<UINT>(eWeaponAndItemTypes::RUNE)][0] != nullptr);
-		for (int i = 1; i < MAX_WEAPON_LEVEL; ++i)
+		for (int i = 0; i < MAX_WEAPON_LEVEL; ++i)
 		{
-			mpImages[static_cast<UINT>(eWeaponAndItemTypes::RUNE)][i] = mpImages[static_cast<UINT>(eWeaponAndItemTypes::RUNE)][0];
+			swprintf_s(keyName, MAX_KEY_NAME_LENGTH, L"Rune%d", i + 1);
+			swprintf_s(filePath, MAX_FILE_PATH_LENTH, L"Resources\\Image\\LevelUpImage\\Rune%d.bmp", i + 1);
+			mpImages[static_cast<UINT>(eWeaponAndItemTypes::RUNE)][i] = Resources::Load<Image>(keyName, filePath);
+			assert(mpImages[static_cast<UINT>(eWeaponAndItemTypes::RUNE)][i] != nullptr);
 		}
 
-		// FOR TEST
-		mpImages[static_cast<UINT>(eWeaponAndItemTypes::WEAPON_SPEED)][0] = Resources::Load<Image>(L"WeaponSpeed1", L"Resources\\Image\\LevelUpImage\\WeaponSpeed1.bmp");
-		assert(mpImages[static_cast<UINT>(eWeaponAndItemTypes::WEAPON_SPEED)][0] != nullptr);
-		for (int i = 1; i < MAX_STAT_BURF_ITEM_LEVEL; ++i)
+		for (int i = 0; i < 3; ++i)
 		{
-			mpImages[static_cast<UINT>(eWeaponAndItemTypes::WEAPON_SPEED)][i] = mpImages[static_cast<UINT>(eWeaponAndItemTypes::WEAPON_SPEED)][0];
+			swprintf_s(keyName, MAX_KEY_NAME_LENGTH, L"WeaponSpeed%d", i + 1);
+			swprintf_s(filePath, MAX_FILE_PATH_LENTH, L"Resources\\Image\\LevelUpImage\\WeaponSpeed%d.bmp", i + 1);
+			mpImages[static_cast<UINT>(eWeaponAndItemTypes::WEAPON_SPEED)][i] = Resources::Load<Image>(keyName, filePath);
+			assert(mpImages[static_cast<UINT>(eWeaponAndItemTypes::WEAPON_SPEED)][i] != nullptr);
+		}
+		// TODO: 레벨 4 이미지 추출해야함.
+		mpImages[static_cast<UINT>(eWeaponAndItemTypes::WEAPON_SPEED)][3] = mpImages[static_cast<UINT>(eWeaponAndItemTypes::WEAPON_SPEED)][2];
+
+
+		for (int i = 0; i < MAX_STAT_BURF_ITEM_LEVEL; ++i)
+		{
+			swprintf_s(keyName, MAX_KEY_NAME_LENGTH, L"WeaponDamage%d", i + 1);
+			swprintf_s(filePath, MAX_FILE_PATH_LENTH, L"Resources\\Image\\LevelUpImage\\WeaponDamage%d.bmp", i + 1);
+			mpImages[static_cast<UINT>(eWeaponAndItemTypes::WEAPON_DAMAGE)][i] = Resources::Load<Image>(keyName, filePath);
+			assert(mpImages[static_cast<UINT>(eWeaponAndItemTypes::WEAPON_DAMAGE)][i] != nullptr);
 		}
 
-		// FOR TEST
-		mpImages[static_cast<UINT>(eWeaponAndItemTypes::WEAPON_DAMAGE)][0] = Resources::Load<Image>(L"WeaponDamage1", L"Resources\\Image\\LevelUpImage\\WeaponDamage1.bmp");
-		assert(mpImages[static_cast<UINT>(eWeaponAndItemTypes::WEAPON_DAMAGE)][0] != nullptr);
-		for (int i = 1; i < MAX_STAT_BURF_ITEM_LEVEL; ++i)
+		for (int i = 0; i < MAX_STAT_BURF_ITEM_LEVEL; ++i)
 		{
-			mpImages[static_cast<UINT>(eWeaponAndItemTypes::WEAPON_DAMAGE)][i] = mpImages[static_cast<UINT>(eWeaponAndItemTypes::WEAPON_DAMAGE)][0];
+			swprintf_s(keyName, MAX_KEY_NAME_LENGTH, L"MoveSpeed%d", i + 1);
+			swprintf_s(filePath, MAX_FILE_PATH_LENTH, L"Resources\\Image\\LevelUpImage\\MoveSpeed%d.bmp", i + 1);
+			mpImages[static_cast<UINT>(eWeaponAndItemTypes::MOVE_SPEED)][i] = Resources::Load<Image>(keyName, filePath);
+			assert(mpImages[static_cast<UINT>(eWeaponAndItemTypes::MOVE_SPEED)][i] != nullptr);
 		}
 
-		// FOR TEST
-		mpImages[static_cast<UINT>(eWeaponAndItemTypes::MOVE_SPEED)][0] = Resources::Load<Image>(L"MoveSpeed1", L"Resources\\Image\\LevelUpImage\\MoveSpeed1.bmp");
-		assert(mpImages[static_cast<UINT>(eWeaponAndItemTypes::MOVE_SPEED)][0] != nullptr);
-		for (int i = 1; i < MAX_STAT_BURF_ITEM_LEVEL; ++i)
+		for (int i = 0; i < MAX_STAT_BURF_ITEM_LEVEL; ++i)
 		{
-			mpImages[static_cast<UINT>(eWeaponAndItemTypes::MOVE_SPEED)][i] = mpImages[static_cast<UINT>(eWeaponAndItemTypes::MOVE_SPEED)][0];
+			swprintf_s(keyName, MAX_KEY_NAME_LENGTH, L"Amour%d", i + 1);
+			swprintf_s(filePath, MAX_FILE_PATH_LENTH, L"Resources\\Image\\LevelUpImage\\Amour%d.bmp", i + 1);
+			mpImages[static_cast<UINT>(eWeaponAndItemTypes::PLAYER_AMOUR)][i] = Resources::Load<Image>(keyName, filePath);
+			assert(mpImages[static_cast<UINT>(eWeaponAndItemTypes::PLAYER_AMOUR)][i] != nullptr);
 		}
 
-		// FOR TEST
-		mpImages[static_cast<UINT>(eWeaponAndItemTypes::PLAYER_AMOUR)][0] = Resources::Load<Image>(L"Amour1", L"Resources\\Image\\LevelUpImage\\Amour1.bmp");
-		assert(mpImages[static_cast<UINT>(eWeaponAndItemTypes::PLAYER_AMOUR)][0] != nullptr);
-		for (int i = 1; i < MAX_STAT_BURF_ITEM_LEVEL; ++i)
-		{
-			mpImages[static_cast<UINT>(eWeaponAndItemTypes::PLAYER_AMOUR)][i] = mpImages[static_cast<UINT>(eWeaponAndItemTypes::PLAYER_AMOUR)][0];
-		}
 
 	}
 
