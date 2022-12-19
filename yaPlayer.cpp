@@ -43,6 +43,7 @@ namespace ya
 		, mLevel(1)
 		, mExp(0)
 		, mHp(100)
+		, mBasicWeaponDamage(2)
 		, mAmour(0)
 		, mWeaponSpeed(700.0f)
 		, mWeaponDamageCoefficient(1.0f)
@@ -206,7 +207,7 @@ namespace ya
 
 			for (int i = 0; i < mCurrKnifeCount; ++i)
 			{
-				GameObject* pKnife = static_cast<GameObject*>(mpKnifeObjPool->Get(mPos, 10, mWeaponSpeed * mWeaponSpeedCoefficient, mKnockbackValue, mKnifeShootInterval, static_cast<eKnifeDirection>(meLookDir), mpKnifeObjPool));
+				GameObject* pKnife = static_cast<GameObject*>(mpKnifeObjPool->Get(mPos, mBasicWeaponDamage, mWeaponSpeed * mWeaponSpeedCoefficient, mKnockbackValue, mKnifeShootInterval, static_cast<eKnifeDirection>(meLookDir), mpKnifeObjPool));
 				Scene* scene = SceneManager::GetCurrentScene();
 				scene->AddWeaponObject(pKnife);
 			}
@@ -267,7 +268,8 @@ namespace ya
 
 	void Player::DamageFromMonster(int damage)
 	{
-		mHp -= damage;
+		int actualDamage = std::clamp(damage - mAmour, 1, 100);
+		mHp -= actualDamage;
 		if (mHp <= 0)
 		{
 			mHp = 100;

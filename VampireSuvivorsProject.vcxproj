@@ -142,6 +142,7 @@
     <ClInclude Include="yaPausePlayerStartInfoBox.h" />
     <ClInclude Include="yaPauseUIExitButton.h" />
     <ClInclude Include="yaPlayerLevelUpManager.h" />
+    <ClInclude Include="yaPlayInfoIcon.h" />
     <ClInclude Include="yaPlaySceneHUDPanel.h" />
     <ClInclude Include="yaCharacterWordButton.h" />
     <ClInclude Include="yaPlaySceneLevelUpHUDPanel.h" />
@@ -258,6 +259,7 @@
     <ClCompile Include="yaPausePlayerStartInfoBox.cpp" />
     <ClCompile Include="yaPauseUIExitButton.cpp" />
     <ClCompile Include="yaPlayerLevelUpManager.cpp" />
+    <ClCompile Include="yaPlayInfoIcon.cpp" />
     <ClCompile Include="yaPlaySceneHUDPanel.cpp" />
     <ClCompile Include="yaCharacterWordButton.cpp" />
     <ClCompile Include="yaPlaySceneLevelUpHUDPanel.cpp" />

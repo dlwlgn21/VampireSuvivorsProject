@@ -12,6 +12,7 @@ namespace ya
 	};
 	class Image;
 	class Player;
+	class WeaponBox;
 	class LevelUpUIManager final
 	{
 	public:
@@ -24,26 +25,43 @@ namespace ya
 		void Initialize();
 		void PickUpImage();
 		void SetPlayer(Player* pPlayer) { assert(pPlayer != nullptr); mpPlayer = pPlayer; };
+		void SetPlayInfoWeaponBox(WeaponBox* pWeaponBox) { assert(pWeaponBox != nullptr); mpPlayInfoWeaponBox = pWeaponBox; };
+		void SetPlayPauseWeaponBox(WeaponBox* pWeaponBox) { assert(pWeaponBox != nullptr); mpPauseWeaponBox = pWeaponBox; };
 
-		Image* GetImage(eWeaponAndItemTypes type, UINT idx);
-		Image* GetPickupedImage(eLevelUpUI type, eWeaponAndItemTypes& out_type);
-		void IncreasePlayerStat(eWeaponAndItemTypes type);
+		Image* GetImage(const eWeaponAndItemTypes type, const UINT idx);
+		Image* GetPickupedImage(const eLevelUpUI type, eWeaponAndItemTypes& out_type);
+		void IncreasePlayerStat(const eWeaponAndItemTypes type);
+		void AddInfoIcon(const eWeaponAndItemTypes type);
+		void IncreaseWeaponIconCount(const eWeaponAndItemTypes type);
+		void IncreaseBuffStatIconCount(const eWeaponAndItemTypes type);
+
 
 	private:
 		LevelUpUIManager()
 			: mpPlayer(nullptr)
+			, mpPlayInfoWeaponBox(nullptr)
+			, mpPauseWeaponBox(nullptr)
 			, mpPickupedImages{}
 			, meWAndITypeMap{}
 			, meWAndITypeForLevelUpHUD{}
+			, mTotalActiveIconCount(1)
+			, mActiveWeaponIconCount(1)
+			, mActiveBuffStatIconCount(0)
 		{
-
 		}
 
-	public:
+	private:
 		Player* mpPlayer;
+		WeaponBox* mpPlayInfoWeaponBox;
+		WeaponBox* mpPauseWeaponBox;
 		std::vector<std::vector<Image*>> mpImages;
 		Image* mpPickupedImages[static_cast<UINT>(eLevelUpUI::COUNT)];
 		eWeaponAndItemTypes meWAndITypeMap[static_cast<UINT>(eWeaponAndItemTypes::COUNT)];
 		eWeaponAndItemTypes meWAndITypeForLevelUpHUD[static_cast<UINT>(eLevelUpUI::COUNT)];
+
+		unsigned char mTotalActiveIconCount;
+		unsigned char mActiveWeaponIconCount;
+		unsigned char mActiveBuffStatIconCount;
+
 	};
 }

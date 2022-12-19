@@ -26,6 +26,8 @@
 #include "yaLevelUpHUDTop.h"
 #include "yaLevelUpHUDMid.h"
 #include "yaLevelUpHUDBot.h"
+#include "yaPlayerLevelUpManager.h"
+#include "yaPlayInfoIcon.h"
 
 namespace ya
 {
@@ -95,10 +97,12 @@ namespace ya
 		mUIMap.insert(std::make_pair(eUIType::PLAY_INFO_HUD, pEXPBar));
 		pPlayScenePanel->AddUIChild(pEXPBar);
 
-		UIBase* pWeaponBox = new WeaponBox();
+		UIBase* pWeaponBox = new WeaponBox(eUIType::PLAY_INFO_HUD);
 		mUIMap.insert(std::make_pair(eUIType::PLAY_INFO_HUD, pWeaponBox));
 		pPlayScenePanel->AddUIChild(pWeaponBox);
-
+		PlayInfoIcon* pKnifeIcon = new PlayInfoIcon(eUIType::PLAY_INFO_HUD, ePlayInfoIconPos::TOP, eWeaponAndItemTypes::KNIFE, Vector2(-7.0f, 7.0f));
+		pWeaponBox->AddUIChild(pKnifeIcon);
+		LevelUpUIManager::GetInstance().SetPlayInfoWeaponBox(static_cast<WeaponBox*>(pWeaponBox));
 
 		// PLAY_LEVEL_UP
 		UIBase* pLevelUpPanel = new PlaySceneLevelUpHUDPanel();
@@ -142,13 +146,24 @@ namespace ya
 		pPlayPausedPanel->AddUIChild(pPauseExitButton);
 		static_cast<PlayScenePausedHUDPanel*>(pPlayPausedPanel)->SetButtonPtrs();
 
-		UIBase* pWeaponInfoBox = new PauseWeaponInfoBox();
-		mUIMap.insert(std::make_pair(eUIType::PLAY_PAUSED, pWeaponInfoBox));
-		pPlayPausedPanel->AddUIChild(pWeaponInfoBox);
+		UIBase* pPausInfoBox = new PauseWeaponInfoBox();
+		mUIMap.insert(std::make_pair(eUIType::PLAY_PAUSED, pPausInfoBox));
+		pPlayPausedPanel->AddUIChild(pPausInfoBox);
+
+		UIBase* pWeaponPauseBox = new WeaponBox(eUIType::PLAY_PAUSED);
+		mUIMap.insert(std::make_pair(eUIType::PLAY_PAUSED, pWeaponPauseBox));
+		pPlayPausedPanel->AddUIChild(pWeaponPauseBox);
+		pWeaponPauseBox->SetPos(Vector2(145.0f, 75.0f));
+
+
+		PlayInfoIcon* pKnifePauseIcon = new PlayInfoIcon(eUIType::PLAY_PAUSED, ePlayInfoIconPos::TOP, eWeaponAndItemTypes::KNIFE, Vector2(90.0f, 7.0f));
+		pWeaponPauseBox->AddUIChild(pKnifePauseIcon);
 
 		UIBase* pPlayerStatInfo = new PausePlayerStartInfoBox();
 		mUIMap.insert(std::make_pair(eUIType::PLAY_PAUSED, pPlayerStatInfo));
 		pPlayPausedPanel->AddUIChild(pPlayerStatInfo);
+
+		LevelUpUIManager::GetInstance().SetPlayPauseWeaponBox(static_cast<WeaponBox*>(pWeaponPauseBox));
 
 
 

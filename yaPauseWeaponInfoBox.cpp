@@ -18,10 +18,6 @@ namespace ya
 		mImgWidth = mpImage->GetWidth();
 		mImgHeight = mpImage->GetHeight();
 		mBlendFunc.SourceConstantAlpha = 128;
-		WeaponKnifeIcon* pKnifeIcon = new WeaponKnifeIcon(mUIType);
-		pKnifeIcon->SetPos(Vector2(mPos.x, 19.0f));
-		AddUIChild(pKnifeIcon);
-		
 	}
 	void PauseWeaponInfoBox::OnInitialize()
 	{

@@ -3,11 +3,12 @@
 #include "yaPlayer.h"
 #include "yaImage.h"
 #include "yaResources.h"
+#include "yaPlayInfoIcon.h"
 
 namespace ya
 {
-	WeaponBox::WeaponBox()
-		: HUD(eUIType::PLAY_INFO_HUD)
+	WeaponBox::WeaponBox(eUIType uiType)
+		: HUD(uiType)
 		, mImgWidth(0)
 		, mImgHeight(0)
 	{
@@ -17,8 +18,8 @@ namespace ya
 		mImgWidth = mpImage->GetWidth();
 		mImgHeight = mpImage->GetHeight();
 		mBlendFunc.SourceConstantAlpha = 128;
-		WeaponKnifeIcon* pKnifeIcon = new WeaponKnifeIcon(mUIType);
-		AddUIChild(pKnifeIcon);
+		//PlayInfoIcon* pKnifeIcon = new PlayInfoIcon(ePlayInfoIconPos::TOP, eWeaponAndItemTypes::KNIFE, Vector2(-7.0f, 7.0f));
+		//AddUIChild(pKnifeIcon);
 	}
 	void WeaponBox::OnInitialize()
 	{

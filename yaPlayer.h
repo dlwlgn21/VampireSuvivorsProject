@@ -93,7 +93,7 @@ namespace ya
 		int mLevel;
 		int mExp;
 		int mHp;
-
+		int mBasicWeaponDamage;
 		// Upgradable
 		int mAmour;
 		float mMoveSpeed;

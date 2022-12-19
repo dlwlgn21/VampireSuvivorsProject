@@ -27,7 +27,7 @@ namespace ya
 	{
 		mpPlayer = ya::object::Instantiate<Player>(eColliderLayer::PLAYER);
 		mpPlayer->SetPos({ 300.0f, 200.0f });
-		int monsterCount = 5;
+		int monsterCount = 15;
 		for (int i = 0; i < monsterCount; ++i)
 		{
 			ya::object::InstantiateAtAnotherScene<Mudman>(eColliderLayer::MONSTER, Vector2(100.f * i, 300.f), mpPlayer, GetSceneTpye());

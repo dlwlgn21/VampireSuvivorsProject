@@ -91,14 +91,14 @@
     <Filter Include="GameObject\UI\StageSelectionMenu">
       <UniqueIdentifier>{b54a97b2-4271-45eb-9b19-e6610bc34519}</UniqueIdentifier>
     </Filter>
-    <Filter Include="GameObject\UI\PlaySceneUI">
-      <UniqueIdentifier>{2dd9f810-3245-44db-84ed-b53a31dfe5ff}</UniqueIdentifier>
-    </Filter>
     <Filter Include="GameObject\UI\PauseUI">
       <UniqueIdentifier>{d60d4ee0-5ccd-42f0-a3d2-f626c5456343}</UniqueIdentifier>
     </Filter>
     <Filter Include="GameObject\UI\LevelUpUI">
       <UniqueIdentifier>{e32b006d-6a25-4521-b726-a07f649ead27}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameObject\UI\PlayInfoUI">
+      <UniqueIdentifier>{2dd9f810-3245-44db-84ed-b53a31dfe5ff}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -391,19 +391,19 @@
       <Filter>GameObject\UI\StageSelectionMenu</Filter>
     </ClInclude>
     <ClInclude Include="yaHealthBar.h">
-      <Filter>GameObject\UI\PlaySceneUI</Filter>
+      <Filter>GameObject\UI\PlayInfoUI</Filter>
     </ClInclude>
     <ClInclude Include="yaPlaySceneHUDPanel.h">
-      <Filter>GameObject\UI\PlaySceneUI</Filter>
+      <Filter>GameObject\UI\PlayInfoUI</Filter>
     </ClInclude>
     <ClInclude Include="yaExpBar.h">
-      <Filter>GameObject\UI\PlaySceneUI</Filter>
+      <Filter>GameObject\UI\PlayInfoUI</Filter>
     </ClInclude>
     <ClInclude Include="yaWeaponBox.h">
-      <Filter>GameObject\UI\PlaySceneUI</Filter>
+      <Filter>GameObject\UI\PlayInfoUI</Filter>
     </ClInclude>
     <ClInclude Include="yaWeaponKnifeIcon.h">
-      <Filter>GameObject\UI\PlaySceneUI</Filter>
+      <Filter>GameObject\UI\PlayInfoUI</Filter>
     </ClInclude>
     <ClInclude Include="yaPlayScenePausedHUDPanel.h">
       <Filter>GameObject\UI\PauseUI</Filter>
@@ -442,6 +442,9 @@
       <Filter>GameObject\UI\LevelUpUI</Filter>
     </ClInclude>
     <ClInclude Include="yaLevelUpHUD.h">
+      <Filter>GameObject\UI\Base</Filter>
+    </ClInclude>
+    <ClInclude Include="yaPlayInfoIcon.h">
       <Filter>GameObject\UI\Base</Filter>
     </ClInclude>
   </ItemGroup>
@@ -723,19 +726,19 @@
       <Filter>GameObject\UI\StageSelectionMenu</Filter>
     </ClCompile>
     <ClCompile Include="yaHealthBar.cpp">
-      <Filter>GameObject\UI\PlaySceneUI</Filter>
+      <Filter>GameObject\UI\PlayInfoUI</Filter>
     </ClCompile>
     <ClCompile Include="yaPlaySceneHUDPanel.cpp">
-      <Filter>GameObject\UI\PlaySceneUI</Filter>
+      <Filter>GameObject\UI\PlayInfoUI</Filter>
     </ClCompile>
     <ClCompile Include="yaExpBar.cpp">
-      <Filter>GameObject\UI\PlaySceneUI</Filter>
+      <Filter>GameObject\UI\PlayInfoUI</Filter>
     </ClCompile>
     <ClCompile Include="yaWeaponBox.cpp">
-      <Filter>GameObject\UI\PlaySceneUI</Filter>
+      <Filter>GameObject\UI\PlayInfoUI</Filter>
     </ClCompile>
     <ClCompile Include="yaWeaponKnifeIcon.cpp">
-      <Filter>GameObject\UI\PlaySceneUI</Filter>
+      <Filter>GameObject\UI\PlayInfoUI</Filter>
     </ClCompile>
     <ClCompile Include="yaPlayScenePausedHUDPanel.cpp">
       <Filter>GameObject\UI\PauseUI</Filter>
@@ -771,6 +774,9 @@
       <Filter>GameObject\UI\LevelUpUI</Filter>
     </ClCompile>
     <ClCompile Include="yaLevelUpHUD.cpp">
+      <Filter>GameObject\UI\Base</Filter>
+    </ClCompile>
+    <ClCompile Include="yaPlayInfoIcon.cpp">
       <Filter>GameObject\UI\Base</Filter>
     </ClCompile>
   </ItemGroup>
