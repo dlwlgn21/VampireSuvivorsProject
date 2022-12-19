@@ -43,7 +43,7 @@ namespace ya
 		, mLevel(1)
 		, mExp(0)
 		, mHp(100)
-		, mBasicWeaponDamage(2)
+		, mBasicWeaponDamage(10)
 		, mAmour(0)
 		, mWeaponSpeed(700.0f)
 		, mWeaponDamageCoefficient(1.0f)

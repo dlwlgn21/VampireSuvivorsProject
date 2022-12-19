@@ -46,7 +46,7 @@ namespace ya
 		__forceinline Vector2 GetPos() { return mPos; }
 		__forceinline void SetSize(Vector2 size) { mSize = size; }
 		__forceinline Vector2 GetSize() { return mSize; }
-
+		__forceinline const std::vector<UIBase*>& GetChild() const { return mChilds; }
 		
 	protected:
 		virtual void OnInitialize()	= 0;

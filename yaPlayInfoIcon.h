@@ -25,8 +25,11 @@ namespace ya
 		void OnRender(HDC hdc) override;
 		void OnUIClear() override;
 
+		eWeaponAndItemTypes GetType() const { return meType; }
+
 	protected:
 		ePlayInfoIconPos meIconPos;
+		eWeaponAndItemTypes meType;
 		int mImgWidth;
 		int mImgHeight;
 	};

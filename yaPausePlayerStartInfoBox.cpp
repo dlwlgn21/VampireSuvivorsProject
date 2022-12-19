@@ -12,7 +12,7 @@ namespace ya
 	{
 		mpImage = Resources::Load<Image>(L"PlayerInfoStatBox", L"Resources\\Image\\PlayerStatInfo.bmp");
 		assert(mpImage != nullptr);
-		mPos = Vector2(static_cast<float>(ACTUAL_GAME_SCREEN_X_DIFF) + 8.0f, 160.0f);
+		mPos = Vector2(static_cast<float>(ACTUAL_GAME_SCREEN_X_DIFF) + 8.0f, 200.0f);
 		mImgWidth = mpImage->GetWidth();
 		mImgHeight = mpImage->GetHeight();
 		mBlendFunc.SourceConstantAlpha = 128;

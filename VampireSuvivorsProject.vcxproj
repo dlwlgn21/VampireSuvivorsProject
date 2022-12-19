@@ -132,6 +132,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="yaLevelBoxIcon.h" />
     <ClInclude Include="yaLevelUpArrow.h" />
     <ClInclude Include="yaLevelUpHUD.h" />
     <ClInclude Include="yaLevelUpHUDBot.h" />
@@ -249,6 +250,7 @@
     <ClInclude Include="yaWeaponObjectPool.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="yaLevelBoxIcon.cpp" />
     <ClCompile Include="yaLevelUpArrow.cpp" />
     <ClCompile Include="yaLevelUpHUD.cpp" />
     <ClCompile Include="yaLevelUpHUDBot.cpp" />

@@ -5,6 +5,8 @@
 #include "yaImage.h"
 #include "yaWeaponBox.h"
 #include "yaPlayInfoIcon.h"
+#include "yaPauseWeaponInfoBox.h"
+#include "yaLevelBoxIcon.h"
 
 namespace ya
 {
@@ -174,6 +176,7 @@ namespace ya
 	{
 		assert(mpPlayer != nullptr);
 		const Player::PlayerItemLevelStat& stat = mpPlayer->GetItemLevelStat();
+		const std::vector<UIBase*>& pauseWeaponBoxChild = mpPauseWeaponBox->GetChild();
 		switch (type)
 		{
 		case eWeaponAndItemTypes::KNIFE:
@@ -294,6 +297,10 @@ namespace ya
 			{
 				IncreaseBuffStatIconCount(type);
 			}
+			else
+			{
+				IncreaseLevelBoxLevel(pauseWeaponBoxChild, eWeaponAndItemTypes::WEAPON_SPEED);
+			}
 			// 모든 무기 속도 10% 증가
 			mpPlayer->IncreaseWeaponSpeedCoefficient();
 			break;
@@ -304,6 +311,10 @@ namespace ya
 			if (weaponDamageLevel == 0)
 			{
 				IncreaseBuffStatIconCount(type);
+			}
+			else
+			{
+				IncreaseLevelBoxLevel(pauseWeaponBoxChild, eWeaponAndItemTypes::WEAPON_DAMAGE);
 			}
 			// 모든 무기 데미지 10% 증가
 			mpPlayer->IncreaseWeaponDamageCoefficient();
@@ -316,6 +327,10 @@ namespace ya
 			{
 				IncreaseBuffStatIconCount(type);
 			}
+			else
+			{
+				IncreaseLevelBoxLevel(pauseWeaponBoxChild, eWeaponAndItemTypes::MOVE_SPEED);
+			}
 			// 이동속도 10% 증가
 			mpPlayer->IncreaseMoveSpeed();
 			break;
@@ -326,6 +341,10 @@ namespace ya
 			if (amourLevel == 0)
 			{
 				IncreaseBuffStatIconCount(type);
+			}
+			else
+			{
+				IncreaseLevelBoxLevel(pauseWeaponBoxChild, eWeaponAndItemTypes::PLAYER_AMOUR);
 			}
 			// 받는피해 1 감소
 			mpPlayer->IncreaseAmour();
@@ -356,6 +375,9 @@ namespace ya
 		PlayInfoIcon* pPauseIcon = new PlayInfoIcon(eUIType::PLAY_PAUSED, ePlayInfoIconPos::TOP, type, Vector2::ZERO);
 		mpPlayInfoWeaponBox->AddUIChild(pIcon);
 		mpPauseWeaponBox->AddUIChild(pPauseIcon);
+		LevelBoxIcon* pLevelBoxIcon = new LevelBoxIcon();
+		pPauseIcon->AddUIChild(pLevelBoxIcon);
+		pLevelBoxIcon->SetType(type);
 		if (static_cast<UINT>(type) <= static_cast<UINT>(eWeaponAndItemTypes::AXE))
 		{
 			float yPos = 0.f;
@@ -380,24 +402,25 @@ namespace ya
 		}
 		else
 		{
-			float yPos = BOX_HEIGHT + Y_MARGIN_PIXEL;
+			const float Y_POS = BOX_HEIGHT + Y_MARGIN_PIXEL;
+			const float Y_PAUSE_CORRECTION_VALUE = 20.0f;
 			switch (mActiveBuffStatIconCount)
 			{
 			case 1u:
-				pIcon->SetPos(Vector2(FIRST_X_POS, yPos));
-				pPauseIcon->SetPos(Vector2(FIRST_X_POS + PAUSED_X_PLUS, yPos));
+				pIcon->SetPos(Vector2(FIRST_X_POS, Y_POS));
+				pPauseIcon->SetPos(Vector2(FIRST_X_POS + PAUSED_X_PLUS, Y_POS + Y_PAUSE_CORRECTION_VALUE));
 				break;
 			case 2u:
-				pIcon->SetPos(Vector2(SECOND_X_POS, yPos));
-				pPauseIcon->SetPos(Vector2(SECOND_X_POS + PAUSED_X_PLUS, yPos));
+				pIcon->SetPos(Vector2(SECOND_X_POS, Y_POS));
+				pPauseIcon->SetPos(Vector2(SECOND_X_POS + PAUSED_X_PLUS, Y_POS + Y_PAUSE_CORRECTION_VALUE));
 				break;
 			case 3u:
-				pIcon->SetPos(Vector2(THIRD_X_POS, yPos));
-				pPauseIcon->SetPos(Vector2(THIRD_X_POS + PAUSED_X_PLUS, yPos));
+				pIcon->SetPos(Vector2(THIRD_X_POS, Y_POS));
+				pPauseIcon->SetPos(Vector2(THIRD_X_POS + PAUSED_X_PLUS, Y_POS + Y_PAUSE_CORRECTION_VALUE));
 				break;
 			case 4u:
-				pIcon->SetPos(Vector2(FOUTH_X_POS, yPos));
-				pPauseIcon->SetPos(Vector2(FOUTH_X_POS + PAUSED_X_PLUS, yPos));
+				pIcon->SetPos(Vector2(FOUTH_X_POS, Y_POS));
+				pPauseIcon->SetPos(Vector2(FOUTH_X_POS + PAUSED_X_PLUS, Y_POS + Y_PAUSE_CORRECTION_VALUE));
 				break;
 			default:
 				assert(false);
@@ -419,49 +442,61 @@ namespace ya
 		{
 			pIcon->SetPos(Vector2(xPos - 2.0f, yPos - 2.0f));
 			pPauseIcon->SetPos(Vector2(xPausePos - 2.0f, yPausePos - 2.0f));
+			pLevelBoxIcon->SetPos(Vector2(102.0f, 99.0f));
+
 			break;
 		}
 		case eWeaponAndItemTypes::RUNE:
 		{
 			pIcon->SetPos(Vector2(xPos + 3.0f, yPos + 4.0f));
 			pPauseIcon->SetPos(Vector2(xPausePos + 3.0f, yPausePos + 4.0f));
+			pLevelBoxIcon->SetPos(Vector2(102.0f, 93.0f));
+
 			break;
 		}
 		case eWeaponAndItemTypes::AXE:
 		{
 			pIcon->SetPos(Vector2(xPos - 2.0f, yPos - 2.0f));
 			pPauseIcon->SetPos(Vector2(xPausePos - 2.0f, yPausePos - 2.0f));
+			pLevelBoxIcon->SetPos(Vector2(102.0f, 99.0f));
 			break;
 		}
 		case eWeaponAndItemTypes::WEAPON_SPEED:
 		{
 			pIcon->SetPos(Vector2(xPos - 2.0f, yPos - 2.0f));
 			pPauseIcon->SetPos(Vector2(xPausePos - 2.0f, yPausePos - 2.0f));
+			pLevelBoxIcon->SetPos(Vector2(104.0f, 105.0f));
 			break;
 		}
 		case eWeaponAndItemTypes::WEAPON_DAMAGE:
 		{
 			pIcon->SetPos(Vector2(xPos + 5.0f, yPos + 2.0f));
 			pPauseIcon->SetPos(Vector2(xPausePos + 5.0f, yPausePos + 2.0f));
+			pLevelBoxIcon->SetPos(Vector2(97.0f, 101.0f));
 			break;
 		}
 		case eWeaponAndItemTypes::MOVE_SPEED:
 		{
 			pIcon->SetPos(Vector2(xPos, yPos));
 			pPauseIcon->SetPos(Vector2(xPausePos, yPausePos));
+			pLevelBoxIcon->SetPos(Vector2(100.0f, 103.0f));
 			break;
 		}
 		case eWeaponAndItemTypes::PLAYER_AMOUR:
 		{
 			pIcon->SetPos(Vector2(xPos, yPos - 2.0f));
 			pPauseIcon->SetPos(Vector2(xPausePos, yPausePos - 2.0f));
+			pLevelBoxIcon->SetPos(Vector2(101.0f, 105.0f));
 			break;
 		}
 		default:
 			assert(false);
 			break;
 		}
+	}
 
+	void LevelUpUIManager::AddLevelBoxIcon(const UINT level, const eWeaponAndItemTypes type)
+	{
 	}
 	void LevelUpUIManager::IncreaseWeaponIconCount(const eWeaponAndItemTypes type)
 	{
@@ -476,5 +511,18 @@ namespace ya
 		++mTotalActiveIconCount;
 		assert(mActiveBuffStatIconCount <= TOTAL_STAT_BURF_ITEM_COUNT && mTotalActiveIconCount <= TOTAL_WEAPON_COUNT + TOTAL_WEAPON_COUNT);
 		AddInfoIcon(type);
+	}
+	void LevelUpUIManager::IncreaseLevelBoxLevel(const std::vector<UIBase*>& child, const eWeaponAndItemTypes type)
+	{
+		for (auto* e : child)
+		{
+			if (static_cast<PlayInfoIcon*>(e)->GetType() == type)
+			{
+				const std::vector<UIBase*>& childOfChild = static_cast<PlayInfoIcon*>(e)->GetChild();
+				static_cast<LevelBoxIcon*>(childOfChild[0])->IncreaseLevel();
+				return;
+			}
+		}
+		//assert(false);
 	}
 }

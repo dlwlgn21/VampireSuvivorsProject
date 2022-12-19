@@ -12,7 +12,7 @@ namespace ya
 		, mImgWidth(0)
 		, mImgHeight(0)
 	{
-		mpImage = Resources::Load<Image>(L"WeaponInfoBox", L"Resources\\Image\\WeaponInfoBox.bmp");
+		mpImage = Resources::Load<Image>(L"WeaponInfoBox", L"Resources\\Image\\WeaponBuffStatLevelPanel.bmp");
 		assert(mpImage != nullptr);
 		mPos = Vector2(static_cast<float>(ACTUAL_GAME_SCREEN_X_DIFF) + 8.0f, 60.0f);
 		mImgWidth = mpImage->GetWidth();

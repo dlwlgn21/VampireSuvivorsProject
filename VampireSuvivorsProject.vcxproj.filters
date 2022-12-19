@@ -447,6 +447,9 @@
     <ClInclude Include="yaPlayInfoIcon.h">
       <Filter>GameObject\UI\Base</Filter>
     </ClInclude>
+    <ClInclude Include="yaLevelBoxIcon.h">
+      <Filter>GameObject\UI\Base</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Maths.cpp">
@@ -777,6 +780,9 @@
       <Filter>GameObject\UI\Base</Filter>
     </ClCompile>
     <ClCompile Include="yaPlayInfoIcon.cpp">
+      <Filter>GameObject\UI\Base</Filter>
+    </ClCompile>
+    <ClCompile Include="yaLevelBoxIcon.cpp">
       <Filter>GameObject\UI\Base</Filter>
     </ClCompile>
   </ItemGroup>

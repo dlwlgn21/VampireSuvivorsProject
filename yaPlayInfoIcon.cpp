@@ -6,6 +6,7 @@ namespace ya
 	PlayInfoIcon::PlayInfoIcon(eUIType eUiType, ePlayInfoIconPos ePos, eWeaponAndItemTypes eItemType, Vector2 pos)
 		: HUD(eUiType)
 		, meIconPos(ePos)
+		, meType(eItemType)
 		, mImgWidth(0)
 		, mImgHeight(0)
 	{

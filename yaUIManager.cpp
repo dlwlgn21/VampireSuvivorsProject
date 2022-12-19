@@ -28,6 +28,7 @@
 #include "yaLevelUpHUDBot.h"
 #include "yaPlayerLevelUpManager.h"
 #include "yaPlayInfoIcon.h"
+#include "yaLevelBoxIcon.h"
 
 namespace ya
 {
@@ -150,20 +151,24 @@ namespace ya
 		mUIMap.insert(std::make_pair(eUIType::PLAY_PAUSED, pPausInfoBox));
 		pPlayPausedPanel->AddUIChild(pPausInfoBox);
 
-		UIBase* pWeaponPauseBox = new WeaponBox(eUIType::PLAY_PAUSED);
-		mUIMap.insert(std::make_pair(eUIType::PLAY_PAUSED, pWeaponPauseBox));
-		pPlayPausedPanel->AddUIChild(pWeaponPauseBox);
-		pWeaponPauseBox->SetPos(Vector2(145.0f, 75.0f));
+		//UIBase* pWeaponPauseBox = new WeaponBox(eUIType::PLAY_PAUSED);
+		//mUIMap.insert(std::make_pair(eUIType::PLAY_PAUSED, pWeaponPauseBox));
+		//pPlayPausedPanel->AddUIChild(pWeaponPauseBox);
+		//pWeaponPauseBox->SetPos(Vector2(145.0f, 75.0f));
 
 
 		PlayInfoIcon* pKnifePauseIcon = new PlayInfoIcon(eUIType::PLAY_PAUSED, ePlayInfoIconPos::TOP, eWeaponAndItemTypes::KNIFE, Vector2(90.0f, 7.0f));
-		pWeaponPauseBox->AddUIChild(pKnifePauseIcon);
+		pPausInfoBox->AddUIChild(pKnifePauseIcon);
+
+		LevelBoxIcon* pLevelBoxIcon = new LevelBoxIcon();
+		pKnifePauseIcon->AddUIChild(pLevelBoxIcon);
+		pLevelBoxIcon->SetPos(Vector2(108.0f, 90.0f));
 
 		UIBase* pPlayerStatInfo = new PausePlayerStartInfoBox();
 		mUIMap.insert(std::make_pair(eUIType::PLAY_PAUSED, pPlayerStatInfo));
 		pPlayPausedPanel->AddUIChild(pPlayerStatInfo);
 
-		LevelUpUIManager::GetInstance().SetPlayPauseWeaponBox(static_cast<WeaponBox*>(pWeaponPauseBox));
+		LevelUpUIManager::GetInstance().SetPlayPauseWeaponBox(static_cast<PauseWeaponInfoBox*>(pPausInfoBox));
 
 
 

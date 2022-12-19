@@ -13,6 +13,7 @@ namespace ya
 	class Image;
 	class Player;
 	class WeaponBox;
+	class PauseWeaponInfoBox;
 	class LevelUpUIManager final
 	{
 	public:
@@ -26,15 +27,16 @@ namespace ya
 		void PickUpImage();
 		void SetPlayer(Player* pPlayer) { assert(pPlayer != nullptr); mpPlayer = pPlayer; };
 		void SetPlayInfoWeaponBox(WeaponBox* pWeaponBox) { assert(pWeaponBox != nullptr); mpPlayInfoWeaponBox = pWeaponBox; };
-		void SetPlayPauseWeaponBox(WeaponBox* pWeaponBox) { assert(pWeaponBox != nullptr); mpPauseWeaponBox = pWeaponBox; };
+		void SetPlayPauseWeaponBox(PauseWeaponInfoBox* pWeaponBox) { assert(pWeaponBox != nullptr); mpPauseWeaponBox = pWeaponBox; };
 
 		Image* GetImage(const eWeaponAndItemTypes type, const UINT idx);
 		Image* GetPickupedImage(const eLevelUpUI type, eWeaponAndItemTypes& out_type);
-		void IncreasePlayerStat(const eWeaponAndItemTypes type);
 		void AddInfoIcon(const eWeaponAndItemTypes type);
+		void AddLevelBoxIcon(const UINT level, const eWeaponAndItemTypes type);
+		void IncreasePlayerStat(const eWeaponAndItemTypes type);
 		void IncreaseWeaponIconCount(const eWeaponAndItemTypes type);
 		void IncreaseBuffStatIconCount(const eWeaponAndItemTypes type);
-
+		void IncreaseLevelBoxLevel(const std::vector<UIBase*>& child, const eWeaponAndItemTypes type);
 
 	private:
 		LevelUpUIManager()
@@ -53,7 +55,7 @@ namespace ya
 	private:
 		Player* mpPlayer;
 		WeaponBox* mpPlayInfoWeaponBox;
-		WeaponBox* mpPauseWeaponBox;
+		PauseWeaponInfoBox* mpPauseWeaponBox;
 		std::vector<std::vector<Image*>> mpImages;
 		Image* mpPickupedImages[static_cast<UINT>(eLevelUpUI::COUNT)];
 		eWeaponAndItemTypes meWAndITypeMap[static_cast<UINT>(eWeaponAndItemTypes::COUNT)];
