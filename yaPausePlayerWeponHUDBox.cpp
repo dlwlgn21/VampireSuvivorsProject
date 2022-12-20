@@ -1,37 +1,35 @@
-#include "yaPauseWeaponInfoBox.h"
-#include "yaWeaponKnifeIcon.h"
+#include "yaPausePlayerWeponHUDBox.h"
 #include "yaPlayer.h"
 #include "yaImage.h"
 #include "yaResources.h"
 
-
 namespace ya
 {
-	PauseWeaponInfoBox::PauseWeaponInfoBox()
+	PausePlayerWeponHUDBox::PausePlayerWeponHUDBox()
 		: HUD(eUIType::PLAY_PAUSED)
 		, mImgWidth(0)
 		, mImgHeight(0)
 	{
-		mpImage = Resources::Load<Image>(L"WeaponInfoBox", L"Resources\\Image\\WeaponBuffStatLevelPanel.bmp");
+		mpImage = Resources::Load<Image>(L"PlayerInfoWeaponHUDBox", L"Resources\\Image\\WeaponInfoBox.bmp");
 		assert(mpImage != nullptr);
-		mPos = Vector2(static_cast<float>(ACTUAL_GAME_SCREEN_X_DIFF) + 50.0f, 75.0f);
+		mPos = Vector2(static_cast<float>(ACTUAL_GAME_SCREEN_X_DIFF) + 8.0f, 50.0f);
 		mImgWidth = mpImage->GetWidth();
 		mImgHeight = mpImage->GetHeight();
 		mBlendFunc.SourceConstantAlpha = 128;
 	}
-	void PauseWeaponInfoBox::OnInitialize()
+	void PausePlayerWeponHUDBox::OnInitialize()
 	{
 	}
-	void PauseWeaponInfoBox::OnActive()
+	void PausePlayerWeponHUDBox::OnActive()
 	{
 	}
-	void PauseWeaponInfoBox::OnInactive()
+	void PausePlayerWeponHUDBox::OnInactive()
 	{
 	}
-	void PauseWeaponInfoBox::OnTick()
+	void PausePlayerWeponHUDBox::OnTick()
 	{
 	}
-	void PauseWeaponInfoBox::OnRender(HDC hdc)
+	void PausePlayerWeponHUDBox::OnRender(HDC hdc)
 	{
 		assert(mpImage != nullptr);
 
@@ -50,7 +48,7 @@ namespace ya
 			mBlendFunc
 		);
 	}
-	void PauseWeaponInfoBox::OnUIClear()
+	void PausePlayerWeponHUDBox::OnUIClear()
 	{
 	}
 }

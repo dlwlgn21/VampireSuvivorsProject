@@ -20,6 +20,7 @@ namespace ya
 		void SetType(const eWeaponAndItemTypes type) { mType = type; }
 		eWeaponAndItemTypes GetType() const { return mType; }
 	private:
+		enum {MAX_LEVEL = 5};
 		eWeaponAndItemTypes mType;
 		UINT mCurrLevel;
 		int mImgWidth;

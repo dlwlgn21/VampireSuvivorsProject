@@ -114,50 +114,129 @@ namespace ya
 			mpImages[static_cast<UINT>(eWeaponAndItemTypes::PLAYER_AMOUR)][i] = Resources::Load<Image>(keyName, filePath);
 			assert(mpImages[static_cast<UINT>(eWeaponAndItemTypes::PLAYER_AMOUR)][i] != nullptr);
 		}
-
-
 	}
 
 	void LevelUpUIManager::PickUpImage()
 	{
 		// TODO : LevelUP에 따른 이미지 뽑기 구현해야함.
 		assert(mpPlayer != nullptr);
-		const int MAX_SELECTION_COUNT = 3;
+		const unsigned char MAX_SELECTION_COUNT = 3;
+		const unsigned char THREE_IMAGE_CAN_DISPLAY_COUNT = 5;
 		const Player::PlayerItemLevelStat& stat = mpPlayer->GetItemLevelStat();
 		
+		bool isThreeImageDisplay = false;
+		bool isTwoImageDisplay = false;
+		bool isOneImageDisplay = false;
+
+
 		std::random_device rd;
 		std::mt19937 gen(rd());
-		std::uniform_int_distribution<> randomDist(1, MAX_WEAPON_STAT_BURF_ITEM_COUNT - 1);
-		int choice[MAX_SELECTION_COUNT] = { 0, };
-		choice[0] = randomDist(gen);
+		std::uniform_int_distribution<> randomDist(0, MAX_WEAPON_STAT_BURF_ITEM_COUNT - 1);
 
-		// NO DUPLICATTED CHECK Random Shuffle
-		for (int i = 1; i < MAX_SELECTION_COUNT; ++i)
+		unsigned char imageCountOnUI = 0;
+		unsigned char maxLevelCount = 0;
+		bool isReachMaxLevels[MAX_WEAPON_STAT_BURF_ITEM_COUNT] = { false, };
+		unsigned char level;
+
+		// How Many Image On UI
+		for (int i = 0; i < MAX_WEAPON_STAT_BURF_ITEM_COUNT; ++i)
 		{
-			choice[i] = randomDist(gen);
-			for (int j = 0; j < i; ++j)
+			level = stat.ItemLevels[i];
+			if (i < TOTAL_WEAPON_COUNT)
 			{
-				if (choice[j] == choice[i])
+				if (level >= MAX_WEAPON_LEVEL)
 				{
-					if (choice[j] < TOTAL_WEAPON_COUNT && stat.ItemLevels[choice[j]] >= MAX_WEAPON_LEVEL ||
-						choice[j] >= TOTAL_WEAPON_COUNT && stat.ItemLevels[choice[j]] >= MAX_STAT_BURF_ITEM_LEVEL)
-					{
-						// TODO : 이건 다시 나중에 처리하자. 예외상황이 2가지 더있어서 종합해서 처리해야 함.
-						// 중복되는 번호가 나오거나, 최대 무기레벨보다 높거나, 최대 스탯버프레벨보다 높으면 다시뽑즈아.
-						assert(false);
-						break;
-					}
-					--i;    
-					break;
+					isReachMaxLevels[i] = true;
+					++maxLevelCount;
+				}
+			}
+			else
+			{
+				if (level >= MAX_STAT_BURF_ITEM_LEVEL)
+				{
+					isReachMaxLevels[i] = true;
+					++maxLevelCount;
 				}
 			}
 		}
 
-		// 저장해놓은 이미지 불러오기.
-		for (int i = 0; i < MAX_SELECTION_COUNT; ++i)
+		unsigned char threeChoice[MAX_SELECTION_COUNT] = { 0, };
+		threeChoice[0] = randomDist(gen);
+
+		unsigned char twoChoice[2];
+		unsigned char twoChoiceIdx = 0;
+		unsigned char oneChoice;
+
+		// NO DUPLICATTED CHECK Random Shuffle
+		if (maxLevelCount <= THREE_IMAGE_CAN_DISPLAY_COUNT)
 		{
-			mpPickupedImages[i] = mpImages[choice[i]][stat.ItemLevels[choice[i]]];
-			meWAndITypeForLevelUpHUD[i] = meWAndITypeMap[choice[i]];
+			isThreeImageDisplay = true;
+			for (int i = 1; i < MAX_SELECTION_COUNT; ++i)
+			{
+				threeChoice[i] = randomDist(gen);
+				for (int j = 0; j < i; ++j)
+				{
+					if (threeChoice[j] == threeChoice[i] || isReachMaxLevels[j])
+					{ 
+						--i; 
+						break; 
+					}
+				}
+			}
+		}
+		else if (maxLevelCount == THREE_IMAGE_CAN_DISPLAY_COUNT + 1)
+		{
+			isTwoImageDisplay = true;
+			for (int i = 0; i < MAX_WEAPON_STAT_BURF_ITEM_COUNT; ++i)
+			{
+				if (!isReachMaxLevels[i])
+					{ twoChoice[twoChoiceIdx++] = i; }
+			}
+		}
+		else if (maxLevelCount == THREE_IMAGE_CAN_DISPLAY_COUNT + 2)
+		{
+			isOneImageDisplay = true;
+			for (int i = 0; i < MAX_WEAPON_STAT_BURF_ITEM_COUNT; ++i)
+			{
+				if (!isReachMaxLevels[i])
+				{
+					oneChoice = i;
+					break;
+				}
+			}
+		}
+		else
+		{
+			// 모든 아이템 최종 레벨 도달.
+			assert(false);
+		}
+
+		// 저장해놓은 이미지 불러오기.
+		if (isThreeImageDisplay)
+		{
+			for (int i = 0; i < MAX_SELECTION_COUNT; ++i)
+			{
+				mpPickupedImages[i] = mpImages[threeChoice[i]][stat.ItemLevels[threeChoice[i]]];
+				meWAndITypeForLevelUpHUD[i] = meWAndITypeMap[threeChoice[i]];
+			}
+			return;
+		}
+
+		if (isTwoImageDisplay)
+		{
+			for (int i = 0; i < MAX_SELECTION_COUNT - 1; ++i)
+			{
+				mpPickupedImages[i] = mpImages[twoChoice[i]][stat.ItemLevels[twoChoice[i]]];
+				meWAndITypeForLevelUpHUD[i] = meWAndITypeMap[twoChoice[i]];
+			}
+			return;
+		}
+
+		if (isOneImageDisplay)
+		{
+			mpPickupedImages[0] = mpImages[oneChoice][stat.ItemLevels[oneChoice]];
+			meWAndITypeForLevelUpHUD[0] = meWAndITypeMap[oneChoice];
+			return;
 		}
 	}
 	Image* LevelUpUIManager::GetImage(const eWeaponAndItemTypes type, const UINT idx)
@@ -182,125 +261,59 @@ namespace ya
 		case eWeaponAndItemTypes::KNIFE:
 		{
 			unsigned char knifeLevel = stat.ItemLevels[static_cast<UINT>(eWeaponAndItemTypes::KNIFE)];
-			switch (knifeLevel)
-			{
-			case 2u:
-				// 투사체 1개 더 발사
-				break;
-			case 3u:
-				// 투사체 1개 더 발사
-				// 기본피해 5 증가
-				break;
-			case 4u:
-				// 투사체 1개 더 발사
-				break;
-			case 5u:
-				// 적 1마리 추가 관통
-				break;
-			}
+			assert(knifeLevel <= MAX_WEAPON_LEVEL);
+
+			IncreaseLevelBoxLevel(pauseWeaponBoxChild, eWeaponAndItemTypes::KNIFE);
+			mpPlayer->IncreaseWeaponLevel(eWeaponAndItemTypes::KNIFE);
+			mpPlayer->IncreaseWeaponStat(eWeaponAndItemTypes::KNIFE);
 			break;
 		}
 		case eWeaponAndItemTypes::FIRE_WAND:
 		{
 			unsigned char fireWandLevel = stat.ItemLevels[static_cast<UINT>(eWeaponAndItemTypes::FIRE_WAND)];
-			switch (fireWandLevel)
-			{
-			case 0:
-				IncreaseWeaponIconCount(type);
-				break;
-			case 1u:
-				// 투사체 1개 더 발사
-				break;
-			case 2u:
-				// 투사체 1개 더 발사
-				// 기본피해 5 증가
-				break;
-			case 3u:
-				// 투사체 1개 더 발사
-				break;
-			case 4u:
-				// 적 1마리 추가 관통
-				break;
-			case 5u:
-				// 적 1마리 추가 관통
-				break;
-			default:
-				assert(false);
-				break;
-			}
+			assert(fireWandLevel <= MAX_WEAPON_LEVEL);
+
+			if (fireWandLevel == 0)
+				{ IncreaseWeaponIconCount(type); }
+			else
+				{ IncreaseLevelBoxLevel(pauseWeaponBoxChild, eWeaponAndItemTypes::FIRE_WAND); }
+			mpPlayer->IncreaseWeaponLevel(eWeaponAndItemTypes::FIRE_WAND);
+			mpPlayer->IncreaseWeaponStat(eWeaponAndItemTypes::FIRE_WAND);
 			break;
 		}
 		case eWeaponAndItemTypes::RUNE:
 		{
 			unsigned char runeLevel = stat.ItemLevels[static_cast<UINT>(eWeaponAndItemTypes::RUNE)];
-			switch (runeLevel)
-			{
-			case 0:
-				IncreaseWeaponIconCount(type);
-				break;
-			case 1u:
-				// 투사체 1개 더 발사
-				break;
-			case 2u:
-				// 투사체 1개 더 발사
-				// 기본피해 5 증가
-				break;
-			case 3u:
-				// 투사체 1개 더 발사
-				break;
-			case 4u:
-				// 적 1마리 추가 관통
-				break;
-			case 5u:
-				// 적 1마리 추가 관통
-				break;
-			default:
-				assert(false);
-				break;
-			}
+			assert(runeLevel <= MAX_WEAPON_LEVEL);
+
+			if (runeLevel == 0)
+				{ IncreaseWeaponIconCount(type); }
+			else
+				{ IncreaseLevelBoxLevel(pauseWeaponBoxChild, eWeaponAndItemTypes::RUNE); }
+			mpPlayer->IncreaseWeaponLevel(eWeaponAndItemTypes::RUNE);
+			mpPlayer->IncreaseWeaponStat(eWeaponAndItemTypes::RUNE);
 			break;
 		}
 		case eWeaponAndItemTypes::AXE:
 		{
 			unsigned char axeLevel = stat.ItemLevels[static_cast<UINT>(eWeaponAndItemTypes::AXE)];
-			switch (axeLevel)
-			{
-			case 0:
-				IncreaseWeaponIconCount(type);
-				break;
-			case 1u:
-				// 투사체 1개 더 발사
-				break;
-			case 2u:
-				// 투사체 1개 더 발사
-				// 기본피해 5 증가
-				break;
-			case 3u:
-				// 투사체 1개 더 발사
-				break;
-			case 4u:
-				// 적 1마리 추가 관통
-				break;
-			case 5u:
-				// 적 1마리 추가 관통
-				break;
-			default:
-				assert(false);
-				break;
-			}
+			assert(axeLevel <= MAX_WEAPON_LEVEL);
+
+			if (axeLevel == 0)
+				{ IncreaseWeaponIconCount(type); }
+			else
+				{ IncreaseLevelBoxLevel(pauseWeaponBoxChild, eWeaponAndItemTypes::AXE); }
+			mpPlayer->IncreaseWeaponLevel(eWeaponAndItemTypes::AXE);
+			mpPlayer->IncreaseWeaponStat(eWeaponAndItemTypes::AXE);
 			break;
 		}
 		case eWeaponAndItemTypes::WEAPON_SPEED:
 		{
 			unsigned char weaponSpeedLevel = stat.ItemLevels[static_cast<UINT>(eWeaponAndItemTypes::WEAPON_SPEED)];
 			if (weaponSpeedLevel == 0)
-			{
-				IncreaseBuffStatIconCount(type);
-			}
+				{ IncreaseBuffStatIconCount(type); }
 			else
-			{
-				IncreaseLevelBoxLevel(pauseWeaponBoxChild, eWeaponAndItemTypes::WEAPON_SPEED);
-			}
+				{ IncreaseLevelBoxLevel(pauseWeaponBoxChild, eWeaponAndItemTypes::WEAPON_SPEED); }
 			// 모든 무기 속도 10% 증가
 			mpPlayer->IncreaseWeaponSpeedCoefficient();
 			break;
@@ -309,13 +322,9 @@ namespace ya
 		{
 			unsigned char weaponDamageLevel = stat.ItemLevels[static_cast<UINT>(eWeaponAndItemTypes::WEAPON_DAMAGE)];
 			if (weaponDamageLevel == 0)
-			{
-				IncreaseBuffStatIconCount(type);
-			}
+				{ IncreaseBuffStatIconCount(type); }
 			else
-			{
-				IncreaseLevelBoxLevel(pauseWeaponBoxChild, eWeaponAndItemTypes::WEAPON_DAMAGE);
-			}
+				{ IncreaseLevelBoxLevel(pauseWeaponBoxChild, eWeaponAndItemTypes::WEAPON_DAMAGE); }
 			// 모든 무기 데미지 10% 증가
 			mpPlayer->IncreaseWeaponDamageCoefficient();
 			break;
@@ -324,13 +333,9 @@ namespace ya
 		{
 			unsigned char moveSpeedLevel = stat.ItemLevels[static_cast<UINT>(eWeaponAndItemTypes::MOVE_SPEED)];
 			if (moveSpeedLevel == 0)
-			{
-				IncreaseBuffStatIconCount(type);
-			}
+				{ IncreaseBuffStatIconCount(type); }
 			else
-			{
-				IncreaseLevelBoxLevel(pauseWeaponBoxChild, eWeaponAndItemTypes::MOVE_SPEED);
-			}
+				{ IncreaseLevelBoxLevel(pauseWeaponBoxChild, eWeaponAndItemTypes::MOVE_SPEED); }
 			// 이동속도 10% 증가
 			mpPlayer->IncreaseMoveSpeed();
 			break;
@@ -339,13 +344,9 @@ namespace ya
 		{
 			unsigned char amourLevel = stat.ItemLevels[static_cast<UINT>(eWeaponAndItemTypes::PLAYER_AMOUR)];
 			if (amourLevel == 0)
-			{
-				IncreaseBuffStatIconCount(type);
-			}
+				{ IncreaseBuffStatIconCount(type); }
 			else
-			{
-				IncreaseLevelBoxLevel(pauseWeaponBoxChild, eWeaponAndItemTypes::PLAYER_AMOUR);
-			}
+				{ IncreaseLevelBoxLevel(pauseWeaponBoxChild, eWeaponAndItemTypes::PLAYER_AMOUR); }
 			// 받는피해 1 감소
 			mpPlayer->IncreaseAmour();
 			break;
@@ -436,13 +437,18 @@ namespace ya
 		float xPausePos = pausePos.x;
 		float yPausePos = pausePos.y;
 		// 보정해주어야 함.
+		const float WEAPON_X_PLUS_VALUE = 43.0f;
+		const float WEAPON_Y_PLUS_VALUE = 14.0f;		
+		
+		const float BUFF_STAT_X_PLUS_VALUE = 42.0f;
+		const float BUFF_STAT_Y_PLUS_VALUE = 12.0f;
 		switch (type)
 		{
 		case eWeaponAndItemTypes::FIRE_WAND:
 		{
 			pIcon->SetPos(Vector2(xPos - 2.0f, yPos - 2.0f));
 			pPauseIcon->SetPos(Vector2(xPausePos - 2.0f, yPausePos - 2.0f));
-			pLevelBoxIcon->SetPos(Vector2(102.0f, 99.0f));
+			pLevelBoxIcon->SetPos(Vector2(102.0f + WEAPON_X_PLUS_VALUE, 99.0f + WEAPON_Y_PLUS_VALUE));
 
 			break;
 		}
@@ -450,7 +456,7 @@ namespace ya
 		{
 			pIcon->SetPos(Vector2(xPos + 3.0f, yPos + 4.0f));
 			pPauseIcon->SetPos(Vector2(xPausePos + 3.0f, yPausePos + 4.0f));
-			pLevelBoxIcon->SetPos(Vector2(102.0f, 93.0f));
+			pLevelBoxIcon->SetPos(Vector2(102.0f + WEAPON_X_PLUS_VALUE, 93.0f + WEAPON_Y_PLUS_VALUE));
 
 			break;
 		}
@@ -458,35 +464,35 @@ namespace ya
 		{
 			pIcon->SetPos(Vector2(xPos - 2.0f, yPos - 2.0f));
 			pPauseIcon->SetPos(Vector2(xPausePos - 2.0f, yPausePos - 2.0f));
-			pLevelBoxIcon->SetPos(Vector2(102.0f, 99.0f));
+			pLevelBoxIcon->SetPos(Vector2(102.0f + WEAPON_X_PLUS_VALUE, 99.0f + WEAPON_Y_PLUS_VALUE));
 			break;
 		}
 		case eWeaponAndItemTypes::WEAPON_SPEED:
 		{
 			pIcon->SetPos(Vector2(xPos - 2.0f, yPos - 2.0f));
 			pPauseIcon->SetPos(Vector2(xPausePos - 2.0f, yPausePos - 2.0f));
-			pLevelBoxIcon->SetPos(Vector2(104.0f, 105.0f));
+			pLevelBoxIcon->SetPos(Vector2(104.0f + BUFF_STAT_X_PLUS_VALUE, 105.0f + BUFF_STAT_Y_PLUS_VALUE));
 			break;
 		}
 		case eWeaponAndItemTypes::WEAPON_DAMAGE:
 		{
 			pIcon->SetPos(Vector2(xPos + 5.0f, yPos + 2.0f));
 			pPauseIcon->SetPos(Vector2(xPausePos + 5.0f, yPausePos + 2.0f));
-			pLevelBoxIcon->SetPos(Vector2(97.0f, 101.0f));
+			pLevelBoxIcon->SetPos(Vector2(97.0f + BUFF_STAT_X_PLUS_VALUE, 101.0f + BUFF_STAT_Y_PLUS_VALUE));
 			break;
 		}
 		case eWeaponAndItemTypes::MOVE_SPEED:
 		{
 			pIcon->SetPos(Vector2(xPos, yPos));
 			pPauseIcon->SetPos(Vector2(xPausePos, yPausePos));
-			pLevelBoxIcon->SetPos(Vector2(100.0f, 103.0f));
+			pLevelBoxIcon->SetPos(Vector2(100.0f + BUFF_STAT_X_PLUS_VALUE, 103.0f + BUFF_STAT_Y_PLUS_VALUE));
 			break;
 		}
 		case eWeaponAndItemTypes::PLAYER_AMOUR:
 		{
 			pIcon->SetPos(Vector2(xPos, yPos - 2.0f));
 			pPauseIcon->SetPos(Vector2(xPausePos, yPausePos - 2.0f));
-			pLevelBoxIcon->SetPos(Vector2(101.0f, 105.0f));
+			pLevelBoxIcon->SetPos(Vector2(101.0f + BUFF_STAT_X_PLUS_VALUE, 105.0f + BUFF_STAT_Y_PLUS_VALUE));
 			break;
 		}
 		default:
@@ -512,6 +518,7 @@ namespace ya
 		assert(mActiveBuffStatIconCount <= TOTAL_STAT_BURF_ITEM_COUNT && mTotalActiveIconCount <= TOTAL_WEAPON_COUNT + TOTAL_WEAPON_COUNT);
 		AddInfoIcon(type);
 	}
+
 	void LevelUpUIManager::IncreaseLevelBoxLevel(const std::vector<UIBase*>& child, const eWeaponAndItemTypes type)
 	{
 		for (auto* e : child)
@@ -523,6 +530,6 @@ namespace ya
 				return;
 			}
 		}
-		//assert(false);
+		assert(false);
 	}
 }

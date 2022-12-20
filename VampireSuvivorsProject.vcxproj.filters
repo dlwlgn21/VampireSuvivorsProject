@@ -450,6 +450,15 @@
     <ClInclude Include="yaLevelBoxIcon.h">
       <Filter>GameObject\UI\Base</Filter>
     </ClInclude>
+    <ClInclude Include="yaAxe.h">
+      <Filter>GameObject\Game\Weapon</Filter>
+    </ClInclude>
+    <ClInclude Include="yaFireWand.h">
+      <Filter>GameObject\Game\Weapon</Filter>
+    </ClInclude>
+    <ClInclude Include="yaPausePlayerWeponHUDBox.h">
+      <Filter>GameObject\UI\PauseUI</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Maths.cpp">
@@ -784,6 +793,15 @@
     </ClCompile>
     <ClCompile Include="yaLevelBoxIcon.cpp">
       <Filter>GameObject\UI\Base</Filter>
+    </ClCompile>
+    <ClCompile Include="yaAxe.cpp">
+      <Filter>GameObject\Game\Weapon</Filter>
+    </ClCompile>
+    <ClCompile Include="yaFireWand.cpp">
+      <Filter>GameObject\Game\Weapon</Filter>
+    </ClCompile>
+    <ClCompile Include="yaPausePlayerWeponHUDBox.cpp">
+      <Filter>GameObject\UI\PauseUI</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

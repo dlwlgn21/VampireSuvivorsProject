@@ -25,14 +25,17 @@ namespace ya
 		virtual void OnCollisionStay(Collider* other) override;
 		virtual void OnCollisionExit(Collider* other) override;
 
-		__forceinline eWeaponPenetratingType GetWeaponType() { return meWeaponPenetratingType; }
-		__forceinline void SetSize(Vector2 size) { mSize = size; }
-		__forceinline Vector2 GetSize() { return mSize; }
-		__forceinline int GetDamage() { return mDamage; }
-		__forceinline void SetDamage(int newDamage) { mDamage = newDamage; }
-		__forceinline void SetSpeed(float newSpeed) { mSpeed = newSpeed; }
-		__forceinline void SetShootInterval(float newInterval) { mShootInterval = newInterval; }
-		__forceinline void SetSpawnPos(Vector2 newPos) { mSpawnPosition = newPos; }
+		__forceinline eWeaponPenetratingType GetWeaponPenetratingType() const { return meWeaponPenetratingType; }
+		__forceinline void SetWeaponPenetratingType(const eWeaponPenetratingType type) { meWeaponPenetratingType = type; }
+		__forceinline void SetSize(const Vector2 size) { mSize = size; }
+		__forceinline Vector2 GetSize() const { return mSize; }
+		__forceinline int GetDamage() const { return mDamage; }
+		__forceinline void SetDamage(const int damage) { mDamage = damage; }
+		__forceinline void SetSpeed(const float speed) { mSpeed = speed; }
+		__forceinline void SetShootInterval(const float newInterval) { mShootInterval = newInterval; }
+		__forceinline void SetSpawnPos(const Vector2 newPos) { mSpawnPosition = newPos; }
+		__forceinline void IncreaseDamage(const int amount) { mDamage += amount; }
+		__forceinline void IncreaseSpeed(const float persentage) { assert(persentage >= 0.1f); mSpeed *= persentage; }
 
 	protected:
 		Collider* mpCollider;

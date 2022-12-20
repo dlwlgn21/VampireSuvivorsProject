@@ -16,10 +16,13 @@ namespace ya
 		DOWN_RIGHT,
 		COUNT
 	};
+
 	class KnifeObjectPool;
 	class Image;
 	class Collider;
 	class RuneTracer;
+	class Axe;
+	class FireWand;
 	template<typename T> class WeaponObjectPool;
 	class Player final : public GameObject
 	{
@@ -33,6 +36,24 @@ namespace ya
 				ItemLevels[static_cast<UINT>(eWeaponAndItemTypes::KNIFE)] = 1;
 			}
 		};
+
+		struct WeaponStat
+		{
+			unsigned char Damage;
+			unsigned char Count;
+			unsigned char PanetratingCount;
+			float Speed;
+			float ShootInterval;
+			WeaponStat(unsigned char damage, unsigned char count, unsigned char panetratingCount, float speed, float shootInterval)
+				: Damage(damage)
+				, Count(count)
+				, PanetratingCount(panetratingCount)
+				, Speed(speed)
+				, ShootInterval(shootInterval)
+			{
+			}
+		};
+
 	public:
 		Player();
 		virtual ~Player();
@@ -44,10 +65,12 @@ namespace ya
 		void OnCollisionExit(Collider* other) override;
 
 		void WalkComplete();
-		void DamageFromMonster(int damage);
-		void IncreaseExp(int exp);
+		void DamageFromMonster(const int damage);
+		void IncreaseExp(const int exp);
+		WeaponStat& GetWeaponStat(const eWeaponAndItemTypes type);
+		void IncreaseWeaponStat(const eWeaponAndItemTypes type);
 
-		__forceinline void SetHp(int hp) { mHp = hp; }
+		__forceinline void SetHp(const int hp) { mHp = hp; }
 		__forceinline int GetHp() const { return mHp; }
 		__forceinline int GetExp() const { return mExp; }
 		__forceinline int GetLevel() const { return mLevel; }
@@ -71,6 +94,13 @@ namespace ya
 			++mPlyerItemLevelStat.ItemLevels[static_cast<UINT>(eWeaponAndItemTypes::MOVE_SPEED)];
 			mMoveSpeed *= 1.1f; 
 		}
+		__forceinline void IncreaseWeaponLevel(const eWeaponAndItemTypes type)
+		{
+			assert(static_cast<UINT>(type) <= static_cast<UINT>(eWeaponAndItemTypes::AXE));
+			if (static_cast<UINT>(type) <= static_cast<UINT>(eWeaponAndItemTypes::AXE))
+				{ ++mPlyerItemLevelStat.ItemLevels[static_cast<UINT>(type)]; }
+		}
+
 		const PlayerItemLevelStat& GetItemLevelStat() const { return mPlyerItemLevelStat; }
 
 	private:
@@ -93,23 +123,41 @@ namespace ya
 		int mLevel;
 		int mExp;
 		int mHp;
-		int mBasicWeaponDamage;
+
 		// Upgradable
 		int mAmour;
 		float mMoveSpeed;
 		float mWeaponSpeed;
 		float mWeaponDamageCoefficient;
 		float mWeaponSpeedCoefficient;
+		float mKnockbackValue;
 
 		ePlayerAnimState mePlayerAnimState;
 		ePlayerLookDirection meLookDir;
-		float mKnifeShootInterval;
+		KnifeObjectPool* mpKnifeObjPool;
 		float mKnifeShootTimer;
 
-		KnifeObjectPool* mpKnifeObjPool;
-		int mCurrKnifeCount;
-		float mKnockbackValue;
+		WeaponObjectPool<RuneTracer>* mpRuneObjPool;
+		float mRuneShootTimer;
+
+		WeaponObjectPool<Axe>* mpAxeObjPool;
+		float mAxeShootTimer;
+
+		WeaponObjectPool<FireWand>* mpFireWandObjPool;
+		float mFireWandShootTimer;
+
+
 		PlayerItemLevelStat mPlyerItemLevelStat;
+
+
+		WeaponStat mKnifeStat;
+		WeaponStat mFireWandStat;
+		WeaponStat mRuneStat;
+		WeaponStat mAxeStat;
+
+		bool mbIsWeaponFireWandOpen;
+		bool mbIsWeaponRuneOpen;
+		bool mbIsWeaponAxeOpen;
 	};
 
 }

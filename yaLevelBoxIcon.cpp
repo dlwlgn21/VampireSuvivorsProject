@@ -31,7 +31,6 @@ namespace ya
 	void LevelBoxIcon::OnRender(HDC hdc)
 	{
 		assert(mpImage != nullptr);
-
 		AlphaBlend(
 			hdc,
 			static_cast<int>(mScreenPos.x),
@@ -59,5 +58,6 @@ namespace ya
 		swprintf_s(filePath, 64, L"Resources\\Image\\Icon\\LevelBoxIcon%d.bmp", mCurrLevel);
 		mpImage = Resources::Load<Image>(key, filePath);
 		assert(mpImage != nullptr);
+		assert(mCurrLevel <= MAX_LEVEL);
 	}
 }

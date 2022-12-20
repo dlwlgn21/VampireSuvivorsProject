@@ -37,7 +37,7 @@ namespace ya
 		void IncreaseWeaponIconCount(const eWeaponAndItemTypes type);
 		void IncreaseBuffStatIconCount(const eWeaponAndItemTypes type);
 		void IncreaseLevelBoxLevel(const std::vector<UIBase*>& child, const eWeaponAndItemTypes type);
-
+		
 	private:
 		LevelUpUIManager()
 			: mpPlayer(nullptr)

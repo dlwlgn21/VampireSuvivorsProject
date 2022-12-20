@@ -21,6 +21,8 @@
 #include "yaRuneTracer.h"
 #include "yaMonster.h"
 #include "yaPlayerLevelUpManager.h"
+#include "yaAxe.h"
+#include "yaFireWand.h"
 
 namespace ya
 {
@@ -43,23 +45,29 @@ namespace ya
 		, mLevel(1)
 		, mExp(0)
 		, mHp(100)
-		, mBasicWeaponDamage(10)
+		, mKnockbackValue(0.5f)
 		, mAmour(0)
 		, mWeaponSpeed(700.0f)
 		, mWeaponDamageCoefficient(1.0f)
 		, mWeaponSpeedCoefficient(1.0f)
 		, mePlayerAnimState(ePlayerAnimState::LEFT)
-		, mKnifeShootInterval(0.5f)
 		, mKnifeShootTimer(0.0f)
 		, meLookDir(ePlayerLookDirection::RIGHT)
 		, mpKnifeObjPool(new KnifeObjectPool(MAX_KNIFE_COUNT))
-		, mCurrKnifeCount(1)
-		, mKnockbackValue(0.5f)
+		, mpRuneObjPool(nullptr)
+		, mRuneShootTimer(0.0f)
+		, mpAxeObjPool(nullptr)
+		, mAxeShootTimer(0.0f)
+		, mpFireWandObjPool(nullptr)
+		, mFireWandShootTimer(0.0f)
 		, mPlyerItemLevelStat(PlayerItemLevelStat())
-		//, mpRuneTracerPool(new WeaponObjectPool<RuneTracer>(MAX_RUNE_TRACER_COUNT))
-		//, mCurrRuneTracerCount(1)
-		//, mRuneTracerShootInterval(1.0f)
-		//, mRuneTracerShootTimer(0.0f)
+		, mKnifeStat(WeaponStat(WEAPON_KNIFE_INITIAL_DAMAGE, 1, 0, 700.0f, TEST_WEAPON_SHOOT_INTERVAL))
+		, mFireWandStat(WeaponStat(WEAPON_FIRE_WAND_INITIAL_DAMAGE, 5, 0, 500.0f, TEST_WEAPON_SHOOT_INTERVAL))
+		, mRuneStat(WeaponStat(WEAPON_RUNE_INITIAL_DAMAGE, 1, 0, 600.0f, TEST_WEAPON_SHOOT_INTERVAL))
+		, mAxeStat(WeaponStat(WEAPON_AXE_INITIAL_DAMAGE, 1, 0, 700.0f, TEST_WEAPON_SHOOT_INTERVAL))
+		, mbIsWeaponFireWandOpen(false)
+		, mbIsWeaponRuneOpen(false)
+		, mbIsWeaponAxeOpen(false)
 	{
 		assert(mpLeftImage != nullptr);
 		assert(mpRightImage != nullptr);
@@ -90,10 +98,18 @@ namespace ya
 		{
 			delete mpKnifeObjPool;
 		}
-		//if (mpRuneTracerPool != nullptr)
-		//{
-		//	delete mpRuneTracerPool;
-		//}
+		if (mpRuneObjPool != nullptr)
+		{
+			delete mpRuneObjPool;
+		}
+		if (mpAxeObjPool != nullptr)
+		{
+			delete mpAxeObjPool;
+		}
+		if (mpFireWandObjPool != nullptr)
+		{
+			delete mpFireWandObjPool;
+		}
 	}
 
 	void Player::Tick()
@@ -101,7 +117,12 @@ namespace ya
 		GameObject::Tick();
 
 		mKnifeShootTimer += Time::DeltaTime();
-		//mRuneTracerShootTimer += Time::DeltaTime();
+		if (mbIsWeaponRuneOpen)
+			{ mRuneShootTimer += Time::DeltaTime(); }
+		if (mbIsWeaponAxeOpen)
+			{ mAxeShootTimer += Time::DeltaTime(); }
+		if (mbIsWeaponFireWandOpen)
+			{ mFireWandShootTimer += Time::DeltaTime(); }
 
 		if (IS_KEY_DOWN(eKeyCode::D))
 		{
@@ -112,14 +133,6 @@ namespace ya
 		{
 			mePlayerAnimState = ePlayerAnimState::LEFT;
 			mpAnimator->Play(mePlayerAnimState);
-		}
-		if (IS_KEY_DOWN(eKeyCode::Z))
-		{
-			++mCurrKnifeCount;
-			if (mCurrKnifeCount > MAX_KNIFE_COUNT)
-			{
-				mCurrKnifeCount = MAX_KNIFE_COUNT;
-			}
 		}
 
 		if (IS_KEY_PRESSED(eKeyCode::W))
@@ -201,29 +214,61 @@ namespace ya
 		{
 			mpAnimator->Play(mePlayerAnimState);
 		}
-		if (mKnifeShootTimer >= mKnifeShootInterval)
+		if (mKnifeShootTimer >= mKnifeStat.ShootInterval)
 		{
 			//mKnifeObjPool.Get(mPos, 10, 1, 1000.0f, 1.0f, KnifeShootInterval, static_cast<eKnifeDirection>(meLookDir));
 
-			for (int i = 0; i < mCurrKnifeCount; ++i)
+			for (int i = 0; i < mKnifeStat.Count; ++i)
 			{
-				GameObject* pKnife = static_cast<GameObject*>(mpKnifeObjPool->Get(mPos, mBasicWeaponDamage, mWeaponSpeed * mWeaponSpeedCoefficient, mKnockbackValue, mKnifeShootInterval, static_cast<eKnifeDirection>(meLookDir), mpKnifeObjPool));
+				GameObject* pKnife = static_cast<GameObject*>(mpKnifeObjPool->Get(mPos, mKnifeStat.Damage, mKnifeStat.Speed * mWeaponSpeedCoefficient, mKnockbackValue, mKnifeStat.ShootInterval, static_cast<eKnifeDirection>(meLookDir), mpKnifeObjPool));
 				Scene* scene = SceneManager::GetCurrentScene();
 				scene->AddWeaponObject(pKnife);
 			}
 			mKnifeShootTimer = 0.0f;
 		}
 
-		//if (mRuneTracerShootTimer >= mRuneTracerShootInterval)
-		//{
-		//	for (int i = 0; i < mCurrRuneTracerCount; ++i)
-		//	{
-		//		GameObject* pRune = static_cast<GameObject*>(mpRuneTracerPool->Get(mPos, 10, 500.f, mKnockbackValue, mRuneTracerShootInterval, mpRuneTracerPool));
-		//		Scene* scene = SceneManager::GetCurrentScene();
-		//		scene->AddWeaponObject(pRune);
-		//	}
-		//	mRuneTracerShootTimer = 0.0f;
-		//}
+		if (mbIsWeaponRuneOpen)
+		{
+			if (mRuneShootTimer >= mRuneStat.ShootInterval)
+			{
+				for (int i = 0; i < mRuneStat.Count; ++i)
+				{
+					GameObject* pRune = static_cast<GameObject*>(mpRuneObjPool->Get(mPos, mRuneStat.Damage, mRuneStat.Speed * mWeaponSpeedCoefficient, mKnockbackValue, mRuneStat.ShootInterval, mpRuneObjPool));
+					Scene* scene = SceneManager::GetCurrentScene();
+					scene->AddWeaponObject(pRune);
+				}
+				mRuneShootTimer = 0.0f;
+			}
+		}
+
+		if (mbIsWeaponAxeOpen)
+		{
+			if (mAxeShootTimer >= mAxeStat.ShootInterval)
+			{
+				for (int i = 0; i < mAxeStat.Count; ++i)
+				{
+					GameObject* pAxe = static_cast<GameObject*>(mpAxeObjPool->Get(mPos, mAxeStat.Damage, mAxeStat.Speed * mWeaponSpeedCoefficient, mKnockbackValue, mAxeStat.ShootInterval, mpAxeObjPool));
+					Scene* scene = SceneManager::GetCurrentScene();
+					scene->AddWeaponObject(pAxe);
+				}
+				mAxeShootTimer = 0.0f;
+			}
+		}
+
+		if (mbIsWeaponFireWandOpen)
+		{
+			if (mFireWandShootTimer >= mFireWandStat.ShootInterval)
+			{
+				for (int i = 0; i < mFireWandStat.Count; ++i)
+				{
+					GameObject* pFire = static_cast<GameObject*>(mpFireWandObjPool->Get(mPos, mFireWandStat.Damage, mFireWandStat.Speed * mWeaponSpeedCoefficient, mKnockbackValue, mFireWandStat.ShootInterval, mpFireWandObjPool));
+					Scene* scene = SceneManager::GetCurrentScene();
+					scene->AddWeaponObject(pFire);
+				}
+				mFireWandShootTimer = 0.0f;
+			}
+		}
+
 	}
 
 	void Player::Render(HDC hdc)
@@ -266,7 +311,7 @@ namespace ya
 		mpAnimator->Play(mePlayerAnimState);
 	}
 
-	void Player::DamageFromMonster(int damage)
+	void Player::DamageFromMonster(const int damage)
 	{
 		int actualDamage = std::clamp(damage - mAmour, 1, 100);
 		mHp -= actualDamage;
@@ -283,7 +328,7 @@ namespace ya
 	}
 
 
-	void Player::IncreaseExp(int exp)
+	void Player::IncreaseExp(const int exp)
 	{
 		mExp += exp;
 		if (mExp >= 100)
@@ -294,5 +339,173 @@ namespace ya
 			UIManager::Pop(eUIType::PLAY_INFO_HUD);
 			UIManager::Push(eUIType::PLAY_LEVEL_UP);
 		}
+	}
+	Player::WeaponStat& Player::GetWeaponStat(const eWeaponAndItemTypes type)
+	{
+		assert(static_cast<UINT>(type) <= static_cast<UINT>(eWeaponAndItemTypes::AXE));
+		switch (type)
+		{
+		case eWeaponAndItemTypes::KNIFE:
+			return mKnifeStat;
+			break;
+		case eWeaponAndItemTypes::FIRE_WAND:
+			return mFireWandStat;
+			break;
+		case eWeaponAndItemTypes::RUNE:
+			return mRuneStat;
+			break;
+		case eWeaponAndItemTypes::AXE:
+			return mAxeStat;
+			break;
+		default:
+			assert(false);
+			break;
+		}
+
+	}
+	void Player::IncreaseWeaponStat(const eWeaponAndItemTypes type)
+	{
+		assert(static_cast<UINT>(type) <= static_cast<UINT>(eWeaponAndItemTypes::AXE));
+		if (static_cast<UINT>(type) <= static_cast<UINT>(eWeaponAndItemTypes::AXE))
+		{
+			unsigned char itemLevel = mPlyerItemLevelStat.ItemLevels[static_cast<UINT>(type)];
+			if (itemLevel == 1)
+			{
+				switch (type)
+				{
+				case eWeaponAndItemTypes::FIRE_WAND:
+					mbIsWeaponFireWandOpen = true;
+					mpFireWandObjPool = new WeaponObjectPool<FireWand>(10);
+					break;
+				case eWeaponAndItemTypes::RUNE:
+					mbIsWeaponRuneOpen = true;
+					mpRuneObjPool = new WeaponObjectPool<RuneTracer>(5);
+					break;
+				case eWeaponAndItemTypes::AXE:
+					mbIsWeaponAxeOpen = true;
+					mpAxeObjPool = new WeaponObjectPool<Axe>(5);
+					break;
+				default:
+					assert(false);
+					break;
+				}
+				return;
+			}
+			switch (type)
+			{
+			case eWeaponAndItemTypes::KNIFE:
+				switch (itemLevel)
+				{
+				case 2u:
+					// 투사체 1개 더 발사
+					++mKnifeStat.Count;
+					break;
+				case 3u:
+					// 투사체 1개 더 발사
+					// 기본피해 5 증가
+					++mKnifeStat.Count;
+					mKnifeStat.Damage += 5;
+					break;
+				case 4u:
+					// 투사체 1개 더 발사
+					++mKnifeStat.Count;
+					break;
+				case 5u:
+					// 적 1마리 추가 관통
+					++mKnifeStat.PanetratingCount;
+					break;
+				default:
+					assert(false);
+					break;
+				}
+				break;
+			case eWeaponAndItemTypes::FIRE_WAND:
+				switch (itemLevel)
+				{
+				case 2u:
+					// 기본피해 10 증가
+					mFireWandStat.Damage += 10;
+					break;
+				case 3u:
+					// 기본피해 10 증가
+					// 투사체 속도 20% 증가
+					mFireWandStat.Damage += 10;
+					mFireWandStat.Speed *= 1.2f;
+					break;
+				case 4u:
+					// 기본피해 10증가
+					mFireWandStat.Damage += 10;
+					break;
+				case 5u:
+					// 기본피해 10증가
+					// 투사체 속도 20% 증가
+					mFireWandStat.Damage += 10;
+					mFireWandStat.Speed *= 1.2f;
+					break;
+				default:
+					assert(false);
+					break;
+				}
+				break;
+			case eWeaponAndItemTypes::RUNE:
+				switch (itemLevel)
+				{
+				case 2u:
+					// 기본피해 5증가
+					// 투사체속도 20% 증가
+					mRuneStat.Damage += 5;
+					mRuneStat.Speed *= 1.2f;
+					break;
+				case 3u:
+					// 기본피해 5 증가
+					// 지속시간 0.3초 증가
+					mRuneStat.Damage += 5;
+					// TODO : Rune 지속시간 구현해야 함.
+					break;
+				case 4u:
+					// 투사체 1개 추가발사
+					++mRuneStat.Count;
+					break;
+				case 5u:
+					// 기본피해 5 증가
+					// 투사체 속도 20% 증가
+					mRuneStat.Damage += 5;
+					mRuneStat.Speed *= 1.2f;
+					break;
+				default:
+					assert(false);
+					break;
+				}
+				break;
+			case eWeaponAndItemTypes::AXE:
+				switch (itemLevel)
+				{
+				case 2u:
+					// 투사체 1개 추가 발사
+					++mAxeStat.Count;
+					break;
+				case 3u:
+					// 기본피해 20 증가
+					mAxeStat.Damage += 20;
+					break;
+				case 4u:
+					// 적 2마리 추가 관통
+					mAxeStat.PanetratingCount += 2;
+					break;
+				case 5u:
+					// 투사체 1개 추가 발사
+					++mAxeStat.Count;
+					break;
+				default:
+					assert(false);
+					break;
+				}
+				break;
+			default:
+				assert(false);
+				break;
+			}
+		}
+
 	}
 }
