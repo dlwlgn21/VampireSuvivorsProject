@@ -15,7 +15,7 @@ namespace ya
 		mpAnimImage = Resources::Load<Image>(L"PauseContinueButtonAnim", L"Resources\\Image\\ContinueButtonAnim.bmp");
 		assert(mpAnimImage != nullptr);
 		mAnimSize = Vector2(398.0f, 95.0f);
-		Create(mpAnimImage, mAnimSize, Vector2(152.0f, 48.0f), 8, ARROW_ANIM_DURATION, false);
+		Create(mpAnimImage, mAnimSize, Vector2(152.0f, 47.0f), 8, ARROW_ANIM_DURATION, false);
 		mImgWidth = mpImage->GetWidth();
 		mImgHeight = mpImage->GetHeight();
 		mSize = Vector2(static_cast<float>(mImgWidth), static_cast<float>(mImgHeight));

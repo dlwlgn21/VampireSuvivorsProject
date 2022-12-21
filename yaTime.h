@@ -10,6 +10,8 @@ namespace ya
 		static void Tick();
 		static void Render(HDC hdc);
 
+		static void StartTimeCounting();
+		static void Reset();
 		static void Stop();
 		static void Resume();
 		static float TotalTime();
@@ -17,6 +19,7 @@ namespace ya
 
 
 		__forceinline static float DeltaTime() { return mDeltaTime * mScale; }
+		__forceinline static bool IsStoped() { return mbIsStoped; }
 
 	private:
 		// CPU 고유 진동수 ( 1초당 몇 번 )

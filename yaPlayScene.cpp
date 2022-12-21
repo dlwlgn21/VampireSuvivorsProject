@@ -11,6 +11,9 @@
 #include "yaHealthBar.h"
 #include "yaPlaySceneHUDPanel.h"
 #include "yaExpBar.h"
+#include "yaTime.h"
+#include "yaApplication.h"
+
 
 namespace ya
 {
@@ -18,7 +21,21 @@ namespace ya
 		: mSceneType(eSceneType::PLAY_SCENE)
 		, mpPlayer(nullptr)
 		, mbUiFlag(true)
+		, mHwnd(Application::GetInstance().GetWindowData().hwnd)
 	{
+		mFont.lfHeight = 30;
+		mFont.lfWidth = 0;
+		mFont.lfEscapement = 0;
+		mFont.lfOrientation = 0;
+		mFont.lfItalic = 0;
+		mFont.lfUnderline = 0;
+		mFont.lfStrikeOut = 0;
+		mFont.lfCharSet = ARABIC_CHARSET;
+		mFont.lfOutPrecision = 0;
+		mFont.lfClipPrecision = 0;
+		mFont.lfQuality = 0;
+		mFont.lfPitchAndFamily = VARIABLE_PITCH | FF_ROMAN;
+		lstrcpy(mFont.lfFaceName, L"Tekton Pro");
 	}
 	PlayScene::~PlayScene()
 	{
@@ -57,35 +74,32 @@ namespace ya
 	void PlayScene::Tick()
 	{
 		Scene::Tick();
-		//if (IS_KEY_DOWN(eKeyCode::ESC))
-		//{
-		//	if (mbUiFlag)
-		//	{
-		//		UIManager::Pop(eUIType::PLAY_INFO_HUD);
-		//		UIManager::Push(eUIType::PLAY_PAUSED);
-		//	}
-		//	else
-		//	{
-		//		UIManager::Pop(eUIType::PLAY_PAUSED);
-		//		UIManager::Push(eUIType::PLAY_INFO_HUD);
-		//	}
-		//	mbUiFlag = !mbUiFlag;
-		//}
 	}
 	void PlayScene::Render(HDC hdc)
 	{
 		Scene::Render(hdc);
 
-		char buffer[64];
+		wchar_t buffer[64];
+		swprintf_s(buffer, 64, L"%d : %d", static_cast<int>(Time::TotalTime() / 60), static_cast<int>(Time::TotalTime()) % 60);
+		int len = lstrlenW(buffer);
 
-		sprintf_s(buffer, 64, "Play Scene");
-		size_t strLen = strnlen_s(buffer, 64);
+		HFONT hFont = CreateFontIndirect(&mFont);
+		HFONT hOldFont;
+		hOldFont = (HFONT)SelectObject(hdc, hFont);
 
-		TextOutA(hdc, 10, 30, buffer, strLen);
+		SetBkMode(hdc, TRANSPARENT);
+		SetTextColor(hdc, RGB(255, 255, 255));
+		TextOutW(hdc, SCREEN_WIDTH / 2 - 25, 60, buffer, len);
+
+		SelectObject(hdc, hOldFont);
+		DeleteObject(hFont);
+		ReleaseDC(mHwnd, hdc);
+
 	}
 	void PlayScene::Enter()
 	{
 		Scene::Enter();
+		Time::StartTimeCounting();
 		CollisionManager::SetLayer(eColliderLayer::PLAYER, eColliderLayer::MONSTER, true);
 		CollisionManager::SetLayer(eColliderLayer::MONSTER, eColliderLayer::PLAYER_PROJECTTILE, true);
 		CollisionManager::SetLayer(eColliderLayer::GROUND, eColliderLayer::PLAYER, true);
@@ -98,5 +112,6 @@ namespace ya
 	void PlayScene::Exit()
 	{
 		Scene::Exit();
+		Time::Reset();
 	}
 }

@@ -31,13 +31,7 @@ namespace ya
 		// ADD PART
 		mdSecondPerCount = 1.0 / static_cast<double>(mCPUFrequency.QuadPart);
 		
-		long long currTime;
-		QueryPerformanceCounter(reinterpret_cast<LARGE_INTEGER*>(&currTime));
 
-		mllBaseTime = currTime;
-		mllPrevTime = currTime;
-		mllStopTime = 0;
-		mbIsStoped = false;
 		// ADD PART END
 
 		mHwnd = Application::GetInstance().GetWindowData().hwnd;
@@ -106,6 +100,27 @@ namespace ya
 			//SetWindowTextW(mHwnd, buffer);
 			mFpsTimer = 0.0f;
 		}
+	}
+
+	void Time::StartTimeCounting()
+	{
+		long long currTime;
+		QueryPerformanceCounter(reinterpret_cast<LARGE_INTEGER*>(&currTime));
+
+		mllBaseTime = currTime;
+		mllPrevTime = currTime;
+		mllStopTime = 0;
+		mbIsStoped = false;
+	}
+
+	void Time::Reset()
+	{
+		long long currTime;
+		QueryPerformanceCounter(reinterpret_cast<LARGE_INTEGER*>(&currTime));
+		mllBaseTime = 0;
+		mllPrevTime = currTime;
+		mllStopTime = 0;
+		mbIsStoped = false;
 	}
 
 	void Time::Stop()

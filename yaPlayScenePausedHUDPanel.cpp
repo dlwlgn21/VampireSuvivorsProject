@@ -4,6 +4,7 @@
 #include "yaImage.h"
 #include "yaInput.h"
 #include "yaUIAnimObject.h"
+#include "yaTime.h"
 
 namespace ya
 {
@@ -28,6 +29,7 @@ namespace ya
 	}
 	void PlayScenePausedHUDPanel::OnInitialize()
 	{
+		Time::Stop();
 	}
 	void PlayScenePausedHUDPanel::OnActive()
 	{
@@ -80,6 +82,7 @@ namespace ya
 	}
 	void PlayScenePausedHUDPanel::OnUIClear()
 	{
+		Time::Resume();
 	}
 	void PlayScenePausedHUDPanel::SetButtonPtrs()
 	{

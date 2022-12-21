@@ -7,6 +7,7 @@
 #include "yaLevelUpArrow.h"
 #include "yaLevelUpHUD.h"
 #include "yaPlayerLevelUpManager.h"
+#include "yaTime.h"
 
 namespace ya
 {
@@ -29,6 +30,7 @@ namespace ya
 	}
 	void PlaySceneLevelUpHUDPanel::OnInitialize()
 	{
+		Time::Stop();
 	}
 	void PlaySceneLevelUpHUDPanel::OnActive()
 	{
@@ -79,6 +81,7 @@ namespace ya
 	}
 	void PlaySceneLevelUpHUDPanel::OnUIClear()
 	{
+		Time::Resume();
 	}
 	void PlaySceneLevelUpHUDPanel::SetArrow(LevelUpArrow* pArrow)
 	{

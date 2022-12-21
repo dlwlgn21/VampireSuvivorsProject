@@ -41,6 +41,10 @@ namespace ya
 
 	void GameObject::Tick()
 	{
+		if (Time::IsStoped())
+		{
+			return;
+		}
 		if (mbDeathTriggerFlag)
 		{
 			mDeathTime -= Time::DeltaTime();

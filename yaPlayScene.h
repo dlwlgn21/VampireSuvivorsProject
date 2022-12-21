@@ -22,6 +22,8 @@ namespace ya
 		eSceneType mSceneType;
 		Player* mpPlayer;
 		bool mbUiFlag;
+		HWND mHwnd;
+		LOGFONT mFont;
 	};
 }
 
