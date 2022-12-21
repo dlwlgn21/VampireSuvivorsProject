@@ -15,6 +15,9 @@ namespace ya
 		virtual void Render(HDC hdc) = 0;
 	protected:
 		Image* mpImage;
+		int mImgWidth;
+		int mImgHeigt;
+		BLENDFUNCTION mBlendFunc;
 	};
 }
 

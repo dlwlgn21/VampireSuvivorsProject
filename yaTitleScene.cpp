@@ -11,6 +11,7 @@
 #include "yaOptionButton.h"
 #include "yaButtonImageObject.h"
 #include "yaUIManager.h"
+#include "yaBGTitleImage.h"
 namespace ya
 {
 	TitleScene::TitleScene()
@@ -30,7 +31,7 @@ namespace ya
 	}
 	void TitleScene::Initialize()
 	{
-		ya::object::InstantiateAtAnotherScene<BGGmaeImage>(eColliderLayer::BACKGROUND, L"BGGmaeImage", L"Resources\\Image\\TitleBGResize.bmp", GetSceneTpye());
+		ya::object::InstantiateAtAnotherScene<BGTitleImage>(eColliderLayer::BACKGROUND, L"BGGmaeImage", L"Resources\\Image\\TitleBGResize.bmp", GetSceneTpye());
 		ya::object::InstantiateAtAnotherScene<BGBlackBar>(eColliderLayer::BACKGROUND, L"BGBlackBar", L"Resources\\Image\\BlackBar.bmp", GetSceneTpye());
 		ya::object::InstantiateAtAnotherScene<BGGoldCount>(eColliderLayer::BACKGROUND, L"BGGoldCount", L"Resources\\Image\\GoldCountBox.bmp", GetSceneTpye());
 

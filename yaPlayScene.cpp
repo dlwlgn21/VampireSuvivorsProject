@@ -13,6 +13,7 @@
 #include "yaExpBar.h"
 #include "yaTime.h"
 #include "yaApplication.h"
+#include "yaBGGmaeImage.h"
 
 
 namespace ya
@@ -42,6 +43,8 @@ namespace ya
 	}
 	void PlayScene::Initialize()
 	{
+		ya::object::InstantiateAtAnotherScene<BGGmaeImage>(eColliderLayer::BACKGROUND, L"BGGmaeMap", L"Resources\\Image\\Map.bmp", GetSceneTpye());
+
 		mpPlayer = ya::object::Instantiate<Player>(eColliderLayer::PLAYER);
 		mpPlayer->SetPos({ 300.0f, 200.0f });
 		int monsterCount = 15;

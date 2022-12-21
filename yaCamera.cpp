@@ -4,7 +4,7 @@
 #include "yaInput.h"
 #include "yaTime.h"
 #include "yaImage.h"
-
+#include "yaResources.h"
 namespace ya
 {
 
@@ -16,6 +16,8 @@ namespace ya
 
 	eCameraEffect Camera::mEffect;
 	Image* Camera::mpImageCutton = nullptr;				// 검정색 이미지
+	int Camera::mImgWidth;
+	int Camera::mImgHeight;
 	float Camera::mAlphaTime = 0.0f;
 	float Camera::mCuttonAlphaValue = 1.0f;
 	float Camera::mAlphaEndTime = 3.0f;
@@ -27,15 +29,18 @@ namespace ya
 		mResolution = Vector2(static_cast<float>(windowData.width), static_cast<float>(windowData.height));
 		mLookPosition = mResolution / 2.0f;							// 가운데로 할거양
 		//mEffect = eCameraEffect::FADE_IN;
-		mpImageCutton = Image::Create(
-			L"CameraCutton",
-			Application::GetInstance().GetWindowData().width,
-			Application::GetInstance().GetWindowData().height
-		);
+		mpImageCutton = Resources::Load<Image>(L"BlackCaneraMask", L"Resources\\Image\\BlackCameraMask.bmp");
 		assert(mpImageCutton != nullptr);
+		mImgWidth = mpImageCutton->GetWidth();
+		assert(mImgWidth != 0);
+		mImgHeight = mpImageCutton->GetHeight();
+		assert(mImgHeight != 0);
+
 		mFunc.BlendOp = AC_SRC_OVER;
 		mFunc.BlendFlags = 0;
 		mFunc.AlphaFormat = 0;
+		mFunc.SourceConstantAlpha = 255;
+
 	}
 	void Camera::Tick()
 	{
@@ -80,24 +85,37 @@ namespace ya
 	}
 	void Camera::Render(HDC hdc)
 	{
-		if (mCuttonAlphaValue <= 0.0f)
-		{
-			return;
-		}
-		mFunc.SourceConstantAlpha = static_cast<BYTE>(255.0f * mCuttonAlphaValue);
+		//if (mCuttonAlphaValue <= 0.0f)
+		//{
+		//	return;
+		//}
+		//mFunc.SourceConstantAlpha = static_cast<BYTE>(255.0f * mCuttonAlphaValue);
 		AlphaBlend(
 			hdc,
 			static_cast<int>(0),
 			static_cast<int>(0),
-			static_cast<int>(mpImageCutton->GetWidth()),
-			static_cast<int>(mpImageCutton->GetHeight()),
+			static_cast<int>(mImgWidth),
+			static_cast<int>(mImgHeight),
 
 			mpImageCutton->GetDC(),
 			0, 0,
-			mpImageCutton->GetWidth(),
-			mpImageCutton->GetHeight(),
+			mImgWidth,
+			mImgHeight,
 			mFunc
 		);
 
+		AlphaBlend(
+			hdc,
+			static_cast<int>(ACTUAL_GAME_SCREEN_WIDTH + mImgWidth + 4),
+			static_cast<int>(0),
+			static_cast<int>(mImgWidth),
+			static_cast<int>(mImgHeight),
+
+			mpImageCutton->GetDC(),
+			0, 0,
+			mImgWidth,
+			mImgHeight,
+			mFunc
+		);
 	}
 }

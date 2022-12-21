@@ -29,10 +29,14 @@ namespace ya
 
 		static eCameraEffect mEffect;
 		static Image* mpImageCutton;				// 검정색 이미지
+		static int mImgWidth;
+		static int mImgHeight;
+
 		static float mAlphaTime;
 		static float mCuttonAlphaValue;
 		static float mAlphaEndTime;
 		static BLENDFUNCTION mFunc;
+
 	};
 }
 

@@ -133,6 +133,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="yaAxe.h" />
+    <ClInclude Include="yaBGTitleImage.h" />
     <ClInclude Include="yaFireWand.h" />
     <ClInclude Include="yaLevelBoxIcon.h" />
     <ClInclude Include="yaLevelUpArrow.h" />
@@ -254,6 +255,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="yaAxe.cpp" />
+    <ClCompile Include="yaBGTitleImage.cpp" />
     <ClCompile Include="yaFireWand.cpp" />
     <ClCompile Include="yaLevelBoxIcon.cpp" />
     <ClCompile Include="yaLevelUpArrow.cpp" />
