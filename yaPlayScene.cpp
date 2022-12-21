@@ -1,3 +1,6 @@
+#define MAP_TOP_BOT_COLLIDER_WIDTH (4096.0f)
+#define MAP_TOP_BOT_COLLIDER_HEIGHT (5.0f)
+
 #include "yaPlayScene.h"
 #include "yaPlayer.h"
 #include "yaInput.h"
@@ -14,6 +17,8 @@
 #include "yaTime.h"
 #include "yaApplication.h"
 #include "yaBGGmaeImage.h"
+#include "yaGameMapCollider.h"
+
 
 
 namespace ya
@@ -43,7 +48,23 @@ namespace ya
 	}
 	void PlayScene::Initialize()
 	{
-		ya::object::InstantiateAtAnotherScene<BGGmaeImage>(eColliderLayer::BACKGROUND, L"BGGmaeMap", L"Resources\\Image\\Map.bmp", GetSceneTpye());
+		ya::object::InstantiateAtAnotherScene<BGGmaeImage>(eColliderLayer::BACKGROUND, L"BGGmaeMap", L"Resources\\Image\\MapTwo.bmp", GetSceneTpye());
+		
+		// Top
+		ya::object::InstantiateAtAnotherScene<GameMapCollider>(eColliderLayer::BACKGROUND, Vector2(MAP_TOP_BOT_COLLIDER_WIDTH, MAP_TOP_BOT_COLLIDER_HEIGHT), Vector2(0.0f, -460.0f), GetSceneTpye());
+		// Bot
+		ya::object::InstantiateAtAnotherScene<GameMapCollider>(eColliderLayer::BACKGROUND, Vector2(MAP_TOP_BOT_COLLIDER_WIDTH, MAP_TOP_BOT_COLLIDER_HEIGHT), Vector2(0.0f, 455.0f), GetSceneTpye());
+		// TopDesk
+		ya::object::InstantiateAtAnotherScene<GameMapCollider>(eColliderLayer::BACKGROUND, Vector2(165.0f, 50.0f), Vector2(-412.0f, -390.0f), GetSceneTpye());
+		// BotDesk
+		ya::object::InstantiateAtAnotherScene<GameMapCollider>(eColliderLayer::BACKGROUND, Vector2(100, 50.0f), Vector2(1340.0f, 310.0f), GetSceneTpye());
+		// PianoSideBook
+		ya::object::InstantiateAtAnotherScene<GameMapCollider>(eColliderLayer::BACKGROUND, Vector2(380.f, 120.f), Vector2(-1410.0f, -130.f), GetSceneTpye());
+		// PianoMidBook
+		ya::object::InstantiateAtAnotherScene<GameMapCollider>(eColliderLayer::BACKGROUND, Vector2(190.0f, 64.0f), Vector2(-1440.0f, -220.f), GetSceneTpye());
+		// Piano
+		ya::object::InstantiateAtAnotherScene<GameMapCollider>(eColliderLayer::BACKGROUND, Vector2(126.0f, 50.0f), Vector2(-1437.0f, -60.f), GetSceneTpye());
+
 
 		mpPlayer = ya::object::Instantiate<Player>(eColliderLayer::PLAYER);
 		mpPlayer->SetPos({ 300.0f, 200.0f });
@@ -52,6 +73,7 @@ namespace ya
 		{
 			ya::object::InstantiateAtAnotherScene<Mudman>(eColliderLayer::MONSTER, Vector2(100.f * i, 300.f), mpPlayer, GetSceneTpye());
 		}
+		CollisionManager::SetLayer(eColliderLayer::PLAYER, eColliderLayer::BACKGROUND, true);
 		CollisionManager::SetLayer(eColliderLayer::PLAYER, eColliderLayer::MONSTER, true);
 		CollisionManager::SetLayer(eColliderLayer::MONSTER, eColliderLayer::PLAYER_PROJECTTILE, true);
 
@@ -103,9 +125,9 @@ namespace ya
 	{
 		Scene::Enter();
 		Time::StartTimeCounting();
+		CollisionManager::SetLayer(eColliderLayer::PLAYER, eColliderLayer::BACKGROUND, true);
 		CollisionManager::SetLayer(eColliderLayer::PLAYER, eColliderLayer::MONSTER, true);
 		CollisionManager::SetLayer(eColliderLayer::MONSTER, eColliderLayer::PLAYER_PROJECTTILE, true);
-		CollisionManager::SetLayer(eColliderLayer::GROUND, eColliderLayer::PLAYER, true);
 		PlaySceneHUDPanel* pPanel = static_cast<PlaySceneHUDPanel*>(UIManager::GetUIInstanceOrNull(eUIType::PLAY_INFO_HUD));
 		assert(pPanel != nullptr);
 		pPanel->SetPlayerToHpBar(mpPlayer);

@@ -135,6 +135,7 @@
     <ClInclude Include="yaAxe.h" />
     <ClInclude Include="yaBGTitleImage.h" />
     <ClInclude Include="yaFireWand.h" />
+    <ClInclude Include="yaGameMapCollider.h" />
     <ClInclude Include="yaLevelBoxIcon.h" />
     <ClInclude Include="yaLevelUpArrow.h" />
     <ClInclude Include="yaLevelUpHUD.h" />
@@ -257,6 +258,7 @@
     <ClCompile Include="yaAxe.cpp" />
     <ClCompile Include="yaBGTitleImage.cpp" />
     <ClCompile Include="yaFireWand.cpp" />
+    <ClCompile Include="yaGameMapCollider.cpp" />
     <ClCompile Include="yaLevelBoxIcon.cpp" />
     <ClCompile Include="yaLevelUpArrow.cpp" />
     <ClCompile Include="yaLevelUpHUD.cpp" />

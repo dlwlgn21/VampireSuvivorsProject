@@ -26,11 +26,15 @@ namespace ya
 		__forceinline Vector2 GetPos() { return mPos; }
 		__forceinline Vector2 GetScale() { return mSize; }
 
+		__forceinline void SetColliderLayer(eColliderLayer layer) { meLayerType = layer; }
+		__forceinline eColliderLayer GetColliderLayer() { return meLayerType; }
+
 	private:
 		Vector2 mOffset;
 		Vector2 mPos;
 		Vector2 mSize;
 
-		char mCollisionCount;
+		eColliderLayer meLayerType;
+		unsigned char mCollisionCount;
 	};
 }

@@ -103,10 +103,10 @@ namespace ya
 			mImgHeight,
 			mFunc
 		);
-
+		// ACTUAL_GAME_SCREEN_WIDTH + mImgWidth + 4
 		AlphaBlend(
 			hdc,
-			static_cast<int>(ACTUAL_GAME_SCREEN_WIDTH + mImgWidth + 4),
+			static_cast<int>(1824),
 			static_cast<int>(0),
 			static_cast<int>(mImgWidth),
 			static_cast<int>(mImgHeight),

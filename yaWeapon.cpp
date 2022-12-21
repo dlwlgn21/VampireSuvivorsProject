@@ -18,6 +18,7 @@ namespace ya
 	{
 		assert(mpCollider != nullptr);
 		AddComponent(mpCollider);
+		mpCollider->SetColliderLayer(eColliderLayer::PLAYER_PROJECTTILE);
 		mFunc.BlendOp = AC_SRC_OVER;
 		mFunc.BlendFlags = 0;
 		mFunc.AlphaFormat = AC_SRC_ALPHA;

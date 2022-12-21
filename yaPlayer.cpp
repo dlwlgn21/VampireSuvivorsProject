@@ -28,7 +28,7 @@ namespace ya
 {
 	Player::Player()
 		: GameObject({ 1500.0f, 500.0f })
-		, mMoveSpeed(300.0f)
+		, mMoveSpeed(1000.0f)
 		, mPen(CreatePen(PS_DASHDOTDOT, 3, RGB(0, 255, 255)))
 		, mBrush(CreateSolidBrush(RGB(153, 204, 255)))
 		, mpLeftImage(Resources::Load<Image>(L"PlayerLeft", L"Resources\\Image\\PlayerLeftAnim.bmp"))
@@ -83,6 +83,7 @@ namespace ya
 
 		AddComponent(mpAnimator);
 		AddComponent(mpCollider);
+		mpCollider->SetColliderLayer(eColliderLayer::PLAYER);
 		mpAnimator->CreateAnimation(mpLeftImage, mAnimSize, mAnimOffset, mAnimCount, mMinAnimInterval, ePlayerAnimState::LEFT);
 		mpAnimator->CreateAnimation(mpRightImage, mAnimSize, mAnimOffset, mAnimCount, mMinAnimInterval, ePlayerAnimState::RIGHT);
 		mpAnimator->CreateAnimation(mpLeftHittedImage, mAnimSize, mAnimOffset, mAnimCount, mMinAnimInterval, ePlayerAnimState::LEFT_HITTED);
@@ -279,36 +280,47 @@ namespace ya
 
 	void Player::OnCollisionEnter(Collider* other)
 	{
+		if (other->GetColliderLayer() == eColliderLayer::BACKGROUND)
+		{
+			int a = 0;
+		}
 	}
+
 	void Player::OnCollisionStay(Collider* other)
 	{
-		switch (mePlayerAnimState)
+		if (other->GetColliderLayer() == eColliderLayer::MONSTER)
 		{
-		case ePlayerAnimState::LEFT:
-			mePlayerAnimState = ePlayerAnimState::LEFT_HITTED;
-			break;
-		case ePlayerAnimState::RIGHT:
-			mePlayerAnimState = ePlayerAnimState::RIGHT_HITTED;
-			break;
-		default:
-			break;
+			switch (mePlayerAnimState)
+			{
+			case ePlayerAnimState::LEFT:
+				mePlayerAnimState = ePlayerAnimState::LEFT_HITTED;
+				break;
+			case ePlayerAnimState::RIGHT:
+				mePlayerAnimState = ePlayerAnimState::RIGHT_HITTED;
+				break;
+			default:
+				break;
+			}
+			mpAnimator->Play(mePlayerAnimState);
 		}
-		mpAnimator->Play(mePlayerAnimState);
 	}
 	void Player::OnCollisionExit(Collider* other)
 	{
-		switch (mePlayerAnimState)
+		if (other->GetColliderLayer() == eColliderLayer::MONSTER)
 		{
-		case ePlayerAnimState::LEFT_HITTED:
-			mePlayerAnimState = ePlayerAnimState::LEFT;
-			break;
-		case ePlayerAnimState::RIGHT_HITTED:
-			mePlayerAnimState = ePlayerAnimState::RIGHT;
-			break;
-		default:
-			break;
+			switch (mePlayerAnimState)
+			{
+			case ePlayerAnimState::LEFT_HITTED:
+				mePlayerAnimState = ePlayerAnimState::LEFT;
+				break;
+			case ePlayerAnimState::RIGHT_HITTED:
+				mePlayerAnimState = ePlayerAnimState::RIGHT;
+				break;
+			default:
+				break;
+			}
+			mpAnimator->Play(mePlayerAnimState);
 		}
-		mpAnimator->Play(mePlayerAnimState);
 	}
 
 	void Player::DamageFromMonster(const int damage)

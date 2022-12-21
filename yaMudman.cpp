@@ -31,6 +31,7 @@ namespace ya
 		mScale = { 2.0f, 2.0f };
 		AddComponent(mpAnimator);
 		AddComponent(mpCollider);
+		mpCollider->SetColliderLayer(eColliderLayer::MONSTER);
 		mpAnimator->CreateAnimation(mAnimMove, mpImage, Vector2::ZERO, mAnimMoveSize, mAnimOffset, mAnimCount, mAnimDuration);
 		mpAnimator->CreateAnimation(mAnimInvMove, mpInvImage, Vector2::ZERO, mAnimMoveSize, mAnimOffset, mAnimCount, mAnimDuration);
 		mpAnimator->Play(mAnimInvMove, true);

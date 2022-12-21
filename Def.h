@@ -148,3 +148,5 @@ enum class eWeaponAndItemTypes
 #define WEAPON_RUNE_INITIAL_DAMAGE (10)
 #define WEAPON_AXE_INITIAL_DAMAGE (20)
 #define TEST_WEAPON_SHOOT_INTERVAL (0.5f)
+
+

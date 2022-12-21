@@ -100,6 +100,9 @@
     <Filter Include="GameObject\ImageObject\Base">
       <UniqueIdentifier>{e20d44e8-e1b9-48be-8bf8-1f9c925547f8}</UniqueIdentifier>
     </Filter>
+    <Filter Include="GameObject\GameMapCollider">
+      <UniqueIdentifier>{5f3205b8-763e-4998-964e-f648538832c6}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
@@ -462,6 +465,9 @@
     <ClInclude Include="yaBGTitleImage.h">
       <Filter>GameObject\ImageObject</Filter>
     </ClInclude>
+    <ClInclude Include="yaGameMapCollider.h">
+      <Filter>GameObject\GameMapCollider</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Maths.cpp">
@@ -808,6 +814,9 @@
     </ClCompile>
     <ClCompile Include="yaBGTitleImage.cpp">
       <Filter>GameObject\ImageObject</Filter>
+    </ClCompile>
+    <ClCompile Include="yaGameMapCollider.cpp">
+      <Filter>GameObject\GameMapCollider</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
