@@ -10,16 +10,33 @@ namespace ya
 		static void Tick();
 		static void Render(HDC hdc);
 
-		inline static float DeltaTime() { return mDeltaTime; }
+		static void Stop();
+		static void Resume();
+		static float TotalTime();
+		static void SetScale(float scale);
+
+
+		__forceinline static float DeltaTime() { return mDeltaTime * mScale; }
 
 	private:
 		// CPU 고유 진동수 ( 1초당 몇 번 )
 		static LARGE_INTEGER mCPUFrequency;		// CPU 진동수
-		static LARGE_INTEGER mPrevFrequency;		// 내 이전 프레임 진동수
-		static LARGE_INTEGER mCurFrequency;		// 내 현재 프레임 진동수
 		static HWND mHwnd;
 		static float mDeltaTime;
-		static float mTime;
+		static float mFpsTimer;
+
+		// 추가된 파트
+		static float mScale;
+		static double mdSecondPerCount;
+
+
+		static long long mllBaseTime;		// 기준 시간으로 게임이 처음 구동되었을 때의 시간
+		static long long mllPausedTime;		// 멈춰있었던 시간. 즉, Stop()을 호출한 후, Resume()을 호출할 때까지 걸린 시간
+		static long long mllStopTime;		// 멈춘 시간. 즉, Stop()을 호출했을 때의 시간
+		static long long mllPrevTime;		// 이전 시간. 즉, 이전 Tick()의 시간.
+		static long long mllCurrTime;		// 현재 시간. 즉, 현재 Tick()의 시간.
+
+		static bool mbIsStoped;
 	};
 }
 
