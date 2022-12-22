@@ -30,38 +30,38 @@ namespace ya
 
 	void GameMapCollider::OnCollisionEnter(Collider* other)
 	{
-		//switch (other->GetColliderLayer())
-		//{
-		//case eColliderLayer::PLAYER:
-		//{
-		//	Player* mpPlayer = static_cast<Player*>(other->GetOwner());
-		//	assert(mpPlayer != nullptr);
-		//	switch (meType)
-		//	{
-		//	case ya::eMapColliderType::TOP:
-		//		mpPlayer->RestrictYPosition(-460.0f);
-		//		break;
-		//	case ya::eMapColliderType::BOT:
-		//		break;
-		//	case ya::eMapColliderType::TOP_DESK:
-		//		break;
-		//	case ya::eMapColliderType::BOT_DESK:
-		//		break;
-		//	case ya::eMapColliderType::PIANO_SIDE_BOOK:
-		//		break;
-		//	case ya::eMapColliderType::PIANO_MID_BOOK:
-		//		break;
-		//	case ya::eMapColliderType::PIANO:
-		//		break;
-		//	default:
-		//		assert(false);
-		//		break;
-		//	}
-		//	break;
-		//}
-		//default:
-		//	break;
-		//}
+		switch (other->GetColliderLayer())
+		{
+		case eColliderLayer::PLAYER:
+		{
+			switch (meType)
+			{
+			case eMapColliderType::LEFT_SCROLL_CHECKER:
+			{
+				BGGmaeImage::IncreaseLeftScrollCount();
+				BGGmaeImage* pBgGameImage = ya::object::InstantiateAtAnotherScene<BGGmaeImage>(eColliderLayer::BACKGROUND, L"BGGmaeMap", L"Resources\\Image\\MapTwo.bmp", eSceneType::PLAY_SCENE);
+				pBgGameImage->SetLeftScrollCheck(true);
+				pBgGameImage->Initialize();
+				SetActive(false);
+				break;
+			}
+			case eMapColliderType::RIGHT_SCROLL_CHECKER:
+			{
+				BGGmaeImage::IncreaseRightScrollCount();
+				BGGmaeImage* pBgGameImage = ya::object::InstantiateAtAnotherScene<BGGmaeImage>(eColliderLayer::BACKGROUND, L"BGGmaeMap", L"Resources\\Image\\MapTwo.bmp", eSceneType::PLAY_SCENE);
+				pBgGameImage->SetRightScrollCheck(true);
+				pBgGameImage->Initialize();
+				SetActive(false);
+				break;
+			}
+			default:
+				break;
+			}
+			break;
+		}
+		default:
+			break;
+		}
 	}
 	void GameMapCollider::OnCollisionStay(Collider* other)
 	{
@@ -107,25 +107,7 @@ namespace ya
 				OnEnterPlayer(pPlayer, pos, size);
 				break;
 			}
-			case eMapColliderType::LEFT_SCROLL_CHECKER:
-			{
-				BGGmaeImage::IncreaseLeftScrollCount();
-				BGGmaeImage* pBgGameImage = ya::object::InstantiateAtAnotherScene<BGGmaeImage>(eColliderLayer::BACKGROUND, L"BGGmaeMap", L"Resources\\Image\\MapTwo.bmp", eSceneType::PLAY_SCENE);
-				pBgGameImage->SetLeftScrollCheck(true);
-				pBgGameImage->Initialize();
-				break;
-			}
-			case eMapColliderType::RIGHT_SCROLL_CHECKER:
-			{
-				BGGmaeImage::IncreaseRightScrollCount();
-				BGGmaeImage* pBgGameImage = ya::object::InstantiateAtAnotherScene<BGGmaeImage>(eColliderLayer::BACKGROUND, L"BGGmaeMap", L"Resources\\Image\\MapTwo.bmp", eSceneType::PLAY_SCENE);
-				pBgGameImage->SetRightScrollCheck(true);
-				pBgGameImage->Initialize();
-				break;
-			}
-
 			default:
-				assert(false);
 				break;
 			}
 			break;

@@ -17,7 +17,7 @@ namespace ya
 		void Tick() override;
 		void Render(HDC hdc) override;
 		__forceinline void SetLeftScrollCheck(bool isLeftScrollCheck) { mbIsLeftScrollCheck = isLeftScrollCheck; }
-		__forceinline void SetRightScrollCheck(bool isRightScrollCheck) { mbIsLeftScrollCheck = isRightScrollCheck; }
+		__forceinline void SetRightScrollCheck(bool isRightScrollCheck) { mbIsRightScrollCheck = isRightScrollCheck; }
 		
 		static unsigned char GetRightScrollCount();
 		static unsigned char GetLeftScrollCount();

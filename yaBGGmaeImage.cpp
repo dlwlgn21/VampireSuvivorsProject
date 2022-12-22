@@ -60,7 +60,7 @@ namespace ya
 	}
 	void BGGmaeImage::Initialize()
 	{
-		if (!mbIsLeftScrollCheck && !mbIsRightScrollCheck)
+		if (mbIsLeftScrollCheck == false && mbIsRightScrollCheck == false)
 		{
 			instantiate(eMapColliderType::TOP, Vector2(MAP_TOP_BOT_COLLIDER_WIDTH, MAP_TOP_BOT_COLLIDER_HEIGHT), Vector2(MAP_TOP_BOT_COLLIDER_X_POS, MAP_TOP_COLLIDER_Y_POS));
 			instantiate(eMapColliderType::BOT, Vector2(MAP_TOP_BOT_COLLIDER_WIDTH, MAP_TOP_BOT_COLLIDER_HEIGHT), Vector2(MAP_TOP_BOT_COLLIDER_X_POS, MAP_BOT_COLLIDER_Y_POS));
@@ -69,7 +69,7 @@ namespace ya
 			instantiate(eMapColliderType::PIANO_SIDE_BOOK, Vector2(PIANO_SIDE_BOOK_WIDTH, PIANO_SIDE_BOOK_HEIGHT), Vector2(PIANO_SIDE_BOOK_X_POS, PIANO_SIDE_BOOK_Y_POS));
 			instantiate(eMapColliderType::PIANO_MID_BOOK, Vector2(PIANO_MID_BOOK_WIDTH, PIANO_MID_BOOK_HEIGHT), Vector2(PIANO_MID_BOOK_X_POS, PIANO_MID_BOOK_Y_POS));
 			instantiate(eMapColliderType::PIANO, Vector2(PIANO_WIDTH, PIANO_HEIGHT), Vector2(PIANO_X_POS, PIANO_Y_POS));
-			instantiate(eMapColliderType::LEFT_SCROLL_CHECKER, Vector2(SCROLL_CHECKER_WIDTH, SCREEN_HEIGHT), Vector2(-MAP_TOP_BOT_COLLIDER_WIDTH / 4, 0.0f));
+			instantiate(eMapColliderType::LEFT_SCROLL_CHECKER, Vector2(SCROLL_CHECKER_WIDTH, SCREEN_HEIGHT), Vector2(-MAP_TOP_BOT_COLLIDER_WIDTH / 4 - 1000.0f, 0.0f));
 			instantiate(eMapColliderType::RIGHT_SCROLL_CHECKER, Vector2(SCROLL_CHECKER_WIDTH, SCREEN_HEIGHT), Vector2(MAP_TOP_BOT_COLLIDER_WIDTH / 4, 0.0f));
 			return;
 		}
@@ -87,12 +87,18 @@ namespace ya
 			instantiate(eMapColliderType::PIANO_MID_BOOK, Vector2(PIANO_MID_BOOK_WIDTH, PIANO_MID_BOOK_HEIGHT), Vector2((PIANO_MID_BOOK_X_POS - MAP_TOP_BOT_COLLIDER_WIDTH) * leftScrollCount, PIANO_MID_BOOK_Y_POS));
 			instantiate(eMapColliderType::PIANO, Vector2(PIANO_WIDTH, PIANO_HEIGHT), Vector2((PIANO_X_POS - MAP_TOP_BOT_COLLIDER_WIDTH) * leftScrollCount, PIANO_Y_POS));
 			instantiate(eMapColliderType::LEFT_SCROLL_CHECKER, Vector2(SCROLL_CHECKER_WIDTH, SCREEN_HEIGHT), Vector2(((-MAP_TOP_BOT_COLLIDER_WIDTH / 4) - MAP_TOP_BOT_COLLIDER_WIDTH) * leftScrollCount, 0.0f));
-			//instantiate(eMapColliderType::RIGHT_SCROLL_CHECKER, Vector2(SCROLL_CHECKER_WIDTH, SCREEN_HEIGHT), Vector2(((MAP_TOP_BOT_COLLIDER_WIDTH / 4) - MAP_TOP_BOT_COLLIDER_WIDTH) * leftScrollCount, 0.0f));
 		}
 		else
 		{
 			mPos.x = rightScrollCount * MAP_TOP_BOT_COLLIDER_WIDTH;
-
+			instantiate(eMapColliderType::TOP, Vector2(MAP_TOP_BOT_COLLIDER_WIDTH, MAP_TOP_BOT_COLLIDER_HEIGHT), Vector2((MAP_TOP_BOT_COLLIDER_X_POS + MAP_TOP_BOT_COLLIDER_WIDTH) * rightScrollCount, MAP_TOP_COLLIDER_Y_POS));
+			instantiate(eMapColliderType::BOT, Vector2(MAP_TOP_BOT_COLLIDER_WIDTH, MAP_TOP_BOT_COLLIDER_HEIGHT), Vector2((MAP_TOP_BOT_COLLIDER_X_POS + MAP_TOP_BOT_COLLIDER_WIDTH) * rightScrollCount, MAP_BOT_COLLIDER_Y_POS));
+			instantiate(eMapColliderType::TOP_DESK, Vector2(TOP_DESK_WIDTH, TOP_DESK_HEIGHT), Vector2((TOP_DESK_X_POS + MAP_TOP_BOT_COLLIDER_WIDTH) * rightScrollCount, TOP_DESK_Y_POS));
+			instantiate(eMapColliderType::BOT_DESK, Vector2(BOT_DESK_WIDTH, BOT_DESK_HEIGHT), Vector2((BOT_DESK_X_POS + MAP_TOP_BOT_COLLIDER_WIDTH) * rightScrollCount, BOT_DESK_Y_POS));
+			instantiate(eMapColliderType::PIANO_SIDE_BOOK, Vector2(PIANO_SIDE_BOOK_WIDTH, PIANO_SIDE_BOOK_HEIGHT), Vector2((PIANO_SIDE_BOOK_X_POS + MAP_TOP_BOT_COLLIDER_WIDTH) * rightScrollCount, PIANO_SIDE_BOOK_Y_POS));
+			instantiate(eMapColliderType::PIANO_MID_BOOK, Vector2(PIANO_MID_BOOK_WIDTH, PIANO_MID_BOOK_HEIGHT), Vector2((PIANO_MID_BOOK_X_POS + MAP_TOP_BOT_COLLIDER_WIDTH) * rightScrollCount, PIANO_MID_BOOK_Y_POS));
+			instantiate(eMapColliderType::PIANO, Vector2(PIANO_WIDTH, PIANO_HEIGHT), Vector2((PIANO_X_POS + MAP_TOP_BOT_COLLIDER_WIDTH) * rightScrollCount, PIANO_Y_POS));
+			instantiate(eMapColliderType::RIGHT_SCROLL_CHECKER, Vector2(SCROLL_CHECKER_WIDTH, SCREEN_HEIGHT), Vector2(((MAP_TOP_BOT_COLLIDER_WIDTH / 4) + MAP_TOP_BOT_COLLIDER_WIDTH) * rightScrollCount, 0.0f));
 		}
 	}
 	void BGGmaeImage::Tick()
