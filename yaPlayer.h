@@ -69,7 +69,9 @@ namespace ya
 		void IncreaseExp(const int exp);
 		WeaponStat& GetWeaponStat(const eWeaponAndItemTypes type);
 		void IncreaseWeaponStat(const eWeaponAndItemTypes type);
-
+		void RestrictYTopPosition(float restricedYPos);
+		void RestrictYBotPosition(float restricedYPos);
+		void CanNotEnterPlayer(float leftXCoordinate, float rightXCoordinate, float topYCoordinate, float botYCoordinate);
 		__forceinline void SetHp(const int hp) { mHp = hp; }
 		__forceinline int GetHp() const { return mHp; }
 		__forceinline int GetExp() const { return mExp; }
@@ -148,7 +150,6 @@ namespace ya
 
 
 		PlayerItemLevelStat mPlyerItemLevelStat;
-
 
 		WeaponStat mKnifeStat;
 		WeaponStat mFireWandStat;

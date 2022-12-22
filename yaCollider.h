@@ -24,7 +24,7 @@ namespace ya
 
 		__forceinline Vector2 GetOffset() { return mOffset; }
 		__forceinline Vector2 GetPos() { return mPos; }
-		__forceinline Vector2 GetScale() { return mSize; }
+		__forceinline Vector2 GetSize() { return mSize; }
 
 		__forceinline void SetColliderLayer(eColliderLayer layer) { meLayerType = layer; }
 		__forceinline eColliderLayer GetColliderLayer() { return meLayerType; }

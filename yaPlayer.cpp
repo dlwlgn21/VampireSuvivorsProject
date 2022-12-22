@@ -26,6 +26,12 @@
 
 namespace ya
 {
+	/*
+		bool mbIsCollideUp;
+		bool mbIsCollideDown;
+		bool mbIsCollideRight;
+		bool mbIsCollideLeft;
+	*/
 	Player::Player()
 		: GameObject({ 1500.0f, 500.0f })
 		, mMoveSpeed(1000.0f)
@@ -280,16 +286,41 @@ namespace ya
 
 	void Player::OnCollisionEnter(Collider* other)
 	{
-		if (other->GetColliderLayer() == eColliderLayer::BACKGROUND)
-		{
-			int a = 0;
-		}
+		//switch (other->GetColliderLayer())
+		//{
+		//case eColliderLayer::BACKGROUND:
+		//	switch (meLookDir)
+		//	{
+		//	case ya::ePlayerLookDirection::UP:
+		//	case ya::ePlayerLookDirection::UP_LEFT:
+		//	case ya::ePlayerLookDirection::UP_RIGHT:
+		//		mbIsCollideUp = true;
+		//		break;
+		//	case ya::ePlayerLookDirection::DOWN:
+		//	case ya::ePlayerLookDirection::DOWN_LEFT:
+		//	case ya::ePlayerLookDirection::DOWN_RIGHT:
+		//		mbIsCollideDown = true;
+		//		break;
+		//	case ya::ePlayerLookDirection::LEFT:
+		//		mbIsCollideLeft = true;
+		//		break;
+		//	case ya::ePlayerLookDirection::RIGHT:
+		//		mbIsCollideRight = true;
+		//		break;
+		//	default:
+		//		break;
+		//	}
+		//	break;
+		//default:
+		//	break;
+		//}
 	}
 
 	void Player::OnCollisionStay(Collider* other)
 	{
-		if (other->GetColliderLayer() == eColliderLayer::MONSTER)
+		switch (other->GetColliderLayer())
 		{
+		case eColliderLayer::MONSTER:
 			switch (mePlayerAnimState)
 			{
 			case ePlayerAnimState::LEFT:
@@ -302,12 +333,16 @@ namespace ya
 				break;
 			}
 			mpAnimator->Play(mePlayerAnimState);
+			break;
+		default:
+			break;
 		}
 	}
 	void Player::OnCollisionExit(Collider* other)
 	{
-		if (other->GetColliderLayer() == eColliderLayer::MONSTER)
+		switch (other->GetColliderLayer())
 		{
+		case eColliderLayer::MONSTER:
 			switch (mePlayerAnimState)
 			{
 			case ePlayerAnimState::LEFT_HITTED:
@@ -320,6 +355,31 @@ namespace ya
 				break;
 			}
 			mpAnimator->Play(mePlayerAnimState);
+			break;
+		//case eColliderLayer::BACKGROUND:
+		//	if (mbIsCollideUp)
+		//	{
+		//		mbIsCollideUp = false;
+		//		break;
+		//	}
+		//	if (mbIsCollideDown)
+		//	{
+		//		mbIsCollideDown = false;
+		//		break;
+		//	}
+		//	if (mbIsCollideLeft)
+		//	{
+		//		mbIsCollideLeft = false;
+		//		break;
+		//	}
+		//	if (mbIsCollideRight)
+		//	{
+		//		mbIsCollideRight = false;
+		//		break;
+		//	}
+		//	break;
+		default:
+			break;
 		}
 	}
 
@@ -519,5 +579,48 @@ namespace ya
 			}
 		}
 
+	}
+	void Player::RestrictYTopPosition(float restricedYPos)
+	{
+		if (mPos.y <= restricedYPos)
+		{
+			mPos.y = restricedYPos;
+		}
+	}
+	void Player::RestrictYBotPosition(float restricedYPos)
+	{
+		if (mPos.y >= restricedYPos)
+		{
+			mPos.y = restricedYPos;
+		}
+	}
+	void Player::CanNotEnterPlayer(float leftXCoordinate, float rightXCoordinate, float topYCoordinate, float botYCoordinate)
+	{
+		int positiveX = mPos.x;
+		int intXLeft = leftXCoordinate;
+		int intXRight = rightXCoordinate;
+		int intTop = topYCoordinate;
+		int intBot = botYCoordinate;
+
+		if (positiveX <= intXLeft)
+		{
+			mPos.x = leftXCoordinate;
+			return;
+		}
+		if (positiveX >= intXRight)
+		{
+			mPos.x = rightXCoordinate;
+			return;
+		}
+		if (positiveX >= intTop)
+		{
+			mPos.y = topYCoordinate;
+			return;
+		}
+		if (positiveX <= intBot)
+		{
+			mPos.y = botYCoordinate;
+			return;
+		}
 	}
 }

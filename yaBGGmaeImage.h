@@ -1,5 +1,6 @@
 #pragma once
 #include "yaBGImageObject.h"
+#include "yaGameMapCollider.h"
 
 namespace ya
 {
@@ -15,6 +16,9 @@ namespace ya
 		void Initialize() override;
 		void Tick() override;
 		void Render(HDC hdc) override;
+	private:
+		void instantiate(eMapColliderType type, Vector2 colliderSize, Vector2 colliderOffset);
+
 	private:
 		//Collider* mpTopCollider;
 		//Collider* mpBotCollider;

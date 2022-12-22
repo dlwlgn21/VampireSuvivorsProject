@@ -4,8 +4,9 @@
 #include "yaBGGmaeImage.h"
 #include "yaImage.h"
 #include "yaCamera.h"
-
-//#include "yaCollider.h"
+#include "yaObject.h"
+#include "yaCollider.h"
+#include "yaGameMapCollider.h"
 
 namespace ya
 {
@@ -17,43 +18,25 @@ namespace ya
 	*/
 	BGGmaeImage::BGGmaeImage(const std::wstring& key, const std::wstring& path)
 		: BGImageObject(key, path)
-		//, mpTopCollider(new Collider(Vector2(MAP_TOP_BOT_COLLIDER_WIDTH, MAP_TOP_BOT_COLLIDER_HEIGHT)))
-		//, mpBotCollider(new Collider(Vector2(MAP_TOP_BOT_COLLIDER_WIDTH, MAP_TOP_BOT_COLLIDER_HEIGHT)))
-		//, mpTopDeskCollider(new Collider(Vector2(165.0f, 50.0f)))
-		//, mpBotDeskCollider(new Collider(Vector2(100, 50.0f)))
-		//, mpPianoSideBookCollider(new Collider(Vector2(380.f, 120.f)))
-		//, mpPianoMidBookCollider(new Collider(Vector2(190.0f, 64.0f)))
-		//, mpPianoCollider(new Collider(Vector2(126.0f, 50.0f)))
 	{
-		//assert(
-		//	mpTopCollider != nullptr && 
-		//	mpBotCollider != nullptr && 
-		//	mpTopDeskCollider != nullptr && 
-		//	mpBotDeskCollider != nullptr &&
-		//	mpPianoSideBookCollider != nullptr && 
-		//	mpPianoMidBookCollider != nullptr && 
-		//	mpPianoCollider != nullptr
-		//);
-
 		mPos = Vector2::ZERO;
-		//AddComponent(mpTopCollider);
-		//AddComponent(mpBotCollider);
-		//AddComponent(mpTopDeskCollider);
-		//AddComponent(mpBotDeskCollider);
-		//AddComponent(mpPianoSideBookCollider);
-		//AddComponent(mpPianoMidBookCollider);
-		//AddComponent(mpPianoCollider);
-
-		//mpTopCollider->SetOffset(Vector2(0.0f, -500.0f));
-		//mpBotCollider->SetOffset(Vector2(0.0f, 455.0f));
-		//mpTopDeskCollider->SetOffset(Vector2(-412.0f, -390.0f));
-		//mpBotDeskCollider->SetOffset(Vector2(1340.0f, 310.0f));
-		//mpPianoSideBookCollider->SetOffset(Vector2(-1410.0f, -130.f));
-		//mpPianoMidBookCollider->SetOffset(Vector2(-1440.0f, -220.f));
-		//mpPianoCollider->SetOffset(Vector2(-1437.0f, -60.f));
 	}
 	void BGGmaeImage::Initialize()
 	{
+		// Top
+		instantiate(eMapColliderType::TOP, Vector2(MAP_TOP_BOT_COLLIDER_WIDTH, MAP_TOP_BOT_COLLIDER_HEIGHT), Vector2(0.0f, -460.0f));
+		// Bot
+		instantiate(eMapColliderType::BOT, Vector2(MAP_TOP_BOT_COLLIDER_WIDTH, MAP_TOP_BOT_COLLIDER_HEIGHT), Vector2(0.0f, 455.0f));
+		// TopDesk
+		instantiate(eMapColliderType::TOP_DESK, Vector2(165.0f, 50.0f), Vector2(-412.0f, -390.0f));
+		// BotDesk
+		instantiate(eMapColliderType::BOT_DESK, Vector2(100, 50.0f), Vector2(1340.0f, 310.0f));
+		// PianoSideBook
+		instantiate(eMapColliderType::PIANO_SIDE_BOOK, Vector2(380.f, 120.f), Vector2(-1410.0f, -130.f));
+		// PianoMidBook
+		instantiate(eMapColliderType::PIANO_MID_BOOK, Vector2(190.0f, 50.0f), Vector2(-1440.0f, -220.f));
+		// Piano
+		instantiate(eMapColliderType::PIANO, Vector2(126.0f, 30.0f), Vector2(-1437.0f, -50.f));
 	}
 	void BGGmaeImage::Tick()
 	{
@@ -62,20 +45,6 @@ namespace ya
 	void BGGmaeImage::Render(HDC hdc)
 	{
 		Vector2 pos = Camera::ToCameraPos(mPos);
-		//TransparentBlt(
-		//	hdc,
-		//	static_cast<int>(pos.x - mImgWidth / 2.0f),
-		//	static_cast<int>(pos.y - mImgHeigt / 2.0f),
-		//	static_cast<int>(mImgWidth * mScale.x),
-		//	static_cast<int>(mImgHeigt * mScale.y),
-
-		//	mpImage->GetDC(),
-		//	0,
-		//	0,
-		//	mImgWidth,
-		//	mImgHeigt,
-		//	RGB(255, 0, 255)
-		//);
 
 		AlphaBlend(
 			hdc,
@@ -92,5 +61,11 @@ namespace ya
 			mBlendFunc
 		);
 		GameObject::Render(hdc);
+	}
+	void BGGmaeImage::instantiate(eMapColliderType type, Vector2 colliderSize, Vector2 colliderOffset)
+	{
+		GameMapCollider* gameObeject = new GameMapCollider(type, colliderSize, colliderOffset);
+		Scene* scene = SceneManager::GetSpecifiedScene(eSceneType::PLAY_SCENE);
+		scene->AddGameObject(static_cast<GameObject*>(gameObeject), eColliderLayer::BACKGROUND);
 	}
 }

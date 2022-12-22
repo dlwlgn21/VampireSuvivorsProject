@@ -48,23 +48,8 @@ namespace ya
 	}
 	void PlayScene::Initialize()
 	{
-		ya::object::InstantiateAtAnotherScene<BGGmaeImage>(eColliderLayer::BACKGROUND, L"BGGmaeMap", L"Resources\\Image\\MapTwo.bmp", GetSceneTpye());
-		
-		// Top
-		ya::object::InstantiateAtAnotherScene<GameMapCollider>(eColliderLayer::BACKGROUND, Vector2(MAP_TOP_BOT_COLLIDER_WIDTH, MAP_TOP_BOT_COLLIDER_HEIGHT), Vector2(0.0f, -460.0f), GetSceneTpye());
-		// Bot
-		ya::object::InstantiateAtAnotherScene<GameMapCollider>(eColliderLayer::BACKGROUND, Vector2(MAP_TOP_BOT_COLLIDER_WIDTH, MAP_TOP_BOT_COLLIDER_HEIGHT), Vector2(0.0f, 455.0f), GetSceneTpye());
-		// TopDesk
-		ya::object::InstantiateAtAnotherScene<GameMapCollider>(eColliderLayer::BACKGROUND, Vector2(165.0f, 50.0f), Vector2(-412.0f, -390.0f), GetSceneTpye());
-		// BotDesk
-		ya::object::InstantiateAtAnotherScene<GameMapCollider>(eColliderLayer::BACKGROUND, Vector2(100, 50.0f), Vector2(1340.0f, 310.0f), GetSceneTpye());
-		// PianoSideBook
-		ya::object::InstantiateAtAnotherScene<GameMapCollider>(eColliderLayer::BACKGROUND, Vector2(380.f, 120.f), Vector2(-1410.0f, -130.f), GetSceneTpye());
-		// PianoMidBook
-		ya::object::InstantiateAtAnotherScene<GameMapCollider>(eColliderLayer::BACKGROUND, Vector2(190.0f, 64.0f), Vector2(-1440.0f, -220.f), GetSceneTpye());
-		// Piano
-		ya::object::InstantiateAtAnotherScene<GameMapCollider>(eColliderLayer::BACKGROUND, Vector2(126.0f, 50.0f), Vector2(-1437.0f, -60.f), GetSceneTpye());
-
+		BGGmaeImage* bgGameImage = ya::object::InstantiateAtAnotherScene<BGGmaeImage>(eColliderLayer::BACKGROUND, L"BGGmaeMap", L"Resources\\Image\\MapTwo.bmp", GetSceneTpye());
+		bgGameImage->Initialize();
 
 		mpPlayer = ya::object::Instantiate<Player>(eColliderLayer::PLAYER);
 		mpPlayer->SetPos({ 300.0f, 200.0f });

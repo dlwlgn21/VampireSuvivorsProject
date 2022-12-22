@@ -3,6 +3,7 @@
 #include "yaScene.h"
 #include "yaGameObejct.h"
 #include "yaSceneManager.h"
+#include "yaPlayer.h"
 
 namespace ya
 {
@@ -80,14 +81,6 @@ namespace ya
 			return gameObeject;
 		}
 
-		template<typename T>
-		static __forceinline T* InstantiateAtAnotherScene(eColliderLayer colliderLayer, Vector2 colliderSize, Vector2 colliderOffset, eSceneType sceneType)
-		{
-			T* gameObeject = new T(colliderSize, colliderOffset);
-			Scene* scene = SceneManager::GetSpecifiedScene(sceneType);
-			scene->AddGameObject(static_cast<GameObject*>(gameObeject), colliderLayer);
-			return gameObeject;
-		}
 
 		template<typename T>
 		static __forceinline void Destory(GameObject* gameObject)

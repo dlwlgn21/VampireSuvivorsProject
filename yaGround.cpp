@@ -31,7 +31,7 @@ namespace ya
 		pPlayerObject->GetComponentOrNull<RigidBody>(eComponentType::RIGID_BODY)->SetIsGround(true);
 
 		float fLen = fabs(other->GetPos().y - GetComponentOrNull<Collider>(eComponentType::COLLIDER)->GetPos().y);
-		float fScale = other->GetScale().y / 2.0f + GetComponentOrNull<Collider>(eComponentType::COLLIDER)->GetScale().y / 2.0f;
+		float fScale = other->GetSize().y / 2.0f + GetComponentOrNull<Collider>(eComponentType::COLLIDER)->GetSize().y / 2.0f;
 		
 		// Ground 위로 밀어주는 작업.
 		if (fLen < fScale)

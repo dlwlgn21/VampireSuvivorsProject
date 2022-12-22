@@ -132,9 +132,9 @@ namespace ya
 		if (!rCollider->GetOwner()->IsAlive())
 			{ return false; }
 		Vector2 leftPos = lCollider->GetPos();
-		Vector2 leftScale = lCollider->GetScale();
+		Vector2 leftScale = lCollider->GetSize();
 		Vector2 rightPos = rCollider->GetPos();
-		Vector2 rightScale = rCollider->GetScale();
+		Vector2 rightScale = rCollider->GetSize();
 
 		if (fabs(leftPos.x - rightPos.x) < fabs(leftScale.x / 2 + rightScale.x / 2) &&
 			fabs(leftPos.y - rightPos.y) < fabs(leftScale.y / 2 + rightScale.y / 2))
