@@ -12,6 +12,8 @@ namespace ya
 		PIANO_SIDE_BOOK,
 		PIANO_MID_BOOK,
 		PIANO,
+		LEFT_SCROLL_CHECKER,
+		RIGHT_SCROLL_CHECKER,
 		COUNT
 	};
 	class Player;

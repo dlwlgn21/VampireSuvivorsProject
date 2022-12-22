@@ -596,31 +596,31 @@ namespace ya
 	}
 	void Player::CanNotEnterPlayer(float leftXCoordinate, float rightXCoordinate, float topYCoordinate, float botYCoordinate)
 	{
-		int positiveX = mPos.x;
-		int intXLeft = leftXCoordinate;
-		int intXRight = rightXCoordinate;
-		int intTop = topYCoordinate;
-		int intBot = botYCoordinate;
+		//int positiveX = mPos.x;
+		//int intXLeft = leftXCoordinate;
+		//int intXRight = rightXCoordinate;
+		//int intTop = topYCoordinate;
+		//int intBot = botYCoordinate;
 
-		if (positiveX <= intXLeft)
-		{
-			mPos.x = leftXCoordinate;
-			return;
-		}
-		if (positiveX >= intXRight)
-		{
-			mPos.x = rightXCoordinate;
-			return;
-		}
-		if (positiveX >= intTop)
-		{
-			mPos.y = topYCoordinate;
-			return;
-		}
-		if (positiveX <= intBot)
-		{
-			mPos.y = botYCoordinate;
-			return;
-		}
+		//if (positiveX <= intXLeft)
+		//{
+		//	mPos.x = leftXCoordinate;
+		//	return;
+		//}
+		//if (positiveX >= intXRight)
+		//{
+		//	mPos.x = rightXCoordinate;
+		//	return;
+		//}
+		//if (positiveX >= intTop)
+		//{
+		//	mPos.y = topYCoordinate;
+		//	return;
+		//}
+		//if (positiveX <= intBot)
+		//{
+		//	mPos.y = botYCoordinate;
+		//	return;
+		//}
 	}
 }

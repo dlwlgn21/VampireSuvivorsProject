@@ -16,17 +16,22 @@ namespace ya
 		void Initialize() override;
 		void Tick() override;
 		void Render(HDC hdc) override;
+		__forceinline void SetLeftScrollCheck(bool isLeftScrollCheck) { mbIsLeftScrollCheck = isLeftScrollCheck; }
+		__forceinline void SetRightScrollCheck(bool isRightScrollCheck) { mbIsLeftScrollCheck = isRightScrollCheck; }
+		
+		static unsigned char GetRightScrollCount();
+		static unsigned char GetLeftScrollCount();
+		static void IncreaseLeftScrollCount();
+		static void IncreaseRightScrollCount();
+
 	private:
 		void instantiate(eMapColliderType type, Vector2 colliderSize, Vector2 colliderOffset);
 
 	private:
-		//Collider* mpTopCollider;
-		//Collider* mpBotCollider;
-		//Collider* mpTopDeskCollider;
-		//Collider* mpBotDeskCollider;
-		//Collider* mpPianoSideBookCollider;
-		//Collider* mpPianoMidBookCollider;
-		//Collider* mpPianoCollider;
+		bool mbIsLeftScrollCheck;
+		bool mbIsRightScrollCheck;
+		static unsigned char mLeftScrollCount;
+		static unsigned char mRightScrollCount;
 	};
 }
 

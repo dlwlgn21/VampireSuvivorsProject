@@ -1,6 +1,8 @@
 #include "yaGameMapCollider.h"
 #include "yaCollider.h"
 #include "yaPlayer.h"
+#include "yaObject.h"
+#include "yaBGGmaeImage.h"
 
 namespace ya
 {
@@ -74,37 +76,54 @@ namespace ya
 			Vector2 size = mpCollider->GetSize();
 			switch (meType)
 			{
-			case ya::eMapColliderType::TOP:
+			case eMapColliderType::TOP:
 				pPlayer->RestrictYTopPosition(-460.0f);
 				break;
-			case ya::eMapColliderType::BOT:
+			case eMapColliderType::BOT:
 				pPlayer->RestrictYBotPosition(455.0f);
 				break;
-			case ya::eMapColliderType::TOP_DESK:
+			case eMapColliderType::TOP_DESK:
 			{
 				OnEnterPlayer(pPlayer, pos, size);
 				break;
 			}
-			case ya::eMapColliderType::BOT_DESK:
+			case eMapColliderType::BOT_DESK:
 			{
 				OnEnterPlayer(pPlayer, pos, size);
 				break;
 			}
-			case ya::eMapColliderType::PIANO_SIDE_BOOK:
+			case eMapColliderType::PIANO_SIDE_BOOK:
 			{
 				OnEnterPlayer(pPlayer, pos, size);
 				break;
 			}
-			case ya::eMapColliderType::PIANO_MID_BOOK:
+			case eMapColliderType::PIANO_MID_BOOK:
 			{
 				OnEnterPlayer(pPlayer, pos, size);
 				break;
 			}
-			case ya::eMapColliderType::PIANO:
+			case eMapColliderType::PIANO:
 			{
 				OnEnterPlayer(pPlayer, pos, size);
 				break;
 			}
+			case eMapColliderType::LEFT_SCROLL_CHECKER:
+			{
+				BGGmaeImage::IncreaseLeftScrollCount();
+				BGGmaeImage* pBgGameImage = ya::object::InstantiateAtAnotherScene<BGGmaeImage>(eColliderLayer::BACKGROUND, L"BGGmaeMap", L"Resources\\Image\\MapTwo.bmp", eSceneType::PLAY_SCENE);
+				pBgGameImage->SetLeftScrollCheck(true);
+				pBgGameImage->Initialize();
+				break;
+			}
+			case eMapColliderType::RIGHT_SCROLL_CHECKER:
+			{
+				BGGmaeImage::IncreaseRightScrollCount();
+				BGGmaeImage* pBgGameImage = ya::object::InstantiateAtAnotherScene<BGGmaeImage>(eColliderLayer::BACKGROUND, L"BGGmaeMap", L"Resources\\Image\\MapTwo.bmp", eSceneType::PLAY_SCENE);
+				pBgGameImage->SetRightScrollCheck(true);
+				pBgGameImage->Initialize();
+				break;
+			}
+
 			default:
 				assert(false);
 				break;
