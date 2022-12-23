@@ -175,7 +175,6 @@
     <ClInclude Include="yaAnimation.h" />
     <ClInclude Include="yaAnimator.h" />
     <ClInclude Include="yaApplication.h" />
-    <ClInclude Include="yaBackpack.h" />
     <ClInclude Include="yaBGImageObject.h" />
     <ClInclude Include="yaBGIMageObjectAlpha.h" />
     <ClInclude Include="yaBlackBat.h" />
@@ -210,7 +209,6 @@
     <ClInclude Include="yaKnife.h" />
     <ClInclude Include="yaKnifeObjectPool.h" />
     <ClInclude Include="yaMedusaHead.h" />
-    <ClInclude Include="yaGround.h" />
     <ClInclude Include="yaHUD.h" />
     <ClInclude Include="yaImage.h" />
     <ClInclude Include="yaInput.h" />
@@ -219,7 +217,6 @@
     <ClInclude Include="yaMagision.h" />
     <ClInclude Include="yaMedusa.h" />
     <ClInclude Include="yaMiniHeadDurahan.h" />
-    <ClInclude Include="yaMissile.h" />
     <ClInclude Include="yaMonster.h" />
     <ClInclude Include="yaMudman.h" />
     <ClInclude Include="yaObject.h" />
@@ -293,7 +290,6 @@
     <ClCompile Include="yaAnimation.cpp" />
     <ClCompile Include="yaAnimator.cpp" />
     <ClCompile Include="yaApplication.cpp" />
-    <ClCompile Include="yaBackpack.cpp" />
     <ClCompile Include="yaBGImageObject.cpp" />
     <ClCompile Include="yaBGIMageObjectAlpha.cpp" />
     <ClCompile Include="yaBlackBat.cpp" />
@@ -328,7 +324,6 @@
     <ClCompile Include="yaKnife.cpp" />
     <ClCompile Include="yaKnifeObjectPool.cpp" />
     <ClCompile Include="yaMedusaHead.cpp" />
-    <ClCompile Include="yaGround.cpp" />
     <ClCompile Include="yaHUD.cpp" />
     <ClCompile Include="yaImage.cpp" />
     <ClCompile Include="yaInput.cpp" />
@@ -337,7 +332,6 @@
     <ClCompile Include="yaMagision.cpp" />
     <ClCompile Include="yaMedusa.cpp" />
     <ClCompile Include="yaMiniHeadDurahan.cpp" />
-    <ClCompile Include="yaMissile.cpp" />
     <ClCompile Include="yaMonster.cpp" />
     <ClCompile Include="yaMudman.cpp" />
     <ClCompile Include="yaObjectPool.cpp" />

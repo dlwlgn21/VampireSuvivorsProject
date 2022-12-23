@@ -27,7 +27,6 @@ namespace ya
 		mPos.y += static_cast<float>(dist(gen));
 
 		SetSize({ static_cast<float>(mSizeX), static_cast<float>(mSizeY) });
-		SetScale({ 2.0f, 2.0f });
 		mpCollider->SetSize(GetSize() * 1.5f);
 	}
 	void FireWand::Tick()

@@ -8,13 +8,17 @@
 
 namespace ya
 {
+
+	float RuneTracer::mDegrees[MAX_DEGREE_COUNT];
+
 	RuneTracer::RuneTracer(Vector2 spawanPos, int damage, float speed, float knockBackValue, float shootInterval, WeaponObjectPool<RuneTracer>* pPool)
 		: Weapon(eWeaponPenetratingType::COMPLETE_PENETRATING, spawanPos, damage, speed, knockBackValue, shootInterval)
 		, mpRuneTracerImage(Resources::Load<Image>(L"WeaponRuneTracer", L"Resources\\Image\\RuneTracer.bmp"))
 		, mSizeX(mpRuneTracerImage->GetWidth())
 		, mSizeY(mpRuneTracerImage->GetHeight())
 		, mpPool(pPool)
-		, mDegree(0.0f)
+		, mCurrDegreesIdx(0)
+		, mSlope(0.0f)
 		, mRotatedVector(Vector2::ZERO)
 		, meRuneQudrant(eRuneQudrant::COUNT)
 	{
@@ -25,70 +29,75 @@ namespace ya
 
 		std::random_device rd;
 		std::mt19937 gen(rd());
-		std::uniform_int_distribution<> dist(-30, 30);
-		mPos.x += static_cast<float>(dist(gen));
-		mPos.y += static_cast<float>(dist(gen));
-		std::uniform_int_distribution<> degreeDist(1, 360);
+		std::uniform_int_distribution<> dist(0, MAX_DEGREE_COUNT - 1);
+		//std::uniform_int_distribution<> dist(0, 6);
+		//std::uniform_int_distribution<> degreeDist(1, 360);
+		//mPos.x += static_cast<float>(dist(gen));
+		//mPos.y += static_cast<float>(dist(gen));
 
-		mDegree = static_cast<float>(degreeDist(gen));
+		mCurrDegreesIdx = dist(gen);
+		assert(mCurrDegreesIdx <= MAX_DEGREE_COUNT - 1);
+
+		//mDegree = static_cast<float>(degreeDist(gen));
 		//wchar_t buffer[128];
 		//swprintf_s(buffer, 128, L"mDegree is %f\nmPos is {%f, %f}\n", mDegree, mPos.x, mPos.y);
 		//OutputDebugStringW(buffer);
-		if (mDegree >= 75.0f && mDegree <= 90.0f)
-		{
-			mDegree = 75.0f;
-		}
-		else if (mDegree >= 165.0f && mDegree <= 180.0f)
-		{
-			mDegree = 165.0f;
-		}
-		else if (mDegree >= 255.0f && mDegree <= 270.0f)
-		{
-			mDegree = 255.0f;
-		}
-		else if (mDegree >= 345.0f && mDegree <= 360.0f)
-		{
-			mDegree = 345.0f;
-		}
+		//if (mDegree >= 75.0f && mDegree <= 90.0f)
+		//{
+		//	mDegree = 75.0f;
+		//}
+		//else if (mDegree >= 165.0f && mDegree <= 180.0f)
+		//{
+		//	mDegree = 165.0f;
+		//}
+		//else if (mDegree >= 255.0f && mDegree <= 270.0f)
+		//{
+		//	mDegree = 255.0f;
+		//}
+		//else if (mDegree >= 345.0f && mDegree <= 360.0f)
+		//{
+		//	mDegree = 345.0f;
+		//}
 
-		float sin, cos;
-		yamath::GetSinCosValueAtDegree(sin, cos, mDegree);
-		mRotatedVector = { (mPos.x * cos) - (mPos.y * sin), (mPos.x * cos) + (mPos.y + sin) };
-		
-		// Quadrant 2
-		if (mDegree < 90.0f)
-		{
-			meRuneQudrant = eRuneQudrant::QUDRANT_1;
-		}
-		// Qudrant 3
-		else if (mDegree < 180.0f)
-		{
-			meRuneQudrant = eRuneQudrant::QUDRANT_2;
-		}
-		// Qudrant 1
-		else if (mDegree < 270.0f)
-		{
-			meRuneQudrant = eRuneQudrant::QUDRANT_3;
-		}
-		// Qudrant 4
-		else if (mDegree < 360.0f)
-		{
-			meRuneQudrant = eRuneQudrant::QUDRANT_4;
-		}
+		//float sin, cos;
+		//yamath::GetSinCosValueAtDegree(sin, cos, mDegree);
+		//mRotatedVector = { (mPos.x * cos) - (mPos.y * sin), (mPos.x * cos) + (mPos.y + sin) };
+		//
+		//// Quadrant 2
+		//if (mDegree < 90.0f)
+		//{
+		//	meRuneQudrant = eRuneQudrant::QUDRANT_1;
+		//}
+		//// Qudrant 3
+		//else if (mDegree < 180.0f)
+		//{
+		//	meRuneQudrant = eRuneQudrant::QUDRANT_2;
+		//}
+		//// Qudrant 1
+		//else if (mDegree < 270.0f)
+		//{
+		//	meRuneQudrant = eRuneQudrant::QUDRANT_3;
+		//}
+		//// Qudrant 4
+		//else if (mDegree < 360.0f)
+		//{
+		//	meRuneQudrant = eRuneQudrant::QUDRANT_4;
+		//}
 
-		assert(meRuneQudrant != eRuneQudrant::COUNT);
+		//assert(meRuneQudrant != eRuneQudrant::COUNT);
 
-		wchar_t buffer[128];
-		swprintf_s(buffer, 128, L"sin is %f, cos is %f || RotateVector is {%f, %f}\n", sin, cos, mRotatedVector.x, mRotatedVector.y);
-		OutputDebugStringW(buffer);
+		//wchar_t buffer[128];
+		//swprintf_s(buffer, 128, L"sin is %f, cos is %f || RotateVector is {%f, %f}\n", sin, cos, mRotatedVector.x, mRotatedVector.y);
+		//OutputDebugStringW(buffer);
 
 		SetSize({ static_cast<float>(mSizeX), static_cast<float>(mSizeY) });
-		SetScale({ 2.0f, 2.0f });
+		mRotatedVector = yamath::Rotate(mPos, mDegrees[mCurrDegreesIdx]);
+		mSlope = std::tanf(yamath::DegreeToRad(mDegrees[mCurrDegreesIdx]));
+		mPos = mRotatedVector;
 		mpCollider->SetSize(GetSize());
 	}
 	void RuneTracer::Tick()
 	{
-		assert(std::abs(mDegree) >= FLT_EPSILON);
 		Weapon::Tick();
 		mShootTimer += Time::DeltaTime();
 		if (mShootTimer >= mShootInterval)
@@ -99,47 +108,25 @@ namespace ya
 			return;
 		}
 
-		float x = mRotatedVector.x - mPos.x;
-		float y = mRotatedVector.y - mPos.y;
-		
-		//Get Slope
-		float m;
-		if (std::abs(x) <= FLT_EPSILON)
-		{
-			m = 1.0f;
-		}
-		if (std::abs(y) <= FLT_EPSILON)
-		{
-			m = -1.0f;
-		}
-		m = y / x;
-		if (m > 1.0f)
-		{
-			m = 1.0f;
-		}
-		if (meRuneQudrant == eRuneQudrant::QUDRANT_1)
+		if (mCurrDegreesIdx <= 6)
 		{
 			mPos.x += mSpeed * Time::DeltaTime();
-			mPos.y -= mSpeed * m * Time::DeltaTime();
+			mPos.y -= mSpeed * mSlope * Time::DeltaTime();
 		}
-		else if (meRuneQudrant == eRuneQudrant::QUDRANT_2)
+		else if (mCurrDegreesIdx <= 13)
 		{
 			mPos.x -= mSpeed * Time::DeltaTime();
-			mPos.y -= mSpeed * m * Time::DeltaTime();
+			mPos.y += mSpeed * mSlope * Time::DeltaTime();
 		}
-		else if (meRuneQudrant == eRuneQudrant::QUDRANT_3)
+		else if (mCurrDegreesIdx <= 20)
 		{
 			mPos.x -= mSpeed * Time::DeltaTime();
-			mPos.y += mSpeed * m * Time::DeltaTime();
-		}
-		else if (meRuneQudrant == eRuneQudrant::QUDRANT_4)
-		{
-			mPos.x += mSpeed * Time::DeltaTime();
-			mPos.y += mSpeed * m * Time::DeltaTime();
+			mPos.y -= mSpeed * mSlope * Time::DeltaTime();
 		}
 		else
 		{
-			assert(false);
+			mPos.x += mSpeed * Time::DeltaTime();
+			mPos.y -= mSpeed * mSlope * Time::DeltaTime();
 		}
 
 		mpCollider->SetPos({mPos.x + 6.0f, mPos.y + 6.0f});
@@ -182,73 +169,33 @@ namespace ya
 		mPos = pos;
 		std::random_device rd;
 		std::mt19937 gen(rd());
-		std::uniform_int_distribution<> dist(-30, 30);
-		mPos.x += static_cast<float>(dist(gen));
-		mPos.y += static_cast<float>(dist(gen));
-		std::uniform_int_distribution<> degreeDist(1, 360);
-		mDegree = static_cast<float>(degreeDist(gen));
-
-		//if (mDegree >= 75.0f && mDegree <= 90.0f)
-		//{
-		//	mDegree = 75.0f;
-		//}
-		//else if (mDegree >= 165.0f && mDegree <= 180.0f)
-		//{
-		//	mDegree = 165.0f;
-		//}
-		//else if (mDegree >= 255.0f && mDegree <= 270.0f)
-		//{
-		//	mDegree = 255.0f;
-		//}
-		//else if (mDegree >= 345.0f && mDegree <= 360.0f)
-		//{
-		//	mDegree = 345.0f;
-		//}
-
-		//wchar_t buffer[128];
-		//swprintf_s(buffer, 128, L"mDegree is %f\nmPos is {%f, %f}\n", mDegree, mPos.x, mPos.y);
-		//OutputDebugStringW(buffer);
-
-		float sin, cos;
-		yamath::GetSinCosValueAtDegree(sin, cos, mDegree);
-		mRotatedVector = { (mPos.x * cos) - (mPos.y * sin), (mPos.x * cos) + (mPos.y + sin) };
-
-
-		wchar_t buffer[128];
-		// Quadrant 2
-		if (mDegree <= 90.0f)
-		{
-			meRuneQudrant = eRuneQudrant::QUDRANT_1;
-			swprintf_s(buffer, 128, L"Qudrant_2\n");
-			OutputDebugStringW(buffer);
-		}
-		// Qudrant 3
-		else if (mDegree <= 180.0f)
-		{
-			meRuneQudrant = eRuneQudrant::QUDRANT_2;
-			swprintf_s(buffer, 128, L"Qudrant_3\n");
-			OutputDebugStringW(buffer);
-		}
-		// Qudrant 1
-		else if (mDegree <= 270.0f)
-		{
-			meRuneQudrant = eRuneQudrant::QUDRANT_3;
-			swprintf_s(buffer, 128, L"Qudrant_1\n");
-			OutputDebugStringW(buffer);
-		}
-		// Qudrant 4
-		else if (mDegree <= 360.0f)
-		{
-			meRuneQudrant = eRuneQudrant::QUDRANT_4;
-			swprintf_s(buffer, 128, L"Qudrant_1\n");
-			OutputDebugStringW(buffer);
-		}
-		assert(meRuneQudrant != eRuneQudrant::COUNT);
-
-		swprintf_s(buffer, 128, L"mDegree is %f\n", mDegree);
-		OutputDebugStringW(buffer);
-		SetSize({ static_cast<float>(mSizeX), static_cast<float>(mSizeY) });
-		SetScale({ 2.0f, 2.0f });
+		std::uniform_int_distribution<> dist(0, MAX_DEGREE_COUNT - 1);
+		//std::uniform_int_distribution<> dist(0, 6);
+		mCurrDegreesIdx = dist(gen);
+		wchar_t buffer[64];
+		assert(mCurrDegreesIdx <= MAX_DEGREE_COUNT - 1);
 		mpCollider->SetSize(GetSize());
+		mRotatedVector = yamath::Rotate(mPos, mDegrees[mCurrDegreesIdx]);
+		mSlope = std::tanf(yamath::DegreeToRad(mDegrees[mCurrDegreesIdx]));
+		mPos = mRotatedVector;
+		swprintf_s(buffer, 64, L"Idx : %d\nmPos.x{%1.f}, mPos.y{%1.f}\n", mCurrDegreesIdx, mRotatedVector.x, mRotatedVector.y);
+		OutputDebugStringW(buffer);
+	}
+
+	void RuneTracer::InitializeDirVectors()
+	{
+		float degree = 10.0f;
+		for (int i = 1; i <= MAX_DEGREE_COUNT; ++i)
+		{
+			mDegrees[i - 1] = degree;
+			if (i % 7 == 0)
+			{
+				degree += 30.0f;
+			}
+			else
+			{
+				degree += 10.0f;
+			}
+		}
 	}
 }

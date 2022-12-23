@@ -16,6 +16,7 @@ namespace ya
 	template<typename T> class WeaponObjectPool;
 	class RuneTracer final : public Weapon
 	{
+	public:
 		friend class WeaponObjectPool<RuneTracer>;
 		RuneTracer(Vector2 spawanPos, int damage, float speed, float knockBackValue, float shootInterval, WeaponObjectPool<RuneTracer>* pPool);
 		virtual ~RuneTracer() = default;
@@ -28,16 +29,20 @@ namespace ya
 
 		void Initialize(Vector2 pos);
 
-		__forceinline void SetDegree(float degree) { assert(std::abs(degree) >= FLT_EPSILON); mDegree = degree; }
+		static void InitializeDirVectors();
+		enum { MAX_DEGREE_COUNT = 28};
 
 	private:
 		Image* mpRuneTracerImage;
 		WeaponObjectPool<RuneTracer>* mpPool;
 		int mSizeX;
 		int mSizeY;
-		float mDegree;
+		float mSlope;
+		UINT mCurrDegreesIdx;
 		Vector2 mRotatedVector;
 		eRuneQudrant meRuneQudrant;
+
+		static float mDegrees[MAX_DEGREE_COUNT];
 	};
 
 }

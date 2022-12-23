@@ -192,12 +192,6 @@
     <ClInclude Include="yaTilePalette.h">
       <Filter>GameObject\Tile</Filter>
     </ClInclude>
-    <ClInclude Include="yaBackpack.h">
-      <Filter>GameObject\Game</Filter>
-    </ClInclude>
-    <ClInclude Include="yaMissile.h">
-      <Filter>GameObject\Game</Filter>
-    </ClInclude>
     <ClInclude Include="yaPlayer.h">
       <Filter>GameObject\Game</Filter>
     </ClInclude>
@@ -209,9 +203,6 @@
     </ClInclude>
     <ClInclude Include="yaRigidBody.h">
       <Filter>Component</Filter>
-    </ClInclude>
-    <ClInclude Include="yaGround.h">
-      <Filter>GameObject\Game</Filter>
     </ClInclude>
     <ClInclude Include="yaUIManager.h">
       <Filter>Manager</Filter>
@@ -545,12 +536,6 @@
     <ClCompile Include="yaTilePalette.cpp">
       <Filter>GameObject\Tile</Filter>
     </ClCompile>
-    <ClCompile Include="yaBackpack.cpp">
-      <Filter>GameObject\Game</Filter>
-    </ClCompile>
-    <ClCompile Include="yaMissile.cpp">
-      <Filter>GameObject\Game</Filter>
-    </ClCompile>
     <ClCompile Include="yaPlayer.cpp">
       <Filter>GameObject\Game</Filter>
     </ClCompile>
@@ -562,9 +547,6 @@
     </ClCompile>
     <ClCompile Include="yaRigidBody.cpp">
       <Filter>Component</Filter>
-    </ClCompile>
-    <ClCompile Include="yaGround.cpp">
-      <Filter>GameObject\Game</Filter>
     </ClCompile>
     <ClCompile Include="yaUIManager.cpp">
       <Filter>Manager</Filter>

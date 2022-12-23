@@ -21,7 +21,7 @@ namespace ya
 	class GameMapCollider final : public GameObject
 	{
 	public:
-		GameMapCollider(eMapColliderType type, Vector2 colliderSize, Vector2 colliderOffset);
+		GameMapCollider(eMapColliderType type, Vector2 colliderSize, Vector2 pos);
 		GameMapCollider(const GameMapCollider& other) = delete;
 		GameMapCollider& operator=(const GameMapCollider& other) = delete;
 		virtual ~GameMapCollider() = default;

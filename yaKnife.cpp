@@ -57,7 +57,6 @@ namespace ya
 		mSizeX = mpKnifeImage->GetWidth();
 		mSizeY = mpKnifeImage->GetHeight();
 		SetSize({ static_cast<float>(mSizeX), static_cast<float>(mSizeY) });
-		SetScale({ 2.0f, 2.0f });
 		mpCollider->SetSize(GetSize());
 		
 	}
@@ -270,7 +269,6 @@ namespace ya
 		mSizeX = mpKnifeImage->GetWidth();
 		mSizeY = mpKnifeImage->GetHeight();
 		SetSize({ static_cast<float>(mSizeX), static_cast<float>(mSizeY) });
-		SetScale({ 2.0f, 2.0f });
 		mpCollider->SetSize(GetSize());
 	}
 }

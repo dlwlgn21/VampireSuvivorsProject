@@ -4,14 +4,12 @@
 #include "yaTime.h"
 #include "yaInput.h"
 #include "yaPlayerCustomAnimation.h"
-#include "yaMissile.h"
 #include "yaSceneManager.h"
 #include "yaScene.h"
 #include "yaImage.h"
 #include "yaResources.h"
 #include "yaCollider.h"
 #include "yaCamera.h"
-#include "yaBackpack.h"
 #include "yaObject.h"
 #include "yaRigidBody.h"
 #include "yaUIManager.h"
@@ -41,13 +39,13 @@ namespace ya
 		, mpRightImage(Resources::Load<Image>(L"PlayerRight", L"Resources\\Image\\PlayerRightAnim.bmp"))
 		, mpLeftHittedImage(Resources::Load<Image>(L"PlayerLeftHitted", L"Resources\\Image\\PlayerLeftHittedAnim.bmp"))
 		, mpRightHittedImage(Resources::Load<Image>(L"PlayerRightHitted", L"Resources\\Image\\PlayerRightHittedAnim.bmp"))
-		, mAnimSize(34.0f, 34.0f)
-		, mAnimOffset(-19.0f, -15.0f)
+		, mAnimSize(68.0f, 68.0f)
+		, mAnimOffset(-4.0f, 0.0f)
 		, mAnimCount(4)
 		, mMinAnimInterval(0.15f)
 		, dir(Vector2::ONE)
 		, mpAnimator(new PlayerCustomAnimator())
-		, mpCollider(new Collider({ 20.0f, 40.0f }))
+		, mpCollider(new Collider({ 30.0f, 40.0f }))
 		, mLevel(1)
 		, mExp(0)
 		, mHp(100)
@@ -82,13 +80,12 @@ namespace ya
 		assert(mpAnimator != nullptr);
 		assert(mpCollider != nullptr);
 		assert(mpKnifeObjPool != nullptr);
-		//assert(mpRuneTracerPool != nullptr);
 
 		SetName(L"Player");
-		mScale = { 2.0f, 2.0f };
 
 		AddComponent(mpAnimator);
 		AddComponent(mpCollider);
+		mpCollider->SetOffset(Vector2(-3.0f, 0.0f));
 		mpCollider->SetColliderLayer(eColliderLayer::PLAYER);
 		mpAnimator->CreateAnimation(mpLeftImage, mAnimSize, mAnimOffset, mAnimCount, mMinAnimInterval, ePlayerAnimState::LEFT);
 		mpAnimator->CreateAnimation(mpRightImage, mAnimSize, mAnimOffset, mAnimCount, mMinAnimInterval, ePlayerAnimState::RIGHT);
@@ -286,6 +283,7 @@ namespace ya
 
 	void Player::OnCollisionEnter(Collider* other)
 	{
+		int a = 0;
 		//switch (other->GetColliderLayer())
 		//{
 		//case eColliderLayer::BACKGROUND:
@@ -321,6 +319,8 @@ namespace ya
 		switch (other->GetColliderLayer())
 		{
 		case eColliderLayer::MONSTER:
+		{
+
 			switch (mePlayerAnimState)
 			{
 			case ePlayerAnimState::LEFT:
@@ -334,6 +334,7 @@ namespace ya
 			}
 			mpAnimator->Play(mePlayerAnimState);
 			break;
+		}
 		default:
 			break;
 		}
@@ -343,6 +344,7 @@ namespace ya
 		switch (other->GetColliderLayer())
 		{
 		case eColliderLayer::MONSTER:
+		{
 			switch (mePlayerAnimState)
 			{
 			case ePlayerAnimState::LEFT_HITTED:
@@ -356,28 +358,7 @@ namespace ya
 			}
 			mpAnimator->Play(mePlayerAnimState);
 			break;
-		//case eColliderLayer::BACKGROUND:
-		//	if (mbIsCollideUp)
-		//	{
-		//		mbIsCollideUp = false;
-		//		break;
-		//	}
-		//	if (mbIsCollideDown)
-		//	{
-		//		mbIsCollideDown = false;
-		//		break;
-		//	}
-		//	if (mbIsCollideLeft)
-		//	{
-		//		mbIsCollideLeft = false;
-		//		break;
-		//	}
-		//	if (mbIsCollideRight)
-		//	{
-		//		mbIsCollideRight = false;
-		//		break;
-		//	}
-		//	break;
+		}
 		default:
 			break;
 		}
@@ -395,8 +376,6 @@ namespace ya
 
 	void Player::WalkComplete()
 	{
-		/*Missile* pMis = ya::object::Instantiate<Missile>(eColliderLayer::PLAYER_PROJECTTILE);
-		pMis->SetPos(mPos);*/
 	}
 
 
@@ -433,7 +412,6 @@ namespace ya
 			assert(false);
 			break;
 		}
-
 	}
 	void Player::IncreaseWeaponStat(const eWeaponAndItemTypes type)
 	{
@@ -451,6 +429,7 @@ namespace ya
 					break;
 				case eWeaponAndItemTypes::RUNE:
 					mbIsWeaponRuneOpen = true;
+					RuneTracer::InitializeDirVectors();
 					mpRuneObjPool = new WeaponObjectPool<RuneTracer>(5);
 					break;
 				case eWeaponAndItemTypes::AXE:

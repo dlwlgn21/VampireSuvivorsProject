@@ -6,13 +6,14 @@
 
 namespace ya
 {
-	GameMapCollider::GameMapCollider(eMapColliderType type,Vector2 colliderSize, Vector2 colliderOffset)
-		: mpCollider(new Collider(colliderSize))
+	GameMapCollider::GameMapCollider(eMapColliderType type,Vector2 colliderSize, Vector2 pos)
+		: GameObject(pos)
+		, mpCollider(new Collider(colliderSize))
 		, meType(type)
 	{
 		assert(mpCollider != nullptr);
 		AddComponent(mpCollider);
-		mpCollider->SetOffset(colliderOffset);
+		// mpCollider->SetOffset(colliderOffset);
 		mpCollider->SetColliderLayer(eColliderLayer::BACKGROUND);
 	}
 	void GameMapCollider::Initialize()
@@ -30,6 +31,10 @@ namespace ya
 
 	void GameMapCollider::OnCollisionEnter(Collider* other)
 	{
+		if (!mbIsActive)
+		{
+			return;
+		}
 		switch (other->GetColliderLayer())
 		{
 		case eColliderLayer::PLAYER:
@@ -65,6 +70,10 @@ namespace ya
 	}
 	void GameMapCollider::OnCollisionStay(Collider* other)
 	{
+		if (!mbIsActive)
+		{
+			return;
+		}
 		switch (other->GetColliderLayer())
 		{
 		case eColliderLayer::PLAYER:
