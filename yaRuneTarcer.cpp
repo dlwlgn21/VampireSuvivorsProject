@@ -92,8 +92,9 @@ namespace ya
 
 		SetSize({ static_cast<float>(mSizeX), static_cast<float>(mSizeY) });
 		mRotatedVector = yamath::Rotate(mPos, mDegrees[mCurrDegreesIdx]);
-		mSlope = std::tanf(yamath::DegreeToRad(mDegrees[mCurrDegreesIdx]));
+		mRotatedVector.Normalize();
 		mPos = mRotatedVector;
+		mSlope = std::tanf(yamath::DegreeToRad(mDegrees[mCurrDegreesIdx]));
 		mpCollider->SetSize(GetSize());
 	}
 	void RuneTracer::Tick()
