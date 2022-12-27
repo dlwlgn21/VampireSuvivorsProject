@@ -3,7 +3,7 @@
 
 namespace ya
 {
-	Weapon::Weapon(eWeaponPenetratingType weaponPenetratingType, Vector2 spwanPos, int damage, float speed, float knockBackValue, float shootInterval)
+	Weapon::Weapon(eWeaponPenetratingType weaponPenetratingType, Vector2 spwanPos, int damage, float speed, float knockBackValue, float weaponDuration)
 		: GameObject(spwanPos)
 		, meWeaponPenetratingType(weaponPenetratingType)
 		, mpCollider(new Collider())
@@ -11,8 +11,8 @@ namespace ya
 		, mDamage(damage)
 		, mSpeed(speed)
 		, mKnockBackValue(knockBackValue)
-		, mShootInterval(shootInterval)
-		, mShootTimer(0)
+		, mWeaponDuration(weaponDuration)
+		, mDurationTimer(0)
 		, mFunc({})
 		, mSize({ 0.0f, 0.0f})
 	{

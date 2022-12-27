@@ -32,10 +32,10 @@ namespace ya
 	void Axe::Tick()
 	{
 		Weapon::Tick();
-		mShootTimer += Time::DeltaTime();
-		if (mShootTimer >= mShootInterval)
+		mDurationTimer += Time::DeltaTime();
+		if (mDurationTimer >= mWeaponDuration)
 		{
-			mShootTimer = 0.0f;
+			mDurationTimer = 0.0f;
 			SetActive(false);
 			mpPool->Return(this);
 			return;

@@ -1,3 +1,15 @@
+#define WEAPON_KNIFE_INITIAL_DAMAGE (6)
+#define WEAPON_FIRE_WAND_INITIAL_DAMAGE (20)
+#define WEAPON_RUNE_INITIAL_DAMAGE (10)
+#define WEAPON_AXE_INITIAL_DAMAGE (20)
+#define TEST_WEAPON_SHOOT_INTERVAL (2.0f)
+#define ROON_SHOOT_INTERVAL (5.0f)
+#define KNIFE_DURATION (1.5f)
+#define FIRE_WAND_DURATION (5.0f)
+#define ROON_DURATION (4.0f)
+#define AXE_DURATION (5.0f)
+#define ROON_SPEED (400.0f)
+
 #include <cassert>
 #include "Common.h"
 #include "yaPlayer.h"
@@ -31,7 +43,7 @@ namespace ya
 		bool mbIsCollideLeft;
 	*/
 	Player::Player()
-		: GameObject({ 1500.0f, 500.0f })
+		: GameObject({ 0.0f, 0.0f })
 		, mMoveSpeed(1000.0f)
 		, mPen(CreatePen(PS_DASHDOTDOT, 3, RGB(0, 255, 255)))
 		, mBrush(CreateSolidBrush(RGB(153, 204, 255)))
@@ -65,10 +77,10 @@ namespace ya
 		, mpFireWandObjPool(nullptr)
 		, mFireWandShootTimer(0.0f)
 		, mPlyerItemLevelStat(PlayerItemLevelStat())
-		, mKnifeStat(WeaponStat(WEAPON_KNIFE_INITIAL_DAMAGE, 1, 0, 700.0f, TEST_WEAPON_SHOOT_INTERVAL))
-		, mFireWandStat(WeaponStat(WEAPON_FIRE_WAND_INITIAL_DAMAGE, 5, 0, 500.0f, TEST_WEAPON_SHOOT_INTERVAL))
-		, mRuneStat(WeaponStat(WEAPON_RUNE_INITIAL_DAMAGE, 1, 0, 600.0f, TEST_WEAPON_SHOOT_INTERVAL))
-		, mAxeStat(WeaponStat(WEAPON_AXE_INITIAL_DAMAGE, 1, 0, 700.0f, TEST_WEAPON_SHOOT_INTERVAL))
+		, mKnifeStat(WeaponStat(WEAPON_KNIFE_INITIAL_DAMAGE, 1, 0, 700.0f, TEST_WEAPON_SHOOT_INTERVAL, KNIFE_DURATION))
+		, mFireWandStat(WeaponStat(WEAPON_FIRE_WAND_INITIAL_DAMAGE, 5, 0, 500.0f, TEST_WEAPON_SHOOT_INTERVAL, FIRE_WAND_DURATION))
+		, mRuneStat(WeaponStat(WEAPON_RUNE_INITIAL_DAMAGE, 1, 0, ROON_SPEED, ROON_SHOOT_INTERVAL, ROON_DURATION))
+		, mAxeStat(WeaponStat(WEAPON_AXE_INITIAL_DAMAGE, 1, 0, 700.0f, TEST_WEAPON_SHOOT_INTERVAL, AXE_DURATION))
 		, mbIsWeaponFireWandOpen(false)
 		, mbIsWeaponRuneOpen(false)
 		, mbIsWeaponAxeOpen(false)
@@ -224,7 +236,7 @@ namespace ya
 
 			for (int i = 0; i < mKnifeStat.Count; ++i)
 			{
-				GameObject* pKnife = static_cast<GameObject*>(mpKnifeObjPool->Get(mPos, mKnifeStat.Damage, mKnifeStat.Speed * mWeaponSpeedCoefficient, mKnockbackValue, mKnifeStat.ShootInterval, static_cast<eKnifeDirection>(meLookDir), mpKnifeObjPool));
+				GameObject* pKnife = static_cast<GameObject*>(mpKnifeObjPool->Get(mPos, mKnifeStat.Damage, mKnifeStat.Speed * mWeaponSpeedCoefficient, mKnockbackValue, mKnifeStat.WeaponDuration, static_cast<eKnifeDirection>(meLookDir), mpKnifeObjPool));
 				Scene* scene = SceneManager::GetCurrentScene();
 				scene->AddWeaponObject(pKnife);
 			}
@@ -237,7 +249,7 @@ namespace ya
 			{
 				for (int i = 0; i < mRuneStat.Count; ++i)
 				{
-					GameObject* pRune = static_cast<GameObject*>(mpRuneObjPool->Get(mPos, mRuneStat.Damage, mRuneStat.Speed * mWeaponSpeedCoefficient, mKnockbackValue, mRuneStat.ShootInterval, mpRuneObjPool));
+					GameObject* pRune = static_cast<GameObject*>(mpRuneObjPool->Get(mPos, mRuneStat.Damage, mRuneStat.Speed * mWeaponSpeedCoefficient, mKnockbackValue, mRuneStat.WeaponDuration, mpRuneObjPool));
 					Scene* scene = SceneManager::GetCurrentScene();
 					scene->AddWeaponObject(pRune);
 				}
@@ -429,7 +441,6 @@ namespace ya
 					break;
 				case eWeaponAndItemTypes::RUNE:
 					mbIsWeaponRuneOpen = true;
-					RuneTracer::InitializeDirVectors();
 					mpRuneObjPool = new WeaponObjectPool<RuneTracer>(5);
 					break;
 				case eWeaponAndItemTypes::AXE:

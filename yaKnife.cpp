@@ -63,10 +63,10 @@ namespace ya
 	void Knife::Tick()
 	{
 		Weapon::Tick();
-		mShootTimer += Time::DeltaTime();
-		if (mShootTimer >= mShootInterval)
+		mDurationTimer += Time::DeltaTime();
+		if (mDurationTimer >= mWeaponDuration)
 		{
-			mShootTimer = 0.0f;
+			mDurationTimer = 0.0f;
 			SetActive(false);
 			mpKnifeObjPool->Return(this);
 			return;
@@ -179,7 +179,7 @@ namespace ya
 	}
 	void Knife::OnCollisionEnter(Collider* other)
 	{
-		if (other != nullptr)
+		if (other != nullptr && other->GetColliderLayer() == eColliderLayer::MONSTER)
 		{
 			Monster* pMonster = static_cast<Monster*>(other->GetOwner());
 			pMonster->DamagedFromWeapon(mDamage);

@@ -28,11 +28,11 @@ namespace ya
 			{
 				mbIsAlive = false;
 				assert(mpPlayer != nullptr);
-				mExp -= mpPlayer->GetLevel();
-				if (mExp <= 1)
-				{
-					mExp -= 0.02f;
-				}
+				//mExp -= mpPlayer->GetLevel();
+				//if (mExp <= 1)
+				//{
+				//	mExp -= 0.02f;
+				//}
 				mpPlayer->IncreaseExp(mExp);
 			}
 		};

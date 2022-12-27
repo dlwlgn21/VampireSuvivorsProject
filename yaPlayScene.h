@@ -17,7 +17,8 @@ namespace ya
 		void Enter() override;
 		void Exit() override;
 		inline eSceneType GetSceneTpye() { return mSceneType; }
-
+	private:
+		void setColliderLayer();
 	private:
 		eSceneType mSceneType;
 		Player* mpPlayer;

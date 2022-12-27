@@ -5,133 +5,49 @@
 #include "yaCollider.h"
 #include "yaTime.h"
 #include "yaWeaponObjectPool.h"
+#include "yaGameMapCollider.h"
 
 namespace ya
 {
-
-	float RuneTracer::mDegrees[MAX_DEGREE_COUNT];
-
 	RuneTracer::RuneTracer(Vector2 spawanPos, int damage, float speed, float knockBackValue, float shootInterval, WeaponObjectPool<RuneTracer>* pPool)
 		: Weapon(eWeaponPenetratingType::COMPLETE_PENETRATING, spawanPos, damage, speed, knockBackValue, shootInterval)
 		, mpRuneTracerImage(Resources::Load<Image>(L"WeaponRuneTracer", L"Resources\\Image\\RuneTracer.bmp"))
 		, mSizeX(mpRuneTracerImage->GetWidth())
 		, mSizeY(mpRuneTracerImage->GetHeight())
 		, mpPool(pPool)
-		, mCurrDegreesIdx(0)
-		, mSlope(0.0f)
-		, mRotatedVector(Vector2::ZERO)
-		, meRuneQudrant(eRuneQudrant::COUNT)
+		, mVelocityX(0.0f)
+		, mVelocityY(0.0f)
 	{
 		assert(mpRuneTracerImage != nullptr);
 		assert(mpPool != nullptr);
 		assert(mSizeX != 0);
 		assert(mSizeY != 0);
-
-		std::random_device rd;
-		std::mt19937 gen(rd());
-		std::uniform_int_distribution<> dist(0, MAX_DEGREE_COUNT - 1);
-		//std::uniform_int_distribution<> dist(0, 6);
-		//std::uniform_int_distribution<> degreeDist(1, 360);
-		//mPos.x += static_cast<float>(dist(gen));
-		//mPos.y += static_cast<float>(dist(gen));
-
-		mCurrDegreesIdx = dist(gen);
-		assert(mCurrDegreesIdx <= MAX_DEGREE_COUNT - 1);
-
-		//mDegree = static_cast<float>(degreeDist(gen));
-		//wchar_t buffer[128];
-		//swprintf_s(buffer, 128, L"mDegree is %f\nmPos is {%f, %f}\n", mDegree, mPos.x, mPos.y);
-		//OutputDebugStringW(buffer);
-		//if (mDegree >= 75.0f && mDegree <= 90.0f)
-		//{
-		//	mDegree = 75.0f;
-		//}
-		//else if (mDegree >= 165.0f && mDegree <= 180.0f)
-		//{
-		//	mDegree = 165.0f;
-		//}
-		//else if (mDegree >= 255.0f && mDegree <= 270.0f)
-		//{
-		//	mDegree = 255.0f;
-		//}
-		//else if (mDegree >= 345.0f && mDegree <= 360.0f)
-		//{
-		//	mDegree = 345.0f;
-		//}
-
-		//float sin, cos;
-		//yamath::GetSinCosValueAtDegree(sin, cos, mDegree);
-		//mRotatedVector = { (mPos.x * cos) - (mPos.y * sin), (mPos.x * cos) + (mPos.y + sin) };
-		//
-		//// Quadrant 2
-		//if (mDegree < 90.0f)
-		//{
-		//	meRuneQudrant = eRuneQudrant::QUDRANT_1;
-		//}
-		//// Qudrant 3
-		//else if (mDegree < 180.0f)
-		//{
-		//	meRuneQudrant = eRuneQudrant::QUDRANT_2;
-		//}
-		//// Qudrant 1
-		//else if (mDegree < 270.0f)
-		//{
-		//	meRuneQudrant = eRuneQudrant::QUDRANT_3;
-		//}
-		//// Qudrant 4
-		//else if (mDegree < 360.0f)
-		//{
-		//	meRuneQudrant = eRuneQudrant::QUDRANT_4;
-		//}
-
-		//assert(meRuneQudrant != eRuneQudrant::COUNT);
-
-		//wchar_t buffer[128];
-		//swprintf_s(buffer, 128, L"sin is %f, cos is %f || RotateVector is {%f, %f}\n", sin, cos, mRotatedVector.x, mRotatedVector.y);
-		//OutputDebugStringW(buffer);
-
 		SetSize({ static_cast<float>(mSizeX), static_cast<float>(mSizeY) });
-		mRotatedVector = yamath::Rotate(mPos, mDegrees[mCurrDegreesIdx]);
-		mRotatedVector.Normalize();
-		mPos = mRotatedVector;
-		mSlope = std::tanf(yamath::DegreeToRad(mDegrees[mCurrDegreesIdx]));
+		setVelocity();
 		mpCollider->SetSize(GetSize());
 	}
 	void RuneTracer::Tick()
 	{
 		Weapon::Tick();
-		mShootTimer += Time::DeltaTime();
-		if (mShootTimer >= mShootInterval)
+		mDurationTimer += Time::DeltaTime();
+		if (mDurationTimer >= mWeaponDuration)
 		{
-			mShootTimer = 0.0f;
+			mDurationTimer = 0.0f;
 			SetActive(false);
 			mpPool->Return(this);
 			return;
 		}
+		Vector2 cameraPos = Camera::ToCameraPos(mPos);
+		if (cameraPos.x <= CAMERA_MASK_WIDTH || cameraPos.x >= SCREEN_WIDTH - CAMERA_MASK_WIDTH)
+			{ changeHorizontalDirection(); }
 
-		if (mCurrDegreesIdx <= 6)
-		{
-			mPos.x += mSpeed * Time::DeltaTime();
-			mPos.y -= mSpeed * mSlope * Time::DeltaTime();
-		}
-		else if (mCurrDegreesIdx <= 13)
-		{
-			mPos.x -= mSpeed * Time::DeltaTime();
-			mPos.y += mSpeed * mSlope * Time::DeltaTime();
-		}
-		else if (mCurrDegreesIdx <= 20)
-		{
-			mPos.x -= mSpeed * Time::DeltaTime();
-			mPos.y -= mSpeed * mSlope * Time::DeltaTime();
-		}
-		else
-		{
-			mPos.x += mSpeed * Time::DeltaTime();
-			mPos.y -= mSpeed * mSlope * Time::DeltaTime();
-		}
+		if (cameraPos.y <= EXP_BAR_HEIGHT || cameraPos.y >= SCREEN_HEIGHT)
+			{ changeVerticalDirection(); }
+
+		mPos.x += mVelocityX * Time::DeltaTime();
+		mPos.y += mVelocityY * Time::DeltaTime();
 
 		mpCollider->SetPos({mPos.x + 6.0f, mPos.y + 6.0f});
-
 	}
 
 	void RuneTracer::Render(HDC hdc)
@@ -155,7 +71,13 @@ namespace ya
 	}
 	void RuneTracer::OnCollisionEnter(Collider* other)
 	{
-
+		if (other->GetColliderLayer() == eColliderLayer::BACKGROUND)
+		{ 
+			GameMapCollider* pGameMapCollider = static_cast<GameMapCollider*>(other->GetOwner());
+			if (pGameMapCollider->GetMapColliderType() == eMapColliderType::LEFT_SCROLL_CHECKER || pGameMapCollider->GetMapColliderType() == eMapColliderType::RIGHT_SCROLL_CHECKER)
+				{ return; }
+			changeVerticalDirection(); 
+		}
 	}
 	void RuneTracer::OnCollisionStay(Collider* other)
 	{
@@ -168,35 +90,20 @@ namespace ya
 	void RuneTracer::Initialize(Vector2 pos)
 	{
 		mPos = pos;
+		setVelocity();
+	}
+	
+	void RuneTracer::setVelocity()
+	{
 		std::random_device rd;
 		std::mt19937 gen(rd());
-		std::uniform_int_distribution<> dist(0, MAX_DEGREE_COUNT - 1);
-		//std::uniform_int_distribution<> dist(0, 6);
-		mCurrDegreesIdx = dist(gen);
-		wchar_t buffer[64];
-		assert(mCurrDegreesIdx <= MAX_DEGREE_COUNT - 1);
-		mpCollider->SetSize(GetSize());
-		mRotatedVector = yamath::Rotate(mPos, mDegrees[mCurrDegreesIdx]);
-		mSlope = std::tanf(yamath::DegreeToRad(mDegrees[mCurrDegreesIdx]));
-		mPos = mRotatedVector;
-		swprintf_s(buffer, 64, L"Idx : %d\nmPos.x{%1.f}, mPos.y{%1.f}\n", mCurrDegreesIdx, mRotatedVector.x, mRotatedVector.y);
-		OutputDebugStringW(buffer);
-	}
-
-	void RuneTracer::InitializeDirVectors()
-	{
-		float degree = 10.0f;
-		for (int i = 1; i <= MAX_DEGREE_COUNT; ++i)
+		std::uniform_int_distribution<> dist(1, 360);
+		int degree = dist(gen);
+		if (degree % 90 == 0)
 		{
-			mDegrees[i - 1] = degree;
-			if (i % 7 == 0)
-			{
-				degree += 30.0f;
-			}
-			else
-			{
-				degree += 10.0f;
-			}
+			degree -= 5;
 		}
+		mVelocityX = std::cosf(static_cast<float>(degree)) * mSpeed;
+		mVelocityY = std::sinf(static_cast<float>(degree)) * mSpeed;
 	}
 }

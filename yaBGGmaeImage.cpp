@@ -41,8 +41,6 @@
 
 namespace ya
 {
-
-
 	unsigned char BGGmaeImage::mLeftScrollCount = 0;
 	unsigned char BGGmaeImage::mRightScrollCount = 0;
 

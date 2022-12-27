@@ -33,6 +33,8 @@ namespace ya
 		void OnCollisionStay(Collider* other) override;
 		void OnCollisionExit(Collider* other) override;
 
+		__forceinline eMapColliderType GetMapColliderType() { return meType; }
+
 	private:
 		void OnEnterPlayer(Player* pPlayer, Vector2 colliderPos, Vector2 colliderSize);
 	private:

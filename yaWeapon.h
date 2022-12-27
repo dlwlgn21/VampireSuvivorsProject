@@ -16,7 +16,7 @@ namespace ya
 	class Weapon : public GameObject
 	{
 	public:
-		Weapon(eWeaponPenetratingType weaponPenetratingType, Vector2 spwanPos, int damage, float speed, float knockBackValue, float shootInterval);
+		Weapon(eWeaponPenetratingType weaponPenetratingType, Vector2 spwanPos, int damage, float speed, float knockBackValue, float weaponDuration);
 		virtual ~Weapon() = default;
 
 		virtual void Tick() override;
@@ -32,7 +32,7 @@ namespace ya
 		__forceinline int GetDamage() const { return mDamage; }
 		__forceinline void SetDamage(const int damage) { mDamage = damage; }
 		__forceinline void SetSpeed(const float speed) { mSpeed = speed; }
-		__forceinline void SetShootInterval(const float newInterval) { mShootInterval = newInterval; }
+		__forceinline void SetShootInterval(const float newDuration) { mWeaponDuration = newDuration; }
 		__forceinline void SetSpawnPos(const Vector2 newPos) { mSpawnPosition = newPos; }
 		__forceinline void IncreaseDamage(const int amount) { mDamage += amount; }
 		__forceinline void IncreaseSpeed(const float persentage) { assert(persentage >= 0.1f); mSpeed *= persentage; }
@@ -46,8 +46,8 @@ namespace ya
 		int mDamage;
 		float mSpeed;
 		float mKnockBackValue;
-		float mShootInterval;
-		float mShootTimer;
+		float mWeaponDuration;
+		float mDurationTimer;
 		BLENDFUNCTION mFunc;
 
 	};

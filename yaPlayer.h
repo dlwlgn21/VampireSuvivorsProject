@@ -44,12 +44,14 @@ namespace ya
 			unsigned char PanetratingCount;
 			float Speed;
 			float ShootInterval;
-			WeaponStat(unsigned char damage, unsigned char count, unsigned char panetratingCount, float speed, float shootInterval)
+			float WeaponDuration;
+			WeaponStat(unsigned char damage, unsigned char count, unsigned char panetratingCount, float speed, float shootInterval, float weaponDuration)
 				: Damage(damage)
 				, Count(count)
 				, PanetratingCount(panetratingCount)
 				, Speed(speed)
 				, ShootInterval(shootInterval)
+				, WeaponDuration(weaponDuration)
 			{
 			}
 		};

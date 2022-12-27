@@ -98,7 +98,8 @@ namespace ya
 			static_cast<int>(mImgHeight),
 
 			mpImageCutton->GetDC(),
-			0, 0,
+			0, 
+			0,
 			mImgWidth,
 			mImgHeight,
 			mFunc
@@ -106,13 +107,14 @@ namespace ya
 		// ACTUAL_GAME_SCREEN_WIDTH + mImgWidth + 4
 		AlphaBlend(
 			hdc,
-			static_cast<int>(1824),
+			static_cast<int>(1825),
 			static_cast<int>(0),
 			static_cast<int>(mImgWidth),
 			static_cast<int>(mImgHeight),
 
 			mpImageCutton->GetDC(),
-			0, 0,
+			0, 
+			0,
 			mImgWidth,
 			mImgHeight,
 			mFunc
