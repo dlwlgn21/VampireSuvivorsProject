@@ -1,3 +1,4 @@
+#define SPREAD_DEGREE (5.0f)
 #include "yaFireWand.h"
 #include "yaImage.h"
 #include "yaResources.h"
@@ -14,20 +15,17 @@ namespace ya
 		, mSizeX(mpFireImage->GetWidth())
 		, mSizeY(mpFireImage->GetHeight())
 		, mpPool(pPool)
+		, mVelocityX(0.0f)
+		, mVelocityY(0.0f)
+		, mIdx(0u)
 	{
 		assert(mpFireImage != nullptr);
 		assert(mpPool != nullptr);
 		assert(mSizeX != 0);
 		assert(mSizeY != 0);
-
-		std::random_device rd;
-		std::mt19937 gen(rd());
-		std::uniform_int_distribution<> dist(-30, 30);
-		mPos.x += static_cast<float>(dist(gen));
-		mPos.y += static_cast<float>(dist(gen));
-
 		SetSize({ static_cast<float>(mSizeX), static_cast<float>(mSizeY) });
-		mpCollider->SetSize(GetSize() * 1.5f);
+		initAndSetVelocity();
+		mpCollider->SetSize(GetSize());
 	}
 	void FireWand::Tick()
 	{
@@ -41,9 +39,10 @@ namespace ya
 			return;
 		}
 
-		mPos.x += mSpeed * Time::DeltaTime();
+		mPos.x += mVelocityX * Time::DeltaTime();
+		mPos.y += mVelocityY * Time::DeltaTime();
 
-		mpCollider->SetPos({ mPos.x + 8.0f, mPos.y + 8.0f });
+		mpCollider->SetPos({ mPos.x, mPos.y });
 
 	}
 
@@ -81,36 +80,24 @@ namespace ya
 	void FireWand::Initialize(Vector2 pos)
 	{
 		mPos = pos;
+		initAndSetVelocity();
+	}
+	void FireWand::initAndSetVelocity()
+	{
 		std::random_device rd;
 		std::mt19937 gen(rd());
 		std::uniform_int_distribution<> dist(-30, 30);
-		mPos.x += static_cast<float>(dist(gen));
-		mPos.y += static_cast<float>(dist(gen));
-		std::uniform_int_distribution<> degreeDist(1, 360);
+		//mPos.x += static_cast<float>(dist(gen));
+		//mPos.y += static_cast<float>(dist(gen));
+		assert(mIdx <= 4);
+		float degree = -35.0f;
+	
+		degree -= SPREAD_DEGREE * mIdx;
+		
+		float c = std::cosf(yamath::DegreeToRad(degree));
+		float s = std::sinf(yamath::DegreeToRad(degree));
 
-		//if (mDegree >= 75.0f && mDegree <= 90.0f)
-		//{
-		//	mDegree = 75.0f;
-		//}
-		//else if (mDegree >= 165.0f && mDegree <= 180.0f)
-		//{
-		//	mDegree = 165.0f;
-		//}
-		//else if (mDegree >= 255.0f && mDegree <= 270.0f)
-		//{
-		//	mDegree = 255.0f;
-		//}
-		//else if (mDegree >= 345.0f && mDegree <= 360.0f)
-		//{
-		//	mDegree = 345.0f;
-		//}
-
-		//wchar_t buffer[128];
-		//swprintf_s(buffer, 128, L"mDegree is %f\nmPos is {%f, %f}\n", mDegree, mPos.x, mPos.y);
-		//OutputDebugStringW(buffer);
-
-		//SetSize({ static_cast<float>(mSizeX), static_cast<float>(mSizeY) });
-		//SetScale({ 2.0f, 2.0f });
-		//mpCollider->SetSize(GetSize());
+		mVelocityX = mSpeed * c - mSpeed * s;
+		mVelocityY = mSpeed * s + mSpeed * c;
 	}
 }

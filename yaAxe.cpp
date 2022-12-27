@@ -1,3 +1,6 @@
+#define ACCEL_MIN (5)
+#define ACCEL_MAX (15)
+
 #include "yaAxe.h"
 #include "yaImage.h"
 #include "yaResources.h"
@@ -13,26 +16,25 @@ namespace ya
 		, mpAxeImage(Resources::Load<Image>(L"WeaponAxe", L"Resources\\Image\\Axe.bmp"))
 		, mSizeX(mpAxeImage->GetWidth())
 		, mSizeY(mpAxeImage->GetHeight())
+		, mVelocityX(mSpeed)
+		, mVelocityY(mSpeed)
+		, M_INITIAL_SPEED(mSpeed)
+		, mAccel(0.0f)
 		, mpPool(pPool)
 	{
 		assert(mpAxeImage != nullptr);
 		assert(mpPool != nullptr);
 		assert(mSizeX != 0);
 		assert(mSizeY != 0);
-
-		std::random_device rd;
-		std::mt19937 gen(rd());
-		std::uniform_int_distribution<> dist(-30, 30);
-		mPos.x += static_cast<float>(dist(gen));
-		mPos.y += static_cast<float>(dist(gen));
-
 		SetSize({ static_cast<float>(mSizeX), static_cast<float>(mSizeY) });
-		mpCollider->SetSize(GetSize() * 1.5f);
+		initPosAndAccel();
+		mpCollider->SetSize(GetSize());
 	}
 	void Axe::Tick()
 	{
 		Weapon::Tick();
 		mDurationTimer += Time::DeltaTime();
+
 		if (mDurationTimer >= mWeaponDuration)
 		{
 			mDurationTimer = 0.0f;
@@ -41,10 +43,10 @@ namespace ya
 			return;
 		}
 
-		mPos.x += mSpeed * Time::DeltaTime();
-
-		mpCollider->SetPos({ mPos.x + 8.0f, mPos.y + 8.0f});
-
+		mVelocityY += mAccel;
+		mPos.x += mVelocityX * Time::DeltaTime();
+		mPos.y += mVelocityY * Time::DeltaTime();
+		mpCollider->SetPos({ mPos.x, mPos.y});
 	}
 
 	void Axe::Render(HDC hdc)
@@ -81,36 +83,25 @@ namespace ya
 	void Axe::Initialize(Vector2 pos)
 	{
 		mPos = pos;
+		initPosAndAccel();
+	}
+	void Axe::initPosAndAccel()
+	{
+		assert(std::abs(mSpeed) > FLT_EPSILON);
 		std::random_device rd;
 		std::mt19937 gen(rd());
-		std::uniform_int_distribution<> dist(-30, 30);
-		mPos.x += static_cast<float>(dist(gen));
-		mPos.y += static_cast<float>(dist(gen));
-		std::uniform_int_distribution<> degreeDist(1, 360);
-
-		//if (mDegree >= 75.0f && mDegree <= 90.0f)
-		//{
-		//	mDegree = 75.0f;
-		//}
-		//else if (mDegree >= 165.0f && mDegree <= 180.0f)
-		//{
-		//	mDegree = 165.0f;
-		//}
-		//else if (mDegree >= 255.0f && mDegree <= 270.0f)
-		//{
-		//	mDegree = 255.0f;
-		//}
-		//else if (mDegree >= 345.0f && mDegree <= 360.0f)
-		//{
-		//	mDegree = 345.0f;
-		//}
-
-		//wchar_t buffer[128];
-		//swprintf_s(buffer, 128, L"mDegree is %f\nmPos is {%f, %f}\n", mDegree, mPos.x, mPos.y);
-		//OutputDebugStringW(buffer);
-
-		//SetSize({ static_cast<float>(mSizeX), static_cast<float>(mSizeY) });
-		//SetScale({ 2.0f, 2.0f });
-		//mpCollider->SetSize(GetSize());
+		std::uniform_int_distribution<> xDist(-30, 30);
+		std::uniform_int_distribution<> yDist(-50, -15);
+		std::uniform_int_distribution<> accelDist(5, 15);
+		std::uniform_int_distribution<> speedDist(static_cast<int>(M_INITIAL_SPEED + 200), static_cast<int>(M_INITIAL_SPEED + 500));
+		mSpeed = static_cast<float>(speedDist(gen));
+		mPos.x += static_cast<float>(xDist(gen));
+		mPos.y += static_cast<float>(yDist(gen));
+		mAccel = static_cast<float>(accelDist(gen));
+		if (static_cast<int>(mAccel) <= (ACCEL_MIN + ACCEL_MAX) / 2)
+		{
+			mVelocityX = -mVelocityX;
+		}
+		mVelocityY = -mSpeed - mAccel;
 	}
 }

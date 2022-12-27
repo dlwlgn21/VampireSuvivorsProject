@@ -17,14 +17,20 @@ namespace ya
 		void OnCollisionEnter(Collider* other) override;
 		void OnCollisionStay(Collider* other) override;
 		void OnCollisionExit(Collider* other) override;
-
+		__forceinline void SetIdx(UINT idx) { mIdx = idx; }
 		void Initialize(Vector2 pos);
+
+	private:
+		void initAndSetVelocity();
 
 	private:
 		Image* mpFireImage;
 		WeaponObjectPool<FireWand>* mpPool;
 		int mSizeX;
 		int mSizeY;
+		float mVelocityX;
+		float mVelocityY;
+		UINT mIdx;
 	};
 }
 

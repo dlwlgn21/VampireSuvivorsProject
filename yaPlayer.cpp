@@ -3,12 +3,19 @@
 #define WEAPON_RUNE_INITIAL_DAMAGE (10)
 #define WEAPON_AXE_INITIAL_DAMAGE (20)
 #define TEST_WEAPON_SHOOT_INTERVAL (2.0f)
-#define ROON_SHOOT_INTERVAL (5.0f)
 #define KNIFE_DURATION (1.5f)
-#define FIRE_WAND_DURATION (5.0f)
-#define ROON_DURATION (4.0f)
-#define AXE_DURATION (5.0f)
+
+#define AXE_SPEED (200.0f)
+#define AXE_DURATION (2.0f)
+#define AXE_SHOOT_INTERVAL (3.0f)
+
 #define ROON_SPEED (400.0f)
+#define ROON_DURATION (4.0f)
+#define ROON_SHOOT_INTERVAL (5.0f)
+
+#define FIRE_WAND_SPEED (300.0f)
+#define FIRE_WAND_DURATION (3.0f)
+#define FIRE_WAND_SHOOT_INTERVAL (4.0f)
 
 #include <cassert>
 #include "Common.h"
@@ -78,9 +85,9 @@ namespace ya
 		, mFireWandShootTimer(0.0f)
 		, mPlyerItemLevelStat(PlayerItemLevelStat())
 		, mKnifeStat(WeaponStat(WEAPON_KNIFE_INITIAL_DAMAGE, 1, 0, 700.0f, TEST_WEAPON_SHOOT_INTERVAL, KNIFE_DURATION))
-		, mFireWandStat(WeaponStat(WEAPON_FIRE_WAND_INITIAL_DAMAGE, 5, 0, 500.0f, TEST_WEAPON_SHOOT_INTERVAL, FIRE_WAND_DURATION))
+		, mFireWandStat(WeaponStat(WEAPON_FIRE_WAND_INITIAL_DAMAGE, 5, 0, FIRE_WAND_SPEED, FIRE_WAND_SHOOT_INTERVAL, FIRE_WAND_DURATION))
 		, mRuneStat(WeaponStat(WEAPON_RUNE_INITIAL_DAMAGE, 1, 0, ROON_SPEED, ROON_SHOOT_INTERVAL, ROON_DURATION))
-		, mAxeStat(WeaponStat(WEAPON_AXE_INITIAL_DAMAGE, 1, 0, 700.0f, TEST_WEAPON_SHOOT_INTERVAL, AXE_DURATION))
+		, mAxeStat(WeaponStat(WEAPON_AXE_INITIAL_DAMAGE, 1, 0, AXE_SPEED, AXE_SHOOT_INTERVAL, AXE_SHOOT_INTERVAL))
 		, mbIsWeaponFireWandOpen(false)
 		, mbIsWeaponRuneOpen(false)
 		, mbIsWeaponAxeOpen(false)
@@ -277,7 +284,8 @@ namespace ya
 			{
 				for (int i = 0; i < mFireWandStat.Count; ++i)
 				{
-					GameObject* pFire = static_cast<GameObject*>(mpFireWandObjPool->Get(mPos, mFireWandStat.Damage, mFireWandStat.Speed * mWeaponSpeedCoefficient, mKnockbackValue, mFireWandStat.ShootInterval, mpFireWandObjPool));
+					FireWand* pFire = static_cast<FireWand*>(mpFireWandObjPool->Get(mPos, mFireWandStat.Damage, mFireWandStat.Speed * mWeaponSpeedCoefficient, mKnockbackValue, mFireWandStat.ShootInterval, mpFireWandObjPool));
+					pFire->SetIdx(i);
 					Scene* scene = SceneManager::GetCurrentScene();
 					scene->AddWeaponObject(pFire);
 				}
@@ -295,35 +303,6 @@ namespace ya
 
 	void Player::OnCollisionEnter(Collider* other)
 	{
-		int a = 0;
-		//switch (other->GetColliderLayer())
-		//{
-		//case eColliderLayer::BACKGROUND:
-		//	switch (meLookDir)
-		//	{
-		//	case ya::ePlayerLookDirection::UP:
-		//	case ya::ePlayerLookDirection::UP_LEFT:
-		//	case ya::ePlayerLookDirection::UP_RIGHT:
-		//		mbIsCollideUp = true;
-		//		break;
-		//	case ya::ePlayerLookDirection::DOWN:
-		//	case ya::ePlayerLookDirection::DOWN_LEFT:
-		//	case ya::ePlayerLookDirection::DOWN_RIGHT:
-		//		mbIsCollideDown = true;
-		//		break;
-		//	case ya::ePlayerLookDirection::LEFT:
-		//		mbIsCollideLeft = true;
-		//		break;
-		//	case ya::ePlayerLookDirection::RIGHT:
-		//		mbIsCollideRight = true;
-		//		break;
-		//	default:
-		//		break;
-		//	}
-		//	break;
-		//default:
-		//	break;
-		//}
 	}
 
 	void Player::OnCollisionStay(Collider* other)
@@ -332,7 +311,6 @@ namespace ya
 		{
 		case eColliderLayer::MONSTER:
 		{
-
 			switch (mePlayerAnimState)
 			{
 			case ePlayerAnimState::LEFT:

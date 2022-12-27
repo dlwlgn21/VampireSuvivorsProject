@@ -21,10 +21,16 @@ namespace ya
 		void Initialize(Vector2 pos);
 
 	private:
+		void initPosAndAccel();
+	private:
 		Image* mpAxeImage;
 		WeaponObjectPool<Axe>* mpPool;
 		int mSizeX;
 		int mSizeY;
+		const float M_INITIAL_SPEED;
+		float mVelocityX;
+		float mVelocityY;
+		float mAccel;
 	};
 }
 
