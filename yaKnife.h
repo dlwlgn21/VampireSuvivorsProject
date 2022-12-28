@@ -20,7 +20,7 @@ namespace ya
 	class Knife final : public Weapon
 	{
 	public:
-		Knife(Vector2 spwanPos, int damage, float speed, float knockBackValue, float shootInterval, eKnifeDirection dir, KnifeObjectPool* pPool);
+		Knife(Vector2 spwanPos, int damage, int penetratingCount, float speed, float knockBackValue, float shootInterval, eKnifeDirection dir, KnifeObjectPool* pPool);
 		virtual ~Knife() = default;
 
 		void Tick() override;

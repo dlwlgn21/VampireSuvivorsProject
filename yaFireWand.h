@@ -9,7 +9,7 @@ namespace ya
 	{
 	public:
 		friend class WeaponObjectPool<FireWand>;
-		FireWand(Vector2 spawanPos, int damage, float speed, float knockBackValue, float shootInterval, WeaponObjectPool<FireWand>* pPool);
+		FireWand(Vector2 spawanPos, int damage, int penetratingCount, float speed, float knockBackValue, float shootInterval, WeaponObjectPool<FireWand>* pPool);
 		virtual ~FireWand() = default;
 
 		void Tick() override;

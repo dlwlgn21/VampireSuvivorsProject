@@ -1,20 +1,30 @@
-#define WEAPON_KNIFE_INITIAL_DAMAGE (6)
-#define WEAPON_FIRE_WAND_INITIAL_DAMAGE (20)
-#define WEAPON_RUNE_INITIAL_DAMAGE (10)
-#define WEAPON_AXE_INITIAL_DAMAGE (20)
-#define TEST_WEAPON_SHOOT_INTERVAL (2.0f)
+#define KNIFE_INITIAL_DAMAGE (6)
+#define KNIFE_INITIAL_COUNT (1)
+#define KNIFE_PENETRATING_COUNT (0)
+#define KNIFE_INITIAL_DAMAGE (6)
+#define KNIFE_SPEED (400.0f)
+#define KNIFE_SHOOT_INTERVAL (2.0f)
 #define KNIFE_DURATION (1.5f)
 
+#define AXE_INITIAL_DAMAGE (20)
+#define AXE_INITIAL_COUNT (1)
+#define AXE_PENETRATING_COUNT (0)
 #define AXE_SPEED (200.0f)
 #define AXE_DURATION (2.0f)
 #define AXE_SHOOT_INTERVAL (3.0f)
 
-#define ROON_SPEED (400.0f)
-#define ROON_DURATION (4.0f)
-#define ROON_SHOOT_INTERVAL (5.0f)
+#define RUNE_INITIAL_DAMAGE (10)
+#define RUNE_PENETRATING_COUNT (1000)
+#define RUNE_INITIAL_COUNT (1)
+#define RUNE_SPEED (400.0f)
+#define RUNE_DURATION (4.0f)
+#define RUNE_SHOOT_INTERVAL (5.0f)
 
+#define FIRE_WAND_INITIAL_DAMAGE (20)
+#define FIRE_WAND_INITIAL_COUNT (5)
+#define FIRE_WAND_PENETRATING_COUNT (0)
 #define FIRE_WAND_SPEED (300.0f)
-#define FIRE_WAND_DURATION (3.0f)
+#define FIRE_WAND_DURATION (2.0f)
 #define FIRE_WAND_SHOOT_INTERVAL (4.0f)
 
 #include <cassert>
@@ -43,12 +53,7 @@
 
 namespace ya
 {
-	/*
-		bool mbIsCollideUp;
-		bool mbIsCollideDown;
-		bool mbIsCollideRight;
-		bool mbIsCollideLeft;
-	*/
+
 	Player::Player()
 		: GameObject({ 0.0f, 0.0f })
 		, mMoveSpeed(1000.0f)
@@ -84,10 +89,10 @@ namespace ya
 		, mpFireWandObjPool(nullptr)
 		, mFireWandShootTimer(0.0f)
 		, mPlyerItemLevelStat(PlayerItemLevelStat())
-		, mKnifeStat(WeaponStat(WEAPON_KNIFE_INITIAL_DAMAGE, 1, 0, 700.0f, TEST_WEAPON_SHOOT_INTERVAL, KNIFE_DURATION))
-		, mFireWandStat(WeaponStat(WEAPON_FIRE_WAND_INITIAL_DAMAGE, 5, 0, FIRE_WAND_SPEED, FIRE_WAND_SHOOT_INTERVAL, FIRE_WAND_DURATION))
-		, mRuneStat(WeaponStat(WEAPON_RUNE_INITIAL_DAMAGE, 1, 0, ROON_SPEED, ROON_SHOOT_INTERVAL, ROON_DURATION))
-		, mAxeStat(WeaponStat(WEAPON_AXE_INITIAL_DAMAGE, 1, 0, AXE_SPEED, AXE_SHOOT_INTERVAL, AXE_SHOOT_INTERVAL))
+		, mKnifeStat(	WeaponStat(		KNIFE_INITIAL_DAMAGE,		KNIFE_INITIAL_COUNT,		KNIFE_PENETRATING_COUNT,		KNIFE_SPEED,		KNIFE_SHOOT_INTERVAL,		KNIFE_DURATION))
+		, mFireWandStat(WeaponStat(		FIRE_WAND_INITIAL_DAMAGE,	FIRE_WAND_INITIAL_COUNT,	FIRE_WAND_PENETRATING_COUNT,	FIRE_WAND_SPEED,	FIRE_WAND_SHOOT_INTERVAL,	FIRE_WAND_DURATION))
+		, mRuneStat(	WeaponStat(		RUNE_INITIAL_DAMAGE,		RUNE_INITIAL_COUNT,			RUNE_PENETRATING_COUNT,			RUNE_SPEED,			RUNE_SHOOT_INTERVAL,		RUNE_DURATION))
+		, mAxeStat(		WeaponStat(		AXE_INITIAL_DAMAGE,			AXE_INITIAL_COUNT,			AXE_PENETRATING_COUNT,			AXE_SPEED,			AXE_SHOOT_INTERVAL,			AXE_SHOOT_INTERVAL))
 		, mbIsWeaponFireWandOpen(false)
 		, mbIsWeaponRuneOpen(false)
 		, mbIsWeaponAxeOpen(false)
@@ -243,7 +248,7 @@ namespace ya
 
 			for (int i = 0; i < mKnifeStat.Count; ++i)
 			{
-				GameObject* pKnife = static_cast<GameObject*>(mpKnifeObjPool->Get(mPos, mKnifeStat.Damage, mKnifeStat.Speed * mWeaponSpeedCoefficient, mKnockbackValue, mKnifeStat.WeaponDuration, static_cast<eKnifeDirection>(meLookDir), mpKnifeObjPool));
+				GameObject* pKnife = static_cast<GameObject*>(mpKnifeObjPool->Get(mPos, mKnifeStat.Damage, mKnifeStat.PanetratingCount, mKnifeStat.Speed * mWeaponSpeedCoefficient, mKnockbackValue, mKnifeStat.WeaponDuration, static_cast<eKnifeDirection>(meLookDir), mpKnifeObjPool));
 				Scene* scene = SceneManager::GetCurrentScene();
 				scene->AddWeaponObject(pKnife);
 			}
@@ -256,7 +261,7 @@ namespace ya
 			{
 				for (int i = 0; i < mRuneStat.Count; ++i)
 				{
-					GameObject* pRune = static_cast<GameObject*>(mpRuneObjPool->Get(mPos, mRuneStat.Damage, mRuneStat.Speed * mWeaponSpeedCoefficient, mKnockbackValue, mRuneStat.WeaponDuration, mpRuneObjPool));
+					GameObject* pRune = static_cast<GameObject*>(mpRuneObjPool->Get(mPos, mRuneStat.Damage, mRuneStat.PanetratingCount, mRuneStat.Speed * mWeaponSpeedCoefficient, mKnockbackValue, mRuneStat.WeaponDuration, mpRuneObjPool));
 					Scene* scene = SceneManager::GetCurrentScene();
 					scene->AddWeaponObject(pRune);
 				}
@@ -270,7 +275,7 @@ namespace ya
 			{
 				for (int i = 0; i < mAxeStat.Count; ++i)
 				{
-					GameObject* pAxe = static_cast<GameObject*>(mpAxeObjPool->Get(mPos, mAxeStat.Damage, mAxeStat.Speed * mWeaponSpeedCoefficient, mKnockbackValue, mAxeStat.ShootInterval, mpAxeObjPool));
+					GameObject* pAxe = static_cast<GameObject*>(mpAxeObjPool->Get(mPos, mAxeStat.Damage, mAxeStat.PanetratingCount, mAxeStat.Speed * mWeaponSpeedCoefficient, mKnockbackValue, mAxeStat.ShootInterval, mpAxeObjPool));
 					Scene* scene = SceneManager::GetCurrentScene();
 					scene->AddWeaponObject(pAxe);
 				}
@@ -284,7 +289,7 @@ namespace ya
 			{
 				for (int i = 0; i < mFireWandStat.Count; ++i)
 				{
-					FireWand* pFire = static_cast<FireWand*>(mpFireWandObjPool->Get(mPos, mFireWandStat.Damage, mFireWandStat.Speed * mWeaponSpeedCoefficient, mKnockbackValue, mFireWandStat.ShootInterval, mpFireWandObjPool));
+					FireWand* pFire = static_cast<FireWand*>(mpFireWandObjPool->Get(mPos, mFireWandStat.Damage, mFireWandStat.PanetratingCount, mFireWandStat.Speed * mWeaponSpeedCoefficient, mKnockbackValue, mFireWandStat.ShootInterval, mpFireWandObjPool));
 					pFire->SetIdx(i);
 					Scene* scene = SceneManager::GetCurrentScene();
 					scene->AddWeaponObject(pFire);

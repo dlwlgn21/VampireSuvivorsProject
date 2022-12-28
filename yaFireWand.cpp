@@ -9,8 +9,8 @@
 
 namespace ya
 {
-	FireWand::FireWand(Vector2 spawanPos, int damage, float speed, float knockBackValue, float shootInterval, WeaponObjectPool<FireWand>* pPool)
-		: Weapon(eWeaponPenetratingType::COMPLETE_PENETRATING, spawanPos, damage, speed, knockBackValue, shootInterval)
+	FireWand::FireWand(Vector2 spawanPos, int damage, int penetratingCount, float speed, float knockBackValue, float shootInterval, WeaponObjectPool<FireWand>* pPool)
+		: Weapon(spawanPos, damage, penetratingCount, speed, knockBackValue, shootInterval)
 		, mpFireImage(Resources::Load<Image>(L"WeaponFireWand", L"Resources\\Image\\Fire.bmp"))
 		, mSizeX(mpFireImage->GetWidth())
 		, mSizeY(mpFireImage->GetHeight())
@@ -67,7 +67,14 @@ namespace ya
 	}
 	void FireWand::OnCollisionEnter(Collider* other)
 	{
-
+		if (other != nullptr && other->GetColliderLayer() == eColliderLayer::MONSTER)
+		{
+			Monster* pMonster = static_cast<Monster*>(other->GetOwner());
+			pMonster->DamagedFromWeapon(mDamage);
+			SetActive(false);
+			mpPool->Return(this);
+			// Vector2 monPos = pMonster->GetPos(); 
+		}
 	}
 	void FireWand::OnCollisionStay(Collider* other)
 	{

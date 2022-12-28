@@ -9,7 +9,7 @@ namespace ya
 	{
 	public:
 		friend class WeaponObjectPool<RuneTracer>;
-		RuneTracer(Vector2 spawanPos, int damage, float speed, float knockBackValue, float shootInterval, WeaponObjectPool<RuneTracer>* pPool);
+		RuneTracer(Vector2 spawanPos, int damage, int penetratingCount, float speed, float knockBackValue, float shootInterval, WeaponObjectPool<RuneTracer>* pPool);
 		virtual ~RuneTracer() = default;
 
 		void Tick() override;

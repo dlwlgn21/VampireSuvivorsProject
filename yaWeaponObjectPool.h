@@ -13,7 +13,7 @@ namespace ya
 		WeaponObjectPool& operator=(const WeaponObjectPool& other) = delete;
 		~WeaponObjectPool() = default;
 
-		T* Get(Vector2 spwanPos, int damage, float speed, float knockBackValue, float shootInterval, WeaponObjectPool* pPool);
+		T* Get(Vector2 spwanPos, int damage, int penetratingCount, float speed, float knockBackValue, float shootInterval, WeaponObjectPool* pPool);
 		void Return(T* pKnife);
 		UINT GetFreeObjectCount() const;
 		UINT GetMaxFreeObjectCount() const;
@@ -32,11 +32,11 @@ namespace ya
 	}
 
 	template<typename T>
-	T* WeaponObjectPool<T>::Get(Vector2 spwanPos, int damage, float speed, float knockBackValue, float shootInterval, WeaponObjectPool* pPool)
+	T* WeaponObjectPool<T>::Get(Vector2 spwanPos, int damage, int penetratingCount, float speed, float knockBackValue, float shootInterval, WeaponObjectPool* pPool)
 	{
 		if (mQ.empty())
 		{
-			return new T(spwanPos, damage, speed, knockBackValue, shootInterval, pPool);
+			return new T(spwanPos, damage, penetratingCount, speed, knockBackValue, shootInterval, pPool);
 		}
 		T* ptr = mQ.front();
 		ptr->Initialize(spwanPos);

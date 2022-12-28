@@ -9,10 +9,11 @@
 #include "yaTime.h"
 #include "yaWeaponObjectPool.h"
 
+
 namespace ya
 {
-	Axe::Axe(Vector2 spawanPos, int damage, float speed, float knockBackValue, float shootInterval, WeaponObjectPool<Axe>* pPool)
-		: Weapon(eWeaponPenetratingType::COMPLETE_PENETRATING, spawanPos, damage, speed, knockBackValue, shootInterval)
+	Axe::Axe(Vector2 spawanPos, int damage, int penetratingCount, float speed, float knockBackValue, float shootInterval, WeaponObjectPool<Axe>* pPool)
+		: Weapon(spawanPos, damage, penetratingCount, speed, knockBackValue, shootInterval)
 		, mpAxeImage(Resources::Load<Image>(L"WeaponAxe", L"Resources\\Image\\Axe.bmp"))
 		, mSizeX(mpAxeImage->GetWidth())
 		, mSizeY(mpAxeImage->GetHeight())
@@ -70,7 +71,19 @@ namespace ya
 	}
 	void Axe::OnCollisionEnter(Collider* other)
 	{
-
+		if (other != nullptr && other->GetColliderLayer() == eColliderLayer::MONSTER)
+		{
+			Monster* pMonster = static_cast<Monster*>(other->GetOwner());
+			pMonster->DamagedFromWeapon(mDamage);
+			--mPenetratingCounter;
+			if (mPenetratingCounter <= 0)
+			{
+				SetActive(false);
+				mpPool->Return(this);
+				return;
+			}
+			// Vector2 monPos = pMonster->GetPos();
+		}
 	}
 	void Axe::OnCollisionStay(Collider* other)
 	{
@@ -83,6 +96,7 @@ namespace ya
 	void Axe::Initialize(Vector2 pos)
 	{
 		mPos = pos;
+		mPenetratingCounter = mPenetratingCount;
 		initPosAndAccel();
 	}
 	void Axe::initPosAndAccel()

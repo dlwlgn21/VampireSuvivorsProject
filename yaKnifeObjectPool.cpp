@@ -7,11 +7,11 @@ namespace ya
 	{
 	}
 
-	Knife* KnifeObjectPool::Get(Vector2 spwanPos, int damage, float speed, float knockBackValue, float shootInterval, eKnifeDirection dir, KnifeObjectPool* pPool)
+	Knife* KnifeObjectPool::Get(Vector2 spwanPos, int damage, int penetratingCount, float speed, float knockBackValue, float shootInterval, eKnifeDirection dir, KnifeObjectPool* pPool)
 	{
 		if (mQ.empty())
 		{
-			return new Knife(spwanPos, damage, speed, knockBackValue, shootInterval, dir, pPool);
+			return new Knife(spwanPos, damage, penetratingCount, speed, knockBackValue, shootInterval, dir, pPool);
 		}
 		Knife* pKnife = mQ.front();
 		pKnife->Initialize(spwanPos, dir);

@@ -9,8 +9,8 @@
 
 namespace ya
 {
-	RuneTracer::RuneTracer(Vector2 spawanPos, int damage, float speed, float knockBackValue, float shootInterval, WeaponObjectPool<RuneTracer>* pPool)
-		: Weapon(eWeaponPenetratingType::COMPLETE_PENETRATING, spawanPos, damage, speed, knockBackValue, shootInterval)
+	RuneTracer::RuneTracer(Vector2 spawanPos, int damage, int penetratingCount, float speed, float knockBackValue, float shootInterval, WeaponObjectPool<RuneTracer>* pPool)
+		: Weapon(spawanPos, damage, penetratingCount, speed, knockBackValue, shootInterval)
 		, mpRuneTracerImage(Resources::Load<Image>(L"WeaponRuneTracer", L"Resources\\Image\\RuneTracer.bmp"))
 		, mSizeX(mpRuneTracerImage->GetWidth())
 		, mSizeY(mpRuneTracerImage->GetHeight())
@@ -47,7 +47,7 @@ namespace ya
 		mPos.x += mVelocityX * Time::DeltaTime();
 		mPos.y += mVelocityY * Time::DeltaTime();
 
-		mpCollider->SetPos({mPos.x + 6.0f, mPos.y + 6.0f});
+		mpCollider->SetPos( {mPos.x, mPos.y} );
 	}
 
 	void RuneTracer::Render(HDC hdc)
@@ -78,6 +78,13 @@ namespace ya
 				{ return; }
 			changeVerticalDirection(); 
 		}
+
+		if (other != nullptr && other->GetColliderLayer() == eColliderLayer::MONSTER)
+		{
+			Monster* pMonster = static_cast<Monster*>(other->GetOwner());
+			pMonster->DamagedFromWeapon(mDamage);
+			// Vector2 monPos = pMonster->GetPos();
+		}
 	}
 	void RuneTracer::OnCollisionStay(Collider* other)
 	{
@@ -103,7 +110,10 @@ namespace ya
 		{
 			degree -= 5;
 		}
-		mVelocityX = std::cosf(static_cast<float>(degree)) * mSpeed;
-		mVelocityY = std::sinf(static_cast<float>(degree)) * mSpeed;
+		float rad = yamath::DegreeToRad(static_cast<float>(degree));
+		//mVelocityX = std::cosf(static_cast<float>(degree)) * mSpeed;
+		//mVelocityY = std::sinf(static_cast<float>(degree)) * mSpeed;		
+		mVelocityX = std::cosf(rad) * mSpeed;
+		mVelocityY = std::sinf(rad) * mSpeed;
 	}
 }

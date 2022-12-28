@@ -9,7 +9,7 @@ namespace ya
 	{
 	public:
 		friend class WeaponObjectPool<Axe>;
-		Axe(Vector2 spawanPos, int damage, float speed, float knockBackValue, float shootInterval, WeaponObjectPool<Axe>* pPool);
+		Axe(Vector2 spawanPos, int damage, int penetratingCount, float speed, float knockBackValue, float shootInterval, WeaponObjectPool<Axe>* pPool);
 		virtual ~Axe() = default;
 
 		void Tick() override;

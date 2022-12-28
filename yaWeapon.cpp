@@ -3,12 +3,13 @@
 
 namespace ya
 {
-	Weapon::Weapon(eWeaponPenetratingType weaponPenetratingType, Vector2 spwanPos, int damage, float speed, float knockBackValue, float weaponDuration)
+	Weapon::Weapon(Vector2 spwanPos, int damage, int penetratingCount, float speed, float knockBackValue, float weaponDuration)
 		: GameObject(spwanPos)
-		, meWeaponPenetratingType(weaponPenetratingType)
 		, mpCollider(new Collider())
 		, mSpawnPosition(spwanPos)
 		, mDamage(damage)
+		, mPenetratingCount(penetratingCount)
+		, mPenetratingCounter(penetratingCount)
 		, mSpeed(speed)
 		, mKnockBackValue(knockBackValue)
 		, mWeaponDuration(weaponDuration)

@@ -1,22 +1,16 @@
 #pragma once
 #include <random>
 #include "yaGameObejct.h"
+#include "yaMonster.h"
 
 namespace ya
 {
-	enum class eWeaponPenetratingType
-	{
-		COMPLETE_PENETRATING,
-		PARTIAL_PENETRATING,
-		NO_PENETRATING,
-		COUNT
-	};
 
 	class Collider;
 	class Weapon : public GameObject
 	{
 	public:
-		Weapon(eWeaponPenetratingType weaponPenetratingType, Vector2 spwanPos, int damage, float speed, float knockBackValue, float weaponDuration);
+		Weapon(Vector2 spwanPos, int damage, int penetratingCount,float speed, float knockBackValue, float weaponDuration);
 		virtual ~Weapon() = default;
 
 		virtual void Tick() override;
@@ -25,8 +19,6 @@ namespace ya
 		virtual void OnCollisionStay(Collider* other) override;
 		virtual void OnCollisionExit(Collider* other) override;
 
-		__forceinline eWeaponPenetratingType GetWeaponPenetratingType() const { return meWeaponPenetratingType; }
-		__forceinline void SetWeaponPenetratingType(const eWeaponPenetratingType type) { meWeaponPenetratingType = type; }
 		__forceinline void SetSize(const Vector2 size) { mSize = size; }
 		__forceinline Vector2 GetSize() const { return mSize; }
 		__forceinline int GetDamage() const { return mDamage; }
@@ -39,11 +31,11 @@ namespace ya
 
 	protected:
 		Collider* mpCollider;
-		eWeaponPenetratingType meWeaponPenetratingType;
-		
 		Vector2 mSpawnPosition;
 		Vector2 mSize;
 		int mDamage;
+		int mPenetratingCount;
+		int mPenetratingCounter;
 		float mSpeed;
 		float mKnockBackValue;
 		float mWeaponDuration;
