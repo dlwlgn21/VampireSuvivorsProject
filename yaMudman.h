@@ -19,8 +19,6 @@ namespace ya
 		void OnCollisionExit(Collider* other) override;
 
 	private:
-		HPEN mPen;
-		HBRUSH mBrush;
 		Image* mpImage;
 		Image* mpInvImage;
 		Animator* mpAnimator;

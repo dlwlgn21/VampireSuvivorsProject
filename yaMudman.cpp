@@ -5,21 +5,20 @@
 #include "yaImage.h"
 #include "yaCamera.h"
 #include "yaPlayer.h"
+#include "yaTime.h"
 
 namespace ya
 {
 	Mudman::Mudman(Vector2 pos, Player* pPlayer)
-		: Monster(pos, pPlayer, MUDMAN_INITIAL_HP, MUDMAN_INITIAL_DAMAGE, ONE_MIN_NORMAL_MONSTER_EXP)
-		, mPen(CreatePen(PS_DASHDOTDOT, 3, RGB(0, 255, 255)))
-		, mBrush(CreateSolidBrush(RGB(153, 204, 255)))
+		: Monster(pos, pPlayer, MUDMAN_INITIAL_HP, MUDMAN_INITIAL_DAMAGE, ONE_MIN_NORMAL_MONSTER_EXP, 200.0f)
 		, mpImage(Resources::Load<Image>(L"Mudman", L"Resources\\Image\\MudmanAnim.bmp"))
 		, mpInvImage(Resources::Load<Image>(L"MudmanInv", L"Resources\\Image\\MudmanInvAnim.bmp"))
 		, mpAnimator(new Animator())
-		, mpCollider(new Collider(Vector2(20.0f, 40.0f)))
+		, mpCollider(new Collider(Vector2(25.0f, 40.0f)))
 		, mAnimMove(L"MudmanAnim")
 		, mAnimInvMove(L"MudmanAnimInv")
-		, mAnimMoveSize(28.0f, 31.0f)
-		, mAnimOffset(-15.f, -20.f)
+		, mAnimMoveSize(56.0f, 66.0f)
+		, mAnimOffset(0.0f, 0.0f)
 		, mAnimCount(5)
 		, mAnimDuration(0.15f)
 	{
@@ -28,11 +27,10 @@ namespace ya
 		assert(mpAnimator != nullptr);
 		assert(mpCollider != nullptr);
 		SetName(L"Mudman");
-		mScale = { 2.0f, 2.0f };
 		AddComponent(mpAnimator);
 		AddComponent(mpCollider);
 		mpCollider->SetColliderLayer(eColliderLayer::MONSTER);
-		mpAnimator->CreateAnimation(mAnimMove, mpImage, Vector2::ZERO, mAnimMoveSize, mAnimOffset, mAnimCount, mAnimDuration);
+		mpAnimator->CreateAnimation(mAnimMove,	mpImage, Vector2::ZERO, mAnimMoveSize, mAnimOffset, mAnimCount, mAnimDuration);
 		mpAnimator->CreateAnimation(mAnimInvMove, mpInvImage, Vector2::ZERO, mAnimMoveSize, mAnimOffset, mAnimCount, mAnimDuration);
 		mpAnimator->Play(mAnimInvMove, true);
 	}
@@ -40,6 +38,11 @@ namespace ya
 	void Mudman::Tick()
 	{
 		GameObject::Tick();
+
+		SetVelocity();
+
+		mPos.x -= mVelocityX * Time::DeltaTime();
+		mPos.y -= mVelocityY * Time::DeltaTime();
 	}
 	void Mudman::Render(HDC hdc)
 	{

@@ -17,106 +17,94 @@ namespace ya
 		static Vector2 LEFT;
 		static Vector2 UP;
 		static Vector2 DOWN;
-		Vector2(float x, float y)
+		Vector2(float paramX, float paramY)
+			: x(paramX)
+			, y(paramY)
 		{
-			this->x = x;
-			this->y = y;
 		}
 
 		Vector2() = default;
 		~Vector2() = default;
 		Vector2(const Vector2& other) = default;
-		void Clear()
+
+		__forceinline void Clear()
 		{
 			x = 0.0f;
 			y = 0.0f;
 		}
-		Vector2 operator/(const float val)
+		
+		__forceinline Vector2 operator/(const float val) const
 		{
-			Vector2 temp{};
-			temp.x = x / val;
-			temp.y = y / val;
-			return temp;
+			return Vector2(x / val, y / val);
 		}
 
-		Vector2 operator+(const Vector2& other)
+		__forceinline Vector2 operator+(const Vector2& other) const
 		{
-			Vector2 temp{};
-			temp.x = x + other.x;
-			temp.y = y + other.y;
-			return temp;
+			return Vector2(x + other.x, y + other.y);
 		}
-		Vector2 operator-(const Vector2& other)
+		__forceinline Vector2 operator-(const Vector2& other) const
 		{
-			Vector2 temp{};
-			temp.x = x - other.x;
-			temp.y = y - other.y;
-			return temp;
+			return Vector2(x - other.x, y - other.y);
 		}
 
-		Vector2 operator*(const Vector2& other)
+		__forceinline Vector2 operator*(const Vector2& other) const
 		{
-			Vector2 temp{};
-			temp.x = x * other.x;
-			temp.y = y * other.y;
-			return temp;
+			return Vector2(x * other.x, y * other.y);
 		}
 
-		Vector2 operator*(const float val)
+		__forceinline Vector2 operator*(const float scalar) const
 		{
-			Vector2 temp{};
-			temp.x = x * val;
-			temp.y = y * val;
-			return temp;
+			return Vector2(x * scalar, y * scalar);
 		}
 
-		Vector2& operator+=(const Vector2& other)
+		
+		__forceinline Vector2& operator+=(const Vector2& other)
 		{
 			x += other.x;
 			y += other.y;
 			return *this;
 		}
-		Vector2& operator-=(const Vector2& other)
+		__forceinline Vector2& operator-=(const Vector2& other)
 		{
 			x -= other.x;
 			y -= other.y;
 			return *this;
 		}
-		Vector2& operator*=(const Vector2& other)
+		__forceinline Vector2& operator*=(const Vector2& other)
 		{
 			x *= other.x;
 			y *= other.y;
 			return *this;
 		}
 
-		Vector2& operator*=(const float val)
+		__forceinline Vector2& operator*=(const float val)
 		{
 			x *= val;
 			y *= val;
 			return *this;
 		}
 
-		bool operator==(const Vector2& other)
+		__forceinline bool operator==(const Vector2& other) const
 		{
 			return x == other.x && y == other.y;
 		}
 
-		bool operator!=(const Vector2& other)
+		__forceinline bool operator!=(const Vector2& other) const
 		{
 			return x != other.x && y != other.y;
 		}
 
-		Vector2 operator-()
+		__forceinline Vector2 operator-() const
 		{
 			return Vector2(-x, -y);
 		}
 
-		float GetLength()
+		__forceinline float GetLength()
 		{
-			return static_cast<float>(sqrt((x * x) + (y * y)));
+			return static_cast<float>(std::sqrt((x * x) + (y * y)));
 		}
 
-		Vector2& Normalize()
+		__forceinline Vector2& Normalize()
 		{
 			float lenth = GetLength();
 			x /= lenth;
@@ -124,7 +112,7 @@ namespace ya
 			return *this;
 		}
 
-		float Dot(const Vector2& other)
+		__forceinline float Dot(const Vector2& other) const
 		{
 			return (x * other.x) + (y * other.y);
 		}

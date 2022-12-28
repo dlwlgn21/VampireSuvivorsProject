@@ -56,7 +56,7 @@ namespace ya
 
 	Player::Player()
 		: GameObject({ 0.0f, 0.0f })
-		, mMoveSpeed(1000.0f)
+		, mMoveSpeed(300.0f)
 		, mPen(CreatePen(PS_DASHDOTDOT, 3, RGB(0, 255, 255)))
 		, mBrush(CreateSolidBrush(RGB(153, 204, 255)))
 		, mpLeftImage(Resources::Load<Image>(L"PlayerLeft", L"Resources\\Image\\PlayerLeftAnim.bmp"))
@@ -222,21 +222,6 @@ namespace ya
 			mePlayerAnimState = ePlayerAnimState::RIGHT;
 			meLookDir = ePlayerLookDirection::RIGHT;
 		}
-
-
-#if 0
-		if (IS_KEY_DOWN(eKeyCode::L_BUTTON))
-		{
-			// FOR AsortLock class
-			Missile* pMis = ya::object::Instantiate<Missile>(eColliderLayer::PLAYER_PROJECTTILE);
-			//pMis->mDestPos = Input::GetMousePos();
-			//pMis->mDir = pMis->mDestPos - pMis->GetPos();
-			pMis->SetPos(mPos);
-			pMis->mDestPos = Input::GetMousePos() - mPos;
-			dir = yamath::Rotate(dir, 5.0f);
-			pMis->mDir = dir;
-		}
-#endif
 
 	PLAY_ANIMATION:
 		{

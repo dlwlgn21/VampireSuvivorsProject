@@ -23,14 +23,14 @@ namespace ya
 		virtual void OnCollisionExit(Collider* other);
 
 		__forceinline void SetPos(Vector2 pos) { mPos = pos; }
-		__forceinline Vector2 GetPos() { return mPos; }
+		__forceinline Vector2 GetPos() const { return mPos; }
 		__forceinline void SetScale(Vector2 scale) { mScale = scale; }
-		__forceinline Vector2 GetScale() { return mScale; }
+		__forceinline Vector2 GetScale() const { return mScale; }
 		//inline void SetHdc(HDC hdc) { mHdc = hdc; }
 		//inline HDC GetHdc() { return mHdc; }
 		__forceinline void DisableObject() { mbIsAlive = false; }
-		__forceinline bool IsAlive() { return mbIsAlive; }
-		__forceinline bool IsActive() { return mbIsActive; }
+		__forceinline bool IsAlive() const { return mbIsAlive; }
+		__forceinline bool IsActive() const { return mbIsActive; }
 		__forceinline void SetActive(bool isActive) { mbIsActive = isActive; }
 		__forceinline void SetDisableTime(float time);
 		void AddComponent(Component* component);

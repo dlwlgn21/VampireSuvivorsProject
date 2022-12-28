@@ -81,7 +81,6 @@ namespace ya
 			return gameObeject;
 		}
 
-
 		template<typename T>
 		static __forceinline void Destory(GameObject* gameObject)
 		{
