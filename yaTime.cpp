@@ -89,7 +89,7 @@ namespace ya
 			// DeltaTime == 한 프레임 도는데 걸린 시간.
 			float fps = 1.0f / mDeltaTime;
 			swprintf_s(buffer, 64, L"FramePerSecond : %.0f", fps);
-			size_t strLen = wcsnlen_s(buffer, 64);
+			size_t strLen = static_cast<size_t>(wcsnlen_s(buffer, 64));
 			TextOutW(hdc, 10, 10, buffer, static_cast<int>(strLen));
 
 			swprintf_s(buffer, 64, L"Total Time == %.0f", TotalTime());

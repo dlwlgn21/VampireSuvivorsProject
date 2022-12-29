@@ -13,7 +13,7 @@ namespace ya
 
 		virtual void Tick();
 		virtual void Render(HDC hdc) = 0;
-		void OnCollisionEnter(Collider* other);
+		virtual void OnCollisionEnter(Collider* other) = 0;
 		virtual void OnCollisionStay(Collider* other) = 0;
 		virtual void OnCollisionExit(Collider* other) = 0;
 		
@@ -42,30 +42,11 @@ namespace ya
 		}
 
 	protected:
-		__forceinline void SetVelocity()
-		{
-			float distance = GetVectorToPlayer().GetLength();
-			Vector2 playerPos = mpPlayer->GetPos();
-			if (std::abs(distance) <= FLT_EPSILON)
-			{
-				mVelocityX = 0.0f;
-				mVelocityY = mSpeed;
-			}
-			else
-			{
-				mVelocityX = (mPos.x - playerPos.x) / distance * mSpeed;
-				mVelocityY = (mPos.y - playerPos.y) / distance * mSpeed;
-			}
-		}
-
-	protected:
 		Player* mpPlayer;
 		int mHP;
 		int mDamage;
 		int mExp;
 		float mSpeed;
-		float mVelocityX;
-		float mVelocityY;
 		Vector2 mPlayerPos;
 	};
 }

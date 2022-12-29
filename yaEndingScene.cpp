@@ -34,7 +34,7 @@ namespace ya
 		wchar_t buffer[64];
 
 		swprintf_s(buffer, 64, L"Ending Scene");
-		size_t strLen = wcsnlen_s(buffer, 64);
+		int strLen = static_cast<int>(wcsnlen_s(buffer, 64));
 
 		TextOut(hdc, 10, 30, buffer, strLen);
 	}

@@ -1,7 +1,7 @@
 #define KNIFE_INITIAL_DAMAGE (6)
 #define KNIFE_INITIAL_COUNT (1)
 #define KNIFE_PENETRATING_COUNT (0)
-#define KNIFE_INITIAL_DAMAGE (6)
+#define KNIFE_INITIAL_DAMAGE (2)
 #define KNIFE_SPEED (400.0f)
 #define KNIFE_SHOOT_INTERVAL (2.0f)
 #define KNIFE_DURATION (1.5f)
@@ -293,6 +293,20 @@ namespace ya
 
 	void Player::OnCollisionEnter(Collider* other)
 	{
+		if (other != nullptr)
+		{
+			switch (other->GetColliderLayer())
+			{
+			case eColliderLayer::MONSTER:
+			{
+				Monster* pMonster = static_cast<Monster*>(other->GetOwner());
+				DamageFromMonster(pMonster->GetDamage());
+				break;
+			}
+			default:
+				break;
+			}
+		}
 	}
 
 	void Player::OnCollisionStay(Collider* other)

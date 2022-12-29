@@ -42,21 +42,16 @@ namespace ya
 		Brush brush(hdc, transBrush);
 
 		if (mCollisionCount > 0)
-		{
-			prevPen = static_cast<HPEN>(SelectObject(hdc, redPen));
-		}
+			{ prevPen = static_cast<HPEN>(SelectObject(hdc, redPen)); }
 		else
-		{
-			prevPen = static_cast<HPEN>(SelectObject(hdc, greenPen));
-		}
-		Vector2 leftTop;
-		leftTop.x = mPos.x - mSize.x / 2;
-		leftTop.y = mPos.y - mSize.y / 2;
-		Vector2 rightBottom;
-		rightBottom.x = mPos.x + mSize.x / 2;
-		rightBottom.y = mPos.y + mSize.y / 2;
+			{ prevPen = static_cast<HPEN>(SelectObject(hdc, greenPen)); }
+
+
+		Vector2 leftTop(mPos.x - mSize.x / 2, mPos.y - mSize.y / 2);
+		Vector2 rightBottom(mPos.x + mSize.x / 2, mPos.y + mSize.y / 2);
 		leftTop = Camera::ToCameraPos(leftTop);
 		rightBottom = Camera::ToCameraPos(rightBottom);
+
 		Rectangle(
 			hdc,
 			static_cast<int>(leftTop.x),
@@ -64,6 +59,7 @@ namespace ya
 			static_cast<int>(rightBottom.x),
 			static_cast<int>(rightBottom.y)
 		);
+
 		SelectObject(hdc, prevPen);
 		DeleteObject(redPen);
 		DeleteObject(greenPen);

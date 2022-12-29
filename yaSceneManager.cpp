@@ -15,10 +15,10 @@ namespace ya
 	{
 		// 모든 씬들을 초기화
 		mScenes[static_cast<UINT>(eSceneType::TITLE_SCENE)] = new TitleScene();
-		mScenes[static_cast<UINT>(eSceneType::TITLE_SCENE)]->Initialize();
+		//mScenes[static_cast<UINT>(eSceneType::TITLE_SCENE)]->Initialize();
 
 		mScenes[static_cast<UINT>(eSceneType::PLAY_SCENE)] = new PlayScene();
-		mScenes[static_cast<UINT>(eSceneType::PLAY_SCENE)]->Initialize();
+		//mScenes[static_cast<UINT>(eSceneType::PLAY_SCENE)]->Initialize();
 		ChangeSecne(eSceneType::TITLE_SCENE);
 
 #if 0

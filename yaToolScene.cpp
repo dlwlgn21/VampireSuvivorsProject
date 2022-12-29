@@ -35,7 +35,7 @@ namespace ya
 		WindowData mainWinData = Application::GetInstance().GetWindowData();
 		wchar_t buffer[64];
 		swprintf_s(buffer, 64, L"Tool Scene");
-		size_t strLen = wcsnlen_s(buffer, 64);
+		int strLen = static_cast<int>(wcsnlen_s(buffer, 64));
 		TextOut(hdc, 10, 30, buffer, strLen);
 
 		HPEN greenPen = CreatePen(PS_SOLID, 2, RGB(0, 200, 0));

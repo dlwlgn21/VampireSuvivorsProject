@@ -10,11 +10,11 @@ namespace ya
 	public:
 		static void Tick();
 		static void SetLayer(eColliderLayer lLayer, eColliderLayer rLayer, bool value);
-		static void CheckLayerCollision(Scene* scene, eColliderLayer lLayer, eColliderLayer rLayer);
-		static void CheckColliderCollision(Collider* lCollider, Collider* rCollider);
-
-		static bool CheckIntersect(Collider* lCollider, Collider* rCollider);
 		static void Clear();
+	private:
+		static void checkLayerCollision(Scene* scene, eColliderLayer lLayer, eColliderLayer rLayer);
+		static void checkColliderCollision(Collider* lCollider, Collider* rCollider);
+		static bool checkIntersect(Collider* lCollider, Collider* rCollider);
 
 	private:
 		static WORD mMatrix[MAX_COLLIDER_LAYER];

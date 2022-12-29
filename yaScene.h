@@ -20,12 +20,12 @@ namespace ya
 		void AddGameObject(GameObject* object, eColliderLayer layer);
 		void AddWeaponObject(GameObject* object);
 
-		__forceinline std::vector<GameObject*>& GetSpecifiedLayerGameObjects(eColliderLayer layer)
+		__forceinline const std::vector<GameObject*>& GetSpecifiedLayerGameObjects(eColliderLayer layer) const
 		{
 			return mObjects[static_cast<UINT>(layer)];
 		}
 
-		inline std::vector<std::vector<GameObject*>>& GetGameObjects() { return mObjects; };
+		__forceinline std::vector<std::vector<GameObject*>>& GetGameObjects() { return mObjects; };
 	
 	private:
 		std::vector<std::vector<GameObject*>> mObjects;

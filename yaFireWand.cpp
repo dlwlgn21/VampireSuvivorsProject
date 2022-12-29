@@ -69,8 +69,8 @@ namespace ya
 	{
 		if (other != nullptr && other->GetColliderLayer() == eColliderLayer::MONSTER)
 		{
-			Monster* pMonster = static_cast<Monster*>(other->GetOwner());
-			pMonster->DamagedFromWeapon(mDamage);
+			//Monster* pMonster = static_cast<Monster*>(other->GetOwner());
+			//pMonster->DamagedFromWeapon(mDamage);
 			SetActive(false);
 			mpPool->Return(this);
 			// Vector2 monPos = pMonster->GetPos(); 

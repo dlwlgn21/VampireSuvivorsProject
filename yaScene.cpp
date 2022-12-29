@@ -3,6 +3,7 @@
 #include "yaScene.h"
 #include "yaSceneManager.h"
 #include "yaCollisionManager.h"
+#include "yaTime.h"
 
 namespace ya
 {
@@ -78,6 +79,23 @@ namespace ya
 	void Scene::Exit()
 	{
 		CollisionManager::Clear();
+		Time::Reset();
+		for (int i = 0; i < MAX_COLLIDER_LAYER; ++i)
+		{
+			for (int j = 0; j < mObjects[i].size(); ++j)
+			{
+				if (mObjects[i][j] == nullptr) { continue; }
+				delete mObjects[i][j];
+				mObjects[i][j] = nullptr;
+			}
+		}
+		mObjects.clear();
+		mObjects.reserve(MAX_COLLIDER_LAYER);
+		mObjects.resize(MAX_COLLIDER_LAYER);
+		for (int i = 0; i < MAX_COLLIDER_LAYER; ++i)
+		{
+			mObjects[i].reserve(128);
+		}
 	}
 	void Scene::AddGameObject(GameObject* object, eColliderLayer layer)
 	{

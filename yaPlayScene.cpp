@@ -48,16 +48,7 @@ namespace ya
 	}
 	void PlayScene::Initialize()
 	{
-		mpPlayer = ya::object::Instantiate<Player>(eColliderLayer::PLAYER);
-		BGGmaeImage* bgGameImage = ya::object::InstantiateAtAnotherScene<BGGmaeImage>(eColliderLayer::BACKGROUND, L"BGGmaeMap", L"Resources\\Image\\MapTwo.bmp", GetSceneTpye());
-		bgGameImage->Initialize();
 
-		int monsterCount = 15;
-		for (int i = 0; i < monsterCount; ++i)
-		{
-			ya::object::InstantiateAtAnotherScene<Mudman>(eColliderLayer::MONSTER, Vector2(100.0f * i, 300.f), mpPlayer, GetSceneTpye());
-		}
-		setColliderLayer();
 	}
 	void PlayScene::Tick()
 	{
@@ -88,6 +79,15 @@ namespace ya
 	{
 		Scene::Enter();
 		Time::StartTimeCounting();
+		mpPlayer = ya::object::Instantiate<Player>(eColliderLayer::PLAYER);
+		BGGmaeImage* bgGameImage = ya::object::InstantiateAtAnotherScene<BGGmaeImage>(eColliderLayer::BACKGROUND, L"BGGmaeMap", L"Resources\\Image\\MapTwo.bmp", GetSceneTpye());
+		bgGameImage->Initialize();
+
+		int monsterCount = 15;
+		for (int i = 0; i < monsterCount; ++i)
+		{
+			ya::object::InstantiateAtAnotherScene<Mudman>(eColliderLayer::MONSTER, Vector2(100.0f * i, 300.f), mpPlayer, GetSceneTpye());
+		}
 		setColliderLayer();
 		PlaySceneHUDPanel* pPanel = static_cast<PlaySceneHUDPanel*>(UIManager::GetUIInstanceOrNull(eUIType::PLAY_INFO_HUD));
 		assert(pPanel != nullptr);
@@ -98,12 +98,13 @@ namespace ya
 	void PlayScene::Exit()
 	{
 		Scene::Exit();
-		Time::Reset();
+
 	}
 	void PlayScene::setColliderLayer()
 	{
 		CollisionManager::SetLayer(eColliderLayer::PLAYER, eColliderLayer::BACKGROUND, true);
 		CollisionManager::SetLayer(eColliderLayer::PLAYER, eColliderLayer::MONSTER, true);
+		CollisionManager::SetLayer(eColliderLayer::MONSTER, eColliderLayer::MONSTER, true);
 		CollisionManager::SetLayer(eColliderLayer::MONSTER, eColliderLayer::PLAYER_PROJECTTILE, true);
 		CollisionManager::SetLayer(eColliderLayer::BACKGROUND, eColliderLayer::PLAYER_PROJECTTILE, true);
 	}

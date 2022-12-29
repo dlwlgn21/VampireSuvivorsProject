@@ -96,7 +96,7 @@ namespace ya
 		static __forceinline void Release()
 		{
 			Scene* currScene = SceneManager::GetCurrentScene();
-			std::vector<std::vector<GameObject*>> objects = currScene->GetGameObjects();
+			std::vector<std::vector<GameObject*>>& objects = currScene->GetGameObjects();
 
 			for (int i = 0; i < MAX_COLLIDER_LAYER; ++i)
 			{

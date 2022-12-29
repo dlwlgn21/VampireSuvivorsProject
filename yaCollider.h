@@ -22,12 +22,12 @@ namespace ya
 		__forceinline void SetPos(Vector2 pos) { mPos = pos; }
 		__forceinline void SetSize(Vector2 size) { mSize = size; }
 
-		__forceinline Vector2 GetOffset() { return mOffset; }
-		__forceinline Vector2 GetPos() { return mPos; }
-		__forceinline Vector2 GetSize() { return mSize; }
+		__forceinline Vector2 GetOffset() const { return mOffset; }
+		__forceinline Vector2 GetPos() const { return mPos; }
+		__forceinline Vector2 GetSize() const { return mSize; }
 
 		__forceinline void SetColliderLayer(eColliderLayer layer) { meLayerType = layer; }
-		__forceinline eColliderLayer GetColliderLayer() { return meLayerType; }
+		__forceinline eColliderLayer GetColliderLayer() const { return meLayerType; }
 
 	private:
 		Vector2 mOffset;
