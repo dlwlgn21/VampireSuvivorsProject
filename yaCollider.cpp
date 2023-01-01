@@ -14,6 +14,16 @@ namespace ya
 		, mCollisionCount(0)
 	{
 	}
+	Collider::Collider(Vector2 size, eColliderLayer eColliderLayer)
+		: Component(eComponentType::COLLIDER)
+		, mPos(Vector2::ZERO)
+		, mSize(size)
+		, mOffset(Vector2::ZERO)
+		, mCollisionCount(0)
+		, meLayerType(eColliderLayer)
+	{
+	}
+
 	Collider::Collider()
 		: Component(eComponentType::COLLIDER)
 		, mPos(Vector2::ZERO)

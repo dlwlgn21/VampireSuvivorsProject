@@ -7,6 +7,9 @@
 #include "yaPlayer.h"
 #include "yaTime.h"
 #include "yaWeapon.h"
+#include "yaExpGem.h"
+#include "yaSceneManager.h"
+#include "yaPlayScene.h"
 
 namespace ya
 {
@@ -17,7 +20,7 @@ namespace ya
 		, mpLeftDeathImage(Resources::Load<Image>(L"MudmanLDeath", L"Resources\\Image\\MudManLeftDeathAnim.bmp"))
 		, mpRightDeathImage(Resources::Load<Image>(L"MudmanRDeath", L"Resources\\Image\\MudManDeathRightAnim.bmp"))
 		, mpAnimator(new Animator())
-		, mpCollider(new Collider(Vector2(25.0f, 40.0f)))
+		, mpCollider(new Collider(Vector2(56.0f, 66.0f)))
 		, mAnimMove(L"MudmanAnim")
 		, mAnimInvMove(L"MudmanAnimInv")
 		, mAnimLeftDeath(L"MudmanAnimLDeath")
@@ -52,20 +55,16 @@ namespace ya
 		if (mbIsDeathFromWeapon)
 		{
 			mDeathAnimCounter -= Time::DeltaTime();
-			//if (std::abs(mDeathAnimCounter) <= FLT_EPSILON)
-			//{
-			//	mbIsActive = false;
-			//}
 			if (mDeathAnimCounter <= 0.0f)
 			{
-				mbIsActive = false;
+				SetActive(false);
 			}
 		}
-		//Vector2 monDir = GetVectorToPlayer();
-		//monDir.Normalize();
+		Vector2 monDir = GetVectorToPlayer();
+		monDir.Normalize();
 
-		//mPos.x += monDir.x * mSpeed * Time::DeltaTime();
-		//mPos.y += monDir.y * mSpeed * Time::DeltaTime();
+		mPos.x += monDir.x * mSpeed * Time::DeltaTime();
+		mPos.y += monDir.y * mSpeed * Time::DeltaTime();
 		Monster::Tick();
 	}
 	void Mudman::Render(HDC hdc)
@@ -75,6 +74,8 @@ namespace ya
 
 	void Mudman::OnCollisionEnter(Collider* pCollider)
 	{
+
+
 		switch (pCollider->GetColliderLayer())
 		{
 		case eColliderLayer::PLAYER_PROJECTTILE:
@@ -85,7 +86,9 @@ namespace ya
 			{
 				mbIsDeathFromWeapon = true;
 				assert(mpPlayer != nullptr);
-				mpPlayer->IncreaseExp(mExp);
+				PlayScene* pScene = static_cast<PlayScene*>(SceneManager::GetCurrentScene());
+				ExpGem* pExpGem = new ExpGem(mPos, mpPlayer, EXP_BLUE_GEM);
+				pScene->AddGameObject(pExpGem, eColliderLayer::EXP_JEM);
 				mpAnimator->Play(mAnimRightDeath, false);
 			}
 			break;
@@ -96,6 +99,66 @@ namespace ya
 	}
 	void Mudman::OnCollisionStay(Collider* pCollider)
 	{
+		if (pCollider->GetColliderLayer() == eColliderLayer::MONSTER)
+		{
+			GameObject* pOtherObject = pCollider->GetOwner();
+			Vector2 myCollderSize = mpCollider->GetSize();
+			Vector2 otherColliderSize = pCollider->GetSize();
+			Vector2 objPos = pOtherObject->GetPos();
+
+			GameObject* pFixedObject;
+			GameObject* pMovingObject;
+
+			float myLeftTopX = mPos.x - myCollderSize.x / 2;
+			float myRightBottomX = mPos.x + myCollderSize.x / 2;
+
+			float otherLeftTopX = objPos.x - otherColliderSize.x / 2;
+			float otherRightBottomX = objPos.x + otherColliderSize.x / 2;
+
+			float pushXLength = 0.0f;
+
+			if (myLeftTopX <= otherLeftTopX)
+			{
+				pFixedObject = this;
+				pMovingObject = pOtherObject;
+				pushXLength = myRightBottomX - otherLeftTopX;
+			}
+			else
+			{
+				pFixedObject = pOtherObject;
+				pMovingObject = this;
+				pushXLength = otherRightBottomX - myLeftTopX;
+			}
+
+			pMovingObject->SetPos(Vector2(pMovingObject->GetPos().x + pushXLength * mSpeed * Time::DeltaTime(), pMovingObject->GetPos().y));
+
+
+			//float myLeftTopY = mPos.y - myCollderSize.y / 2;
+			//float myRightBottomY = mPos.y + myCollderSize.y / 2;
+
+			//float otherLeftTopY = objPos.y - otherColliderSize.y / 2;
+			//float otherRightBottomY = objPos.y + otherColliderSize.y / 2;
+
+			//// my의 오른쪽 y좌표가 other의 오른족 y좌표보다 위에 있으면
+			//float pushYlengh = 0.0f;
+			//// TODO : 여기를 고쳐보자
+			//if (myLeftTopY <= otherLeftTopY)
+			//{
+			//	pFixedObject = this;
+			//	pMovingObject = pOtherObject;
+			//	pushYlengh = -(otherLeftTopY - myRightBottomY);
+			//}
+			//// my의 오른쪽 y좌표가 other의 오른족 y좌표보다 아래에 있으면
+			//else
+			//{
+			//	pFixedObject = pOtherObject;
+			//	pMovingObject = this;
+			//	pushYlengh = -(myLeftTopY - otherRightBottomY);
+			//}
+
+			////assert(std::abs(pushXLength) > FLT_EPSILON && std::abs(pushYlengh) > FLT_EPSILON);
+			//pMovingObject->SetPos(Vector2(pMovingObject->GetPos().x, pMovingObject->GetPos().y + pushYlengh * mSpeed * Time::DeltaTime()));
+		}
 	}
 	void Mudman::OnCollisionExit(Collider* pCollider)
 	{

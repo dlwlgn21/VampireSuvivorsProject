@@ -8,7 +8,7 @@ namespace ya
 	{
 	public:
 		KnifeObjectPool(UINT maxPoolSize);
-		~KnifeObjectPool() = default;
+		~KnifeObjectPool();
 		KnifeObjectPool(const KnifeObjectPool& other) = delete;
 		KnifeObjectPool& operator=(const KnifeObjectPool& other) = delete;
 

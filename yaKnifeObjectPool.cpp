@@ -7,6 +7,19 @@ namespace ya
 	{
 	}
 
+	KnifeObjectPool::~KnifeObjectPool()
+	{
+		while (!mQ.empty())
+		{
+			Knife* pKnife = mQ.front();
+			if (pKnife != nullptr)
+			{
+				delete pKnife;
+			}
+			mQ.pop();
+		}
+	}
+
 	Knife* KnifeObjectPool::Get(Vector2 spwanPos, int damage, int penetratingCount, float speed, float knockBackValue, float shootInterval, eKnifeDirection dir, KnifeObjectPool* pPool)
 	{
 		if (mQ.empty())

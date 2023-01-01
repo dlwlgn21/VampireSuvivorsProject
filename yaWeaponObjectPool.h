@@ -11,7 +11,7 @@ namespace ya
 		WeaponObjectPool(UINT maxPoolSize);
 		WeaponObjectPool(const WeaponObjectPool& other) = delete;
 		WeaponObjectPool& operator=(const WeaponObjectPool& other) = delete;
-		~WeaponObjectPool() = default;
+		~WeaponObjectPool();
 
 		T* Get(Vector2 spwanPos, int damage, int penetratingCount, float speed, float knockBackValue, float shootInterval, WeaponObjectPool* pPool);
 		void Return(T* pKnife);
@@ -29,6 +29,18 @@ namespace ya
 	WeaponObjectPool<T>::WeaponObjectPool(UINT maxPoolSize)
 		: mMaxPoolSize(maxPoolSize)
 	{
+	}
+
+	template<typename T>
+	WeaponObjectPool<T>::~WeaponObjectPool()
+	{
+		while (!mQ.empty())
+		{
+			T* ptr = mQ.front();
+			if (ptr != nullptr)
+				{ delete ptr; }
+			mQ.pop();
+		}
 	}
 
 	template<typename T>

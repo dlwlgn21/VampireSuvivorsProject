@@ -27,7 +27,7 @@ namespace ya
 
 		__forceinline std::vector<std::vector<GameObject*>>& GetGameObjects() { return mObjects; };
 	
-	private:
+	protected:
 		std::vector<std::vector<GameObject*>> mObjects;
 	};
 }

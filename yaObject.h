@@ -103,7 +103,7 @@ namespace ya
 				// std::vector<GameObject*>::iterator iter
 				for (auto iter = objects[i].begin(); iter != objects[i].end();)
 				{
-					if (!(*iter)->IsAlive())
+					if (!(*iter)->IsAlive() || !(*iter)->IsActive())
 					{
 						iter = objects[i].erase(iter);
 						continue;

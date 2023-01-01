@@ -54,7 +54,7 @@ enum class eColliderLayer
 	BACKGROUND,
 	TILE,
 	MONSTER,
-	MONSTER_PROJECTTILE,
+	EXP_JEM,
 	PLAYER,
 	PLAYER_PROJECTTILE,
 	GROUND,
@@ -108,6 +108,15 @@ enum class eWeaponAndItemTypes
 	COUNT
 };
 
+
+enum class eMonsterState
+{
+	PATROL,
+	TRACE,
+	DEAD,
+	COUNT
+};
+
 #define TILE_SIZE_X (32)
 #define TILE_SIZE_Y (32)
 #define TILE_COLUMN_COUNT (8)
@@ -144,7 +153,7 @@ enum class eWeaponAndItemTypes
 #define MAX_STAT_BURF_ITEM_LEVEL (4)
 #define LEVEL_IMG_HEIGHT (174.0f)
 
-
+#define EXP_BLUE_GEM (30)
 
 
 

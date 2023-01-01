@@ -8,7 +8,8 @@ namespace ya
 	{
 	public:
 		Collider();
-		Collider(Vector2 scale);
+		Collider(Vector2 size);
+		Collider(Vector2 size, eColliderLayer eColliderLayer);
 		~Collider();
 
 		void Tick() override;

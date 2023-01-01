@@ -51,7 +51,6 @@ namespace ya
 			if (mDeathTime <= 0.0f)
 				{ DisableObject(); }
 		}
-
 		// 모든 컴포넌트의 Tick 호출
 		for (Component* component : mComponents)
 		{

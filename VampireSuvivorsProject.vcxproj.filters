@@ -103,6 +103,27 @@
     <Filter Include="GameObject\GameMapCollider">
       <UniqueIdentifier>{5f3205b8-763e-4998-964e-f648538832c6}</UniqueIdentifier>
     </Filter>
+    <Filter Include="AI">
+      <UniqueIdentifier>{b2dcb43f-273e-48c2-9d8d-e00c117d82c9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="AI\State">
+      <UniqueIdentifier>{b2df436f-f9f6-4fcb-8fef-e6cc75175950}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="AI\AI">
+      <UniqueIdentifier>{610a70b9-e38c-4260-99f3-1ee7cb344297}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="AI\State\Patrol">
+      <UniqueIdentifier>{26dde66d-cbe7-4a1f-bf57-227c20fabe61}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="AI\State\Trace">
+      <UniqueIdentifier>{a35966bf-51e0-4a93-aa78-c11c9510f2fb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="AI\State\Dead">
+      <UniqueIdentifier>{8fe5ea94-bd0e-45f8-b90d-bedcad50ce9b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="AI\State\Base">
+      <UniqueIdentifier>{5918c859-392f-4c2b-87d8-0f5237fb3c57}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
@@ -459,6 +480,18 @@
     <ClInclude Include="yaGameMapCollider.h">
       <Filter>GameObject\GameMapCollider</Filter>
     </ClInclude>
+    <ClInclude Include="yaExpGem.h">
+      <Filter>GameObject\Game</Filter>
+    </ClInclude>
+    <ClInclude Include="yaAI.h">
+      <Filter>AI\AI</Filter>
+    </ClInclude>
+    <ClInclude Include="yaMonsterState.h">
+      <Filter>AI\State\Base</Filter>
+    </ClInclude>
+    <ClInclude Include="yaPatrolState.h">
+      <Filter>AI\State\Patrol</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Maths.cpp">
@@ -799,6 +832,18 @@
     </ClCompile>
     <ClCompile Include="yaGameMapCollider.cpp">
       <Filter>GameObject\GameMapCollider</Filter>
+    </ClCompile>
+    <ClCompile Include="yaExpGem.cpp">
+      <Filter>GameObject\Game</Filter>
+    </ClCompile>
+    <ClCompile Include="yaAI.cpp">
+      <Filter>AI\AI</Filter>
+    </ClCompile>
+    <ClCompile Include="yaMonsterState.cpp">
+      <Filter>AI\State\Base</Filter>
+    </ClCompile>
+    <ClCompile Include="yaPatrolState.cpp">
+      <Filter>AI\State\Patrol</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

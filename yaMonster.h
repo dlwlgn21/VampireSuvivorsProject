@@ -4,12 +4,13 @@
 
 namespace ya
 {
+	class AI;
 	class Player;
 	class Monster : public GameObject
 	{
 	public:
 		Monster(Vector2 pos, Player* pPlayer, int hp, int damage, int exp, float speed);
-		virtual ~Monster() = default;
+		virtual ~Monster();
 
 		virtual void Tick();
 		virtual void Render(HDC hdc) = 0;
@@ -41,8 +42,11 @@ namespace ya
 			return Vector2(mPlayerPos - mPos);
 		}
 
+		__forceinline void SetAI(AI* pAI) { assert(pAI != nullptr); mpAI = pAI; }
+
 	protected:
 		Player* mpPlayer;
+		AI* mpAI;
 		int mHP;
 		int mDamage;
 		int mExp;

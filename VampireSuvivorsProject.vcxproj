@@ -132,8 +132,10 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="yaAI.h" />
     <ClInclude Include="yaAxe.h" />
     <ClInclude Include="yaBGTitleImage.h" />
+    <ClInclude Include="yaExpGem.h" />
     <ClInclude Include="yaFireWand.h" />
     <ClInclude Include="yaGameMapCollider.h" />
     <ClInclude Include="yaLevelBoxIcon.h" />
@@ -142,6 +144,8 @@
     <ClInclude Include="yaLevelUpHUDBot.h" />
     <ClInclude Include="yaLevelUpHUDMid.h" />
     <ClInclude Include="yaLevelUpHUDTop.h" />
+    <ClInclude Include="yaMonsterState.h" />
+    <ClInclude Include="yaPatrolState.h" />
     <ClInclude Include="yaPausePlayerWeponHUDBox.h" />
     <ClInclude Include="yaPauseUIContinueButton.h" />
     <ClInclude Include="yaExpBar.h" />
@@ -252,8 +256,10 @@
     <ClInclude Include="yaWeaponObjectPool.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="yaAI.cpp" />
     <ClCompile Include="yaAxe.cpp" />
     <ClCompile Include="yaBGTitleImage.cpp" />
+    <ClCompile Include="yaExpGem.cpp" />
     <ClCompile Include="yaFireWand.cpp" />
     <ClCompile Include="yaGameMapCollider.cpp" />
     <ClCompile Include="yaLevelBoxIcon.cpp" />
@@ -262,6 +268,8 @@
     <ClCompile Include="yaLevelUpHUDBot.cpp" />
     <ClCompile Include="yaLevelUpHUDMid.cpp" />
     <ClCompile Include="yaLevelUpHUDTop.cpp" />
+    <ClCompile Include="yaMonsterState.cpp" />
+    <ClCompile Include="yaPatrolState.cpp" />
     <ClCompile Include="yaPausePlayerWeponHUDBox.cpp" />
     <ClCompile Include="yaPauseUIContinueButton.cpp" />
     <ClCompile Include="yaExpBar.cpp" />

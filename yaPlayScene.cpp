@@ -19,8 +19,6 @@
 #include "yaBGGmaeImage.h"
 #include "yaGameMapCollider.h"
 
-
-
 namespace ya
 {
 	PlayScene::PlayScene()
@@ -48,7 +46,20 @@ namespace ya
 	}
 	void PlayScene::Initialize()
 	{
+		//BGGmaeImage* bgGameImage = ya::object::InstantiateAtAnotherScene<BGGmaeImage>(eColliderLayer::BACKGROUND, L"BGGmaeMap", L"Resources\\Image\\MapTwo.bmp", GetSceneTpye());
+		//bgGameImage->Initialize();
+		//mpPlayer = ya::object::Instantiate<Player>(eColliderLayer::PLAYER);
 
+		//int monsterCount = 15;
+		//for (int i = 0; i < monsterCount; ++i)
+		//{
+		//	ya::object::InstantiateAtAnotherScene<Mudman>(eColliderLayer::MONSTER, Vector2(100.0f * i, 300.f), mpPlayer, GetSceneTpye());
+		//}
+		//setColliderLayer();
+		//PlaySceneHUDPanel* pPanel = static_cast<PlaySceneHUDPanel*>(UIManager::GetUIInstanceOrNull(eUIType::PLAY_INFO_HUD));
+		//assert(pPanel != nullptr);
+		//pPanel->SetPlayerToHpBar(mpPlayer);
+		//pPanel->SetPlayerToExpBar(mpPlayer);
 	}
 	void PlayScene::Tick()
 	{
@@ -83,10 +94,10 @@ namespace ya
 		BGGmaeImage* bgGameImage = ya::object::InstantiateAtAnotherScene<BGGmaeImage>(eColliderLayer::BACKGROUND, L"BGGmaeMap", L"Resources\\Image\\MapTwo.bmp", GetSceneTpye());
 		bgGameImage->Initialize();
 
-		int monsterCount = 15;
+		int monsterCount = 40;
 		for (int i = 0; i < monsterCount; ++i)
 		{
-			ya::object::InstantiateAtAnotherScene<Mudman>(eColliderLayer::MONSTER, Vector2(100.0f * i, 300.f), mpPlayer, GetSceneTpye());
+			ya::object::InstantiateAtAnotherScene<Mudman>(eColliderLayer::MONSTER, Vector2(100.0f * i, i * 2.0f), mpPlayer, GetSceneTpye());
 		}
 		setColliderLayer();
 		PlaySceneHUDPanel* pPanel = static_cast<PlaySceneHUDPanel*>(UIManager::GetUIInstanceOrNull(eUIType::PLAY_INFO_HUD));
@@ -104,6 +115,7 @@ namespace ya
 	{
 		CollisionManager::SetLayer(eColliderLayer::PLAYER, eColliderLayer::BACKGROUND, true);
 		CollisionManager::SetLayer(eColliderLayer::PLAYER, eColliderLayer::MONSTER, true);
+		CollisionManager::SetLayer(eColliderLayer::PLAYER, eColliderLayer::EXP_JEM, true);
 		CollisionManager::SetLayer(eColliderLayer::MONSTER, eColliderLayer::MONSTER, true);
 		CollisionManager::SetLayer(eColliderLayer::MONSTER, eColliderLayer::PLAYER_PROJECTTILE, true);
 		CollisionManager::SetLayer(eColliderLayer::BACKGROUND, eColliderLayer::PLAYER_PROJECTTILE, true);
