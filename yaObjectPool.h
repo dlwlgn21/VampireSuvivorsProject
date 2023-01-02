@@ -74,6 +74,5 @@ namespace ya
 	{
 		return mMaxPoolSize;
 	}
-
 }
 

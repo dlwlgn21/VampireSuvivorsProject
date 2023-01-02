@@ -4,11 +4,11 @@
 namespace ya
 {
 	class Player;
-	class PatrolState final : public MonsterState
+	class TraceState final : public MonsterState
 	{
 	public:
-		PatrolState(Player* pPlayer);
-		virtual ~PatrolState();
+		TraceState(Player* pPlayer);
+		virtual ~TraceState();
 
 		void Tick() override;
 		void Enter() override;

@@ -1,5 +1,7 @@
 #define MAP_TOP_BOT_COLLIDER_WIDTH (4096.0f)
 #define MAP_TOP_BOT_COLLIDER_HEIGHT (5.0f)
+#define MAX_EXP_GEM_COUNT (100)
+#define MAX_MUD_MAN_COUNT (100)
 
 #include "yaPlayScene.h"
 #include "yaPlayer.h"
@@ -18,6 +20,13 @@
 #include "yaApplication.h"
 #include "yaBGGmaeImage.h"
 #include "yaGameMapCollider.h"
+#include "yaAI.h"
+#include "yaPatrolState.h"
+#include "yaTraceState.h"
+#include "yaMonsterFactory.h"
+#include "yaExpGemObjPool.h"
+#include "yaMonsterObjPool.h"
+#include "yaMudman.h"
 
 namespace ya
 {
@@ -26,6 +35,8 @@ namespace ya
 		, mpPlayer(nullptr)
 		, mbUiFlag(true)
 		, mHwnd(Application::GetInstance().GetWindowData().hwnd)
+		, mpExpGemObjPool(new ExpGemObjPool(MAX_EXP_GEM_COUNT))
+		, mpMudManPool(new MonsterObjPool<Monster>(MAX_MUD_MAN_COUNT))
 	{
 		mFont.lfHeight = 30;
 		mFont.lfWidth = 0;
@@ -43,6 +54,14 @@ namespace ya
 	}
 	PlayScene::~PlayScene()
 	{
+		if (mpExpGemObjPool != nullptr)
+		{
+			delete mpExpGemObjPool;
+		}
+		if (mpMudManPool != nullptr)
+		{
+			delete mpMudManPool;
+		}
 	}
 	void PlayScene::Initialize()
 	{
@@ -90,16 +109,24 @@ namespace ya
 	{
 		Scene::Enter();
 		Time::StartTimeCounting();
+
 		mpPlayer = ya::object::Instantiate<Player>(eColliderLayer::PLAYER);
 		BGGmaeImage* bgGameImage = ya::object::InstantiateAtAnotherScene<BGGmaeImage>(eColliderLayer::BACKGROUND, L"BGGmaeMap", L"Resources\\Image\\MapTwo.bmp", GetSceneTpye());
 		bgGameImage->Initialize();
 
-		int monsterCount = 40;
+		setColliderLayer();
+
+		int monsterCount = 30;
+
 		for (int i = 0; i < monsterCount; ++i)
 		{
-			ya::object::InstantiateAtAnotherScene<Mudman>(eColliderLayer::MONSTER, Vector2(100.0f * i, i * 2.0f), mpPlayer, GetSceneTpye());
+			//AI* pAI = new AI();
+			//pAI->AddMonsterState(new PatrolState(mpPlayer));
+			//pAI->AddMonsterState(new TraceState(mpPlayer));
+			//pMonster->SetAI(pAI);
+			MonsterFactory::CreateMonster(eMonsterType::MUDMAN, Vector2(100.0f * i, 200.0f), mpPlayer, mpExpGemObjPool, mpMudManPool);
 		}
-		setColliderLayer();
+		
 		PlaySceneHUDPanel* pPanel = static_cast<PlaySceneHUDPanel*>(UIManager::GetUIInstanceOrNull(eUIType::PLAY_INFO_HUD));
 		assert(pPanel != nullptr);
 		pPanel->SetPlayerToHpBar(mpPlayer);
@@ -109,7 +136,6 @@ namespace ya
 	void PlayScene::Exit()
 	{
 		Scene::Exit();
-
 	}
 	void PlayScene::setColliderLayer()
 	{

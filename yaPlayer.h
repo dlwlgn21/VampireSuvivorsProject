@@ -39,13 +39,13 @@ namespace ya
 
 		struct WeaponStat
 		{
-			unsigned char Damage;
-			unsigned char Count;
-			unsigned char PanetratingCount;
+			int Damage;
+			int Count;
+			int PanetratingCount;
 			float Speed;
 			float ShootInterval;
 			float WeaponDuration;
-			WeaponStat(unsigned char damage, unsigned char count, unsigned char panetratingCount, float speed, float shootInterval, float weaponDuration)
+			WeaponStat(int damage, int count, int panetratingCount, float speed, float shootInterval, float weaponDuration)
 				: Damage(damage)
 				, Count(count)
 				, PanetratingCount(panetratingCount)

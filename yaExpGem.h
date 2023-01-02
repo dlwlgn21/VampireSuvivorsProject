@@ -6,10 +6,11 @@ namespace ya
 	class Image;
 	class Player;
 	class Collider;
+	class ExpGemObjPool;
 	class ExpGem final : public GameObject
 	{
 	public:
-		ExpGem(Vector2 pos, Player* pPlayer, int exp);
+		ExpGem(Vector2 pos, Player* pPlayer, int exp, ExpGemObjPool* pObjPool);
 		virtual ~ExpGem() = default;
 
 		void Tick() override;
@@ -26,6 +27,7 @@ namespace ya
 		int mImgHeight;
 		int mExp;
 		BLENDFUNCTION mBlendFunc;
+		ExpGemObjPool* mpPool;
 	};
 
 }

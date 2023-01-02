@@ -1,9 +1,10 @@
 #include "yaPatrolState.h"
+#include "yaPlayer.h"
 
 namespace ya
 {
-	PatrolState::PatrolState()
-		: MonsterState(eMonsterState::PATROL)
+	PatrolState::PatrolState(Player* pPlayer)
+		: MonsterState(eMonsterState::PATROL, pPlayer)
 	{
 	}
 	PatrolState::~PatrolState()

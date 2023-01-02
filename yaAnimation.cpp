@@ -28,8 +28,8 @@ namespace ya
 
 	void Animation::Tick()
 	{
-		//if (mbIsComplete) 
-		//	{ return; }
+		if (mbIsComplete) 
+			{ return; }
 		mTimer += Time::DeltaTime();
 		// mIntervalCounter >= mMinAnimInterval
 		if (mTimer >= mSpriteSheet[mSpriteIdx].Durtation)
@@ -48,23 +48,6 @@ namespace ya
 	}
 	void Animation::Render(HDC hdc)
 	{
-		//Vector2 fPos;
-		//fPos.x = GetOwner()->GetPos().x - mpImage->GetWidth() * (GetOwner()->GetScale().x / 2);
-		//fPos.y = GetOwner()->GetPos().y - mpImage->GetWidth() * (GetOwner()->GetScale().y / 2);
-		//fPos = Camera::ToCameraPos(fPos);
-		//TransparentBlt(
-		//	hdc,
-		//	static_cast<int>(fPos.x),
-		//	static_cast<int>(fPos.y),
-		//	static_cast<int>(mpImage->GetWidth() * GetOwner()->GetScale().x),
-		//	static_cast<int>(mpImage->GetHeight() * GetOwner()->GetScale().y),
-
-		//	mpImage->GetDC(),
-		//	0, 0,
-		//	mpImage->GetWidth(),
-		//	mpImage->GetHeight(),
-		//	RGB(255, 0, 255)
-		//);
 		GameObject* pGameObject = mpAnimator->GetOwner();
 		Vector2 pos = pGameObject->GetPos();
 		if (mbIsAffectedCamera) { pos = Camera::ToCameraPos(pos); }

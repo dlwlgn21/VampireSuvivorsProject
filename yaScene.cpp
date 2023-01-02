@@ -14,7 +14,14 @@ namespace ya
 		mObjects.resize(MAX_COLLIDER_LAYER);
 		for (int i = 0; i < MAX_COLLIDER_LAYER; ++i)
 		{
-			mObjects[i].reserve(128);
+			if (i == static_cast<UINT>(eColliderLayer::MONSTER))
+			{
+				mObjects[i].reserve(128);
+			}
+			else
+			{
+				mObjects[i].reserve(32);
+			}
 		}
 	}
 	Scene::~Scene()
@@ -94,7 +101,14 @@ namespace ya
 		mObjects.resize(MAX_COLLIDER_LAYER);
 		for (int i = 0; i < MAX_COLLIDER_LAYER; ++i)
 		{
-			mObjects[i].reserve(128);
+			if (i == static_cast<UINT>(eColliderLayer::MONSTER))
+			{
+				mObjects[i].reserve(128);
+			}
+			else
+			{
+				mObjects[i].reserve(32);
+			}
 		}
 	}
 	void Scene::AddGameObject(GameObject* object, eColliderLayer layer)

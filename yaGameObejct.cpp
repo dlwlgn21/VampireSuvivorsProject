@@ -51,6 +51,12 @@ namespace ya
 			if (mDeathTime <= 0.0f)
 				{ DisableObject(); }
 		}
+
+		if (!mbIsActive)
+		{
+			return;
+		}
+
 		// 모든 컴포넌트의 Tick 호출
 		for (Component* component : mComponents)
 		{
@@ -61,6 +67,10 @@ namespace ya
 	}
 	void GameObject::Render(HDC hdc)
 	{
+		if (!mbIsActive)
+		{
+			return;
+		}
 		// 모든 컴포넌트의 Render 호출
 		for (Component* component : mComponents)
 		{

@@ -8,19 +8,19 @@ namespace ya
 	class AI
 	{
 	public:
+		friend class Monster;
 		AI();
 		~AI();
 
 		void AddMonsterState(MonsterState* pState);
-
+		__forceinline void SetAIToMonster(Monster* pMonster) { assert(pMonster != nullptr); mpMonster = pMonster; };
 		void Tick();
 
 	private:
 		Monster* mpMonster;
-		std::unordered_map<eMonsterState, MonsterState*> mStateMap;
+		MonsterState* mStates[static_cast<UINT>(eMonsterState::COUNT)];
 		MonsterState* mpCurrMonsterState;
-
-
+		
 	};
 
 }

@@ -116,7 +116,14 @@ enum class eMonsterState
 	DEAD,
 	COUNT
 };
-
+enum class eMonsterType
+{
+	MUDMAN,
+	GHOST,
+	MEDUSA_HEAD,
+	BOSS_MIRA,
+	COUNT
+};
 #define TILE_SIZE_X (32)
 #define TILE_SIZE_Y (32)
 #define TILE_COLUMN_COUNT (8)

@@ -136,6 +136,7 @@
     <ClInclude Include="yaAxe.h" />
     <ClInclude Include="yaBGTitleImage.h" />
     <ClInclude Include="yaExpGem.h" />
+    <ClInclude Include="yaExpGemObjPool.h" />
     <ClInclude Include="yaFireWand.h" />
     <ClInclude Include="yaGameMapCollider.h" />
     <ClInclude Include="yaLevelBoxIcon.h" />
@@ -144,6 +145,8 @@
     <ClInclude Include="yaLevelUpHUDBot.h" />
     <ClInclude Include="yaLevelUpHUDMid.h" />
     <ClInclude Include="yaLevelUpHUDTop.h" />
+    <ClInclude Include="yaMonsterFactory.h" />
+    <ClInclude Include="yaMonsterObjPool.h" />
     <ClInclude Include="yaMonsterState.h" />
     <ClInclude Include="yaPatrolState.h" />
     <ClInclude Include="yaPausePlayerWeponHUDBox.h" />
@@ -246,6 +249,7 @@
     <ClInclude Include="yaTime.h" />
     <ClInclude Include="yaTitleScene.h" />
     <ClInclude Include="yaToolScene.h" />
+    <ClInclude Include="yaTraceState.h" />
     <ClInclude Include="yaUIAnimObject.h" />
     <ClInclude Include="yaUIBase.h" />
     <ClInclude Include="yaUIManager.h" />
@@ -260,6 +264,7 @@
     <ClCompile Include="yaAxe.cpp" />
     <ClCompile Include="yaBGTitleImage.cpp" />
     <ClCompile Include="yaExpGem.cpp" />
+    <ClCompile Include="yaExpGemObjPool.cpp" />
     <ClCompile Include="yaFireWand.cpp" />
     <ClCompile Include="yaGameMapCollider.cpp" />
     <ClCompile Include="yaLevelBoxIcon.cpp" />
@@ -268,6 +273,8 @@
     <ClCompile Include="yaLevelUpHUDBot.cpp" />
     <ClCompile Include="yaLevelUpHUDMid.cpp" />
     <ClCompile Include="yaLevelUpHUDTop.cpp" />
+    <ClCompile Include="yaMonsterFactory.cpp" />
+    <ClCompile Include="yaMonsterObjPool.cpp" />
     <ClCompile Include="yaMonsterState.cpp" />
     <ClCompile Include="yaPatrolState.cpp" />
     <ClCompile Include="yaPausePlayerWeponHUDBox.cpp" />
@@ -365,6 +372,7 @@
     <ClCompile Include="yaTime.cpp" />
     <ClCompile Include="yaTitleScene.cpp" />
     <ClCompile Include="yaToolScene.cpp" />
+    <ClCompile Include="yaTraceState.cpp" />
     <ClCompile Include="yaUIAnimObject.cpp" />
     <ClCompile Include="yaUIBase.cpp" />
     <ClCompile Include="yaUIManager.cpp" />

@@ -115,14 +115,20 @@
     <Filter Include="AI\State\Patrol">
       <UniqueIdentifier>{26dde66d-cbe7-4a1f-bf57-227c20fabe61}</UniqueIdentifier>
     </Filter>
-    <Filter Include="AI\State\Trace">
-      <UniqueIdentifier>{a35966bf-51e0-4a93-aa78-c11c9510f2fb}</UniqueIdentifier>
-    </Filter>
     <Filter Include="AI\State\Dead">
       <UniqueIdentifier>{8fe5ea94-bd0e-45f8-b90d-bedcad50ce9b}</UniqueIdentifier>
     </Filter>
     <Filter Include="AI\State\Base">
       <UniqueIdentifier>{5918c859-392f-4c2b-87d8-0f5237fb3c57}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="AI\State\Trace">
+      <UniqueIdentifier>{a35966bf-51e0-4a93-aa78-c11c9510f2fb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="MonsterFactory">
+      <UniqueIdentifier>{9ca7514e-ad5a-4ce0-8ecd-6e5ac8da1006}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ObjectPools">
+      <UniqueIdentifier>{dae23d51-fe33-46ec-a528-cee7eaa63a71}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -321,17 +327,8 @@
     <ClInclude Include="yaMonster.h">
       <Filter>GameObject\Game\Monster\Base</Filter>
     </ClInclude>
-    <ClInclude Include="yaObjectPool.h">
-      <Filter>Manager</Filter>
-    </ClInclude>
-    <ClInclude Include="yaKnifeObjectPool.h">
-      <Filter>Manager</Filter>
-    </ClInclude>
     <ClInclude Include="yaRuneTracer.h">
       <Filter>GameObject\Game\Weapon</Filter>
-    </ClInclude>
-    <ClInclude Include="yaWeaponObjectPool.h">
-      <Filter>Manager</Filter>
     </ClInclude>
     <ClInclude Include="yaBGBlackBar.h">
       <Filter>GameObject\ImageObject</Filter>
@@ -491,6 +488,27 @@
     </ClInclude>
     <ClInclude Include="yaPatrolState.h">
       <Filter>AI\State\Patrol</Filter>
+    </ClInclude>
+    <ClInclude Include="yaTraceState.h">
+      <Filter>AI\State\Trace</Filter>
+    </ClInclude>
+    <ClInclude Include="yaMonsterFactory.h">
+      <Filter>MonsterFactory</Filter>
+    </ClInclude>
+    <ClInclude Include="yaExpGemObjPool.h">
+      <Filter>ObjectPools</Filter>
+    </ClInclude>
+    <ClInclude Include="yaKnifeObjectPool.h">
+      <Filter>ObjectPools</Filter>
+    </ClInclude>
+    <ClInclude Include="yaWeaponObjectPool.h">
+      <Filter>ObjectPools</Filter>
+    </ClInclude>
+    <ClInclude Include="yaObjectPool.h">
+      <Filter>ObjectPools</Filter>
+    </ClInclude>
+    <ClInclude Include="yaMonsterObjPool.h">
+      <Filter>ObjectPools</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -677,17 +695,8 @@
     <ClCompile Include="yaMonster.cpp">
       <Filter>GameObject\Game\Monster\Base</Filter>
     </ClCompile>
-    <ClCompile Include="yaObjectPool.cpp">
-      <Filter>Manager</Filter>
-    </ClCompile>
-    <ClCompile Include="yaKnifeObjectPool.cpp">
-      <Filter>Manager</Filter>
-    </ClCompile>
     <ClCompile Include="yaRuneTarcer.cpp">
       <Filter>GameObject\Game\Weapon</Filter>
-    </ClCompile>
-    <ClCompile Include="yaWeaponObjectPool.cpp">
-      <Filter>Manager</Filter>
     </ClCompile>
     <ClCompile Include="yaStartButton.cpp">
       <Filter>GameObject\ImageObject</Filter>
@@ -844,6 +853,27 @@
     </ClCompile>
     <ClCompile Include="yaPatrolState.cpp">
       <Filter>AI\State\Patrol</Filter>
+    </ClCompile>
+    <ClCompile Include="yaTraceState.cpp">
+      <Filter>AI\State\Trace</Filter>
+    </ClCompile>
+    <ClCompile Include="yaMonsterFactory.cpp">
+      <Filter>MonsterFactory</Filter>
+    </ClCompile>
+    <ClCompile Include="yaExpGemObjPool.cpp">
+      <Filter>ObjectPools</Filter>
+    </ClCompile>
+    <ClCompile Include="yaKnifeObjectPool.cpp">
+      <Filter>ObjectPools</Filter>
+    </ClCompile>
+    <ClCompile Include="yaWeaponObjectPool.cpp">
+      <Filter>ObjectPools</Filter>
+    </ClCompile>
+    <ClCompile Include="yaObjectPool.cpp">
+      <Filter>ObjectPools</Filter>
+    </ClCompile>
+    <ClCompile Include="yaMonsterObjPool.cpp">
+      <Filter>ObjectPools</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

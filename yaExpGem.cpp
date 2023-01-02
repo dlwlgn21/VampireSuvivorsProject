@@ -4,10 +4,11 @@
 #include "yaResources.h"
 #include "yaCamera.h"
 #include "yaPlayer.h"
+#include "yaExpGemObjPool.h"
 
 namespace ya
 {
-	ExpGem::ExpGem(Vector2 pos, Player* pPlayer, int exp)
+	ExpGem::ExpGem(Vector2 pos, Player* pPlayer, int exp, ExpGemObjPool* pObjPool)
 		: GameObject(pos)
 		, mpPlayer(pPlayer)
 		, mpImage(Resources::Load<Image>(L"BlueExpGem", L"Resources\\Image\\BlueExpGem.bmp"))
@@ -16,6 +17,7 @@ namespace ya
 		, mExp(exp)
 		, mpCollider(new Collider(Vector2( static_cast<float>(mImgWidth), static_cast<float>(mImgHeight)), eColliderLayer::EXP_JEM))
 		, mBlendFunc{}
+		, mpPool(pObjPool)
 	{
 		assert(mpPlayer != nullptr);
 		assert(mpImage != nullptr);
@@ -55,7 +57,7 @@ namespace ya
 		if (pCollider != nullptr && pCollider->GetColliderLayer() == eColliderLayer::PLAYER)
 		{
 			mpPlayer->IncreaseExp(mExp);
-			SetActive(false);
+			mpPool->Return(this);
 		}
 	}
 	void ExpGem::OnCollisionStay(Collider* pCollider)

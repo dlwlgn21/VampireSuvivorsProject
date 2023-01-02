@@ -6,22 +6,33 @@ namespace ya
 	AI::AI()
 		: mpMonster(nullptr)
 		, mpCurrMonsterState(nullptr)
-		, mStateMap()
+		, mStates{ 0, }
 	{
 	}
 	AI::~AI()
 	{
-		for (auto iter = mStateMap.begin(); iter != mStateMap.end(); ++iter)
+		for (int i = 0; i < static_cast<UINT>(eMonsterState::COUNT); ++i)
 		{
-			if (iter->second != nullptr)
-				{ delete iter->second; }
+			if (mStates[i] != nullptr)
+				{ delete mStates[i]; }
 		}
+
 	}
 	void AI::AddMonsterState(MonsterState* pState)
 	{
+		eMonsterState eState = pState->GetEMonsterState();
+		
+		if (mStates[static_cast<UINT>(eState)] == nullptr)
+		{
+			mStates[static_cast<UINT>(eState)] = pState;
+			pState->SetAI(this);
+			return;
+		}
+		assert(false);
+		return;
 	}
 	void AI::Tick()
 	{
-		mpCurrMonsterState->Tick();
+		//mpCurrMonsterState->Tick();
 	}
 }
