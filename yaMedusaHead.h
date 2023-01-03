@@ -1,37 +1,34 @@
 #pragma once
-#include "yaGameObejct.h"
+#include "yaMonster.h"
 
 namespace ya
 {
 	class Image;
 	class Animator;
 	class Collider;
-	class MedusaHead : public GameObject
+	class Player;
+	class ExpGemObjPool;
+	class MedusaHead final : public Monster
 	{
 	public:
-		MedusaHead(Vector2 pos);
+		MedusaHead(
+			const MonsterCreateInfo& monInfo,
+			const std::wstring& imageRightMoveKey,
+			const std::wstring& imageLeftMoveKey,
+			const std::wstring& imageRightDeathKey,
+			const std::wstring& imageLeftDeathKey,
+
+			const std::wstring& imageRightMovePath,
+			const std::wstring& imageLeftMovePath,
+			const std::wstring& imageRightDeathPath,
+			const std::wstring& imageLeftDeathPath,
+			ExpGemObjPool* pExpGemObjPool,
+			MonsterObjPool<Monster>* pMonsterObjPool
+		);
 		virtual ~MedusaHead() = default;
 
 		void Tick() override;
 		void Render(HDC hdc) override;
-		void OnCollisionEnter(Collider* other) override;
-		void OnCollisionStay(Collider* other) override;
-		void OnCollisionExit(Collider* other) override;
-
-	private:
-		HPEN mPen;
-		HBRUSH mBrush;
-		Image* mpImage;
-		Image* mpInvImage;
-		Animator* mpAnimator;
-		Collider* mpCollider;
-
-		const std::wstring mAnimMove;
-		const std::wstring mAnimInvMove;
-		Vector2 mAnimMoveSize;
-		Vector2 mAnimOffset;
-		UINT mAnimCount;
-		float mAnimDuration;
 	};
 }
 

@@ -31,18 +31,12 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
     UNREFERENCED_PARAMETER(lpCmdLine);
 
     _CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF);
-    //_CrtSetBreakAlloc(16559);
+    //_CrtSetBreakAlloc(2167);
 
 
     LoadStringW(hInstance, IDS_APP_TITLE, szTitle, MAX_LOADSTRING);
     LoadStringW(hInstance, IDC_VAMPIRESUVIVORSPROJECT, szWindowClass, MAX_LOADSTRING);
     MyRegisterClass(hInstance, WndProc, szWindowClass);     // MainWindow
-
-    // TILE-MAP PART
-#if 0
-    gAtlasWindowClassName = L"AtlasWindow";
-    MyRegisterClass(hInstance, AtlasWndProc, gAtlasWindowClassName);     // TileWindow
-#endif 
 
     if (!InitInstance(hInstance, nCmdShow))
     {
@@ -162,27 +156,6 @@ BOOL InitInstance(HINSTANCE hInstance, int nCmdShow)
 
     app.Initialize(windowData);
 
-    // TILE-MAP PART
-#if 0
-    WindowData atlasWindowData = {};
-    //atlasWindowData.width = 256;
-    //atlasWindowData.height = 96;
-
-    hWnd = CreateWindowW(gAtlasWindowClassName, szTitle, WS_OVERLAPPEDWINDOW,
-        CW_USEDEFAULT, 0, CW_USEDEFAULT, 0, nullptr, nullptr, hInstance, nullptr);
-    if (hWnd == NULL)
-    {
-        assert(false);
-        return FALSE;
-    }
-    atlasWindowData.hwnd = hWnd;
-
-    //SetWindowPos(hWnd, nullptr, windowData.width, 0, atlasWindowData.width, atlasWindowData.height, 0);
-    //ShowWindow(hWnd, nCmdShow);
-    //UpdateWindow(hWnd);
-
-    app.InitializeAtalsWindow(atlasWindowData);
-#endif
     return TRUE;
 }
 

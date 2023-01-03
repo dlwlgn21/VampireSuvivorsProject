@@ -3,7 +3,10 @@
 #include "yaMonster.h"
 #include "yaPlayer.h"
 #include "yaMudman.h"
+#include "yaGreenGhost.h"
+#include "yaMedusaHead.h"
 #include "yaCollider.h"
+
 namespace ya
 {
 	class Monster;
@@ -84,6 +87,20 @@ namespace ya
 			case eMonsterType::MUDMAN:
 			{
 				pMonster = new Mudman(monInfo, imageRightMoveKey, imageLeftMoveKey, imageRightDeathKey, imageLeftDeathKey,
+					imageRightMovePath, imageLeftMovePath, imageRightDeathPath, imageLeftDeathPath, pExpGemObjPool, pMonsterObjPool);
+				return pMonster;
+				break;
+			}
+			case eMonsterType::GREEN_GHOST:
+			{
+				pMonster = new GreenGhost(monInfo, imageRightMoveKey, imageLeftMoveKey, imageRightDeathKey, imageLeftDeathKey,
+					imageRightMovePath, imageLeftMovePath, imageRightDeathPath, imageLeftDeathPath, pExpGemObjPool, pMonsterObjPool);
+				return pMonster;
+				break;
+			}
+			case eMonsterType::MEDUSA_HEAD:
+			{
+				pMonster = new MedusaHead(monInfo, imageRightMoveKey, imageLeftMoveKey, imageRightDeathKey, imageLeftDeathKey,
 					imageRightMovePath, imageLeftMovePath, imageRightDeathPath, imageLeftDeathPath, pExpGemObjPool, pMonsterObjPool);
 				return pMonster;
 				break;

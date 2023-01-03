@@ -116,7 +116,7 @@ enum class eMonsterState
 enum class eMonsterType
 {
 	MUDMAN,
-	GHOST,
+	GREEN_GHOST,
 	MEDUSA_HEAD,
 	BOSS_MIRA,
 	COUNT
@@ -127,7 +127,7 @@ enum class eMonsterType
 #define TILE_ROW_COUNT (3)
 #define TILE_SCALE (2)
 #define DIAGONAL_CORRECTION_VALUE (0.75f)
-#define MAX_KNIFE_COUNT (10)
+#define MAX_KNIFE_COUNT (15)
 #define MAX_RUNE_TRACER_COUNT (5)
 #define BG_BLACK_BAR_Y_DIFF (10.0f)
 #define GAME_SCREEN_X_DIFF (160.0f)
@@ -146,9 +146,15 @@ enum class eMonsterType
 #define CAMERA_MASK_WIDTH (95)
 #define EXP_BAR_HEIGHT (43)
 
-#define ONE_MIN_NORMAL_MONSTER_EXP (120)
+#define ONE_MIN_NORMAL_MONSTER_EXP (20)
 #define MUDMAN_INITIAL_HP (5)
 #define MUDMAN_INITIAL_DAMAGE (5)
+
+#define GREEN_GHOST_INITIAL_HP (10)
+#define GREEN_GHOST_INITIAL_DAMAGE (3)
+
+#define MEDUSA_HEAD_INITIAL_HP (10)
+#define MEDUSA_HEAD_INITIAL_DAMAGE (2)
 
 #define TOTAL_WEAPON_COUNT (4)
 #define TOTAL_STAT_BURF_ITEM_COUNT (4)

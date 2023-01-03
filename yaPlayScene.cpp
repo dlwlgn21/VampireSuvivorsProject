@@ -27,6 +27,7 @@
 #include "yaExpGemObjPool.h"
 #include "yaMonsterObjPool.h"
 #include "yaMudman.h"
+#include "yaMonsterSpawner.h"
 
 namespace ya
 {
@@ -37,6 +38,8 @@ namespace ya
 		, mHwnd(Application::GetInstance().GetWindowData().hwnd)
 		, mpExpGemObjPool(new ExpGemObjPool(MAX_EXP_GEM_COUNT))
 		, mpMudManPool(new MonsterObjPool<Monster>(MAX_MUD_MAN_COUNT))
+		, mpGreenGhostPool(new MonsterObjPool<Monster>(MAX_MUD_MAN_COUNT))
+		, mpMedusaHeadPool(new MonsterObjPool<Monster>(30))
 	{
 		mFont.lfHeight = 30;
 		mFont.lfWidth = 0;
@@ -62,6 +65,14 @@ namespace ya
 		{
 			delete mpMudManPool;
 		}
+		if (mpGreenGhostPool != nullptr)
+		{
+			delete mpGreenGhostPool;
+		}
+		if (mpMedusaHeadPool != nullptr)
+		{
+			delete mpMedusaHeadPool;
+		}
 	}
 	void PlayScene::Initialize()
 	{
@@ -83,6 +94,7 @@ namespace ya
 	void PlayScene::Tick()
 	{
 		Scene::Tick();
+		MonsterSpawner::GetInstance().Tick();
 	}
 	void PlayScene::Render(HDC hdc)
 	{
@@ -113,22 +125,14 @@ namespace ya
 		BGGmaeImage* bgGameImage = ya::object::InstantiateAtAnotherScene<BGGmaeImage>(eColliderLayer::BACKGROUND, L"BGGmaeMap", L"Resources\\Image\\MapTwo.bmp", GetSceneTpye());
 		bgGameImage->Initialize();
 
-		//MonsterSpawner::GetInstance().SetObjectsAndSpawnPos(mpPlayer, mpExpGemObjPool, mpMudManPool);
-		setColliderLayer();
 
-		int monsterCount = 30;
-		for (int i = 0; i < monsterCount; ++i)
-		{
-			MonsterFactory::CreateMonster(eMonsterType::MUDMAN, Vector2(100.0f * i, 200.0f), mpPlayer, mpExpGemObjPool, mpMudManPool);
-		}
-		//for (int i = 0; i < monsterCount; ++i)
-		//{
-		//	//AI* pAI = new AI();
-		//	//pAI->AddMonsterState(new PatrolState(mpPlayer));
-		//	//pAI->AddMonsterState(new TraceState(mpPlayer));
-		//	//pMonster->SetAI(pAI);
-		//	MonsterFactory::CreateMonster(eMonsterType::MUDMAN, Vector2(100.0f * i, 200.0f), mpPlayer, mpExpGemObjPool, mpMudManPool);
-		//}
+		// MonsterSpawner PART
+		MonsterSpawner::GetInstance().SetObjectsAndSpawnPos(mpPlayer, mpExpGemObjPool, mpMudManPool);
+		MonsterSpawner::GetInstance().AddMonsterObjectPool(mpGreenGhostPool);
+		MonsterSpawner::GetInstance().AddMonsterObjectPool(mpMedusaHeadPool);
+
+
+		setColliderLayer();
 
 		PlaySceneHUDPanel* pPanel = static_cast<PlaySceneHUDPanel*>(UIManager::GetUIInstanceOrNull(eUIType::PLAY_INFO_HUD));
 		assert(pPanel != nullptr);
@@ -139,6 +143,7 @@ namespace ya
 	void PlayScene::Exit()
 	{
 		Scene::Exit();
+		MonsterSpawner::GetInstance().ExitScene();
 	}
 	void PlayScene::setColliderLayer()
 	{

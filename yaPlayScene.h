@@ -33,6 +33,8 @@ namespace ya
 		LOGFONT mFont;
 		ExpGemObjPool* mpExpGemObjPool;
 		MonsterObjPool<Monster>* mpMudManPool;
+		MonsterObjPool<Monster>* mpGreenGhostPool;
+		MonsterObjPool<Monster>* mpMedusaHeadPool;
 	};
 }
 

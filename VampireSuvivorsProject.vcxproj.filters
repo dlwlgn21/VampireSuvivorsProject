@@ -493,7 +493,7 @@
       <Filter>ObjectPools</Filter>
     </ClInclude>
     <ClInclude Include="yaMonsterSpawner.h">
-      <Filter>헤더 파일</Filter>
+      <Filter>Manager</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -846,7 +846,7 @@
       <Filter>ObjectPools</Filter>
     </ClCompile>
     <ClCompile Include="yaMonsterSpawner.cpp">
-      <Filter>소스 파일</Filter>
+      <Filter>Manager</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

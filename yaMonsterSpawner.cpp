@@ -1,6 +1,8 @@
-#define LEGNTH_OF_LEFT_PLAYER_DISTANCE (200.0f)
+#define LEGNTH_OF_LEFT_PLAYER_DISTANCE (1200.0f)
 #define INITIAL_Y_SPAWN_POS (-300.0f)
 #define MUDMAN_INITIAL_SPAWN_COUNT (10)
+#define GREEN_GHOST_INITIAL_SPAWN_COUNT (20)
+#define MEDUSA_HEAD_INITIAL_SPAWN_COUNT (10)
 
 #include "yaMonsterSpawner.h"
 #include "yaTime.h"
@@ -24,6 +26,22 @@ namespace ya
 			{
 				spawnMonsters(eMonsterEmegernceSecquence::MUDMAN);
 				mbIsMudmanEmergence = true;
+			}
+		}
+		if (!mbIsGreenGhostEmergence)
+		{
+			if (mAccumTimer >= GREEN_GHOST_EMERGENCE_SECOND)
+			{
+				spawnMonsters(eMonsterEmegernceSecquence::GREEN_GHOST);
+				mbIsGreenGhostEmergence = true;
+			}
+		}
+		if (!mbIsMedusaHeadEmergence)
+		{
+			if (mAccumTimer >= MEDUSA_HEAD_EMERGENCE_SECOND)
+			{
+				spawnMonsters(eMonsterEmegernceSecquence::MEDUSA_HEAD);
+				mbIsMedusaHeadEmergence = true;
 			}
 		}
 	}
@@ -65,10 +83,42 @@ namespace ya
 			}
 			break;
 		}
-		case ya::eMonsterEmegernceSecquence::MEDUSA_HEAD:
-			break;
 		case ya::eMonsterEmegernceSecquence::GREEN_GHOST:
+		{
+			UINT half = static_cast<UINT>(GREEN_GHOST_INITIAL_SPAWN_COUNT / 2);
+			int j = GREEN_GHOST_INITIAL_SPAWN_COUNT;
+			for (UINT i = 0; i < GREEN_GHOST_INITIAL_SPAWN_COUNT; ++i)
+			{
+				if (i < half)
+				{
+					MonsterFactory::CreateMonster(eMonsterType::GREEN_GHOST, Vector2(mLeftSpawanPos.x, INITIAL_Y_SPAWN_POS + (i * 70.0f)), mpPlayer, mpExpObjPool, pPool);
+				}
+				else
+				{
+					MonsterFactory::CreateMonster(eMonsterType::GREEN_GHOST, Vector2(mRightSpawnPos.x, INITIAL_Y_SPAWN_POS + (j * 70.0f)), mpPlayer, mpExpObjPool, pPool);
+				}
+				--j;
+			}
 			break;
+		}
+		case ya::eMonsterEmegernceSecquence::MEDUSA_HEAD:
+		{
+			UINT half = static_cast<UINT>(MEDUSA_HEAD_INITIAL_SPAWN_COUNT / 2);
+			int j = MEDUSA_HEAD_INITIAL_SPAWN_COUNT;
+			for (UINT i = 0; i < MEDUSA_HEAD_INITIAL_SPAWN_COUNT; ++i)
+			{
+				if (i < half)
+				{
+					MonsterFactory::CreateMonster(eMonsterType::MEDUSA_HEAD, Vector2(mLeftSpawanPos.x, INITIAL_Y_SPAWN_POS + (i * 70.0f)), mpPlayer, mpExpObjPool, pPool);
+				}
+				else
+				{
+					MonsterFactory::CreateMonster(eMonsterType::MEDUSA_HEAD, Vector2(mRightSpawnPos.x, INITIAL_Y_SPAWN_POS + (j * 70.0f)), mpPlayer, mpExpObjPool, pPool);
+				}
+				--j;
+			}
+			break;
+		}
 		case ya::eMonsterEmegernceSecquence::COUNT:
 			assert(false);
 			break;

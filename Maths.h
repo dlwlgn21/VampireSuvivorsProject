@@ -1,7 +1,7 @@
 #pragma once
 #include <math.h>
 
-#define PI (3.141592)
+#define PI (3.141592f)
 
 namespace ya
 {	

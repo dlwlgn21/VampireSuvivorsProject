@@ -6,8 +6,8 @@ namespace ya
 	enum class eMonsterEmegernceSecquence
 	{
 		MUDMAN,
-		MEDUSA_HEAD,
 		GREEN_GHOST,
+		MEDUSA_HEAD,
 		COUNT
 	};
 	class Player;
@@ -37,8 +37,8 @@ namespace ya
 	private:
 		MonsterSpawner()
 			: MUDMAN_EMERGENCE_SECOND(1.0f)
-			, MEDUSA_HEAD_EMERGENCE_SECOND(60.0f)
-			, GREEN_GHOST_EMERGENCE_SECOND(90.0f)
+			, GREEN_GHOST_EMERGENCE_SECOND(30.0f)
+			, MEDUSA_HEAD_EMERGENCE_SECOND(45.0f)
 			, mAccumTimer(0.0f)
 			, mLeftSpawanPos(Vector2::ZERO)
 			, mRightSpawnPos(Vector2::ZERO)
@@ -56,8 +56,8 @@ namespace ya
 
 	private:
 		const float MUDMAN_EMERGENCE_SECOND;
-		const float MEDUSA_HEAD_EMERGENCE_SECOND;
 		const float GREEN_GHOST_EMERGENCE_SECOND;
+		const float MEDUSA_HEAD_EMERGENCE_SECOND;
 		float mAccumTimer;
 		Vector2 mLeftSpawanPos;
 		Vector2 mRightSpawnPos;

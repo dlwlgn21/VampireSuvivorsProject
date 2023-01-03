@@ -4,52 +4,57 @@
 #include "yaAnimator.h"
 #include "yaImage.h"
 #include "yaCamera.h"
+#include "yaPlayer.h"
+#include "yaTime.h"
+#include "yaWeapon.h"
+#include "yaExpGem.h"
+#include "yaSceneManager.h"
+#include "yaPlayScene.h"
+#include "yaExpGemObjPool.h"
 
 namespace ya
 {
-	MedusaHead::MedusaHead(Vector2 pos)
-		: GameObject(pos)
-		, mPen(CreatePen(PS_DASHDOTDOT, 3, RGB(0, 255, 255)))
-		, mBrush(CreateSolidBrush(RGB(153, 204, 255)))
-		, mpImage(Resources::Load<Image>(L"GreenMedusaHead", L"Resources\\Image\\GreenMedusaHeadAnim.bmp"))
-		, mpInvImage(Resources::Load<Image>(L"GreenMedusaHeadInv", L"Resources\\Image\\GreenMedusaHeadInvAnim.bmp"))
-		, mpAnimator(new Animator())
-		, mpCollider(new Collider(Vector2(20.0f, 20.0f)))
-		, mAnimMove(L"GreenMedusaHeadAnim")
-		, mAnimInvMove(L"GreenMedusaHeadAnimInv")
-		, mAnimMoveSize(24.0f, 28.0f)
-		, mAnimOffset(-10.f, -15.f)
-		, mAnimCount(5)
-		, mAnimDuration(0.15f)
+	MedusaHead::MedusaHead(
+		const MonsterCreateInfo& monInfo,
+		const std::wstring& imageRightMoveKey,
+		const std::wstring& imageLeftMoveKey,
+		const std::wstring& imageRightDeathKey,
+		const std::wstring& imageLeftDeathKey,
+
+		const std::wstring& imageRightMovePath,
+		const std::wstring& imageLeftMovePath,
+		const std::wstring& imageRightDeathPath,
+		const std::wstring& imageLeftDeathPath,
+		ExpGemObjPool* pExpGemObjPool,
+		MonsterObjPool<Monster>* pMonsterObjPool
+	)
+		: Monster(monInfo, imageRightMoveKey, imageLeftMoveKey, imageRightDeathKey, imageLeftDeathKey,
+			imageRightMovePath, imageLeftMovePath, imageRightDeathPath, imageLeftDeathPath, pExpGemObjPool, pMonsterObjPool)
 	{
-		assert(mpImage != nullptr);
-		assert(mpInvImage != nullptr);
-		assert(mpAnimator != nullptr);
-		assert(mpCollider != nullptr);
-		SetName(L"GreenMedusaHead");
-		mScale = { 2.0f, 2.0f };
-		AddComponent(mpAnimator);
-		AddComponent(mpCollider);
-		mpAnimator->CreateAnimation(mAnimMove, mpImage, Vector2::ZERO, mAnimMoveSize, mAnimOffset, mAnimCount, mAnimDuration);
-		mpAnimator->CreateAnimation(mAnimInvMove, mpInvImage, Vector2::ZERO, mAnimMoveSize, mAnimOffset, mAnimCount, mAnimDuration);
-		mpAnimator->Play(mAnimInvMove, true);
 	}
 
 	void MedusaHead::Tick()
 	{
-		GameObject::Tick();
+		Monster::Tick();
+		if (!mbIsDeathFromWeapon)
+		{
+			float diffX = mPos.x - mpPlayer->GetPos().x;
+			if (diffX < 0.0f)
+			{
+				mpAnimator->Play(mImageRightMoveKey, true);
+			}
+			else
+			{
+				mpAnimator->Play(mImageLeftMoveKey, true);
+			}
+			Vector2 monDir = GetVectorToPlayer();
+			monDir.Normalize();
+			mPos.x += monDir.x * mSpeed * Time::DeltaTime();
+			mPos.y += monDir.y * mSpeed * Time::DeltaTime();
+		}
 	}
 	void MedusaHead::Render(HDC hdc)
 	{
 		GameObject::Render(hdc);
-	}
-	void MedusaHead::OnCollisionEnter(Collider* other)
-	{
-	}
-	void MedusaHead::OnCollisionStay(Collider* other)
-	{
-	}
-	void MedusaHead::OnCollisionExit(Collider* other)
-	{
 	}
 }
