@@ -89,6 +89,10 @@ namespace ya
 		Time::Reset();
 		for (int i = 0; i < MAX_COLLIDER_LAYER; ++i)
 		{
+			if (i == static_cast<UINT>(eColliderLayer::MONSTER) || i == static_cast<UINT>(eColliderLayer::EXP_JEM))
+			{
+				continue;
+			}
 			for (int j = 0; j < mObjects[i].size(); ++j)
 			{
 				if (mObjects[i][j] == nullptr) { continue; }

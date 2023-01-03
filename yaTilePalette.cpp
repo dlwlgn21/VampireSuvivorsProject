@@ -7,7 +7,6 @@
 #include "yaResources.h"
 #include "yaTile.h"
 #include "yaObject.h"
-#include "yaToolScene.h"
 #include "yaSceneManager.h"
 #include "yaInput.h"
 

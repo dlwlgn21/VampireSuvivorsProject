@@ -2,7 +2,6 @@
 #include "yaPlayer.h"
 #include "yaCollider.h"
 #include "yaAnimator.h"
-#include "yaAI.h"
 #include "yaResources.h"
 #include "yaWeapon.h"
 #include "yaSceneManager.h"
@@ -32,7 +31,6 @@ namespace ya
 	)
 		: GameObject(monInfo.Pos)
 		, mpPlayer(monInfo.PtrPlayer)
-		, mpAI(nullptr)
 		, mHP(monInfo.Hp)
 		, mDamage(monInfo.Damage)
 		, mExp(monInfo.Exp)
@@ -90,7 +88,6 @@ namespace ya
 	{
 		GameObject::Tick();
 		assert(mpPlayer != nullptr);
-		//assert(mpAI != nullptr);
 
 		if (mbIsDeathFromWeapon)
 		{
@@ -124,11 +121,6 @@ namespace ya
 
 	Monster::~Monster()
 	{
-		if (mpAI !=  nullptr)
-		{
-			delete mpAI;
-			mpAI = nullptr;
-		}
 	}
 
 

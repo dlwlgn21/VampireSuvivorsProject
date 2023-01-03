@@ -405,6 +405,8 @@ namespace ya
 			assert(false);
 			break;
 		}
+		assert(false);
+		return mKnifeStat;
 	}
 	void Player::IncreaseWeaponStat(const eWeaponAndItemTypes type)
 	{

@@ -109,24 +109,27 @@ namespace ya
 	{
 		Scene::Enter();
 		Time::StartTimeCounting();
-
 		mpPlayer = ya::object::Instantiate<Player>(eColliderLayer::PLAYER);
 		BGGmaeImage* bgGameImage = ya::object::InstantiateAtAnotherScene<BGGmaeImage>(eColliderLayer::BACKGROUND, L"BGGmaeMap", L"Resources\\Image\\MapTwo.bmp", GetSceneTpye());
 		bgGameImage->Initialize();
 
+		//MonsterSpawner::GetInstance().SetObjectsAndSpawnPos(mpPlayer, mpExpGemObjPool, mpMudManPool);
 		setColliderLayer();
 
 		int monsterCount = 30;
-
 		for (int i = 0; i < monsterCount; ++i)
 		{
-			//AI* pAI = new AI();
-			//pAI->AddMonsterState(new PatrolState(mpPlayer));
-			//pAI->AddMonsterState(new TraceState(mpPlayer));
-			//pMonster->SetAI(pAI);
 			MonsterFactory::CreateMonster(eMonsterType::MUDMAN, Vector2(100.0f * i, 200.0f), mpPlayer, mpExpGemObjPool, mpMudManPool);
 		}
-		
+		//for (int i = 0; i < monsterCount; ++i)
+		//{
+		//	//AI* pAI = new AI();
+		//	//pAI->AddMonsterState(new PatrolState(mpPlayer));
+		//	//pAI->AddMonsterState(new TraceState(mpPlayer));
+		//	//pMonster->SetAI(pAI);
+		//	MonsterFactory::CreateMonster(eMonsterType::MUDMAN, Vector2(100.0f * i, 200.0f), mpPlayer, mpExpGemObjPool, mpMudManPool);
+		//}
+
 		PlaySceneHUDPanel* pPanel = static_cast<PlaySceneHUDPanel*>(UIManager::GetUIInstanceOrNull(eUIType::PLAY_INFO_HUD));
 		assert(pPanel != nullptr);
 		pPanel->SetPlayerToHpBar(mpPlayer);

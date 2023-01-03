@@ -7,7 +7,6 @@
 
 namespace ya
 {
-	class AI;
 	class Player;
 	class Animator;
 	class Collider;
@@ -117,16 +116,8 @@ namespace ya
 			return Vector2(mPlayerPos - mPos);
 		}
 
-		__forceinline void SetAI(AI* pAI) 
-		{ 
-			assert(pAI != nullptr); 
-			mpAI = pAI;
-			//mpAI->S
-		}
-
 	protected:
 		Player* mpPlayer;
-		AI* mpAI;
 		int mHP;
 		int mDamage;
 		int mExp;

@@ -13,6 +13,8 @@ namespace ya
 	Monster* MonsterFactory::CreateMonster(eMonsterType eType, Vector2 pos, Player* pPlayer, ExpGemObjPool* pExpGemObejctPool, MonsterObjPool<Monster>* pMonsterObjPool)
 	{
 		assert(pExpGemObejctPool != nullptr);
+		assert(pMonsterObjPool != nullptr);
+
 		Monster* pMonster = nullptr;
 		switch (eType)
 		{

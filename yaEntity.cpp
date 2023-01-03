@@ -3,7 +3,7 @@
 namespace ya
 {
 	Entity::Entity()
-		: mName(L"")
+		: mName{}
 		, mID(reinterpret_cast<UINT32>(this))
 	{
 	}
@@ -11,3 +11,4 @@ namespace ya
 	{
 	}
 }
+

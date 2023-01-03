@@ -42,25 +42,29 @@ namespace ya
 		if (IS_KEY_DOWN(eKeyCode::W) || IS_KEY_DOWN(eKeyCode::UP))
 		{
 			if (mpButtons[static_cast<UINT>(ePauseButton::EXIT)]->IsSelected())
-			{ 
-				mpButtons[static_cast<UINT>(ePauseButton::CONTINUE)]->SetIsSelected(true); 
-				mpButtons[static_cast<UINT>(ePauseButton::EXIT)]->SetIsSelected(false); 
+			{
+				mpButtons[static_cast<UINT>(ePauseButton::CONTINUE)]->SetIsSelected(true);
+				mpButtons[static_cast<UINT>(ePauseButton::EXIT)]->SetIsSelected(false);
 			}
 		}
 		else if (IS_KEY_DOWN(eKeyCode::S) || IS_KEY_DOWN(eKeyCode::DOWN))
 		{
 			if (mpButtons[static_cast<UINT>(ePauseButton::CONTINUE)]->IsSelected())
-			{ 
-				mpButtons[static_cast<UINT>(ePauseButton::EXIT)]->SetIsSelected(true); 
+			{
+				mpButtons[static_cast<UINT>(ePauseButton::EXIT)]->SetIsSelected(true);
 				mpButtons[static_cast<UINT>(ePauseButton::CONTINUE)]->SetIsSelected(false);
 			}
 		}
 		else if (IS_KEY_DOWN(eKeyCode::ENTER) || IS_KEY_DOWN(eKeyCode::SPACE))
 		{
 			if (mpButtons[static_cast<UINT>(ePauseButton::CONTINUE)]->IsSelected())
-				{ mpButtons[static_cast<UINT>(ePauseButton::CONTINUE)]->ButtonClicked(); }
+			{
+				mpButtons[static_cast<UINT>(ePauseButton::CONTINUE)]->ButtonClicked();
+			}
 			else
-				{ mpButtons[static_cast<UINT>(ePauseButton::EXIT)]->ButtonClicked(); }
+			{
+				mpButtons[static_cast<UINT>(ePauseButton::EXIT)]->ButtonClicked();
+			}
 		}
 	}
 	void PlayScenePausedHUDPanel::OnRender(HDC hdc)

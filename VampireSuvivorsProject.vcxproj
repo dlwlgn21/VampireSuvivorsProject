@@ -147,6 +147,7 @@
     <ClInclude Include="yaLevelUpHUDTop.h" />
     <ClInclude Include="yaMonsterFactory.h" />
     <ClInclude Include="yaMonsterObjPool.h" />
+    <ClInclude Include="yaMonsterSpawner.h" />
     <ClInclude Include="yaMonsterState.h" />
     <ClInclude Include="yaPatrolState.h" />
     <ClInclude Include="yaPausePlayerWeponHUDBox.h" />
@@ -204,7 +205,6 @@
     <ClInclude Include="yaCollisionManager.h" />
     <ClInclude Include="yaComponent.h" />
     <ClInclude Include="yaDurahanBoneKnight.h" />
-    <ClInclude Include="yaEndingScene.h" />
     <ClInclude Include="yaEntity.h" />
     <ClInclude Include="yaExitButton.h" />
     <ClInclude Include="yaFlyingSkull.h" />
@@ -220,7 +220,6 @@
     <ClInclude Include="yaImage.h" />
     <ClInclude Include="yaInput.h" />
     <ClInclude Include="yaLionHead.h" />
-    <ClInclude Include="yaLogoScene.h" />
     <ClInclude Include="yaMagision.h" />
     <ClInclude Include="yaMedusa.h" />
     <ClInclude Include="yaMiniHeadDurahan.h" />
@@ -244,11 +243,8 @@
     <ClInclude Include="yaSound.h" />
     <ClInclude Include="yaSoundManager.h" />
     <ClInclude Include="yaStartButton.h" />
-    <ClInclude Include="yaTile.h" />
-    <ClInclude Include="yaTilePalette.h" />
     <ClInclude Include="yaTime.h" />
     <ClInclude Include="yaTitleScene.h" />
-    <ClInclude Include="yaToolScene.h" />
     <ClInclude Include="yaTraceState.h" />
     <ClInclude Include="yaUIAnimObject.h" />
     <ClInclude Include="yaUIBase.h" />
@@ -275,6 +271,7 @@
     <ClCompile Include="yaLevelUpHUDTop.cpp" />
     <ClCompile Include="yaMonsterFactory.cpp" />
     <ClCompile Include="yaMonsterObjPool.cpp" />
+    <ClCompile Include="yaMonsterSpawner.cpp" />
     <ClCompile Include="yaMonsterState.cpp" />
     <ClCompile Include="yaPatrolState.cpp" />
     <ClCompile Include="yaPausePlayerWeponHUDBox.cpp" />
@@ -327,7 +324,6 @@
     <ClCompile Include="yaCollisionManager.cpp" />
     <ClCompile Include="yaComponent.cpp" />
     <ClCompile Include="yaDurahanBoneKnight.cpp" />
-    <ClCompile Include="yaEndingScene.cpp" />
     <ClCompile Include="yaEntity.cpp" />
     <ClCompile Include="yaExitButton.cpp" />
     <ClCompile Include="yaFlyingSkull.cpp" />
@@ -343,7 +339,6 @@
     <ClCompile Include="yaImage.cpp" />
     <ClCompile Include="yaInput.cpp" />
     <ClCompile Include="yaLionHead.cpp" />
-    <ClCompile Include="yaLogoScene.cpp" />
     <ClCompile Include="yaMagision.cpp" />
     <ClCompile Include="yaMedusa.cpp" />
     <ClCompile Include="yaMiniHeadDurahan.cpp" />
@@ -367,11 +362,8 @@
     <ClCompile Include="yaSound.cpp" />
     <ClCompile Include="yaSoundManager.cpp" />
     <ClCompile Include="yaStartButton.cpp" />
-    <ClCompile Include="yaTile.cpp" />
-    <ClCompile Include="yaTilePalette.cpp" />
     <ClCompile Include="yaTime.cpp" />
     <ClCompile Include="yaTitleScene.cpp" />
-    <ClCompile Include="yaToolScene.cpp" />
     <ClCompile Include="yaTraceState.cpp" />
     <ClCompile Include="yaUIAnimObject.cpp" />
     <ClCompile Include="yaUIBase.cpp" />

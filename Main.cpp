@@ -4,11 +4,7 @@
 #include "framework.h"
 #include "VampireSuvivorsProject.h"
 #include "yaApplication.h"
-#include "yaScene.h"
-#include "yaSceneManager.h"
-#include "yaToolScene.h"
-#include "yaImage.h"
-#include "yaInput.h"
+
 
 #define MAX_LOADSTRING (100)
 
@@ -42,7 +38,7 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
     LoadStringW(hInstance, IDC_VAMPIRESUVIVORSPROJECT, szWindowClass, MAX_LOADSTRING);
     MyRegisterClass(hInstance, WndProc, szWindowClass);     // MainWindow
 
-// TILE-MAP PART
+    // TILE-MAP PART
 #if 0
     gAtlasWindowClassName = L"AtlasWindow";
     MyRegisterClass(hInstance, AtlasWndProc, gAtlasWindowClassName);     // TileWindow
@@ -115,16 +111,16 @@ BOOL InitInstance(HINSTANCE hInstance, int nCmdShow)
     windowData.height = 1080;
 
     HWND hWnd = CreateWindowW(
-        szWindowClass, 
-        szTitle, 
+        szWindowClass,
+        szTitle,
         WS_OVERLAPPEDWINDOW,
-        CW_USEDEFAULT, 
-        0, 
-        CW_USEDEFAULT, 
-        0, 
-        nullptr, 
-        nullptr, 
-        hInstance, 
+        CW_USEDEFAULT,
+        0,
+        CW_USEDEFAULT,
+        0,
+        nullptr,
+        nullptr,
+        hInstance,
         nullptr
     );
     if (hWnd == NULL)
@@ -166,7 +162,7 @@ BOOL InitInstance(HINSTANCE hInstance, int nCmdShow)
 
     app.Initialize(windowData);
 
-// TILE-MAP PART
+    // TILE-MAP PART
 #if 0
     WindowData atlasWindowData = {};
     //atlasWindowData.width = 256;
@@ -180,7 +176,7 @@ BOOL InitInstance(HINSTANCE hInstance, int nCmdShow)
         return FALSE;
     }
     atlasWindowData.hwnd = hWnd;
-    
+
     //SetWindowPos(hWnd, nullptr, windowData.width, 0, atlasWindowData.width, atlasWindowData.height, 0);
     //ShowWindow(hWnd, nCmdShow);
     //UpdateWindow(hWnd);
@@ -197,41 +193,6 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
     case WM_CREATE:
     {
         //SetTimer(hWnd, 0, 1, nullptr);
-    }
-    break;
-    case WM_COMMAND:
-    {
-        int wmId = LOWORD(wParam);
-        switch (wmId)
-        {
-        case ID_TILE_SAVE:
-        {
-            ya::ToolScene* pToolScene = static_cast<ya::ToolScene*>(ya::SceneManager::GetCurrentScene());
-            assert(pToolScene != nullptr);
-            pToolScene->SaveTilePallete();
-        }
-        break;
-        case ID_TILE_LOAD:
-        {
-            ya::ToolScene* pToolScene = static_cast<ya::ToolScene*>(ya::SceneManager::GetCurrentScene());
-            assert(pToolScene != nullptr);
-            pToolScene->LoadTilePallete();
-        }
-        break;
-        case IDM_ABOUT:
-            DialogBox(hInst, MAKEINTRESOURCE(IDD_ABOUTBOX), hWnd, About);
-            break;
-        case IDM_EXIT:
-            DestroyWindow(hWnd);
-            break;
-        default:
-            return DefWindowProc(hWnd, message, wParam, lParam);
-        }
-    }
-    break;
-    case WM_KEYDOWN:
-    {
-
     }
     break;
     case WM_PAINT:
@@ -258,122 +219,6 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
     }
     return 0;
 }
-
-
-LRESULT CALLBACK AtlasWndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
-{
-    switch (message)
-    {
-    case WM_CREATE:
-    {
-        WindowData mainWinData = app.GetInstance().GetWindowData();
-        WindowData atlasData = app.GetInstance().GetAtlasWindowData();
-       
-        ya::ToolScene* pToolScene = static_cast<ya::ToolScene*>(ya::SceneManager::GetCurrentScene());
-        assert(pToolScene != nullptr);
-
-        ya::Image* pAtlas = pToolScene->GetAtlasImage();
-        assert(pAtlas != nullptr);
-
-        RECT rect = { 
-            0,
-            0, 
-            static_cast<LONG>(pAtlas->GetWidth() * TILE_SCALE), 
-            static_cast<LONG>(pAtlas->GetHeight() * TILE_SCALE) 
-        };
-
-        AdjustWindowRect(&rect, WS_OVERLAPPEDWINDOW, true);
-
-        SetWindowPos(
-            hWnd,
-            nullptr, 
-            mainWinData.width, 
-            0,
-            rect.right - rect.left,
-            rect.bottom - rect.top,
-            0
-        );
-        ShowWindow(hWnd, true);
-        UpdateWindow(hWnd);
-    }
-    break;
-    case WM_COMMAND:
-    {
-        int wmId = LOWORD(wParam);
-        switch (wmId)
-        {
-        case IDM_ABOUT:
-            DialogBox(hInst, MAKEINTRESOURCE(IDD_ABOUTBOX), hWnd, About);
-            break;
-        case IDM_EXIT:
-            DestroyWindow(hWnd);
-            break;
-        default:
-            return DefWindowProc(hWnd, message, wParam, lParam);
-        }
-    }
-    break;
-    case WM_PAINT:
-    {
-        PAINTSTRUCT ps;
-        HDC hdc = BeginPaint(hWnd, &ps);
-
-        WindowData atlasData = app.GetInstance().GetAtlasWindowData();
-        ya::ToolScene* pToolScene = static_cast<ya::ToolScene*>(ya::SceneManager::GetCurrentScene());
-        assert(pToolScene != nullptr);
-        ya::Image* pAtlas = pToolScene->GetAtlasImage();
-        assert(pAtlas != nullptr);
-
-        ya::Vector2 pos(ya::Vector2::ZERO);
-
-
-        TransparentBlt(
-            hdc, 
-            static_cast<int>(pos.x), 
-            static_cast<int>(pos.y),
-            static_cast<int>(pAtlas->GetWidth() * TILE_SCALE),
-            static_cast<int>(pAtlas->GetHeight() * TILE_SCALE),
-
-            pAtlas->GetDC(),
-            0,
-            0,
-            static_cast<int>(pAtlas->GetWidth()),
-            static_cast<int>(pAtlas->GetHeight()),
-            RGB(255, 0, 255)
-        );
-        EndPaint(hWnd, &ps);
-
-    }
-    break;
-    case WM_LBUTTONDOWN:
-    {
-        if (GetFocus())
-        {
-            ya::Vector2 mousePos = ya::Input::GetMousePos(hWnd);
-            int x = static_cast<int>(mousePos.x / (TILE_SIZE_X * TILE_SCALE));
-            int y = static_cast<int>(mousePos.y / (TILE_SIZE_Y * TILE_SCALE));
-            int idx = (y * TILE_COLUMN_COUNT) + (x % TILE_COLUMN_COUNT);
-
-            ya::ToolScene* pToolScene = static_cast<ya::ToolScene*>(ya::SceneManager::GetCurrentScene());
-            assert(pToolScene != nullptr);
-
-            pToolScene->SetTileIdx(idx);
-        }
-
-    }
-    break;
-    case WM_DESTROY:
-    {
-        PostQuitMessage(0);
-    }
-    break;
-    default:
-        return DefWindowProc(hWnd, message, wParam, lParam);
-    }
-    return 0;
-}
-
-
 
 
 // 정보 대화 상자의 메시지 처리기입니다.

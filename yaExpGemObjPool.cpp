@@ -41,10 +41,10 @@ namespace ya
 	}
 	UINT ExpGemObjPool::GetFreeObjectCount() const
 	{
-		return mQ.size();
+		return static_cast<UINT>(mQ.size());
 	}
 	UINT ExpGemObjPool::GetMaxFreeObjectCount() const
 	{
-		return mMaxPoolSize;
+		return static_cast<UINT>(mMaxPoolSize);
 	}
 }

@@ -23,7 +23,7 @@ namespace ya
 		'A', 'S', 'D', 'F', 'G', 'H', 'J', 'K', 'L',
 		'Z', 'X', 'C', 'V', 'B', 'N', 'M',
 
-		VK_RETURN, VK_ESCAPE, VK_LSHIFT, VK_LMENU, VK_LCONTROL,
+		static_cast<char>(VK_RETURN), static_cast<char>(VK_ESCAPE), static_cast<char>(VK_LSHIFT), static_cast<char>(VK_LMENU), static_cast<char>(VK_LCONTROL),
 		VK_SPACE, VK_LEFT, VK_RIGHT, VK_UP, VK_DOWN,
 		VK_LBUTTON, VK_RBUTTON,
 

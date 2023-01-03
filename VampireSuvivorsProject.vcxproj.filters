@@ -49,9 +49,6 @@
     <Filter Include="Scene\Base">
       <UniqueIdentifier>{4469bc7e-07f3-4df7-9393-839c210a5de6}</UniqueIdentifier>
     </Filter>
-    <Filter Include="GameObject\Tile">
-      <UniqueIdentifier>{2c64c16f-2f87-4b77-99dc-60a2a8a629ef}</UniqueIdentifier>
-    </Filter>
     <Filter Include="GameObject\Game">
       <UniqueIdentifier>{b565c428-5851-4d08-9c06-f034940474fd}</UniqueIdentifier>
     </Filter>
@@ -171,9 +168,6 @@
     <ClInclude Include="yaComponent.h">
       <Filter>Component\Base</Filter>
     </ClInclude>
-    <ClInclude Include="yaEndingScene.h">
-      <Filter>Scene</Filter>
-    </ClInclude>
     <ClInclude Include="yaEntity.h">
       <Filter>Engine</Filter>
     </ClInclude>
@@ -185,9 +179,6 @@
     </ClInclude>
     <ClInclude Include="yaInput.h">
       <Filter>Manager</Filter>
-    </ClInclude>
-    <ClInclude Include="yaLogoScene.h">
-      <Filter>Scene</Filter>
     </ClInclude>
     <ClInclude Include="yaObject.h">
       <Filter>Common</Filter>
@@ -209,15 +200,6 @@
     </ClInclude>
     <ClInclude Include="yaTitleScene.h">
       <Filter>Scene</Filter>
-    </ClInclude>
-    <ClInclude Include="yaToolScene.h">
-      <Filter>Scene</Filter>
-    </ClInclude>
-    <ClInclude Include="yaTile.h">
-      <Filter>GameObject\Tile</Filter>
-    </ClInclude>
-    <ClInclude Include="yaTilePalette.h">
-      <Filter>GameObject\Tile</Filter>
     </ClInclude>
     <ClInclude Include="yaPlayer.h">
       <Filter>GameObject\Game</Filter>
@@ -510,6 +492,9 @@
     <ClInclude Include="yaMonsterObjPool.h">
       <Filter>ObjectPools</Filter>
     </ClInclude>
+    <ClInclude Include="yaMonsterSpawner.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Maths.cpp">
@@ -536,9 +521,6 @@
     <ClCompile Include="yaComponent.cpp">
       <Filter>Component\Base</Filter>
     </ClCompile>
-    <ClCompile Include="yaEndingScene.cpp">
-      <Filter>Scene</Filter>
-    </ClCompile>
     <ClCompile Include="yaEntity.cpp">
       <Filter>Engine</Filter>
     </ClCompile>
@@ -550,9 +532,6 @@
     </ClCompile>
     <ClCompile Include="yaInput.cpp">
       <Filter>Manager</Filter>
-    </ClCompile>
-    <ClCompile Include="yaLogoScene.cpp">
-      <Filter>Scene</Filter>
     </ClCompile>
     <ClCompile Include="yaPlayScene.cpp">
       <Filter>Scene</Filter>
@@ -577,15 +556,6 @@
     </ClCompile>
     <ClCompile Include="Main.cpp">
       <Filter>소스 파일</Filter>
-    </ClCompile>
-    <ClCompile Include="yaToolScene.cpp">
-      <Filter>Scene</Filter>
-    </ClCompile>
-    <ClCompile Include="yaTile.cpp">
-      <Filter>GameObject\Tile</Filter>
-    </ClCompile>
-    <ClCompile Include="yaTilePalette.cpp">
-      <Filter>GameObject\Tile</Filter>
     </ClCompile>
     <ClCompile Include="yaPlayer.cpp">
       <Filter>GameObject\Game</Filter>
@@ -874,6 +844,9 @@
     </ClCompile>
     <ClCompile Include="yaMonsterObjPool.cpp">
       <Filter>ObjectPools</Filter>
+    </ClCompile>
+    <ClCompile Include="yaMonsterSpawner.cpp">
+      <Filter>소스 파일</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

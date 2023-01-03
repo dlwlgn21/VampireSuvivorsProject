@@ -34,12 +34,6 @@ namespace ya
 		//SoundManager::Initialize();
 	}
 
-	void Application::InitializeAtalsWindow(WindowData atlasWindowData)
-	{
-		mAtlasWindowData = atlasWindowData;
-		mAtlasWindowData.hdc = GetDC(atlasWindowData.hwnd);
-	}
-
 	void Application::initailizeWindow()
 	{
 		// 비트맵 해상도를 설정하기 위한 실제 위도우 크기 계산
@@ -73,7 +67,7 @@ namespace ya
 		mBrushes[static_cast<UINT>(eBrushColor::BLACK)] = static_cast<HBRUSH>(GetStockObject(BLACK_BRUSH));
 		mBrushes[static_cast<UINT>(eBrushColor::GRAY)] = CreateSolidBrush(RGB(67, 67, 67));
 		mBrushes[static_cast<UINT>(eBrushColor::WHITE)] = static_cast<HBRUSH>(GetStockObject(WHITE_BRUSH));
-	
+
 		mMenu = LoadMenu(nullptr, MAKEINTRESOURCEW(IDC_VAMPIRESUVIVORSPROJECT));
 	}
 
@@ -115,22 +109,6 @@ namespace ya
 		SceneManager::DestroyGameobject();
 	}
 
-	void Application::SetMenuBar(bool power)
-	{
-		SetMenu(mWindowData.hwnd, mMenu);				// WinAPI 기본 제공 함수.
-		
-		RECT rect = { 0,0, static_cast<LONG>(mWindowData.width), static_cast<LONG>(mWindowData.height) };
-		AdjustWindowRect(&rect, WS_OVERLAPPEDWINDOW, power);
-
-		SetWindowPos(
-			mWindowData.hwnd,
-			nullptr, 0, 0,
-			rect.right - rect.left,
-			rect.bottom - rect.top,
-			SWP_NOMOVE | SWP_NOZORDER
-		);
-		ShowWindow(mWindowData.hwnd, true);
-	}
 	void Application::Release()
 	{
 		SceneManager::Release();

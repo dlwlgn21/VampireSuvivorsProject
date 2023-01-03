@@ -1,10 +1,7 @@
 #include "yaSceneManager.h"
-#include "yaLogoScene.h"
 #include "yaPlayScene.h"
 #include "yaTitleScene.h"
-#include "yaEndingScene.h"
 #include "yaObject.h"
-#include "yaToolScene.h"
 namespace ya
 {
 

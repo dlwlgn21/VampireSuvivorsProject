@@ -76,7 +76,6 @@ namespace ya
 		MonsterObjPool<Monster>* pMonsterObjPool
 	)
 	{
-		
 		if (mQ.empty())
 		{
 			T* pMonster;

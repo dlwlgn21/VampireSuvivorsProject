@@ -220,7 +220,7 @@ namespace ya
 			// 맨앞 UI 말고 나머지는 렌더 안하게 해주어야 함.
 			// 즉, 나머지 UI를 싹 꺼주는게 맞음.
 			std::stack<UIBase*> uiTmpStack = mUIStack;
-			
+
 			// 스택에서 하나씩 꺼내면서 전체화면인 애들 다 비활성화 해줌.
 			while (!uiTmpStack.empty())
 			{
@@ -229,7 +229,9 @@ namespace ya
 				assert(pUIBase != nullptr);
 
 				if (pUIBase->GetIsFullScreen())
-					{ pUIBase->Inactive(); }
+				{
+					pUIBase->Inactive();
+				}
 			}
 		}
 
@@ -300,8 +302,10 @@ namespace ya
 		// 근데 중요한게, 
 		// 나는 OnLoadUIComplete()에서 추가된 UI를 제외한 나머지 풀스크린 UI를 전부 비활성화 했었음.
 		// 이제 거꾸로 다시 켜주는 과정이 필요함.
-		if (mUIStack.size() <= 0) 
-			{ return; }
+		if (mUIStack.size() <= 0)
+		{
+			return;
+		}
 
 		std::stack<UIBase*> uiTmpStack;
 
@@ -323,7 +327,7 @@ namespace ya
 					assert(pUIBase != nullptr);
 					if (pUIBase->GetIsFullScreen())			// 전체화면인 가장 상단의 UI를 활성화 시켜주고 break
 					{
-						pUIBase->Active();			
+						pUIBase->Active();
 						break;
 					}
 				}
@@ -332,7 +336,7 @@ namespace ya
 			}
 			else											// UI 타입이 같지 않으면 tmpStack에다가 모아놓는다.
 			{
-				uiTmpStack.push(pUIBase);						
+				uiTmpStack.push(pUIBase);
 			}
 		}
 

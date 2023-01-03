@@ -7,6 +7,7 @@ namespace ya
 	class ExpGem;
 	class ExpGemObjPool;
 	class MudMan;
+	class Monster;
 	template<typename T> class MonsterObjPool;
 	class PlayScene : public Scene
 	{
