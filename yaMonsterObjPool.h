@@ -28,11 +28,16 @@ namespace ya
 			const std::wstring& imageLeftMoveKey,
 			const std::wstring& imageRightDeathKey,
 			const std::wstring& imageLeftDeathKey,
+			const std::wstring& imageRightHittedKey,
+			const std::wstring& imageLeftHittedKey,
+
 
 			const std::wstring& imageRightMovePath,
 			const std::wstring& imageLeftMovePath,
 			const std::wstring& imageRightDeathPath,
 			const std::wstring& imageLeftDeathPath,
+			const std::wstring& imageRightHittedPath,
+			const std::wstring& imageLeftHittedPath,
 			ExpGemObjPool* pExpGemObjPool,
 			MonsterObjPool<Monster>* pMonsterObjPool
 		);
@@ -70,11 +75,16 @@ namespace ya
 		const std::wstring& imageLeftMoveKey,
 		const std::wstring& imageRightDeathKey,
 		const std::wstring& imageLeftDeathKey,
+		const std::wstring& imageRightHittedKey,
+		const std::wstring& imageLeftHittedKey,
+
 
 		const std::wstring& imageRightMovePath,
 		const std::wstring& imageLeftMovePath,
 		const std::wstring& imageRightDeathPath,
 		const std::wstring& imageLeftDeathPath,
+		const std::wstring& imageRightHittedPath,
+		const std::wstring& imageLeftHittedPath,
 		ExpGemObjPool* pExpGemObjPool,
 		MonsterObjPool<Monster>* pMonsterObjPool
 	)
@@ -86,22 +96,43 @@ namespace ya
 			{
 			case eMonsterType::MUDMAN:
 			{
-				pMonster = new Mudman(monInfo, imageRightMoveKey, imageLeftMoveKey, imageRightDeathKey, imageLeftDeathKey,
-					imageRightMovePath, imageLeftMovePath, imageRightDeathPath, imageLeftDeathPath, pExpGemObjPool, pMonsterObjPool);
+				pMonster = new Mudman(
+					monInfo, 
+					imageRightMoveKey, imageLeftMoveKey, 
+					imageRightDeathKey, imageLeftDeathKey,
+					imageRightHittedKey, imageLeftHittedKey,
+					imageRightMovePath, imageLeftMovePath, 
+					imageRightDeathPath, imageLeftDeathPath, 
+					imageRightHittedPath, imageLeftHittedPath,
+					pExpGemObjPool, pMonsterObjPool);
 				return pMonster;
 				break;
 			}
 			case eMonsterType::GREEN_GHOST:
 			{
-				pMonster = new GreenGhost(monInfo, imageRightMoveKey, imageLeftMoveKey, imageRightDeathKey, imageLeftDeathKey,
-					imageRightMovePath, imageLeftMovePath, imageRightDeathPath, imageLeftDeathPath, pExpGemObjPool, pMonsterObjPool);
+				pMonster = new GreenGhost(
+					monInfo,
+					imageRightMoveKey, imageLeftMoveKey,
+					imageRightDeathKey, imageLeftDeathKey,
+					imageRightHittedKey, imageLeftHittedKey,
+					imageRightMovePath, imageLeftMovePath,
+					imageRightDeathPath, imageLeftDeathPath,
+					imageRightHittedPath, imageLeftHittedPath,
+					pExpGemObjPool, pMonsterObjPool);
 				return pMonster;
 				break;
 			}
 			case eMonsterType::MEDUSA_HEAD:
 			{
-				pMonster = new MedusaHead(monInfo, imageRightMoveKey, imageLeftMoveKey, imageRightDeathKey, imageLeftDeathKey,
-					imageRightMovePath, imageLeftMovePath, imageRightDeathPath, imageLeftDeathPath, pExpGemObjPool, pMonsterObjPool);
+				pMonster = new MedusaHead(
+					monInfo,
+					imageRightMoveKey, imageLeftMoveKey,
+					imageRightDeathKey, imageLeftDeathKey,
+					imageRightHittedKey, imageLeftHittedKey,
+					imageRightMovePath, imageLeftMovePath,
+					imageRightDeathPath, imageLeftDeathPath,
+					imageRightHittedPath, imageLeftHittedPath,
+					pExpGemObjPool, pMonsterObjPool);
 				return pMonster;
 				break;
 			}
@@ -116,6 +147,7 @@ namespace ya
 		Collider* pCollider = pRet->GetComponentOrNull<Collider>(eComponentType::COLLIDER);
 		assert(pCollider != nullptr);
 		pCollider->SetSize(pRet->GetSize());
+		pCollider->SetIsWorking(true);
 		pRet->SetActive(true);
 		mQ.pop();
 		return pRet;

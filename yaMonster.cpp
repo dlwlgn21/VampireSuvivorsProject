@@ -11,7 +11,8 @@
 #include "yaInput.h"
 #include "yaExpGemObjPool.h"
 #include "yaMonsterObjPool.h"
-
+#include "yaApplication.h"
+#include "yaCamera.h"
 
 namespace ya
 {
@@ -21,11 +22,16 @@ namespace ya
 		const std::wstring& imageLeftMoveKey,
 		const std::wstring& imageRightDeathKey,
 		const std::wstring& imageLeftDeathKey,
+		const std::wstring& imageRightHittedKey,
+		const std::wstring& imageLeftHittedKey,
+
 
 		const std::wstring& imageRightMovePath,
 		const std::wstring& imageLeftMovePath,
 		const std::wstring& imageRightDeathPath,
 		const std::wstring& imageLeftDeathPath,
+		const std::wstring& imageRightHittedPath,
+		const std::wstring& imageLeftHittedPath,
 		ExpGemObjPool* pExpGemObjPool,
 		MonsterObjPool<Monster>* pMonsterObjPool
 	)
@@ -41,10 +47,14 @@ namespace ya
 		, mImageLeftMoveKey(imageLeftMoveKey)
 		, mImageRightDeathKey(imageRightDeathKey)
 		, mImageLeftDeathKey(imageLeftDeathKey)
+		, mImageRightHittedKey(imageRightHittedKey)
+		, mImageLeftHittedKey(imageLeftHittedKey)
 		, mpRightImage(Resources::Load<Image>(imageRightMoveKey, imageRightMovePath))
 		, mpLeftImage(Resources::Load<Image>(imageLeftMoveKey, imageLeftMovePath))
 		, mpRightDeathImage(Resources::Load<Image>(imageRightDeathKey, imageRightDeathPath))
 		, mpLeftDeathImage(Resources::Load<Image>(imageLeftDeathKey, imageLeftDeathPath))
+		, mpRightHittedImage(Resources::Load<Image>(imageRightHittedKey, imageRightHittedPath))
+		, mpLeftHittedImage(Resources::Load<Image>(imageLeftHittedKey, imageLeftHittedPath))
 		, mpAnimator(new Animator())
 		, mpCollider(new Collider(monInfo.AnimMoveSize))
 		, mAnimMoveSize(monInfo.AnimMoveSize)
@@ -54,9 +64,19 @@ namespace ya
 		, mAnimDeathImageCount(monInfo.AnimDeathImageCount)
 		, mAnimDuration(monInfo.AnimDuration)
 		, mAnimDeathCounter(monInfo.AnimDeathDuration)
+		, mAnimHittedCounter(0.0f)
+		, mAnimHittedTime(monInfo.AnimDuration* monInfo.AnimImageCount)
 		, mbIsDeathFromWeapon(false)
+		, mbIsHittedFromWeapon(false)
+		, mDisplayWeaponDamage(0)
 		, mpExpGemObjPool(pExpGemObjPool)
 		, mpMonsterObjPool(pMonsterObjPool)
+		, mHwnd(Application::GetInstance().GetWindowData().hwnd)
+		, mR(1.0f)
+		, mG(1.0f)
+		, mB(1.0f)
+		, mRecogRange(0.0f)
+		, meCurrState(eMonsterState::PATROL)
 	{
 		assert(mpPlayer != nullptr);
 		assert(mHP != 0);
@@ -79,9 +99,25 @@ namespace ya
 		mpAnimator->CreateAnimation(mImageLeftMoveKey, mpLeftImage, Vector2::ZERO, mAnimMoveSize, mAnimOffset, mAnimImageCount, mAnimDuration);
 		mpAnimator->CreateAnimation(mImageRightDeathKey, mpRightDeathImage, Vector2::ZERO, mAnimDeathSize, mAnimOffset, mAnimDeathImageCount, mAnimDuration);
 		mpAnimator->CreateAnimation(mImageLeftDeathKey, mpLeftDeathImage, Vector2::ZERO, mAnimDeathSize, mAnimOffset, mAnimDeathImageCount, mAnimDuration);
+		mpAnimator->CreateAnimation(mImageRightHittedKey, mpRightHittedImage, Vector2::ZERO, mAnimMoveSize, mAnimOffset, mAnimImageCount, mAnimDuration);
+		mpAnimator->CreateAnimation(mImageLeftHittedKey, mpLeftHittedImage, Vector2::ZERO, mAnimMoveSize, mAnimOffset, mAnimImageCount, mAnimDuration);
 
-		mpAnimator->Play(mImageRightDeathKey, false);
+		//mpAnimator->Play(mImageRightDeathKey, false);
 		//mPlayerPos = mpPlayer->GetPos();
+
+		mFont.lfHeight = 30;
+		mFont.lfWidth = 0;
+		mFont.lfEscapement = 0;
+		mFont.lfOrientation = 0;
+		mFont.lfItalic = 0;
+		mFont.lfUnderline = 0;
+		mFont.lfStrikeOut = 0;
+		mFont.lfCharSet = ARABIC_CHARSET;
+		mFont.lfOutPrecision = 0;
+		mFont.lfClipPrecision = 0;
+		mFont.lfQuality = 0;
+		mFont.lfPitchAndFamily = VARIABLE_PITCH | FF_ROMAN;
+		lstrcpy(mFont.lfFaceName, L"Tekton Pro");
 	}
 
 	void Monster::Tick()
@@ -110,13 +146,70 @@ namespace ya
 		if (diffX < 0.0f)
 		{
 			meLookDir = eMonsterLookDir::RIGHT;
-			mpAnimator->Play(mImageRightMoveKey, true);
+			if (mbIsHittedFromWeapon)
+			{
+				CountHitAnimationTimer();
+				mpAnimator->Play(mImageRightHittedKey, false);
+			}
+			else
+				{ mpAnimator->Play(mImageRightMoveKey, true); }
 		}
 		else
 		{
 			meLookDir = eMonsterLookDir::LEFT;
-			mpAnimator->Play(mImageLeftMoveKey, true);
+			if (mbIsHittedFromWeapon)
+			{
+				CountHitAnimationTimer();
+				mpAnimator->Play(mImageLeftHittedKey, false);
+			}
+			else
+				{ mpAnimator->Play(mImageLeftMoveKey, true); }
 		}
+	}
+
+	void Monster::CountHitAnimationTimer()
+	{
+		mAnimHittedCounter += Time::DeltaTime();
+		mR -= 0.005f;
+		mG -= 0.005f;
+		mB -= 0.005f;
+		if (mR < 0.0f || mG < 0.0f || mB < 0.0f)
+		{
+			mR = 1.0f;
+			mG = 1.0f;
+			mB = 1.0f;
+		}
+		if (mAnimHittedCounter >= mAnimHittedTime)
+		{
+			mbIsHittedFromWeapon = false;
+			mAnimHittedCounter = 0.0f;
+			mR = 1.0f;
+			mG = 1.0f;
+			mB = 1.0f;
+		}
+	}
+
+	void Monster::Render(HDC hdc)
+	{
+		if (mbIsHittedFromWeapon)
+		{
+			wchar_t buffer[8];
+			swprintf_s(buffer, 8, L"%d", mDisplayWeaponDamage);
+			int len = lstrlenW(buffer);
+
+			HFONT hFont = CreateFontIndirect(&mFont);
+			HFONT hOldFont;
+			hOldFont = (HFONT)SelectObject(hdc, hFont);
+
+			SetBkMode(hdc, TRANSPARENT);
+			SetTextColor(hdc, RGB(static_cast<int>(mR * 255), static_cast<int>(mG * 255), static_cast<int>(mB * 255)));
+			TextOutW(hdc, SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2 - 100, buffer, len);
+
+			SelectObject(hdc, hOldFont);
+			DeleteObject(hFont);
+			ReleaseDC(mHwnd, hdc);
+		}
+		GameObject::Render(hdc);
 	}
 
 	Monster::~Monster()
@@ -131,7 +224,9 @@ namespace ya
 		case eColliderLayer::PLAYER_PROJECTTILE:
 		{
 			Weapon* pWeapon = static_cast<Weapon*>(pCollider->GetOwner());
-			mHP -= pWeapon->GetDamage();
+			mbIsHittedFromWeapon = true;
+			mDisplayWeaponDamage = pWeapon->GetDamage();
+			mHP -= mDisplayWeaponDamage;
 			if (mHP <= 0)
 			{
 				mbIsDeathFromWeapon = true;
@@ -139,7 +234,7 @@ namespace ya
 				ExpGem* pExpGem = mpExpGemObjPool->Get(mPos, mpPlayer, mExp, mpExpGemObjPool);
 				pScene->AddGameObject(pExpGem, eColliderLayer::EXP_JEM);
 				mpCollider->SetSize(Vector2(0.0f, 0.0f));
-
+				mpCollider->SetIsWorking(false);
 			}
 			break;
 		}

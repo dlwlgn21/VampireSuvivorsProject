@@ -132,7 +132,6 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="yaAI.h" />
     <ClInclude Include="yaAxe.h" />
     <ClInclude Include="yaBGTitleImage.h" />
     <ClInclude Include="yaExpGem.h" />
@@ -148,8 +147,6 @@
     <ClInclude Include="yaMonsterFactory.h" />
     <ClInclude Include="yaMonsterObjPool.h" />
     <ClInclude Include="yaMonsterSpawner.h" />
-    <ClInclude Include="yaMonsterState.h" />
-    <ClInclude Include="yaPatrolState.h" />
     <ClInclude Include="yaPausePlayerWeponHUDBox.h" />
     <ClInclude Include="yaPauseUIContinueButton.h" />
     <ClInclude Include="yaExpBar.h" />
@@ -245,7 +242,6 @@
     <ClInclude Include="yaStartButton.h" />
     <ClInclude Include="yaTime.h" />
     <ClInclude Include="yaTitleScene.h" />
-    <ClInclude Include="yaTraceState.h" />
     <ClInclude Include="yaUIAnimObject.h" />
     <ClInclude Include="yaUIBase.h" />
     <ClInclude Include="yaUIManager.h" />
@@ -256,7 +252,6 @@
     <ClInclude Include="yaWeaponObjectPool.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="yaAI.cpp" />
     <ClCompile Include="yaAxe.cpp" />
     <ClCompile Include="yaBGTitleImage.cpp" />
     <ClCompile Include="yaExpGem.cpp" />
@@ -272,8 +267,6 @@
     <ClCompile Include="yaMonsterFactory.cpp" />
     <ClCompile Include="yaMonsterObjPool.cpp" />
     <ClCompile Include="yaMonsterSpawner.cpp" />
-    <ClCompile Include="yaMonsterState.cpp" />
-    <ClCompile Include="yaPatrolState.cpp" />
     <ClCompile Include="yaPausePlayerWeponHUDBox.cpp" />
     <ClCompile Include="yaPauseUIContinueButton.cpp" />
     <ClCompile Include="yaExpBar.cpp" />
@@ -364,7 +357,6 @@
     <ClCompile Include="yaStartButton.cpp" />
     <ClCompile Include="yaTime.cpp" />
     <ClCompile Include="yaTitleScene.cpp" />
-    <ClCompile Include="yaTraceState.cpp" />
     <ClCompile Include="yaUIAnimObject.cpp" />
     <ClCompile Include="yaUIBase.cpp" />
     <ClCompile Include="yaUIManager.cpp" />

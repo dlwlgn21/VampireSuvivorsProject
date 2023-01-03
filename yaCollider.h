@@ -30,6 +30,9 @@ namespace ya
 		__forceinline void SetColliderLayer(eColliderLayer layer) { meLayerType = layer; }
 		__forceinline eColliderLayer GetColliderLayer() const { return meLayerType; }
 
+		__forceinline void SetIsWorking(bool bIsWorking) { mbIsWorking = bIsWorking; }
+		__forceinline bool GetIsWorking() const { return mbIsWorking; }
+
 	private:
 		Vector2 mOffset;
 		Vector2 mPos;
@@ -37,5 +40,6 @@ namespace ya
 
 		eColliderLayer meLayerType;
 		unsigned char mCollisionCount;
+		bool mbIsWorking;
 	};
 }

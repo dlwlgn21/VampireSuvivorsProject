@@ -12,6 +12,7 @@ namespace ya
 		, mSize(size)
 		, mOffset(Vector2::ZERO)
 		, mCollisionCount(0)
+		, mbIsWorking(true)
 	{
 	}
 	Collider::Collider(Vector2 size, eColliderLayer eColliderLayer)
@@ -21,6 +22,7 @@ namespace ya
 		, mOffset(Vector2::ZERO)
 		, mCollisionCount(0)
 		, meLayerType(eColliderLayer)
+		, mbIsWorking(true)
 	{
 	}
 
@@ -30,6 +32,7 @@ namespace ya
 		, mSize(Vector2::ONE)
 		, mOffset(Vector2::ZERO)
 		, mCollisionCount(0)
+		, mbIsWorking(true)
 	{
 		mSize = Vector2(100.0f, 100.0f);
 	}
@@ -77,15 +80,21 @@ namespace ya
 
 	void Collider::OnCollisionEnter(Collider* other)
 	{
+		if (!mbIsWorking)
+			{ return; }
 		++mCollisionCount;
 		GetOwner()->OnCollisionEnter(other);
 	}
 	void Collider::OnCollisionStay(Collider* other)
 	{
+		if (!mbIsWorking)
+			{ return; }
 		GetOwner()->OnCollisionStay(other);
 	}
 	void Collider::OnCollisionExit(Collider* other)
 	{
+		if (!mbIsWorking)
+			{ return; }
 		--mCollisionCount;
 		GetOwner()->OnCollisionExit(other);
 	}

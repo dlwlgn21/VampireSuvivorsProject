@@ -22,41 +22,85 @@ namespace ya
 		const std::wstring& imageLeftMoveKey,
 		const std::wstring& imageRightDeathKey,
 		const std::wstring& imageLeftDeathKey,
+		const std::wstring& imageRightHittedKey,
+		const std::wstring& imageLeftHittedKey,
+
 
 		const std::wstring& imageRightMovePath,
 		const std::wstring& imageLeftMovePath,
 		const std::wstring& imageRightDeathPath,
 		const std::wstring& imageLeftDeathPath,
+		const std::wstring& imageRightHittedPath,
+		const std::wstring& imageLeftHittedPath,
 		ExpGemObjPool* pExpGemObjPool,
 		MonsterObjPool<Monster>* pMonsterObjPool
 	)
-		: Monster(monInfo, imageRightMoveKey, imageLeftMoveKey, imageRightDeathKey, imageLeftDeathKey,
-			imageRightMovePath, imageLeftMovePath, imageRightDeathPath, imageLeftDeathPath, pExpGemObjPool, pMonsterObjPool)
+		: Monster(
+			monInfo,
+			imageRightMoveKey, imageLeftMoveKey,
+			imageRightDeathKey, imageLeftDeathKey,
+			imageRightHittedKey, imageLeftHittedKey,
+			imageRightMovePath, imageLeftMovePath,
+			imageRightDeathPath, imageLeftDeathPath,
+			imageRightHittedPath, imageLeftHittedPath,
+			pExpGemObjPool, pMonsterObjPool)
 	{
 	}
 
 	void GreenGhost::Tick()
 	{
 		Monster::Tick();
+
 		if (!mbIsDeathFromWeapon)
 		{
-			float diffX = mPos.x - mpPlayer->GetPos().x;
-			if (diffX < 0.0f)
+			switch (meCurrState)
 			{
-				mpAnimator->Play(mImageRightMoveKey, true);
-			}
-			else
+			case eMonsterState::PATROL:
 			{
-				mpAnimator->Play(mImageLeftMoveKey, true);
+				Vector2 disToPlyerVector = GetVectorToPlayer();
+				float distance = disToPlyerVector.GetLength();
+				if (distance < mRecogRange)
+				{
+					meCurrState = eMonsterState::TRACE;
+				}
+				else
+				{
+					if (distance > 3000.0f)
+					{
+						meCurrState = eMonsterState::TRACE;
+						break;
+					}
+
+					if (meLookDir == eMonsterLookDir::LEFT)
+					{
+						mPos.x -= mSpeed * Time::DeltaTime();
+					}
+					else
+					{
+						mPos.x += mSpeed * Time::DeltaTime();
+					}
+				}
+				break;
 			}
-			Vector2 monDir = GetVectorToPlayer();
-			monDir.Normalize();
-			mPos.x += monDir.x * mSpeed * Time::DeltaTime();
-			mPos.y += monDir.y * mSpeed * Time::DeltaTime();
+			case eMonsterState::TRACE:
+			{
+				Vector2 monDir = GetVectorToPlayer();
+				monDir.Normalize();
+				mPos.x += monDir.x * mSpeed * Time::DeltaTime();
+				mPos.y += monDir.y * mSpeed * Time::DeltaTime();
+				break;
+			}
+			case eMonsterState::COUNT:
+				assert(false);
+				break;
+			default:
+				assert(false);
+				break;
+			}
 		}
 	}
 	void GreenGhost::Render(HDC hdc)
 	{
-		GameObject::Render(hdc);
+		Monster::Render(hdc);
 	}
 }

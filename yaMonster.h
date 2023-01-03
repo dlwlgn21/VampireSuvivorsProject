@@ -20,6 +20,14 @@ namespace ya
 		RIGHT,
 		COUNT
 	};
+
+	enum class eMonsterState
+	{
+		PATROL,
+		TRACE,
+		COUNT
+	};
+
 	struct MonsterCreateInfo
 	{
 		Vector2 Pos;
@@ -71,23 +79,29 @@ namespace ya
 	class Monster : public GameObject
 	{
 	public:
-		Monster(const MonsterCreateInfo& monInfo,
+		Monster(
+			const MonsterCreateInfo& monInfo,
 			const std::wstring& imageRightMoveKey,
 			const std::wstring& imageLeftMoveKey,
 			const std::wstring& imageRightDeathKey,
 			const std::wstring& imageLeftDeathKey,
+			const std::wstring& imageRightHittedKey,
+			const std::wstring& imageLeftHittedKey,
+
 
 			const std::wstring& imageRightMovePath,
 			const std::wstring& imageLeftMovePath,
 			const std::wstring& imageRightDeathPath,
 			const std::wstring& imageLeftDeathPath,
+			const std::wstring& imageRightHittedPath,
+			const std::wstring& imageLeftHittedPath,
 			ExpGemObjPool* pExpGemObjPool,
 			MonsterObjPool<Monster>* pMonsterObjPool
 		);
 		virtual ~Monster();
 
 		virtual void Tick();
-		virtual void Render(HDC hdc) = 0;
+		virtual void Render(HDC hdc);
 		virtual void OnCollisionEnter(Collider* other);
 		virtual void OnCollisionStay(Collider* other);
 		virtual void OnCollisionExit(Collider* other);
@@ -115,6 +129,8 @@ namespace ya
 		{
 			return Vector2(mPlayerPos - mPos);
 		}
+	private:
+		void CountHitAnimationTimer();
 
 	protected:
 		Player* mpPlayer;
@@ -129,11 +145,15 @@ namespace ya
 		Image* mpLeftImage;
 		Image* mpRightDeathImage;
 		Image* mpLeftDeathImage;
+		Image* mpRightHittedImage;
+		Image* mpLeftHittedImage;
 		Animator* mpAnimator;
 		Collider* mpCollider;
 
 		const std::wstring mImageRightMoveKey;
 		const std::wstring mImageLeftMoveKey;
+		const std::wstring mImageRightHittedKey;
+		const std::wstring mImageLeftHittedKey;
 		const std::wstring mImageRightDeathKey;
 		const std::wstring mImageLeftDeathKey;
 
@@ -145,8 +165,18 @@ namespace ya
 		float mAnimDuration;
 		float mAnimDeathDuration;
 		bool mbIsDeathFromWeapon;
+		bool mbIsHittedFromWeapon;
 		float mAnimDeathCounter;
-
+		float mAnimHittedCounter;
+		float mAnimHittedTime;
+		int mDisplayWeaponDamage;
+		float mR;
+		float mG;
+		float mB;
+		float mRecogRange;
+		eMonsterState meCurrState;
+		LOGFONT mFont;
+		HWND mHwnd;
 		ExpGemObjPool* mpExpGemObjPool;
 		MonsterObjPool<Monster>* mpMonsterObjPool;
 	};
