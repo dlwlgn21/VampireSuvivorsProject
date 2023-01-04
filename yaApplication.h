@@ -28,7 +28,6 @@ namespace ya
 		WindowData mWindowData;
 		HPEN mPens[static_cast<UINT>(ePenColor::COUNT)];
 		HBRUSH mBrushes[static_cast<UINT>(eBrushColor::COUNT)];
-		HMENU mMenu;
 
 	};
 }

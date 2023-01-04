@@ -1,6 +1,7 @@
 #include "yaExpGemObjPool.h"
 #include "yaPlayer.h"
 #include "yaExpGem.h"
+#include "yaCollider.h"
 
 namespace ya
 {
@@ -25,6 +26,9 @@ namespace ya
 		ExpGem* pRet = mQ.front();
 		pRet->SetPos(pos);
 		pRet->SetActive(true);
+		Collider* pCollider = pRet->GetComponentOrNull<Collider>(eComponentType::COLLIDER);
+		assert(pCollider != nullptr);
+		pCollider->SetIsWorking(false);
 		mQ.pop();
 		return pRet;
 	}
@@ -37,6 +41,9 @@ namespace ya
 			return;
 		}
 		pGem->SetActive(false);
+		Collider* pCollider = pGem->GetComponentOrNull<Collider>(eComponentType::COLLIDER);
+		assert(pCollider != nullptr);
+		pCollider->SetIsWorking(false);
 		mQ.push(pGem);
 	}
 	UINT ExpGemObjPool::GetFreeObjectCount() const

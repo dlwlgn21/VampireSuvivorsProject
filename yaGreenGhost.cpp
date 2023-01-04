@@ -32,6 +32,7 @@ namespace ya
 		const std::wstring& imageLeftDeathPath,
 		const std::wstring& imageRightHittedPath,
 		const std::wstring& imageLeftHittedPath,
+
 		ExpGemObjPool* pExpGemObjPool,
 		MonsterObjPool<Monster>* pMonsterObjPool
 	)

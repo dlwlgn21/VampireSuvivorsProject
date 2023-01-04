@@ -1,5 +1,5 @@
 #include "yaKnifeObjectPool.h"
-
+#include "yaCollider.h"
 namespace ya
 {
 	KnifeObjectPool::KnifeObjectPool(UINT maxPoolSize)
@@ -28,6 +28,7 @@ namespace ya
 		}
 		Knife* pKnife = mQ.front();
 		pKnife->Initialize(spwanPos, dir);
+
 		pKnife->SetActive(true);
 		mQ.pop();
 		return pKnife;
@@ -40,6 +41,9 @@ namespace ya
 			assert(false);
 			return;
 		}
+		Collider* pCollider = pKnife->GetComponentOrNull<Collider>(eComponentType::COLLIDER);
+		assert(pCollider != nullptr);
+		pCollider->SetIsWorking(false);
 		mQ.push(pKnife);
 	}
 	UINT KnifeObjectPool::GetFreeObjectCount() const

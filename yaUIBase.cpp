@@ -24,6 +24,7 @@ namespace ya
 			if (pChild != nullptr)
 				{ delete pChild; }
 		}
+		mChilds.clear();
 	}
 
 	void UIBase::Initialize()

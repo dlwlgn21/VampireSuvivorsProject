@@ -145,11 +145,6 @@ namespace ya
 			Monster* pMonster = static_cast<Monster*>(other->GetOwner());
 			//pMonster->DamagedFromWeapon(mDamage);
 			--mPenetratingCounter;
-			if (mPenetratingCounter <= 0)
-			{ 
-				SetActive(false);
-				mpKnifeObjPool->Return(this);
-			}
 
 			Vector2 monPos = pMonster->GetPos();
 			switch (mKnifeDirection)
@@ -181,6 +176,11 @@ namespace ya
 			default:
 				assert(false);
 				break;
+			}
+			if (mPenetratingCounter <= 0)
+			{
+				SetActive(false);
+				mpKnifeObjPool->Return(this);
 			}
 		}
 	}
@@ -236,5 +236,6 @@ namespace ya
 		mPenetratingCounter = mPenetratingCount;
 		SetSize({ static_cast<float>(mSizeX), static_cast<float>(mSizeY) });
 		mpCollider->SetSize(GetSize());
+		mpCollider->SetIsWorking(true);
 	}
 }

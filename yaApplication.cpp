@@ -67,8 +67,6 @@ namespace ya
 		mBrushes[static_cast<UINT>(eBrushColor::BLACK)] = static_cast<HBRUSH>(GetStockObject(BLACK_BRUSH));
 		mBrushes[static_cast<UINT>(eBrushColor::GRAY)] = CreateSolidBrush(RGB(67, 67, 67));
 		mBrushes[static_cast<UINT>(eBrushColor::WHITE)] = static_cast<HBRUSH>(GetStockObject(WHITE_BRUSH));
-
-		mMenu = LoadMenu(nullptr, MAKEINTRESOURCEW(IDC_VAMPIRESUVIVORSPROJECT));
 	}
 
 	void Application::Tick()
@@ -114,6 +112,15 @@ namespace ya
 		SceneManager::Release();
 		ReleaseDC(mWindowData.hwnd, mWindowData.hdc);
 		ReleaseDC(mWindowData.hwnd, mWindowData.backBuffer);
+		for (UINT i = 0; i < static_cast<UINT>(ePenColor::COUNT); ++i)
+		{
+			DeleteObject(mPens[i]);
+		}
+
+		for (UINT i = 0; i < static_cast<UINT>(eBrushColor::COUNT); ++i)
+		{
+			DeleteObject(mBrushes[i]);
+		}
 		UIManager::Release();
 	}
 }

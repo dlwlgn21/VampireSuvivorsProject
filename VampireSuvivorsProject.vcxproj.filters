@@ -106,6 +106,9 @@
     <Filter Include="ObjectPools">
       <UniqueIdentifier>{dae23d51-fe33-46ec-a528-cee7eaa63a71}</UniqueIdentifier>
     </Filter>
+    <Filter Include="GameObject\UI\GameOverUI">
+      <UniqueIdentifier>{f6fba6fd-733e-40f9-bb9d-2d383741e806}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
@@ -462,6 +465,9 @@
     <ClInclude Include="yaMonsterSpawner.h">
       <Filter>Manager</Filter>
     </ClInclude>
+    <ClInclude Include="yaGameOverHUDPanel.h">
+      <Filter>GameObject\UI\GameOverUI</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Maths.cpp">
@@ -802,6 +808,9 @@
     </ClCompile>
     <ClCompile Include="yaMonsterSpawner.cpp">
       <Filter>Manager</Filter>
+    </ClCompile>
+    <ClCompile Include="yaGameOverHUDPanel.cpp">
+      <Filter>GameObject\UI\GameOverUI</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

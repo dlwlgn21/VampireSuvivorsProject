@@ -169,20 +169,20 @@ namespace ya
 
 	void Monster::CountHitAnimationTimer()
 	{
-		mAnimHittedCounter += Time::DeltaTime();
-		mR -= 0.005f;
-		mG -= 0.005f;
-		mB -= 0.005f;
+		mAnimHittedCounter -= Time::DeltaTime();
+		mR -= 0.002f;
+		mG -= 0.002f;
+		mB -= 0.002f;
 		if (mR < 0.0f || mG < 0.0f || mB < 0.0f)
 		{
 			mR = 1.0f;
 			mG = 1.0f;
 			mB = 1.0f;
 		}
-		if (mAnimHittedCounter >= mAnimHittedTime)
+		if (mAnimHittedCounter <= 0.0f)
 		{
 			mbIsHittedFromWeapon = false;
-			mAnimHittedCounter = 0.0f;
+			mAnimHittedCounter = mAnimHittedTime;
 			mR = 1.0f;
 			mG = 1.0f;
 			mB = 1.0f;
@@ -233,8 +233,8 @@ namespace ya
 				PlayScene* pScene = static_cast<PlayScene*>(SceneManager::GetCurrentScene());
 				ExpGem* pExpGem = mpExpGemObjPool->Get(mPos, mpPlayer, mExp, mpExpGemObjPool);
 				pScene->AddGameObject(pExpGem, eColliderLayer::EXP_JEM);
-				mpCollider->SetSize(Vector2(0.0f, 0.0f));
 				mpCollider->SetIsWorking(false);
+				mpCollider->SetSize(Vector2::ZERO);
 			}
 			break;
 		}

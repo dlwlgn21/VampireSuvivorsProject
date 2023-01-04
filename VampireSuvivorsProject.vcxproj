@@ -138,6 +138,7 @@
     <ClInclude Include="yaExpGemObjPool.h" />
     <ClInclude Include="yaFireWand.h" />
     <ClInclude Include="yaGameMapCollider.h" />
+    <ClInclude Include="yaGameOverHUDPanel.h" />
     <ClInclude Include="yaLevelBoxIcon.h" />
     <ClInclude Include="yaLevelUpArrow.h" />
     <ClInclude Include="yaLevelUpHUD.h" />
@@ -258,6 +259,7 @@
     <ClCompile Include="yaExpGemObjPool.cpp" />
     <ClCompile Include="yaFireWand.cpp" />
     <ClCompile Include="yaGameMapCollider.cpp" />
+    <ClCompile Include="yaGameOverHUDPanel.cpp" />
     <ClCompile Include="yaLevelBoxIcon.cpp" />
     <ClCompile Include="yaLevelUpArrow.cpp" />
     <ClCompile Include="yaLevelUpHUD.cpp" />

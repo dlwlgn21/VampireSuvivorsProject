@@ -52,8 +52,8 @@ enum class eColliderLayer
 	TILE,
 	MONSTER,
 	EXP_JEM,
-	PLAYER,
 	PLAYER_PROJECTTILE,
+	PLAYER,
 	GROUND,
 
 	// UI
@@ -71,6 +71,7 @@ enum class eUIType
 	PLAY_INFO_HUD,
 	PLAY_LEVEL_UP,
 	PLAY_PAUSED,
+	GAME_OVER,
 	COUNT
 };
 

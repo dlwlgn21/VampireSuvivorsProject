@@ -15,7 +15,7 @@ namespace ya
 		, mWeaponDuration(weaponDuration)
 		, mDurationTimer(0)
 		, mFunc({})
-		, mSize({ 0.0f, 0.0f})
+		, mSize(Vector2::ZERO)
 	{
 		assert(mpCollider != nullptr);
 		AddComponent(mpCollider);

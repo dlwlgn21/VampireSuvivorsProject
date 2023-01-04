@@ -1,6 +1,7 @@
 #pragma once
 #include "Common.h"
 #include "yaWeapon.h"
+#include "yaCollider.h"
 
 namespace ya
 {
@@ -65,6 +66,9 @@ namespace ya
 			assert(false);
 			return;
 		}
+		Collider* pCollider = ptr->GetComponentOrNull<Collider>(eComponentType::COLLIDER);
+		assert(pCollider != nullptr);
+		pCollider->SetIsWorking(false);
 		mQ.push(ptr);
 	}
 	template<typename T>
