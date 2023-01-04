@@ -27,12 +27,10 @@ namespace ya
 		MonsterSpawner& operator=(const MonsterSpawner& other) = delete;
 
 		void Tick();
-		void ExitScene();
+		void Initialize();
 		void SetObjectsAndSpawnPos(Player* pPlayer, ExpGemObjPool* pExpObjPool, MonsterObjPool<Monster>* pMonsterObjPool);
 		void AddMonsterObjectPool(MonsterObjPool<Monster>* pMonsterObjPool);
 		__forceinline float GetAccumTime() const { return mAccumTimer; }
-
-
 
 	private:
 		MonsterSpawner()

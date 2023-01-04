@@ -21,6 +21,7 @@ namespace ya
 		void OnUIClear() override;
 
 		__forceinline void SetPlayer(Player* pPlayer) { mpPlayer = pPlayer; }
+		enum { BUFFER_LENGTH = 32 };
 	private:
 		Image* mpExpAmountBarImage;
 		Player* mpPlayer;
@@ -28,6 +29,8 @@ namespace ya
 		int mImgHeight;
 		int mAmountBarWidth;
 		int mAmountBarHeight;
+		LOGFONT mFont;
+		HWND mHwnd;
 	};
 }
 

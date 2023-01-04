@@ -468,6 +468,24 @@
     <ClInclude Include="yaGameOverHUDPanel.h">
       <Filter>GameObject\UI\GameOverUI</Filter>
     </ClInclude>
+    <ClInclude Include="yaGameOverTextHUD.h">
+      <Filter>GameObject\UI\GameOverUI</Filter>
+    </ClInclude>
+    <ClInclude Include="yaGameOverExitHUD.h">
+      <Filter>GameObject\UI\GameOverUI</Filter>
+    </ClInclude>
+    <ClInclude Include="yaResultScene.h">
+      <Filter>Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="yaResultImage.h">
+      <Filter>GameObject\ImageObject</Filter>
+    </ClInclude>
+    <ClInclude Include="yaKillCounter.h">
+      <Filter>Manager</Filter>
+    </ClInclude>
+    <ClInclude Include="yaScoreManager.h">
+      <Filter>Manager</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Maths.cpp">
@@ -811,6 +829,24 @@
     </ClCompile>
     <ClCompile Include="yaGameOverHUDPanel.cpp">
       <Filter>GameObject\UI\GameOverUI</Filter>
+    </ClCompile>
+    <ClCompile Include="yaGameOverTextHUD.cpp">
+      <Filter>GameObject\UI\GameOverUI</Filter>
+    </ClCompile>
+    <ClCompile Include="yaGameOverExitHUD.cpp">
+      <Filter>GameObject\UI\GameOverUI</Filter>
+    </ClCompile>
+    <ClCompile Include="yaResultScene.cpp">
+      <Filter>Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="yaResultImage.cpp">
+      <Filter>GameObject\ImageObject</Filter>
+    </ClCompile>
+    <ClCompile Include="yaKillCounter.cpp">
+      <Filter>Manager</Filter>
+    </ClCompile>
+    <ClCompile Include="yaScoreManager.cpp">
+      <Filter>Manager</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

@@ -13,6 +13,9 @@
 #include "yaMonsterObjPool.h"
 #include "yaApplication.h"
 #include "yaCamera.h"
+#include "yaKillCounter.h"
+#include "yaScoreManager.h"
+
 
 namespace ya
 {
@@ -235,6 +238,8 @@ namespace ya
 				pScene->AddGameObject(pExpGem, eColliderLayer::EXP_JEM);
 				mpCollider->SetIsWorking(false);
 				mpCollider->SetSize(Vector2::ZERO);
+				KillCounter::GetInstance().IncreaseKillCount();
+				ScoreManager::GetInstance().UpdateKillCount(KillCounter::GetInstance().GetKillCount());
 			}
 			break;
 		}

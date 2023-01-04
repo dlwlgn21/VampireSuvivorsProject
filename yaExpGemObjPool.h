@@ -14,7 +14,7 @@ namespace ya
 
 
 		~ExpGemObjPool();
-
+		void Initialize();
 		ExpGem* Get(Vector2 pos, Player* pPlayer, int exp, ExpGemObjPool* pPool);
 		void Return(ExpGem* ptr);
 		UINT GetFreeObjectCount() const;

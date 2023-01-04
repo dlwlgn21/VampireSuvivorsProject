@@ -30,6 +30,9 @@
 #include "yaPlayInfoIcon.h"
 #include "yaLevelBoxIcon.h"
 #include "yaPausePlayerWeponHUDBox.h"
+#include "yaGameOverHUDPanel.h"
+#include "yaGameOverTextHUD.h"
+#include "yaGameOverExitHUD.h"
 
 namespace ya
 {
@@ -170,6 +173,13 @@ namespace ya
 
 		LevelUpUIManager::GetInstance().SetPlayPauseWeaponBox(static_cast<PauseWeaponInfoBox*>(pPausInfoBox));
 
+		//GameOverUI
+		UIBase* pGameOverHUD = new GameOverHUDPanel();
+		mUIMap.insert(std::make_pair(eUIType::GAME_OVER, pGameOverHUD));
+		UIBase* pGameOverTextHUD = new GameOverTextHUD();
+		pGameOverHUD->AddUIChild(pGameOverTextHUD);
+		UIBase* pGameOverExitHUD = new GameOverExitHUD();
+		pGameOverHUD->AddUIChild(pGameOverExitHUD);
 
 
 		//pNewUI->SetSize(Vector2(500.0f, 100.0f));

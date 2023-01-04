@@ -10,6 +10,7 @@ enum class eSceneType
 {
 	TITLE_SCENE,
 	PLAY_SCENE,
+	RESULT_SCENE,
 	COUNT
 };
 
@@ -132,8 +133,7 @@ enum class eMonsterType
 #define MAX_RUNE_TRACER_COUNT (5)
 #define BG_BLACK_BAR_Y_DIFF (10.0f)
 #define GAME_SCREEN_X_DIFF (160.0f)
-#define GAME_SCREEN_WIDTH_FLOAT (1200.0f)
-#define GAME_SCREEN_HEIGTH_FLOAT (800.0f)
+
 #define BLACK_BAR_X_DIFF (95.0f)
 #define BLACK_BAR_HEIGHT (101.0f)
 #define CHARACTOR_ICON_X_DIFF (20.0f)

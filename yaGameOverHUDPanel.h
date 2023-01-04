@@ -20,7 +20,8 @@ namespace ya
 	private:
 		int mImgWidth;
 		int mImgHeight;
-		float mTransparencyTimer;
+		int mTransparencyTimer;
+		bool mbIsPopup;
 	};
 }
 

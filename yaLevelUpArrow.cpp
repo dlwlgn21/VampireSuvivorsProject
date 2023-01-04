@@ -17,7 +17,7 @@ namespace ya
 	{
 		mpAnimImage = Resources::Load<Image>(L"ArrowAnim", L"Resources\\Image\\LevelSelectionArrowAnim.bmp");
 		assert(mpAnimImage != nullptr);
-		mAnimSize = Vector2(711, 41.0f);
+		mAnimSize = Vector2(711.0f, 41.0f);
 		Create(mpAnimImage, mAnimSize, Vector2(-280.0f, -100.0f), 8, ARROW_ANIM_DURATION, false);
 		mImgWidth = static_cast<int>(mAnimSize.x);
 		mImgHeight = static_cast<int>(mAnimSize.y);

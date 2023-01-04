@@ -21,6 +21,8 @@ namespace ya
 
 		~MonsterObjPool();
 
+		void Initialize();
+
 		Monster* Get(
 			const eMonsterType eMonsterType,
 			const MonsterCreateInfo& monInfo,
@@ -66,6 +68,17 @@ namespace ya
 			mQ.pop();
 		}
 	}
+
+	template<typename T>
+	void MonsterObjPool<T>::Initialize()
+	{
+		while (!mQ.empty())
+		{
+			delete mQ.front();
+			mQ.pop();
+		}
+	}
+
 
 	template<typename T>
 	Monster* MonsterObjPool<T>::Get(

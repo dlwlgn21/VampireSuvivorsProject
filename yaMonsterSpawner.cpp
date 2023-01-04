@@ -46,7 +46,7 @@ namespace ya
 		}
 	}
 
-	void MonsterSpawner::ExitScene()
+	void MonsterSpawner::Initialize()
 	{
 		mAccumTimer = 0.0f;
 		mbIsMudmanEmergence = false;

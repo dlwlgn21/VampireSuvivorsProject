@@ -23,6 +23,9 @@ namespace ya
 		void Enter() override;
 		void Exit() override;
 		inline eSceneType GetSceneTpye() { return mSceneType; }
+
+
+		enum { BUFFER_LENGTH = 32 };
 	private:
 		void setColliderLayer();
 	private:

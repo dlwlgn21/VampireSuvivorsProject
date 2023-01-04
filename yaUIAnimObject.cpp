@@ -56,7 +56,11 @@ namespace ya
 	}
 	void UIAnimObject::OnTick()
 	{
-		mTimer += Time::DeltaTime();
+		if (Time::IsStoped())
+			{ mTimer += 0.02f; }
+		else
+			{ mTimer += Time::DeltaTime(); }
+
 		if (mTimer >= mAnimDuration)
 		{
 			mTimer = 0.0f;

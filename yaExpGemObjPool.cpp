@@ -17,6 +17,15 @@ namespace ya
 			mQ.pop();
 		}
 	}
+	void ExpGemObjPool::Initialize()
+	{
+		while (!mQ.empty())
+		{
+			delete mQ.front();
+			mQ.pop();
+		}
+	}
+
 	ExpGem* ExpGemObjPool::Get(Vector2 pos, Player* pPlayer, int exp, ExpGemObjPool* pPool)
 	{
 		if (mQ.empty())

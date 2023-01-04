@@ -2,6 +2,8 @@
 #include "yaPlayer.h"
 #include "yaImage.h"
 #include "yaResources.h"
+#include "yaApplication.h"
+
 namespace ya 
 {
 	ExpBar::ExpBar()
@@ -11,6 +13,7 @@ namespace ya
 		, mAmountBarWidth(0)
 		, mAmountBarHeight(0)
 		, mpPlayer(nullptr)
+		, mHwnd(Application::GetInstance().GetWindowData().hwnd)
 	{
 		mpImage = Resources::Load<Image>(L"EXPBar", L"Resources\\Image\\EXPBar.bmp");
 		assert(mpImage != nullptr);
@@ -21,6 +24,20 @@ namespace ya
 		mImgHeight = mpImage->GetHeight();
 		mAmountBarWidth = mpExpAmountBarImage->GetWidth();
 		mAmountBarHeight = mpExpAmountBarImage->GetHeight();
+
+		mFont.lfHeight = 30;
+		mFont.lfWidth = 0;
+		mFont.lfEscapement = 0;
+		mFont.lfOrientation = 0;
+		mFont.lfItalic = 0;
+		mFont.lfUnderline = 0;
+		mFont.lfStrikeOut = 0;
+		mFont.lfCharSet = ARABIC_CHARSET;
+		mFont.lfOutPrecision = 0;
+		mFont.lfClipPrecision = 0;
+		mFont.lfQuality = 0;
+		mFont.lfPitchAndFamily = VARIABLE_PITCH | FF_ROMAN;
+		lstrcpy(mFont.lfFaceName, L"Tekton Pro");
 	}
 	void ExpBar::OnInitialize()
 	{
@@ -67,6 +84,23 @@ namespace ya
 			mAmountBarHeight,
 			mBlendFunc
 		);
+
+
+		wchar_t buffer[BUFFER_LENGTH];
+		swprintf_s(buffer, BUFFER_LENGTH, L"Level : %d", mpPlayer->GetLevel());
+		int len = lstrlenW(buffer);
+
+		HFONT hFont = CreateFontIndirect(&mFont);
+		HFONT hOldFont;
+		hOldFont = (HFONT)SelectObject(hdc, hFont);
+
+		SetBkMode(hdc, TRANSPARENT);
+		SetTextColor(hdc, RGB(255, 255, 255));
+		TextOutW(hdc, SCREEN_WIDTH / 2 + 680, 5, buffer, len);
+
+		SelectObject(hdc, hOldFont);
+		DeleteObject(hFont);
+		ReleaseDC(mHwnd, hdc);
 	}
 	void ExpBar::OnUIClear()
 	{

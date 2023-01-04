@@ -1,6 +1,7 @@
 #include "yaSceneManager.h"
 #include "yaPlayScene.h"
 #include "yaTitleScene.h"
+#include "yaResultScene.h"
 #include "yaObject.h"
 namespace ya
 {
@@ -16,15 +17,10 @@ namespace ya
 
 		mScenes[static_cast<UINT>(eSceneType::PLAY_SCENE)] = new PlayScene();
 		mScenes[static_cast<UINT>(eSceneType::PLAY_SCENE)]->Initialize();
+
+		mScenes[static_cast<UINT>(eSceneType::RESULT_SCENE)] = new ResultScene();
+		mScenes[static_cast<UINT>(eSceneType::RESULT_SCENE)]->Initialize();
 		ChangeSecne(eSceneType::TITLE_SCENE);
-
-#if 0
-		mScenes[static_cast<UINT>(eSceneType::TOOL_SCENE)] = new ToolScene();
-		mScenes[static_cast<UINT>(eSceneType::TOOL_SCENE)]->Initialize();
-
-		ChangeSecne(eSceneType::TOOL_SCENE);
-#endif
-
 	}
 
 	void SceneManager::Tick()

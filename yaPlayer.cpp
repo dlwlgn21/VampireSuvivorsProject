@@ -49,6 +49,9 @@
 #include "yaPlayerLevelUpManager.h"
 #include "yaAxe.h"
 #include "yaFireWand.h"
+#include "yaUIManager.h"
+#include "yaScoreManager.h"
+
 
 namespace ya
 {
@@ -71,7 +74,7 @@ namespace ya
 		, mpCollider(new Collider({ 30.0f, 40.0f }))
 		, mLevel(1)
 		, mExp(0)
-		, mHp(100)
+		, mHp(10)
 		, mKnockbackValue(0.5f)
 		, mAmour(0)
 		, mWeaponSpeed(700.0f)
@@ -142,7 +145,8 @@ namespace ya
 	void Player::Tick()
 	{
 		GameObject::Tick();
-
+		if (Time::IsStoped())
+			{ return; }
 		mKnifeShootTimer += Time::DeltaTime();
 		if (mbIsWeaponRuneOpen)
 			{ mRuneShootTimer += Time::DeltaTime(); }
@@ -363,7 +367,9 @@ namespace ya
 		mHp -= actualDamage;
 		if (mHp <= 0)
 		{
-			mHp = 100;
+			UIManager::Pop(eUIType::PLAY_INFO_HUD);
+			UIManager::Push(eUIType::GAME_OVER);
+			ScoreManager::GetInstance().UpdateSuvivorTime(Time::TotalTime());
 		}
 	}
 

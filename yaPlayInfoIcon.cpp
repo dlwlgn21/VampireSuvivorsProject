@@ -47,6 +47,7 @@ namespace ya
 	}
 	void PlayInfoIcon::OnInitialize()
 	{
+		mBlendFunc.SourceConstantAlpha = 255;
 	}
 	void PlayInfoIcon::OnActive()
 	{

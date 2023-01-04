@@ -138,7 +138,10 @@
     <ClInclude Include="yaExpGemObjPool.h" />
     <ClInclude Include="yaFireWand.h" />
     <ClInclude Include="yaGameMapCollider.h" />
+    <ClInclude Include="yaGameOverExitHUD.h" />
     <ClInclude Include="yaGameOverHUDPanel.h" />
+    <ClInclude Include="yaGameOverTextHUD.h" />
+    <ClInclude Include="yaKillCounter.h" />
     <ClInclude Include="yaLevelBoxIcon.h" />
     <ClInclude Include="yaLevelUpArrow.h" />
     <ClInclude Include="yaLevelUpHUD.h" />
@@ -159,6 +162,9 @@
     <ClInclude Include="yaCharacterWordButton.h" />
     <ClInclude Include="yaPlaySceneLevelUpHUDPanel.h" />
     <ClInclude Include="yaPlayScenePausedHUDPanel.h" />
+    <ClInclude Include="yaResultImage.h" />
+    <ClInclude Include="yaResultScene.h" />
+    <ClInclude Include="yaScoreManager.h" />
     <ClInclude Include="yaStageLibraryIcon.h" />
     <ClInclude Include="yaStageSelectionPanel.h" />
     <ClInclude Include="yaStartMenuPanel.h" />
@@ -259,7 +265,10 @@
     <ClCompile Include="yaExpGemObjPool.cpp" />
     <ClCompile Include="yaFireWand.cpp" />
     <ClCompile Include="yaGameMapCollider.cpp" />
+    <ClCompile Include="yaGameOverExitHUD.cpp" />
     <ClCompile Include="yaGameOverHUDPanel.cpp" />
+    <ClCompile Include="yaGameOverTextHUD.cpp" />
+    <ClCompile Include="yaKillCounter.cpp" />
     <ClCompile Include="yaLevelBoxIcon.cpp" />
     <ClCompile Include="yaLevelUpArrow.cpp" />
     <ClCompile Include="yaLevelUpHUD.cpp" />
@@ -280,6 +289,9 @@
     <ClCompile Include="yaCharacterWordButton.cpp" />
     <ClCompile Include="yaPlaySceneLevelUpHUDPanel.cpp" />
     <ClCompile Include="yaPlayScenePausedHUDPanel.cpp" />
+    <ClCompile Include="yaResultImage.cpp" />
+    <ClCompile Include="yaResultScene.cpp" />
+    <ClCompile Include="yaScoreManager.cpp" />
     <ClCompile Include="yaStageLibraryIcon.cpp" />
     <ClCompile Include="yaStageSelectionPanel.cpp" />
     <ClCompile Include="yaStartMenuPanel.cpp" />

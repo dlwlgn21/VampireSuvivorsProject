@@ -10,6 +10,7 @@ namespace ya
 		, mpCurrRenderImage(nullptr)
 	{
 		assert(mpSelectedImage != nullptr);
+		mBlendFunc.SourceConstantAlpha = 255;
 	}
 	void SelectionMenuIcon::ChangeRenderImage()
 	{

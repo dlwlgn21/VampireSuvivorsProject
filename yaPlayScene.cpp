@@ -28,6 +28,8 @@
 #include "yaMonsterObjPool.h"
 #include "yaMudman.h"
 #include "yaMonsterSpawner.h"
+#include "yaKillCounter.h"
+#include "yaScoreManager.h"
 
 namespace ya
 {
@@ -100,8 +102,8 @@ namespace ya
 	{
 		Scene::Render(hdc);
 
-		wchar_t buffer[64];
-		swprintf_s(buffer, 64, L"%d : %d", static_cast<int>(Time::TotalTime() / 60), static_cast<int>(Time::TotalTime()) % 60);
+		wchar_t buffer[BUFFER_LENGTH];
+		swprintf_s(buffer, BUFFER_LENGTH, L"%d : %d", static_cast<int>(Time::TotalTime() / 60), static_cast<int>(Time::TotalTime()) % 60);
 		int len = lstrlenW(buffer);
 
 		HFONT hFont = CreateFontIndirect(&mFont);
@@ -112,15 +114,23 @@ namespace ya
 		SetTextColor(hdc, RGB(255, 255, 255));
 		TextOutW(hdc, SCREEN_WIDTH / 2 - 25, 60, buffer, len);
 
+		swprintf_s(buffer, BUFFER_LENGTH, L"%d", KillCounter::GetInstance().GetKillCount());
+		len = lstrlenW(buffer);
+		TextOutW(hdc, SCREEN_WIDTH / 2 + 650, 60, buffer, len);
+
 		SelectObject(hdc, hOldFont);
 		DeleteObject(hFont);
 		ReleaseDC(mHwnd, hdc);
-
 	}
+
 	void PlayScene::Enter()
 	{
 		Scene::Enter();
 		Time::StartTimeCounting();
+		KillCounter::GetInstance().InitializeKillCount();
+		MonsterSpawner::GetInstance().Initialize();
+		setColliderLayer();
+
 		mpPlayer = ya::object::Instantiate<Player>(eColliderLayer::PLAYER);
 		BGGmaeImage* bgGameImage = ya::object::InstantiateAtAnotherScene<BGGmaeImage>(eColliderLayer::BACKGROUND, L"BGGmaeMap", L"Resources\\Image\\MapTwo.bmp", GetSceneTpye());
 		bgGameImage->Initialize();
@@ -132,7 +142,6 @@ namespace ya
 		MonsterSpawner::GetInstance().AddMonsterObjectPool(mpMedusaHeadPool);
 
 
-		setColliderLayer();
 
 		PlaySceneHUDPanel* pPanel = static_cast<PlaySceneHUDPanel*>(UIManager::GetUIInstanceOrNull(eUIType::PLAY_INFO_HUD));
 		assert(pPanel != nullptr);
@@ -142,8 +151,12 @@ namespace ya
 
 	void PlayScene::Exit()
 	{
+		ScoreManager::GetInstance().UpdatePlayerLevel(mpPlayer->GetLevel());
+		mpMudManPool->Initialize();
+		mpGreenGhostPool->Initialize();
+		mpMedusaHeadPool->Initialize();
+		mpExpGemObjPool->Initialize();
 		Scene::Exit();
-		MonsterSpawner::GetInstance().ExitScene();
 	}
 	void PlayScene::setColliderLayer()
 	{
