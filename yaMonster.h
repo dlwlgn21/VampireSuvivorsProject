@@ -129,7 +129,7 @@ namespace ya
 		{
 			return Vector2(mPlayerPos - mPos);
 		}
-	private:
+	protected:
 		void CountHitAnimationTimer();
 
 	protected:

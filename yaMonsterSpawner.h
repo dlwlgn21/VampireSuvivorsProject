@@ -38,6 +38,12 @@ namespace ya
 			, GREEN_GHOST_EMERGENCE_SECOND(30.0f)
 			, MEDUSA_HEAD_EMERGENCE_SECOND(45.0f)
 			, mAccumTimer(0.0f)
+			, mMudmanTimer(0.0f)
+			, mMudmanRespawnTime(20.0f)
+			, mGreenGhostTimer(0.0f)
+			, mGreenGhostRespawnTime(30.0f)
+			, mMedusaHeadTimer(0.0f)
+			, mMedusaHeadRespawnTime(15.0f)
 			, mLeftSpawanPos(Vector2::ZERO)
 			, mRightSpawnPos(Vector2::ZERO)
 			, mpPlayer(nullptr)
@@ -49,7 +55,7 @@ namespace ya
 			mMonsterObjectPools.reserve(static_cast<UINT>(eMonsterEmegernceSecquence::COUNT));
 		}
 		~MonsterSpawner() = default;
-		void spawnMonsters(eMonsterEmegernceSecquence eMonsterEmergenceType);
+		void spawnMonsters(eMonsterEmegernceSecquence eMonsterEmergenceType, UINT monsterCount);
 		__forceinline void setSpawnPos();
 
 	private:
@@ -57,6 +63,12 @@ namespace ya
 		const float GREEN_GHOST_EMERGENCE_SECOND;
 		const float MEDUSA_HEAD_EMERGENCE_SECOND;
 		float mAccumTimer;
+		float mMudmanTimer;
+		float mMudmanRespawnTime;
+		float mGreenGhostTimer;
+		float mGreenGhostRespawnTime;
+		float mMedusaHeadTimer;
+		float mMedusaHeadRespawnTime;
 		Vector2 mLeftSpawanPos;
 		Vector2 mRightSpawnPos;
 		Player* mpPlayer;

@@ -46,6 +46,7 @@ namespace ya
 			imageRightHittedPath, imageLeftHittedPath,
 			pExpGemObjPool, pMonsterObjPool)
 	{
+		mRecogRange = 400.0f;
 	}
 
 	void GreenGhost::Tick()

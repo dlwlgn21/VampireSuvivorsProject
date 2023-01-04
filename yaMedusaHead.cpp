@@ -45,27 +45,68 @@ namespace ya
 			pExpGemObjPool, pMonsterObjPool)
 		, mAccumVal(0.0f)
 	{
-		mRecogRange = 300.0f;
+		mPlayerPos = mpPlayer->GetPos();
+		float diffX = mPos.x - mPlayerPos.x;
+		if (diffX < 0.0f)
+		{
+			meLookDir = eMonsterLookDir::RIGHT;
+			mpAnimator->Play(mImageRightMoveKey, true);
+		}
+		else
+		{
+			meLookDir = eMonsterLookDir::LEFT;
+			mpAnimator->Play(mImageLeftMoveKey, true);
+		}
 	}
 
 	void MedusaHead::Tick()
 	{
-		Monster::Tick();
+		GameObject::Tick();
+		if (mbIsDeathFromWeapon)
+		{
+			mAnimDeathCounter -= Time::DeltaTime();
+			if (meLookDir == eMonsterLookDir::LEFT)
+			{
+				mpAnimator->Play(mImageLeftDeathKey, false);
+			}
+			else
+			{
+				mpAnimator->Play(mImageRightDeathKey, false);
+			}
+
+			if (mAnimDeathCounter <= 0.0f)
+			{
+				mpMonsterObjPool->Return(this);
+				return;
+			}
+			return;
+		}
+
+		
+		if (mbIsHittedFromWeapon)
+		{
+			CountHitAnimationTimer();
+			if (meLookDir == eMonsterLookDir::LEFT)
+			{
+				mpAnimator->Play(mImageLeftHittedKey, false);
+			}
+			else
+			{
+				mpAnimator->Play(mImageRightHittedKey, false);
+			}
+		}
 		mAccumVal += 0.1f;
 		if (!mbIsDeathFromWeapon)
 		{
-			//Vector2 monDir = GetVectorToPlayer();
-			//monDir.Normalize();
 			Vector2 distanceVector = GetVectorToPlayer();
 			float distance = distanceVector.GetLength();
-			if (distance > 5000.0f)
+			if (distance > 3000.0f)
 			{
 				mpMonsterObjPool->Return(this);
 				return;
 			}
 
 			float sinVal = sinf(mAccumVal);
-			sinVal *= 100.0f;
 			if (meLookDir == eMonsterLookDir::LEFT)
 			{
 				mPos.x -= mSpeed * Time::DeltaTime();

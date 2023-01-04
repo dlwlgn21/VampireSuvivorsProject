@@ -2,7 +2,7 @@
 #define KNIFE_PENETRATING_COUNT (0)
 #define KNIFE_INITIAL_DAMAGE (2)
 #define KNIFE_SPEED (400.0f)
-#define KNIFE_SHOOT_INTERVAL (0.5f)
+#define KNIFE_SHOOT_INTERVAL (2.0f)
 #define KNIFE_DURATION (1.5f)
 
 #define AXE_INITIAL_DAMAGE (20)
@@ -57,7 +57,7 @@ namespace ya
 {
 
 	Player::Player()
-		: GameObject({ 0.0f, 0.0f })
+		: GameObject({ 200.0f, 200.0f })
 		, mMoveSpeed(300.0f)
 		, mPen(CreatePen(PS_DASHDOTDOT, 3, RGB(0, 255, 255)))
 		, mBrush(CreateSolidBrush(RGB(153, 204, 255)))
@@ -74,7 +74,7 @@ namespace ya
 		, mpCollider(new Collider({ 30.0f, 40.0f }))
 		, mLevel(1)
 		, mExp(0)
-		, mHp(10)
+		, mHp(100)
 		, mKnockbackValue(0.5f)
 		, mAmour(0)
 		, mWeaponSpeed(700.0f)

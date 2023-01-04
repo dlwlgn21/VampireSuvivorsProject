@@ -28,7 +28,7 @@ namespace ya
 				MUDMAN_INITIAL_HP, 
 				MUDMAN_INITIAL_DAMAGE, 
 				ONE_MIN_NORMAL_MONSTER_EXP, 
-				200.0f,
+				MUDMAN_INITIAL_SPEED,
 				Vector2(56.0f, 66.0f),
 				Vector2(56.0f, 56.0f),
 				Vector2::ZERO,
@@ -68,7 +68,7 @@ namespace ya
 				GREEN_GHOST_INITIAL_HP,
 				GREEN_GHOST_INITIAL_DAMAGE,
 				ONE_MIN_NORMAL_MONSTER_EXP,
-				160.0f,
+				GREEN_GHOST_INITIAL_SPEED,
 				Vector2(36.0f, 62.0f),
 				Vector2(70.0f, 78.0f),
 				Vector2::ZERO,
@@ -108,7 +108,7 @@ namespace ya
 				MEDUSA_HEAD_INITIAL_HP,
 				MEDUSA_HEAD_INITIAL_DAMAGE,
 				ONE_MIN_NORMAL_MONSTER_EXP,
-				240.0f,
+				MEDUSA_HEAD_INITIAL_SPEED,
 				Vector2(48.0f, 56.0f),
 				Vector2(50.0f, 68.0f),
 				Vector2::ZERO,
@@ -118,7 +118,7 @@ namespace ya
 				0.15f * 8
 			);
 			pMonster = pMonsterObjPool->Get(
-				eMonsterType::GREEN_GHOST,
+				eMonsterType::MEDUSA_HEAD,
 				info,
 				L"MedusaHeadRMove",
 				L"MedusaHeadLMove",
