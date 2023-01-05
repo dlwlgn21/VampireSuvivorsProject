@@ -13,7 +13,6 @@ constexpr UINT MEDUSA_HEAD_INITIAL_SPAWN_COUNT = 10;
 #include "yaPlayer.h"
 #include "yaMonsterFactory.h"
 
-
 namespace ya
 {
 	void MonsterSpawner::Tick()

@@ -1,30 +1,30 @@
-#define KNIFE_INITIAL_COUNT (1)
-#define KNIFE_PENETRATING_COUNT (0)
-#define KNIFE_INITIAL_DAMAGE (2)
-#define KNIFE_SPEED (400.0f)
-#define KNIFE_SHOOT_INTERVAL (2.0f)
-#define KNIFE_DURATION (1.5f)
-
-#define AXE_INITIAL_DAMAGE (20)
-#define AXE_INITIAL_COUNT (1)
-#define AXE_PENETRATING_COUNT (0)
-#define AXE_SPEED (200.0f)
-#define AXE_DURATION (2.0f)
-#define AXE_SHOOT_INTERVAL (3.0f)
-
-#define RUNE_INITIAL_DAMAGE (10)
-#define RUNE_PENETRATING_COUNT (1000)
-#define RUNE_INITIAL_COUNT (1)
-#define RUNE_SPEED (400.0f)
-#define RUNE_DURATION (4.0f)
-#define RUNE_SHOOT_INTERVAL (5.0f)
-
-#define FIRE_WAND_INITIAL_DAMAGE (20)
-#define FIRE_WAND_INITIAL_COUNT (5)
-#define FIRE_WAND_PENETRATING_COUNT (0)
-#define FIRE_WAND_SPEED (300.0f)
-#define FIRE_WAND_DURATION (2.0f)
-#define FIRE_WAND_SHOOT_INTERVAL (4.0f)
+const constexpr UINT KNIFE_INITIAL_COUNT = 1;
+const constexpr UINT KNIFE_PENETRATING_COUNT = 0;
+const constexpr UINT KNIFE_INITIAL_DAMAGE	= 2;
+const constexpr float KNIFE_SPEED = 400.0f;
+const constexpr float KNIFE_SHOOT_INTERVAL = 2.0f;
+const constexpr float KNIFE_DURATION = 1.5f;
+ 
+const constexpr UINT AXE_INITIAL_DAMAGE = 20;
+const constexpr UINT AXE_INITIAL_COUNT = 1;
+const constexpr UINT AXE_PENETRATING_COUNT = 0;
+const constexpr float AXE_SPEED = 200.0f;
+const constexpr float AXE_DURATION = 2.0f;
+const constexpr float AXE_SHOOT_INTERVAL = 3.0f;
+ 												
+const constexpr UINT RUNE_INITIAL_DAMAGE = 10;
+const constexpr UINT RUNE_PENETRATING_COUNT = 1000;
+const constexpr UINT RUNE_INITIAL_COUNT = 1;
+const constexpr float RUNE_SPEED = 400.0f;
+const constexpr float RUNE_DURATION = 4.0f;
+const constexpr float RUNE_SHOOT_INTERVAL = 5.0f;
+ 
+const constexpr UINT FIRE_WAND_INITIAL_DAMAGE = 20;
+const constexpr UINT FIRE_WAND_INITIAL_COUNT = 5;
+const constexpr UINT FIRE_WAND_PENETRATING_COUNT = 0;
+const constexpr float FIRE_WAND_SPEED = 300.0f;
+const constexpr float FIRE_WAND_DURATION =	2.0f;
+const constexpr float FIRE_WAND_SHOOT_INTERVAL = 4.0f;
 
 #include <cassert>
 #include "Common.h"
@@ -55,7 +55,6 @@
 
 namespace ya
 {
-
 	Player::Player()
 		: GameObject({ 200.0f, 200.0f })
 		, mMoveSpeed(300.0f)
@@ -232,8 +231,6 @@ namespace ya
 		}
 		if (mKnifeShootTimer >= mKnifeStat.ShootInterval)
 		{
-			//mKnifeObjPool.Get(mPos, 10, 1, 1000.0f, 1.0f, KnifeShootInterval, static_cast<eKnifeDirection>(meLookDir));
-
 			for (int i = 0; i < mKnifeStat.Count; ++i)
 			{
 				GameObject* pKnife = static_cast<GameObject*>(mpKnifeObjPool->Get(mPos, mKnifeStat.Damage, mKnifeStat.PanetratingCount, mKnifeStat.Speed * mWeaponSpeedCoefficient, mKnockbackValue, mKnifeStat.WeaponDuration, static_cast<eKnifeDirection>(meLookDir), mpKnifeObjPool));
@@ -292,7 +289,6 @@ namespace ya
 	{
 		GameObject::Render(hdc);
 	}
-
 
 	void Player::OnCollisionEnter(Collider* other)
 	{
@@ -371,10 +367,6 @@ namespace ya
 			UIManager::Push(eUIType::GAME_OVER);
 			ScoreManager::GetInstance().UpdateSuvivorTime(Time::TotalTime());
 		}
-	}
-
-	void Player::WalkComplete()
-	{
 	}
 
 

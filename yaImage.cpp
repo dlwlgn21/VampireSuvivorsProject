@@ -49,7 +49,6 @@ namespace ya
 		if (image != nullptr)
 		{
 			assert(false);
-			MessageBox(nullptr, L"NEVER ENTER THIS STATEMENT", L"DUPLICATED_IMAGE", MB_OK);
 			return nullptr;
 		}
 

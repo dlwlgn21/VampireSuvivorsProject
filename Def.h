@@ -43,7 +43,7 @@ enum class eComponentType
 	COUNT
 };
 
-#define MAX_COLLIDER_LAYER (16)
+constexpr UINT MAX_COLLIDER_LAYER = 16;
 enum class eColliderLayer
 {
 	DEFAULT,
@@ -123,48 +123,43 @@ enum class eMonsterType
 	BOSS_MIRA,
 	COUNT
 };
-#define TILE_SIZE_X (32)
-#define TILE_SIZE_Y (32)
-#define TILE_COLUMN_COUNT (8)
-#define TILE_ROW_COUNT (3)
-#define TILE_SCALE (2)
-#define DIAGONAL_CORRECTION_VALUE (0.75f)
-#define MAX_KNIFE_COUNT (15)
-#define MAX_RUNE_TRACER_COUNT (5)
-#define BG_BLACK_BAR_Y_DIFF (10.0f)
-#define GAME_SCREEN_X_DIFF (160.0f)
 
-#define BLACK_BAR_X_DIFF (95.0f)
-#define BLACK_BAR_HEIGHT (101.0f)
-#define CHARACTOR_ICON_X_DIFF (20.0f)
-#define CHARACTOR_IOCN_Y_DIFF (80.0f)
-#define ARROW_ANIM_DURATION (0.25f)
+const constexpr float  DIAGONAL_CORRECTION_VALUE = 0.75f;
+const constexpr UINT  MAX_KNIFE_COUNT = 15;
+const constexpr UINT  MAX_RUNE_TRACER_COUNT = 5;
+const constexpr float  BG_BLACK_BAR_Y_DIFF = 10.0f;
+const constexpr float  GAME_SCREEN_X_DIFF = 160.0f;
+ 
+const constexpr float BLACK_BAR_X_DIFF = 95.0f;
+const constexpr float BLACK_BAR_HEIGHT = 101.0f;
+const constexpr float CHARACTOR_ICON_X_DIFF = 20.0f;
+const constexpr float CHARACTOR_IOCN_Y_DIFF = 80.0f;
+const constexpr float ARROW_ANIM_DURATION = 0.25f;
+ 
+const constexpr UINT SCREEN_WIDTH = 1920;
+const constexpr UINT SCREEN_HEIGHT = 1080;
+const constexpr UINT ACTUAL_GAME_SCREEN_WIDTH = 1727;
+const constexpr UINT ACTUAL_GAME_SCREEN_X_DIFF = 96;
+const constexpr UINT CAMERA_MASK_WIDTH = 95;
+const constexpr UINT EXP_BAR_HEIGHT = 43;
+ 
+const constexpr UINT ONE_MIN_NORMAL_MONSTER_EXP = 100;
+const constexpr UINT MUDMAN_INITIAL_HP = 5;
+const constexpr UINT MUDMAN_INITIAL_DAMAGE = 5;
+const constexpr float MUDMAN_INITIAL_SPEED = 120.0f;
+ 
+const constexpr UINT GREEN_GHOST_INITIAL_HP = 10;
+const constexpr UINT GREEN_GHOST_INITIAL_DAMAGE = 3;
+const constexpr float GREEN_GHOST_INITIAL_SPEED = 80.0f;
+ 
+const constexpr UINT MEDUSA_HEAD_INITIAL_HP = 10;
+const constexpr UINT MEDUSA_HEAD_INITIAL_DAMAGE = 2;
+const constexpr float MEDUSA_HEAD_INITIAL_SPEED = 200.0f;
+const constexpr UINT TOTAL_WEAPON_COUNT = 4;
+const constexpr UINT TOTAL_STAT_BURF_ITEM_COUNT = 4;
 
-#define SCREEN_WIDTH (1920)
-#define SCREEN_HEIGHT (1080)
-#define ACTUAL_GAME_SCREEN_WIDTH (1727)
-#define ACTUAL_GAME_SCREEN_X_DIFF (96)
-#define CAMERA_MASK_WIDTH (95)
-#define EXP_BAR_HEIGHT (43)
-
-#define ONE_MIN_NORMAL_MONSTER_EXP (100)
-#define MUDMAN_INITIAL_HP (5)
-#define MUDMAN_INITIAL_DAMAGE (5)
-#define MUDMAN_INITIAL_SPEED (120.0f)
-
-#define GREEN_GHOST_INITIAL_HP (10)
-#define GREEN_GHOST_INITIAL_DAMAGE (3)
-#define GREEN_GHOST_INITIAL_SPEED (80.0f)
-
-#define MEDUSA_HEAD_INITIAL_HP (10)
-#define MEDUSA_HEAD_INITIAL_DAMAGE (2)
-#define MEDUSA_HEAD_INITIAL_SPEED (200.0f)
-
-#define TOTAL_WEAPON_COUNT (4)
-#define TOTAL_STAT_BURF_ITEM_COUNT (4)
-#define MAX_WEAPON_STAT_BURF_ITEM_COUNT (TOTAL_WEAPON_COUNT + TOTAL_STAT_BURF_ITEM_COUNT)
-#define MAX_WEAPON_LEVEL (5)
-#define MAX_STAT_BURF_ITEM_LEVEL (4)
-#define LEVEL_IMG_HEIGHT (174.0f)
-
-#define EXP_BLUE_GEM (30)
+const constexpr UINT MAX_WEAPON_STAT_BURF_ITEM_COUNT = (TOTAL_WEAPON_COUNT + TOTAL_STAT_BURF_ITEM_COUNT);
+const constexpr UINT MAX_WEAPON_LEVEL = 5;
+const constexpr UINT MAX_STAT_BURF_ITEM_LEVEL = 4;
+const constexpr float LEVEL_IMG_HEIGHT = 174.0f;
+const constexpr UINT EXP_BLUE_GEM = 30;

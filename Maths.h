@@ -101,7 +101,7 @@ namespace ya
 
 		__forceinline float GetLength()
 		{
-			return static_cast<float>(std::sqrt((x * x) + (y * y)));
+			return static_cast<float>((std::sqrt((x * x) + (y * y))));
 		}
 
 		__forceinline Vector2& Normalize()
