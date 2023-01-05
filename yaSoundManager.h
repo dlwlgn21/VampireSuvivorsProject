@@ -1,21 +1,17 @@
 #pragma once
+#include "Common.h"
 
 namespace ya
 {
-	class SoundManager final
+	class Sound;
+	class SoundManager
 	{
 	public:
-		static SoundManager& GetInstance()
-		{
-			static SoundManager instance;
-			return instance;
-		}
-		SoundManager(const SoundManager& other) = delete;
-		SoundManager& operator=(const SoundManager& other) = delete;
-
+		static bool Initialize();
+		static LPDIRECTSOUND8 GetDevice() { return mSoundDevice; }
+		static Sound* LoadSound(const std::wstring& key, const std::wstring& path);
+		static Sound* GetSound(const std::wstring& key);
 	private:
-		SoundManager() = default;
-		~SoundManager() = default;
+		static LPDIRECTSOUND8 mSoundDevice;
 	};
 }
-

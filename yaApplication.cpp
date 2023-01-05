@@ -31,7 +31,7 @@ namespace ya
 		UIManager::Initialize();
 		SceneManager::Initialze();
 		Camera::Initialize();
-		//SoundManager::Initialize();
+		SoundManager::Initialize();
 	}
 
 	void Application::initailizeWindow()

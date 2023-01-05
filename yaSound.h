@@ -1,36 +1,23 @@
 #pragma once
 #include "yaResource.h"
 
+
 namespace ya
 {
 	class Sound : public Resource
 	{
 	public:
-		Sound();
-		virtual ~Sound();
-
-		int Load(const wchar_t* strPath);
-
-		void Play(bool bIsLoop = false);						// 일반재생
-
-		void PlayBGM(bool bIsLoop = false);						// BGM으로 재생
-
-		void Stop(bool bIsReset = false);
-
-		void SetVolume(float volume);							// 불륨범위 (0 ~ 100)
-
-		void SetPosition(float position);						// 음악파일 위치 조정 0 ~ 100 사이
-
-
-	private:
-		bool loadWaveSound(const std::wstring& strPath);
+		virtual HRESULT Load(const std::wstring& path) override;
+		bool LoadWavFile(const std::wstring& path);
+		void Play(bool loop);
+		void Stop(bool reset);
+		void SetPosition(float position, bool loop);
+		void SetVolume(float volume);
 		int GetDecibel(float volume);
 
 	private:
-		LPDIRECTSOUNDBUFFER mpSoundBuffer;
-		DSBUFFERDESC mBufferInfoDesc;
+		LPDIRECTSOUNDBUFFER		mSoundBuffer;
+		DSBUFFERDESC			mBufferDesc;
 		int mVolume;
-
 	};
 }
-
