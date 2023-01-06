@@ -2,7 +2,7 @@
 #include "yaGameObejct.h"
 #include "yaApplication.h"
 #include "yaCamera.h"
-
+#include "yaInput.h"
 
 namespace ya
 {
@@ -13,6 +13,7 @@ namespace ya
 		, mOffset(Vector2::ZERO)
 		, mCollisionCount(0)
 		, mbIsWorking(true)
+		, mbIsDebuging(true)
 	{
 	}
 	Collider::Collider(Vector2 size, eColliderLayer eColliderLayer)
@@ -23,6 +24,7 @@ namespace ya
 		, mCollisionCount(0)
 		, meLayerType(eColliderLayer)
 		, mbIsWorking(true)
+		, mbIsDebuging(true)
 	{
 	}
 
@@ -33,6 +35,7 @@ namespace ya
 		, mOffset(Vector2::ZERO)
 		, mCollisionCount(0)
 		, mbIsWorking(true)
+		, mbIsDebuging(true)
 	{
 		mSize = Vector2(100.0f, 100.0f);
 	}
@@ -42,40 +45,49 @@ namespace ya
 
 	void Collider::Tick()
 	{
+		if (IS_KEY_DOWN(eKeyCode::P))
+		{
+			mbIsDebuging = !mbIsDebuging;
+		}
+		if (!mbIsWorking)
+			{ return; }
 		GameObject* owner = GetOwner();
 		mPos = owner->GetPos() + mOffset;
 	}
 	void Collider::Render(HDC hdc)
 	{
-		HPEN greenPen = CreatePen(PS_SOLID, 2, RGB(0, 255, 0));
-		HPEN redPen = CreatePen(PS_SOLID, 2, RGB(255, 0, 0));
-		HPEN prevPen = NULL;
+		if (mbIsDebuging)
+		{
+	/*		HPEN greenPen = CreatePen(PS_SOLID, 2, RGB(0, 255, 0));
+			HPEN redPen = CreatePen(PS_SOLID, 2, RGB(255, 0, 0));
+			HPEN prevPen = NULL;
 
-		HBRUSH transBrush = Application::GetInstance().GetBrush(eBrushColor::TRANS_PARENT);
-		Brush brush(hdc, transBrush);
+			HBRUSH transBrush = Application::GetInstance().GetBrush(eBrushColor::TRANS_PARENT);
+			Brush brush(hdc, transBrush);
 
-		if (mCollisionCount > 0)
-			{ prevPen = static_cast<HPEN>(SelectObject(hdc, redPen)); }
-		else
-			{ prevPen = static_cast<HPEN>(SelectObject(hdc, greenPen)); }
+			if (mCollisionCount > 0)
+				{ prevPen = static_cast<HPEN>(SelectObject(hdc, redPen)); }
+			else
+				{ prevPen = static_cast<HPEN>(SelectObject(hdc, greenPen)); }
 
 
-		Vector2 leftTop(mPos.x - mSize.x / 2, mPos.y - mSize.y / 2);
-		Vector2 rightBottom(mPos.x + mSize.x / 2, mPos.y + mSize.y / 2);
-		leftTop = Camera::ToCameraPos(leftTop);
-		rightBottom = Camera::ToCameraPos(rightBottom);
+			Vector2 leftTop(mPos.x - mSize.x / 2, mPos.y - mSize.y / 2);
+			Vector2 rightBottom(mPos.x + mSize.x / 2, mPos.y + mSize.y / 2);
+			leftTop = Camera::ToCameraPos(leftTop);
+			rightBottom = Camera::ToCameraPos(rightBottom);
 
-		Rectangle(
-			hdc,
-			static_cast<int>(leftTop.x),
-			static_cast<int>(leftTop.y),
-			static_cast<int>(rightBottom.x),
-			static_cast<int>(rightBottom.y)
-		);
+			Rectangle(
+				hdc,
+				static_cast<int>(leftTop.x),
+				static_cast<int>(leftTop.y),
+				static_cast<int>(rightBottom.x),
+				static_cast<int>(rightBottom.y)
+			);
 
-		SelectObject(hdc, prevPen);
-		DeleteObject(redPen);
-		DeleteObject(greenPen);
+			SelectObject(hdc, prevPen);
+			DeleteObject(redPen);
+			DeleteObject(greenPen);*/
+		}
 	}
 
 	void Collider::OnCollisionEnter(Collider* other)

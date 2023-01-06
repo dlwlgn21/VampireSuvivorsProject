@@ -8,7 +8,7 @@
 namespace ya
 {
 	PlayerCustomAnimation::PlayerCustomAnimation(float minAnimInterval)
-		: Component(eComponentType::PLAYER_ANIMATION)
+		: Entity()
 		, mpImage(nullptr)
 		, mpAnimator(nullptr)
 		, mCurrSpriteIdx(0)
@@ -31,26 +31,24 @@ namespace ya
 	}
 	void PlayerCustomAnimation::Tick()
 	{
-		if (mpAnimator != nullptr)
+		assert(mpAnimator != nullptr);
+		mIntervalCounter += Time::DeltaTime();
+		if (mIntervalCounter >= mMinAnimInterval)
 		{
-			mIntervalCounter += Time::DeltaTime();
-			if (mIntervalCounter >= mMinAnimInterval)
-			{
-				mIntervalCounter = 0.0f;
-				++mCurrSpriteIdx;
-				if (mCurrSpriteIdx >= mSpriteSheet.size())
-					{ mCurrSpriteIdx = 0; }
-			}
-
-			if (IS_KEY_PRESSED(eKeyCode::A))
-			{ mbIsLeftKeyPressing = true; }			
-			if (IS_KEY_PRESSED(eKeyCode::D))
-			{ mbIsRightKeyPressing = true; }			
-			if (IS_KEY_PRESSED(eKeyCode::W))
-			{ mbIsUpKeyPressing = true; }			
-			if (IS_KEY_PRESSED(eKeyCode::S))
-			{ mbIsDownKeyPressing = true; }
+			mIntervalCounter = 0.0f;
+			++mCurrSpriteIdx;
+			if (mCurrSpriteIdx >= mSpriteSheet.size())
+				{ mCurrSpriteIdx = 0; }
 		}
+
+		if (IS_KEY_PRESSED(eKeyCode::A))
+		{ mbIsLeftKeyPressing = true; }			
+		if (IS_KEY_PRESSED(eKeyCode::D))
+		{ mbIsRightKeyPressing = true; }			
+		if (IS_KEY_PRESSED(eKeyCode::W))
+		{ mbIsUpKeyPressing = true; }			
+		if (IS_KEY_PRESSED(eKeyCode::S))
+		{ mbIsDownKeyPressing = true; }
 	}
 
 	void PlayerCustomAnimation::Render(HDC hdc)

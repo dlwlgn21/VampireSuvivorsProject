@@ -29,6 +29,7 @@ namespace ya
 	void StageSelectionPanel::OnInitialize()
 	{
 		Input::Initialize();
+		mbIsFirstEntered = true;
 	}
 	void StageSelectionPanel::OnActive()
 	{
@@ -48,15 +49,6 @@ namespace ya
 		}
 		if (IS_KEY_DOWN(eKeyCode::ENTER) || IS_KEY_DOWN(eKeyCode::SPACE))
 		{
-			if (static_cast<UIAnimObject*>(mChilds[1])->IsSelected())
-			{
-				UIManager::Pop(eUIType::STAGE_SELECTION);
-				UIManager::Push(eUIType::PLAY_INFO_HUD);
-				SceneManager::ChangeSecne(eSceneType::PLAY_SCENE);
-				SoundManager& sm = SoundManager::GetInstance();
-				Sound* pSound = sm.GetSound(sm.PASUED_IN_KEY);
-				pSound->Play(false);
-			}
 			assert(mChilds.size() != 0);
 			assert(mChilds.size() == 2);
 			if (mbIsFirstEntered)
@@ -65,11 +57,23 @@ namespace ya
 			}
 			else
 			{
-				static_cast<SelectionMenuIcon*>(mChilds[0])->ChangeRenderImage();
-				static_cast<UIAnimObject*>(mChilds[1])->SetIsSelected(true);
-				SoundManager& sm = SoundManager::GetInstance();
-				Sound* pSound = sm.GetSound(sm.PASUED_OUT_KEY);
-				pSound->Play(false);
+				if (static_cast<UIAnimObject*>(mChilds[1])->IsSelected())
+				{
+					UIManager::Pop(eUIType::STAGE_SELECTION);
+					UIManager::Push(eUIType::PLAY_INFO_HUD);
+					SceneManager::ChangeSecne(eSceneType::PLAY_SCENE);
+					SoundManager& sm = SoundManager::GetInstance();
+					Sound* pSound = sm.GetSound(sm.PASUED_IN_KEY);
+					pSound->Play(false);
+				}
+				else
+				{
+					static_cast<SelectionMenuIcon*>(mChilds[0])->ChangeRenderImage();
+					static_cast<UIAnimObject*>(mChilds[1])->SetIsSelected(true);
+					SoundManager& sm = SoundManager::GetInstance();
+					Sound* pSound = sm.GetSound(sm.PASUED_OUT_KEY);
+					pSound->Play(false);
+				}
 			}
 		}
 	}
@@ -94,5 +98,6 @@ namespace ya
 	}
 	void StageSelectionPanel::OnUIClear()
 	{
+		Input::Initialize();
 	}
 }

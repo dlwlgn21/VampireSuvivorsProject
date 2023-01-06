@@ -32,6 +32,7 @@
 #include "yaScoreManager.h"
 #include "yaSoundManager.h"
 #include "yaSound.h"
+#include "yaKillCountIcon.h"
 
 namespace ya
 {
@@ -96,7 +97,7 @@ namespace ya
 		Scene::Render(hdc);
 
 		wchar_t buffer[BUFFER_LENGTH];
-		swprintf_s(buffer, BUFFER_LENGTH, L"%d : %d", static_cast<int>(Time::TotalTime() / 60), static_cast<int>(Time::TotalTime()) % 60);
+		swprintf_s(buffer, BUFFER_LENGTH, L"%d : %d", static_cast<int>(std::abs(Time::TotalTime()) / 60), static_cast<int>(std::abs(Time::TotalTime())) % 60);
 		int len = lstrlenW(buffer);
 
 		HFONT hFont = CreateFontIndirect(&mFont);
@@ -119,6 +120,7 @@ namespace ya
 	void PlayScene::Enter()
 	{
 		Scene::Enter();
+		Time::Reset();
 		Time::StartTimeCounting();
 		KillCounter::GetInstance().InitializeKillCount();
 		MonsterSpawner::GetInstance().Initialize();
@@ -127,7 +129,7 @@ namespace ya
 		mpPlayer = ya::object::Instantiate<Player>(eColliderLayer::PLAYER);
 		BGGmaeImage* bgGameImage = ya::object::InstantiateAtAnotherScene<BGGmaeImage>(eColliderLayer::BACKGROUND, L"BGGmaeMap", L"Resources\\Image\\MapTwo.bmp", GetSceneTpye());
 		bgGameImage->Initialize();
-
+		AddGameObject(new KillCountIcon(L"KillCounterIcon", L"Resources\\Image\\MonsterKillCountIcon.bmp"), eColliderLayer::BACKGROUND);
 
 		// MonsterSpawner PART
 		MonsterSpawner::GetInstance().SetObjectsAndSpawnPos(mpPlayer, mpExpGemObjPool, mpMudManPool);
@@ -149,6 +151,7 @@ namespace ya
 		mpGreenGhostPool->Initialize();
 		mpMedusaHeadPool->Initialize();
 		mpExpGemObjPool->Initialize();
+		ScoreManager::GetInstance().UpdateKillCount(KillCounter::GetInstance().GetKillCount());
 		Scene::Exit();
 	}
 	void PlayScene::setColliderLayer()

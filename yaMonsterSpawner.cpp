@@ -1,7 +1,7 @@
 constexpr float LEGNTH_OF_LEFT_PLAYER_DISTANCE = 1500.0f;
 constexpr float INITIAL_Y_SPAWN_POS = -300.0f;
-constexpr UINT MUDMAN_INITIAL_SPAWN_COUNT = 10;
-constexpr UINT GREEN_GHOST_INITIAL_SPAWN_COUNT = 20;
+constexpr UINT MUDMAN_INITIAL_SPAWN_COUNT = 15;
+constexpr UINT GREEN_GHOST_INITIAL_SPAWN_COUNT = 15;
 constexpr UINT MEDUSA_HEAD_INITIAL_SPAWN_COUNT = 10;
 
 #include "yaMonsterSpawner.h"
@@ -32,7 +32,7 @@ namespace ya
 			mMudmanTimer += Time::DeltaTime();
 			if (mMudmanTimer >= mMudmanRespawnTime)
 			{
-				spawnMonsters(eMonsterEmegernceSecquence::MUDMAN, MUDMAN_INITIAL_SPAWN_COUNT + 3);
+				spawnMonsters(eMonsterEmegernceSecquence::MUDMAN, MUDMAN_INITIAL_SPAWN_COUNT / 3);
 				mMudmanTimer = 0.0f;
 			}
 		}
@@ -51,7 +51,7 @@ namespace ya
 			mGreenGhostTimer += Time::DeltaTime();
 			if (mGreenGhostTimer >= mGreenGhostRespawnTime)
 			{
-				spawnMonsters(eMonsterEmegernceSecquence::GREEN_GHOST, GREEN_GHOST_INITIAL_SPAWN_COUNT + 3);
+				spawnMonsters(eMonsterEmegernceSecquence::GREEN_GHOST, GREEN_GHOST_INITIAL_SPAWN_COUNT / 3);
 				mGreenGhostTimer = 0.0f;
 			}
 		}
@@ -70,7 +70,7 @@ namespace ya
 			mMedusaHeadTimer += Time::DeltaTime();
 			if (mMedusaHeadTimer >= mMedusaHeadRespawnTime)
 			{
-				spawnMonsters(eMonsterEmegernceSecquence::MEDUSA_HEAD, MEDUSA_HEAD_INITIAL_SPAWN_COUNT);
+				spawnMonsters(eMonsterEmegernceSecquence::MEDUSA_HEAD, MEDUSA_HEAD_INITIAL_SPAWN_COUNT / 3);
 				mMedusaHeadTimer = 0.0f;
 			}
 		}
@@ -105,11 +105,11 @@ namespace ya
 			{
 				if (i < half)
 				{
-					MonsterFactory::CreateMonster(eMonsterType::MUDMAN, Vector2(mLeftSpawanPos.x, INITIAL_Y_SPAWN_POS + (i * 70.0f)), mpPlayer, mpExpObjPool, pPool);
+					MonsterFactory::CreateMonster(eMonsterType::MUDMAN, Vector2(mLeftSpawanPos.x, INITIAL_Y_SPAWN_POS + (i * 75.0f)), mpPlayer, mpExpObjPool, pPool);
 				}
 				else
 				{
-					MonsterFactory::CreateMonster(eMonsterType::MUDMAN, Vector2(mRightSpawnPos.x, INITIAL_Y_SPAWN_POS + (j * 70.0f)), mpPlayer, mpExpObjPool, pPool);
+					MonsterFactory::CreateMonster(eMonsterType::MUDMAN, Vector2(mRightSpawnPos.x, INITIAL_Y_SPAWN_POS + (j * 75.0f)), mpPlayer, mpExpObjPool, pPool);
 				}
 				--j;
 			}
@@ -123,11 +123,11 @@ namespace ya
 			{
 				if (i < half)
 				{
-					MonsterFactory::CreateMonster(eMonsterType::GREEN_GHOST, Vector2(mLeftSpawanPos.x, INITIAL_Y_SPAWN_POS + (i * 70.0f)), mpPlayer, mpExpObjPool, pPool);
+					MonsterFactory::CreateMonster(eMonsterType::GREEN_GHOST, Vector2(mLeftSpawanPos.x, INITIAL_Y_SPAWN_POS + (i * 75.0f)), mpPlayer, mpExpObjPool, pPool);
 				}
 				else
 				{
-					MonsterFactory::CreateMonster(eMonsterType::GREEN_GHOST, Vector2(mRightSpawnPos.x, INITIAL_Y_SPAWN_POS + (j * 70.0f)), mpPlayer, mpExpObjPool, pPool);
+					MonsterFactory::CreateMonster(eMonsterType::GREEN_GHOST, Vector2(mRightSpawnPos.x, INITIAL_Y_SPAWN_POS + (j * 75.0f)), mpPlayer, mpExpObjPool, pPool);
 				}
 				--j;
 			}
@@ -163,7 +163,7 @@ namespace ya
 	void MonsterSpawner::setSpawnPos()
 	{
 		float leftXSpawnPos = mpPlayer->GetPos().x - LEGNTH_OF_LEFT_PLAYER_DISTANCE;
-		float rightXSpawnPos = -leftXSpawnPos;
+		float rightXSpawnPos = mpPlayer->GetPos().x + LEGNTH_OF_LEFT_PLAYER_DISTANCE;
 		mLeftSpawanPos.x = leftXSpawnPos;
 		mRightSpawnPos.x = rightXSpawnPos;
 	}

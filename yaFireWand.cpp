@@ -89,6 +89,7 @@ namespace ya
 	{
 		mPos = pos;
 		initAndSetVelocity();
+		mpCollider->SetPos(pos);
 	}
 	void FireWand::initAndSetVelocity()
 	{

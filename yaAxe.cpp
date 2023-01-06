@@ -1,6 +1,5 @@
-#define ACCEL_MIN (5)
-#define ACCEL_MAX (15)
-
+const constexpr unsigned int ACCEL_MIN = 5;
+const constexpr unsigned int ACCEL_MAX = 15;
 #include "yaAxe.h"
 #include "yaImage.h"
 #include "yaResources.h"
@@ -8,7 +7,6 @@
 #include "yaCollider.h"
 #include "yaTime.h"
 #include "yaWeaponObjectPool.h"
-
 
 namespace ya
 {
@@ -72,15 +70,12 @@ namespace ya
 	{
 		if (other != nullptr && other->GetColliderLayer() == eColliderLayer::MONSTER)
 		{
-			//Monster* pMonster = static_cast<Monster*>(other->GetOwner());
-			//pMonster->DamagedFromWeapon(mDamage);
 			--mPenetratingCounter;
 			if (mPenetratingCounter <= 0)
 			{
 				mpPool->Return(this);
 				return;
 			}
-			// Vector2 monPos = pMonster->GetPos();
 		}
 	}
 	void Axe::OnCollisionStay(Collider* other)
@@ -95,6 +90,7 @@ namespace ya
 	{
 		mPos = pos;
 		initPosAndAccel();
+		mpCollider->SetPos(pos);
 	}
 	void Axe::initPosAndAccel()
 	{
@@ -115,6 +111,5 @@ namespace ya
 		}
 		mVelocityY = -mSpeed - mAccel;
 		mPenetratingCounter = mPenetratingCount;
-
 	}
 }

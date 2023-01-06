@@ -67,6 +67,8 @@ namespace ya
 		retP = Resources::Load<Sound>(MENU_SELECT_3_KEY, L"Resources\\Sfx\\step03.wav");
 		assert(retP != nullptr);
 		retP = Resources::Load<Sound>(MENU_SELECT_4_KEY, L"Resources\\Sfx\\step04.wav");
+		assert(retP != nullptr);		
+		retP = Resources::Load<Sound>(PLAYER_HITTED_KEY, L"Resources\\Sfx\\sfx_alarm_loop6.wav");
 		assert(retP != nullptr);
 	}
 

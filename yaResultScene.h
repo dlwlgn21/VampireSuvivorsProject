@@ -30,5 +30,6 @@ namespace ya
 		eSceneType mSceneType;
 		HWND mHwnd;
 		LOGFONT mFont;
+		float mShowTimer;
 	};
 }

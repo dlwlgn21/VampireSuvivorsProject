@@ -163,6 +163,7 @@ namespace ya
 		bool mbIsWeaponAxeOpen;
 
 		Sound* mpWeaponShootSound;
+		Sound* mpHittedSound;
 	};
 
 }

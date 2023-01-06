@@ -33,10 +33,10 @@ namespace ya
 	}
 	void StartMenuPanel::OnTick()
 	{
-		if (mbIsCharacterSelectionUIPoped)
-		{
-			return;
-		}
+		//if (mbIsCharacterSelectionUIPoped)
+		//{
+		//	return;
+		//}
 		if (IS_KEY_DOWN(eKeyCode::W) || IS_KEY_DOWN(eKeyCode::UP) && !mbIsUpKeyDown)
 		{
 			if (!mpButtonsPtr[static_cast<UINT>(eStartSelection::EXIT)]->IsSelected())
@@ -87,6 +87,7 @@ namespace ya
 	}
 	void StartMenuPanel::OnUIClear()
 	{
+		Input::Initialize();
 	}
 	void StartMenuPanel::SetButtonPtr()
 	{

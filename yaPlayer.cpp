@@ -1,9 +1,9 @@
-const constexpr UINT KNIFE_INITIAL_COUNT = 1;
+const constexpr UINT KNIFE_INITIAL_COUNT = 2;
 const constexpr UINT KNIFE_PENETRATING_COUNT = 0;
-const constexpr UINT KNIFE_INITIAL_DAMAGE = 5;
+const constexpr UINT KNIFE_INITIAL_DAMAGE = 3;
 const constexpr float KNIFE_SPEED = 400.0f;
-const constexpr float KNIFE_SHOOT_INTERVAL = 0.5f;
-const constexpr float KNIFE_DURATION = 1.5f;
+const constexpr float KNIFE_SHOOT_INTERVAL = 1.5f;
+const constexpr float KNIFE_DURATION = 1.0f;
  
 const constexpr UINT AXE_INITIAL_DAMAGE = 20;
 const constexpr UINT AXE_INITIAL_COUNT = 1;
@@ -58,8 +58,8 @@ const constexpr float FIRE_WAND_SHOOT_INTERVAL = 4.0f;
 namespace ya
 {
 	Player::Player()
-		: GameObject({ 200.0f, 200.0f })
-		, mMoveSpeed(150.0f)
+		: GameObject(Vector2::ZERO)
+		, mMoveSpeed(300.0f)
 		, mPen(CreatePen(PS_DASHDOTDOT, 3, RGB(0, 255, 255)))
 		, mBrush(CreateSolidBrush(RGB(153, 204, 255)))
 		, mpLeftImage(Resources::Load<Image>(L"PlayerLeft", L"Resources\\Image\\PlayerLeftAnim.bmp"))
@@ -100,6 +100,7 @@ namespace ya
 		, mbIsWeaponRuneOpen(false)
 		, mbIsWeaponAxeOpen(false)
 		, mpWeaponShootSound(SoundManager::GetInstance().GetSound(SoundManager::GetInstance().SHOOT_KEY))
+		, mpHittedSound(SoundManager::GetInstance().GetSound(SoundManager::GetInstance().PLAYER_HITTED_KEY))
 	{
 		assert(mpLeftImage != nullptr);
 		assert(mpRightImage != nullptr);
@@ -157,6 +158,11 @@ namespace ya
 			{ mAxeShootTimer += Time::DeltaTime(); }
 		if (mbIsWeaponFireWandOpen)
 			{ mFireWandShootTimer += Time::DeltaTime(); }
+
+		if (IS_KEY_DOWN(eKeyCode::O))
+		{
+			mHp = 1;
+		}
 
 		if (IS_KEY_DOWN(eKeyCode::D))
 		{
@@ -367,13 +373,16 @@ namespace ya
 
 	void Player::DamageFromMonster(const int damage)
 	{
-		int actualDamage = std::clamp(damage - mAmour, 1, 100);
+		UINT actualDamage = static_cast<UINT>(std::clamp(damage - mAmour, 1, 100));
 		mHp -= actualDamage;
+		mpHittedSound->Play(false);
 		if (mHp <= 0)
 		{
 			SoundManager& sm = SoundManager::GetInstance();
 			Sound* pSound = sm.GetSound(sm.GAME_OVER_KEY);
 			pSound->Play(false);
+			pSound = sm.GetSound(sm.PLAYSCENE_BGM_KEY);
+			pSound->Stop(true);
 			UIManager::Pop(eUIType::PLAY_INFO_HUD);
 			UIManager::Push(eUIType::GAME_OVER);
 			ScoreManager::GetInstance().UpdateSuvivorTime(Time::TotalTime());

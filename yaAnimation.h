@@ -1,12 +1,12 @@
 #pragma once
 #include "Common.h"
-#include "yaComponent.h"
-
+#include "yaEntity.h"
 namespace ya
 {
 	class Image;
 	class Animator;
-	class Animation final : public Component
+
+	class Animation final : public Entity
 	{
 	public:
 		struct Sprite
@@ -28,8 +28,8 @@ namespace ya
 		Animation();
 		virtual ~Animation() = default;
 
-		void Tick() override;
-		void Render(HDC hdc) override;
+		void Tick();
+		void Render(HDC hdc);
 
 		void Create(
 			Image* pImage, Vector2 leftTop,

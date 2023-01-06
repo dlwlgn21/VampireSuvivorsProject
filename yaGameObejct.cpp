@@ -1,6 +1,7 @@
 #include "yaGameObejct.h"
 #include "yaTime.h"
-
+#include "yaComponent.h"
+#include "yaCollider.h"
 namespace ya
 {
 	GameObject::GameObject()
@@ -105,6 +106,13 @@ namespace ya
 		assert(component != nullptr);
 		mComponents.push_back(component);
 		component->mOwner = this;
+
+		// ADDED PART
+		if (component->mType == eComponentType::COLLIDER)
+		{
+			Collider* pCollider = static_cast<Collider*>(component);
+			pCollider->SetPos(mPos + pCollider->GetOffset());
+		}
 	}
 
 }

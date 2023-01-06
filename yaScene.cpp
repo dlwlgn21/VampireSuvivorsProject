@@ -125,6 +125,7 @@ namespace ya
 		{
 			if (p == object)
 			{
+				//assert(false);
 				return;
 			}
 		}

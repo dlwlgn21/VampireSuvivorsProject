@@ -5,6 +5,8 @@
 #include "yaCamera.h"
 #include "yaPlayer.h"
 #include "yaExpGemObjPool.h"
+#include "yaSoundManager.h"
+#include "yaSound.h"
 
 namespace ya
 {
@@ -56,8 +58,11 @@ namespace ya
 	{
 		if (pCollider->GetColliderLayer() == eColliderLayer::PLAYER)
 		{
+			Sound* pSound = SoundManager::GetInstance().GetSound(SoundManager::GetInstance().GEM_KEY);
+			pSound->Play(false);
 			mpPlayer->IncreaseExp(mExp);
 			mpPool->Return(this);
+			
 		}
 	}
 	void ExpGem::OnCollisionStay(Collider* pCollider)

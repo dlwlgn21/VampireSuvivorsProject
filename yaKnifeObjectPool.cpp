@@ -28,11 +28,11 @@ namespace ya
 		}
 		Knife* pKnife = mQ.front();
 		pKnife->Initialize(spwanPos, dir);
-
-		pKnife->SetActive(true);
-		Collider* pCollider = pKnife->GetComponentOrNull<Collider>(eComponentType::COLLIDER);
-		assert(pCollider != nullptr);
-		pCollider->SetIsWorking(true);
+		//pKnife->SetActive(true);
+		//Collider* pCollider = pKnife->GetComponentOrNull<Collider>(eComponentType::COLLIDER);
+		//assert(pCollider != nullptr);
+		//pCollider->SetIsWorking(true);
+		//pCollider->SetSize(pKnife->GetSize());
 		mQ.pop();
 		return pKnife;
 	}
@@ -48,6 +48,8 @@ namespace ya
 		Collider* pCollider = pKnife->GetComponentOrNull<Collider>(eComponentType::COLLIDER);
 		assert(pCollider != nullptr);
 		pCollider->SetIsWorking(false);
+		pCollider->SetSize(Vector2::ZERO);
+		pCollider->SetPos({ 10000.0f,10000.0f });
 		mQ.push(pKnife);
 	}
 	UINT KnifeObjectPool::GetFreeObjectCount() const

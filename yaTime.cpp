@@ -110,6 +110,7 @@ namespace ya
 		mllBaseTime = currTime;
 		mllPrevTime = currTime;
 		mllStopTime = 0;
+		mllPausedTime = 0;
 		mbIsStoped = false;
 	}
 
@@ -120,6 +121,7 @@ namespace ya
 		mllBaseTime = 0;
 		mllPrevTime = currTime;
 		mllStopTime = 0;
+		mllPausedTime = 0;
 		mbIsStoped = false;
 	}
 

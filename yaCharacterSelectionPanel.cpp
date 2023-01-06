@@ -13,7 +13,7 @@ namespace ya
 
 	CharacterSelectionPanel::CharacterSelectionPanel(eUIType type)
 		: Panel(eUIType::CHARACTER_SELECTION)
-		, mbIsEntered(false)
+		, mbIsFirstEntered(true)
 		, mImgWidth(0)
 		, mImgHeight(0)
 	{
@@ -27,6 +27,7 @@ namespace ya
 	void CharacterSelectionPanel::OnInitialize()
 	{
 		Input::Initialize();
+		mbIsFirstEntered = true;
 	}
 	void CharacterSelectionPanel::OnActive()
 	{
@@ -46,6 +47,11 @@ namespace ya
 		}
 		if (IS_KEY_DOWN(eKeyCode::ENTER) || IS_KEY_DOWN(eKeyCode::SPACE))
 		{
+			if (mbIsFirstEntered)
+			{
+				mbIsFirstEntered = !mbIsFirstEntered;
+				return;
+			}
 			SoundManager& sm = SoundManager::GetInstance();
 			Sound* pSound = sm.GetSound(sm.PASUED_IN_KEY);
 			pSound->Play(false);
@@ -87,5 +93,6 @@ namespace ya
 	}
 	void CharacterSelectionPanel::OnUIClear()
 	{
+		Input::Initialize();
 	}
 }

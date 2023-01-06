@@ -37,8 +37,6 @@ enum class eComponentType
 	COLLIDER,
 	PLAYER_ANIMATOR,
 	ANIMATOR,
-	PLAYER_ANIMATION,
-	ANIMATION,
 	SOUND,
 	COUNT
 };
@@ -140,7 +138,7 @@ const constexpr UINT ACTUAL_GAME_SCREEN_X_DIFF = 96;
 const constexpr UINT CAMERA_MASK_WIDTH = 95;
 const constexpr UINT EXP_BAR_HEIGHT = 43;
  
-const constexpr UINT ONE_MIN_NORMAL_MONSTER_EXP = 100;
+const constexpr UINT ONE_MIN_NORMAL_MONSTER_EXP = 30;
 const constexpr UINT MUDMAN_INITIAL_HP = 5;
 const constexpr UINT MUDMAN_INITIAL_DAMAGE = 5;
 const constexpr float MUDMAN_INITIAL_SPEED = 120.0f;

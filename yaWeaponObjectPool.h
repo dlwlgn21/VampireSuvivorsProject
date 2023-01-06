@@ -73,6 +73,8 @@ namespace ya
 		Collider* pCollider = ptr->GetComponentOrNull<Collider>(eComponentType::COLLIDER);
 		assert(pCollider != nullptr);
 		pCollider->SetIsWorking(false);
+		pCollider->SetPos({ 10000.0f, 10000.0f });
+		
 		mQ.push(ptr);
 	}
 	template<typename T>

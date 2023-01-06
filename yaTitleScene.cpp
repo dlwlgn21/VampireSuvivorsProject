@@ -14,6 +14,7 @@
 #include "yaResultImage.h"
 #include "yaSoundManager.h"
 #include "yaSound.h"
+#include "yaTime.h"
 
 namespace ya
 {
@@ -47,6 +48,7 @@ namespace ya
 	void TitleScene::Enter()
 	{
 		Scene::Enter();
+		Input::Initialize();
 		UIManager::Push(eUIType::START_MENU_SELECTION);
 		//Sound* pSound = sm.LoadSound(sm.TITLE_BGM_KEY, L"Resources\\Sfx\\sfx_titleIntro.wav");
 		//Sound* pSound = sm.GetSound(sm.TITLE_BGM_KEY);
@@ -55,6 +57,8 @@ namespace ya
 	void TitleScene::Exit()
 	{
 		mpBGMSound->Stop(true);
+		Time::Reset();
+		Input::Initialize();
 		//Scene::Exit();
 	}
 }

@@ -47,7 +47,7 @@ namespace ya
 		mPos.x += mVelocityX * Time::DeltaTime();
 		mPos.y += mVelocityY * Time::DeltaTime();
 
-		mpCollider->SetPos( {mPos.x, mPos.y} );
+		//mpCollider->SetPos( {mPos.x, mPos.y} );
 	}
 
 	void RuneTracer::Render(HDC hdc)
@@ -98,6 +98,7 @@ namespace ya
 	{
 		mPos = pos;
 		setVelocity();
+		mpCollider->SetPos(pos);
 	}
 	
 	void RuneTracer::setVelocity()

@@ -18,8 +18,6 @@
 #include "yaSoundManager.h"
 #include "yaSound.h"
 
-
-
 namespace ya
 {
 	Monster::Monster(
@@ -107,9 +105,6 @@ namespace ya
 		mpAnimator->CreateAnimation(mImageLeftDeathKey, mpLeftDeathImage, Vector2::ZERO, mAnimDeathSize, mAnimOffset, mAnimDeathImageCount, mAnimDuration);
 		mpAnimator->CreateAnimation(mImageRightHittedKey, mpRightHittedImage, Vector2::ZERO, mAnimMoveSize, mAnimOffset, mAnimImageCount, mAnimDuration);
 		mpAnimator->CreateAnimation(mImageLeftHittedKey, mpLeftHittedImage, Vector2::ZERO, mAnimMoveSize, mAnimOffset, mAnimImageCount, mAnimDuration);
-
-		//mpAnimator->Play(mImageRightDeathKey, false);
-		//mPlayerPos = mpPlayer->GetPos();
 
 		mFont.lfHeight = 30;
 		mFont.lfWidth = 0;
@@ -245,7 +240,6 @@ namespace ya
 				mpCollider->SetIsWorking(false);
 				mpCollider->SetSize(Vector2::ZERO);
 				KillCounter::GetInstance().IncreaseKillCount();
-				ScoreManager::GetInstance().UpdateKillCount(KillCounter::GetInstance().GetKillCount());
 			}
 			break;
 		}
@@ -255,42 +249,43 @@ namespace ya
 	}
 	void Monster::OnCollisionStay(Collider* pCollider)
 	{
-		if (pCollider->GetSize() == Vector2::ZERO)
-		{
-			return;
-		}
 		if (pCollider->GetColliderLayer() == eColliderLayer::MONSTER)
 		{
-			GameObject* pOtherObject = pCollider->GetOwner();
+			if (pCollider->GetSize() == Vector2::ZERO || mpCollider->GetSize() == Vector2::ZERO)
+			{
+				return;
+			}
+
 			Vector2 myCollderSize = mpCollider->GetSize();
+			GameObject* pOtherObject = pCollider->GetOwner();
 			Vector2 otherColliderSize = pCollider->GetSize();
 			Vector2 objPos = pOtherObject->GetPos();
 
 			GameObject* pFixedObject;
 			GameObject* pMovingObject;
 
-			float myLeftTopX = mPos.x - myCollderSize.x / 2;
-			float myRightBottomX = mPos.x + myCollderSize.x / 2;
+			//float myLeftTopX = mPos.x - myCollderSize.x / 2;
+			//float myRightBottomX = mPos.x + myCollderSize.x / 2;
 
-			float otherLeftTopX = objPos.x - otherColliderSize.x / 2;
-			float otherRightBottomX = objPos.x + otherColliderSize.x / 2;
+			//float otherLeftTopX = objPos.x - otherColliderSize.x / 2;
+			//float otherRightBottomX = objPos.x + otherColliderSize.x / 2;
 
-			float pushXLength = 0.0f;
+			//float pushXLength = 0.0f;
 
-			if (myLeftTopX <= otherLeftTopX)
-			{
-				pFixedObject = this;
-				pMovingObject = pOtherObject;
-				pushXLength = myRightBottomX - otherLeftTopX;
-			}
-			else
-			{
-				pFixedObject = pOtherObject;
-				pMovingObject = this;
-				pushXLength = otherRightBottomX - myLeftTopX;
-			}
+			//if (myLeftTopX <= otherLeftTopX)
+			//{
+			//	pFixedObject = this;
+			//	pMovingObject = pOtherObject;
+			//	pushXLength = myRightBottomX - otherLeftTopX;
+			//}
+			//else
+			//{
+			//	pFixedObject = pOtherObject;
+			//	pMovingObject = this;
+			//	pushXLength = otherRightBottomX - myLeftTopX;
+			//}
 
-			pMovingObject->SetPos(Vector2(pMovingObject->GetPos().x + pushXLength * mSpeed * Time::DeltaTime(), pMovingObject->GetPos().y));
+			//pMovingObject->SetPos(Vector2(pMovingObject->GetPos().x + pushXLength * mSpeed * Time::DeltaTime(), pMovingObject->GetPos().y));
 
 
 			//float myLeftTopY = mPos.y - myCollderSize.y / 2;
@@ -306,19 +301,163 @@ namespace ya
 			//{
 			//	pFixedObject = this;
 			//	pMovingObject = pOtherObject;
-			//	pushYlengh = -(otherLeftTopY - myRightBottomY);
+			//	//pushYlengh = -(otherLeftTopY - myRightBottomY);
+			//	pushYlengh = std::abs(myRightBottomY - otherLeftTopY);
 			//}
 			//// my의 오른쪽 y좌표가 other의 오른족 y좌표보다 아래에 있으면
 			//else
 			//{
 			//	pFixedObject = pOtherObject;
 			//	pMovingObject = this;
-			//	pushYlengh = -(myLeftTopY - otherRightBottomY);
+			//	pushYlengh = std::abs(otherRightBottomY - myLeftTopY);
 			//}
 
 
-			////assert(std::abs(pushXLength) > FLT_EPSILON && std::abs(pushYlengh) > FLT_EPSILON);
+			//assert(std::abs(pushXLength) > FLT_EPSILON && std::abs(pushYlengh) > FLT_EPSILON);
 			//pMovingObject->SetPos(Vector2(pMovingObject->GetPos().x, pMovingObject->GetPos().y + pushYlengh * mSpeed * Time::DeltaTime()));
+			//pMovingObject->SetPos(
+			//	Vector2(
+			//	pMovingObject->GetPos().x + pushXLength * mSpeed * Time::DeltaTime(), 
+			//	pMovingObject->GetPos().y + pushYlengh * mSpeed * Time::DeltaTime()
+			//	)
+			//);
+
+
+			// TODO : 이곳임
+
+			//float myLeft = mPos.x - myCollderSize.x / 2;
+			//float myRight = mPos.x + myCollderSize.x / 2;
+
+			//float otherLeft = objPos.x - otherColliderSize.x / 2;
+			//float otherRight = objPos.x + otherColliderSize.x / 2;
+
+			//float pushXLength = 0.0f;
+
+			//if (myLeft <= otherLeft)
+			//{
+			//	pFixedObject = this;
+			//	pMovingObject = pOtherObject;
+			//	pushXLength = std::abs(myRight - otherLeft);
+			//}
+			//else
+			//{
+			//	pFixedObject = pOtherObject;
+			//	pMovingObject = this;
+			//	pushXLength = std::abs(otherRight - myLeft);
+			//}
+			//if (std::abs(pushXLength) > FLT_EPSILON)
+			//{
+			//	pMovingObject->SetPos(Vector2(pMovingObject->GetPos().x + (pushXLength * 0.5f * Time::DeltaTime()), pMovingObject->GetPos().y));
+			//}
+
+
+			//float myTop = mPos.y - myCollderSize.y / 2;
+			//float myBot = mPos.y + myCollderSize.y / 2;
+
+			//float otherTop = objPos.y - otherColliderSize.y / 2;
+			//float otherBot = objPos.y + otherColliderSize.y / 2;
+
+			//float pushYlengh = 0.0f;
+			//// my의 y좌표가 other의 y좌표보다 위에 있으면
+			//if (myTop <= otherTop)
+			//{
+			//	pFixedObject = this;
+			//	pMovingObject = pOtherObject;
+			//	//pushYlengh = -(otherLeftTopY - myRightBottomY);
+			//	pushYlengh = std::abs(otherTop - myBot);
+			//}
+			//// my의 오른쪽 y좌표가 other의 오른족 y좌표보다 아래에 있으면
+			//else
+			//{
+			//	pFixedObject = pOtherObject;
+			//	pMovingObject = this;
+			//	pushYlengh = std::abs(otherBot - myTop);
+			//}
+
+
+			//if (std::abs(pushYlengh) > FLT_EPSILON)
+			//{
+			//	pMovingObject->SetPos(Vector2(pMovingObject->GetPos().x, pMovingObject->GetPos().y + (pushYlengh * Time::DeltaTime())));
+			//}
+			//pMovingObject->SetPos(
+			//	Vector2(
+			//	pMovingObject->GetPos().x + pushXLength * mSpeed * Time::DeltaTime(), 
+			//	pMovingObject->GetPos().y + pushYlengh * mSpeed * Time::DeltaTime()
+			//	)
+			//);
+			
+			float myLeft = mPos.x - myCollderSize.x / 2;
+			float myRight = mPos.x + myCollderSize.x / 2;
+
+			float otherLeft = objPos.x - otherColliderSize.x / 2;
+			float otherRight = objPos.x + otherColliderSize.x / 2;
+
+			float pushXLength = 0.0f;
+
+			if (meLookDir == eMonsterLookDir::LEFT)
+			{
+				if (myLeft <= otherLeft)
+				{
+					pFixedObject = this;
+					pMovingObject = pOtherObject;
+					pushXLength = std::abs(myRight - otherLeft);
+				}
+				else
+				{
+					pFixedObject = pOtherObject;
+					pMovingObject = this;
+					pushXLength = std::abs(otherRight - myLeft);
+				}
+			}
+			else
+			{
+				if (myLeft <= otherLeft)
+				{
+					pFixedObject = pOtherObject;
+					pMovingObject = this;
+					pushXLength = -std::abs(myRight - otherLeft);
+				}
+				else
+				{
+					pFixedObject = this;
+					pMovingObject = pOtherObject;
+					pushXLength = -std::abs(otherRight - myLeft);
+				}
+			}
+			if (std::abs(pushXLength) > FLT_EPSILON)
+			{
+				pMovingObject->SetPos(Vector2(pMovingObject->GetPos().x + (pushXLength * Time::DeltaTime()), pMovingObject->GetPos().y));
+			}
+
+
+			float myTop = mPos.y - myCollderSize.y / 2;
+			float myBot = mPos.y + myCollderSize.y / 2;
+
+			float otherTop = objPos.y - otherColliderSize.y / 2;
+			float otherBot = objPos.y + otherColliderSize.y / 2;
+
+			float pushYlengh = 0.0f;
+			// my의 y좌표가 other의 y좌표보다 위에 있으면
+			if (myTop <= otherTop)
+			{
+				pFixedObject = this;
+				pMovingObject = pOtherObject;
+				//pushYlengh = -(otherLeftTopY - myRightBottomY);
+				pushYlengh = std::abs(otherTop - myBot);
+			}
+			// my의 오른쪽 y좌표가 other의 오른족 y좌표보다 아래에 있으면
+			else
+			{
+				pFixedObject = pOtherObject;
+				pMovingObject = this;
+				pushYlengh = std::abs(otherBot - myTop);
+			}
+
+
+			if (std::abs(pushYlengh) > FLT_EPSILON)
+			{
+				pMovingObject->SetPos(Vector2(pMovingObject->GetPos().x, pMovingObject->GetPos().y + (pushYlengh * Time::DeltaTime())));
+			}
 		}
 	}
 	void Monster::OnCollisionExit(Collider* pCollider)

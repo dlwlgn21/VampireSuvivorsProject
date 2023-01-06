@@ -1,3 +1,5 @@
+const constexpr float SHOW_TIME = 2.0f;
+
 #include "yaResultScene.h"
 #include "yaSceneManager.h"
 #include "yaInput.h"
@@ -13,6 +15,7 @@ namespace ya
 	ResultScene::ResultScene()
 		: mSceneType(eSceneType::RESULT_SCENE)
 		, mHwnd(Application::GetInstance().GetWindowData().hwnd)
+		, mShowTimer(SHOW_TIME)
 	{
 		mFont.lfHeight = 30;
 		mFont.lfWidth = 0;
@@ -36,9 +39,13 @@ namespace ya
 	void ResultScene::Tick()
 	{
 		Scene::Tick();
-		if (IS_KEY_DOWN(eKeyCode::ENTER) || IS_KEY_DOWN(eKeyCode::ESC))
+		mShowTimer -= Time::DeltaTime();
+		if (mShowTimer < 0.0f)
 		{
-			SceneManager::ChangeSecne(eSceneType::TITLE_SCENE);
+			if (IS_KEY_DOWN(eKeyCode::ENTER) || IS_KEY_DOWN(eKeyCode::ESC))
+			{
+				SceneManager::ChangeSecne(eSceneType::TITLE_SCENE);
+			}
 		}
 	}
 	void ResultScene::Render(HDC hdc)
@@ -72,10 +79,14 @@ namespace ya
 	void ResultScene::Enter()
 	{
 		Scene::Enter();
+		Input::Initialize();
+		mShowTimer = SHOW_TIME;
 	}
 	void ResultScene::Exit()
 	{
 		//Scene::Exit();
 		ScoreManager::GetInstance().Initialize();
+		Input::Initialize();
+		mShowTimer = SHOW_TIME;
 	}
 }

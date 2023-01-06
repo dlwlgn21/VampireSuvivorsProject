@@ -18,7 +18,7 @@ namespace ya
 		void OnRender(HDC hdc) override;
 		void OnUIClear() override;
 	private:
-		bool mbIsEntered;
+		bool mbIsFirstEntered;
 		int mImgWidth;
 		int mImgHeight;
 	};

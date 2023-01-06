@@ -1,4 +1,3 @@
-
 #include "yaAnimation.h"
 #include "yaImage.h"
 #include "yaAnimator.h"
@@ -8,7 +7,7 @@
 namespace ya
 {
 	Animation::Animation()
-		: Component(eComponentType::ANIMATION)
+		: Entity()
 		, mpImage(nullptr)
 		, mpAnimator(nullptr)
 		, mSpriteIdx(0)

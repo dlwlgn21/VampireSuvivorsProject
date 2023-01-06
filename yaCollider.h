@@ -41,5 +41,6 @@ namespace ya
 		eColliderLayer meLayerType;
 		unsigned char mCollisionCount;
 		bool mbIsWorking;
+		bool mbIsDebuging;
 	};
 }

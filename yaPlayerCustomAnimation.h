@@ -1,12 +1,12 @@
 #pragma once
-#include "yaComponent.h"
+#include "yaEntity.h"
 
 namespace ya
 {
 	class Image;
 	class PlayerCustomAnimator;
 
-	class PlayerCustomAnimation final : public Component
+	class PlayerCustomAnimation final : public Entity
 	{
 		struct PlayerSprite
 		{
@@ -24,8 +24,8 @@ namespace ya
 		PlayerCustomAnimation(float minAnimInterval);
 		virtual ~PlayerCustomAnimation() = default;
 
-		void Tick() override;
-		void Render(HDC hdc) override;
+		void Tick();
+		void Render(HDC hdc);
 
 		void Create(
 			Image* pImage,

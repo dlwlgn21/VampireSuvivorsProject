@@ -142,6 +142,7 @@
     <ClInclude Include="yaGameOverHUDPanel.h" />
     <ClInclude Include="yaGameOverTextHUD.h" />
     <ClInclude Include="yaKillCounter.h" />
+    <ClInclude Include="yaKillCountIcon.h" />
     <ClInclude Include="yaLevelBoxIcon.h" />
     <ClInclude Include="yaLevelUpArrow.h" />
     <ClInclude Include="yaLevelUpHUD.h" />
@@ -269,6 +270,7 @@
     <ClCompile Include="yaGameOverHUDPanel.cpp" />
     <ClCompile Include="yaGameOverTextHUD.cpp" />
     <ClCompile Include="yaKillCounter.cpp" />
+    <ClCompile Include="yaKillCountIcon.cpp" />
     <ClCompile Include="yaLevelBoxIcon.cpp" />
     <ClCompile Include="yaLevelUpArrow.cpp" />
     <ClCompile Include="yaLevelUpHUD.cpp" />

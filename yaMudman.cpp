@@ -98,5 +98,4 @@ namespace ya
 		Monster::Render(hdc);
 	}
 
-
 }

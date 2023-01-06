@@ -36,6 +36,7 @@ namespace ya
 			, MENU_SELECT_2_KEY(L"MenuSelectSound2key")
 			, MENU_SELECT_3_KEY(L"MenuSelectSound3key")
 			, MENU_SELECT_4_KEY(L"MenuSelectSound4key")
+			, PLAYER_HITTED_KEY(L"PlayerHittedSoundKey")
 		{}
 		~SoundManager() = default;
 
@@ -55,6 +56,7 @@ namespace ya
 		const std::wstring MENU_SELECT_2_KEY;
 		const std::wstring MENU_SELECT_3_KEY;
 		const std::wstring MENU_SELECT_4_KEY;
+		const std::wstring PLAYER_HITTED_KEY;
 		
 	private:
 		LPDIRECTSOUND8 mSoundDevice;
