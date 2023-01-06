@@ -17,6 +17,7 @@ namespace ya
 		COUNT
 	};
 
+	class Sound;
 	class KnifeObjectPool;
 	class Image;
 	class Collider;
@@ -66,7 +67,6 @@ namespace ya
 		void OnCollisionStay(Collider* other) override;
 		void OnCollisionExit(Collider* other) override;
 
-		void WalkComplete();
 		void DamageFromMonster(const int damage);
 		void IncreaseExp(const int exp);
 		WeaponStat& GetWeaponStat(const eWeaponAndItemTypes type);
@@ -161,6 +161,8 @@ namespace ya
 		bool mbIsWeaponFireWandOpen;
 		bool mbIsWeaponRuneOpen;
 		bool mbIsWeaponAxeOpen;
+
+		Sound* mpWeaponShootSound;
 	};
 
 }

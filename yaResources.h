@@ -51,12 +51,8 @@ namespace ya
 			return static_cast<T*>(Find<T>(key));
 		}
 
-		static Sound* LoadSound(const std::wstring& key, const std::wstring& path);
-		static Sound* FindSound(const std::wstring& key);
-
 	private:
 		static std::unordered_map<std::wstring, std::unique_ptr<Resource>> mResources;
-		static std::unordered_map<std::wstring, std::unique_ptr<Resource>> mSoundResources;
 	};
 
 }

@@ -7,6 +7,9 @@ namespace ya
 	class Sound : public Resource
 	{
 	public:
+		Sound() = default;
+		~Sound() = default;
+
 		virtual HRESULT Load(const std::wstring& path) override;
 		bool LoadWavFile(const std::wstring& path);
 		void Play(bool loop);

@@ -1,8 +1,8 @@
 const constexpr UINT KNIFE_INITIAL_COUNT = 1;
 const constexpr UINT KNIFE_PENETRATING_COUNT = 0;
-const constexpr UINT KNIFE_INITIAL_DAMAGE	= 2;
+const constexpr UINT KNIFE_INITIAL_DAMAGE = 5;
 const constexpr float KNIFE_SPEED = 400.0f;
-const constexpr float KNIFE_SHOOT_INTERVAL = 2.0f;
+const constexpr float KNIFE_SHOOT_INTERVAL = 0.5f;
 const constexpr float KNIFE_DURATION = 1.5f;
  
 const constexpr UINT AXE_INITIAL_DAMAGE = 20;
@@ -51,13 +51,15 @@ const constexpr float FIRE_WAND_SHOOT_INTERVAL = 4.0f;
 #include "yaFireWand.h"
 #include "yaUIManager.h"
 #include "yaScoreManager.h"
+#include "yaSoundManager.h"
+#include "yaSound.h"
 
 
 namespace ya
 {
 	Player::Player()
 		: GameObject({ 200.0f, 200.0f })
-		, mMoveSpeed(300.0f)
+		, mMoveSpeed(150.0f)
 		, mPen(CreatePen(PS_DASHDOTDOT, 3, RGB(0, 255, 255)))
 		, mBrush(CreateSolidBrush(RGB(153, 204, 255)))
 		, mpLeftImage(Resources::Load<Image>(L"PlayerLeft", L"Resources\\Image\\PlayerLeftAnim.bmp"))
@@ -97,6 +99,7 @@ namespace ya
 		, mbIsWeaponFireWandOpen(false)
 		, mbIsWeaponRuneOpen(false)
 		, mbIsWeaponAxeOpen(false)
+		, mpWeaponShootSound(SoundManager::GetInstance().GetSound(SoundManager::GetInstance().SHOOT_KEY))
 	{
 		assert(mpLeftImage != nullptr);
 		assert(mpRightImage != nullptr);
@@ -123,6 +126,7 @@ namespace ya
 
 	Player::~Player()
 	{
+		ScoreManager::GetInstance().UpdatePlayerLevel(GetLevel());
 		if (mpKnifeObjPool != nullptr)
 		{
 			delete mpKnifeObjPool;
@@ -236,6 +240,7 @@ namespace ya
 				GameObject* pKnife = static_cast<GameObject*>(mpKnifeObjPool->Get(mPos, mKnifeStat.Damage, mKnifeStat.PanetratingCount, mKnifeStat.Speed * mWeaponSpeedCoefficient, mKnockbackValue, mKnifeStat.WeaponDuration, static_cast<eKnifeDirection>(meLookDir), mpKnifeObjPool));
 				Scene* scene = SceneManager::GetCurrentScene();
 				scene->AddWeaponObject(pKnife);
+				mpWeaponShootSound->Play(false);
 			}
 			mKnifeShootTimer = 0.0f;
 		}
@@ -249,6 +254,7 @@ namespace ya
 					GameObject* pRune = static_cast<GameObject*>(mpRuneObjPool->Get(mPos, mRuneStat.Damage, mRuneStat.PanetratingCount, mRuneStat.Speed * mWeaponSpeedCoefficient, mKnockbackValue, mRuneStat.WeaponDuration, mpRuneObjPool));
 					Scene* scene = SceneManager::GetCurrentScene();
 					scene->AddWeaponObject(pRune);
+					mpWeaponShootSound->Play(false);
 				}
 				mRuneShootTimer = 0.0f;
 			}
@@ -263,6 +269,7 @@ namespace ya
 					GameObject* pAxe = static_cast<GameObject*>(mpAxeObjPool->Get(mPos, mAxeStat.Damage, mAxeStat.PanetratingCount, mAxeStat.Speed * mWeaponSpeedCoefficient, mKnockbackValue, mAxeStat.ShootInterval, mpAxeObjPool));
 					Scene* scene = SceneManager::GetCurrentScene();
 					scene->AddWeaponObject(pAxe);
+					mpWeaponShootSound->Play(false);
 				}
 				mAxeShootTimer = 0.0f;
 			}
@@ -278,6 +285,7 @@ namespace ya
 					pFire->SetIdx(i);
 					Scene* scene = SceneManager::GetCurrentScene();
 					scene->AddWeaponObject(pFire);
+					mpWeaponShootSound->Play(false);
 				}
 				mFireWandShootTimer = 0.0f;
 			}
@@ -363,6 +371,9 @@ namespace ya
 		mHp -= actualDamage;
 		if (mHp <= 0)
 		{
+			SoundManager& sm = SoundManager::GetInstance();
+			Sound* pSound = sm.GetSound(sm.GAME_OVER_KEY);
+			pSound->Play(false);
 			UIManager::Pop(eUIType::PLAY_INFO_HUD);
 			UIManager::Push(eUIType::GAME_OVER);
 			ScoreManager::GetInstance().UpdateSuvivorTime(Time::TotalTime());
@@ -380,6 +391,9 @@ namespace ya
 			LevelUpUIManager::GetInstance().PickUpImage();
 			UIManager::Pop(eUIType::PLAY_INFO_HUD);
 			UIManager::Push(eUIType::PLAY_LEVEL_UP);
+			SoundManager& sm = SoundManager::GetInstance();
+			Sound* pSound = sm.GetSound(sm.LEVEL_UP_2_KEY);
+			pSound->Play(false);
 		}
 	}
 	Player::WeaponStat& Player::GetWeaponStat(const eWeaponAndItemTypes type)

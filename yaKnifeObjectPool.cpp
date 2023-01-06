@@ -30,6 +30,9 @@ namespace ya
 		pKnife->Initialize(spwanPos, dir);
 
 		pKnife->SetActive(true);
+		Collider* pCollider = pKnife->GetComponentOrNull<Collider>(eComponentType::COLLIDER);
+		assert(pCollider != nullptr);
+		pCollider->SetIsWorking(true);
 		mQ.pop();
 		return pKnife;
 	}
@@ -41,6 +44,7 @@ namespace ya
 			assert(false);
 			return;
 		}
+		pKnife->SetActive(false);
 		Collider* pCollider = pKnife->GetComponentOrNull<Collider>(eComponentType::COLLIDER);
 		assert(pCollider != nullptr);
 		pCollider->SetIsWorking(false);

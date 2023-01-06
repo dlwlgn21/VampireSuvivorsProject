@@ -37,7 +37,7 @@ namespace ya
 		pRet->SetActive(true);
 		Collider* pCollider = pRet->GetComponentOrNull<Collider>(eComponentType::COLLIDER);
 		assert(pCollider != nullptr);
-		pCollider->SetIsWorking(false);
+		pCollider->SetIsWorking(true);
 		mQ.pop();
 		return pRet;
 	}

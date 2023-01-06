@@ -10,6 +10,7 @@ namespace ya
 		EXIT,
 		COUNT
 	};
+	class Sound;
 	class StartButton;
 	class ButtonImageObject;
 	class TitleScene : public Scene
@@ -28,6 +29,7 @@ namespace ya
 		__forceinline eSceneType GetSceneTpye() { return mSceneType; }
 	private:
 		eSceneType mSceneType;
+		Sound* mpBGMSound;
 	};
 }
 

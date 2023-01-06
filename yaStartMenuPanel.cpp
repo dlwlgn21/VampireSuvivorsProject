@@ -1,6 +1,8 @@
 #include "yaStartMenuPanel.h"
 #include "yaUIAnimObject.h"
 #include "yaInput.h"
+#include "yaSoundManager.h"
+#include "yaSound.h"
 
 namespace ya
 {
@@ -72,6 +74,9 @@ namespace ya
 					{
 						mbIsCharacterSelectionUIPoped = true;
 					}
+					SoundManager& sm = SoundManager::GetInstance();
+					Sound* pSound = sm.GetSound(sm.PASUED_IN_KEY);
+					pSound->Play(false);
 					mpButtonsPtr[i]->ButtonClicked();
 				}
 			}

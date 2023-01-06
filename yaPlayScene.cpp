@@ -30,9 +30,12 @@
 #include "yaMonsterSpawner.h"
 #include "yaKillCounter.h"
 #include "yaScoreManager.h"
+#include "yaSoundManager.h"
+#include "yaSound.h"
 
 namespace ya
 {
+
 	PlayScene::PlayScene()
 		: mSceneType(eSceneType::PLAY_SCENE)
 		, mpPlayer(nullptr)
@@ -42,6 +45,7 @@ namespace ya
 		, mpMudManPool(new MonsterObjPool<Monster>(MAX_MUD_MAN_COUNT))
 		, mpGreenGhostPool(new MonsterObjPool<Monster>(MAX_MUD_MAN_COUNT))
 		, mpMedusaHeadPool(new MonsterObjPool<Monster>(30))
+		, mpBGMSound(nullptr)
 	{
 		mFont.lfHeight = 30;
 		mFont.lfWidth = 0;
@@ -78,20 +82,9 @@ namespace ya
 	}
 	void PlayScene::Initialize()
 	{
-		//BGGmaeImage* bgGameImage = ya::object::InstantiateAtAnotherScene<BGGmaeImage>(eColliderLayer::BACKGROUND, L"BGGmaeMap", L"Resources\\Image\\MapTwo.bmp", GetSceneTpye());
-		//bgGameImage->Initialize();
-		//mpPlayer = ya::object::Instantiate<Player>(eColliderLayer::PLAYER);
-
-		//int monsterCount = 15;
-		//for (int i = 0; i < monsterCount; ++i)
-		//{
-		//	ya::object::InstantiateAtAnotherScene<Mudman>(eColliderLayer::MONSTER, Vector2(100.0f * i, 300.f), mpPlayer, GetSceneTpye());
-		//}
-		//setColliderLayer();
-		//PlaySceneHUDPanel* pPanel = static_cast<PlaySceneHUDPanel*>(UIManager::GetUIInstanceOrNull(eUIType::PLAY_INFO_HUD));
-		//assert(pPanel != nullptr);
-		//pPanel->SetPlayerToHpBar(mpPlayer);
-		//pPanel->SetPlayerToExpBar(mpPlayer);
+		SoundManager& sm = SoundManager::GetInstance();
+		mpBGMSound = sm.GetSound(sm.PLAYSCENE_BGM_KEY);
+		assert(mpBGMSound != nullptr);
 	}
 	void PlayScene::Tick()
 	{
@@ -130,7 +123,7 @@ namespace ya
 		KillCounter::GetInstance().InitializeKillCount();
 		MonsterSpawner::GetInstance().Initialize();
 		setColliderLayer();
-
+		mpBGMSound->Play(true);
 		mpPlayer = ya::object::Instantiate<Player>(eColliderLayer::PLAYER);
 		BGGmaeImage* bgGameImage = ya::object::InstantiateAtAnotherScene<BGGmaeImage>(eColliderLayer::BACKGROUND, L"BGGmaeMap", L"Resources\\Image\\MapTwo.bmp", GetSceneTpye());
 		bgGameImage->Initialize();
@@ -151,7 +144,7 @@ namespace ya
 
 	void PlayScene::Exit()
 	{
-		ScoreManager::GetInstance().UpdatePlayerLevel(mpPlayer->GetLevel());
+		mpBGMSound->Stop(true);
 		mpMudManPool->Initialize();
 		mpGreenGhostPool->Initialize();
 		mpMedusaHeadPool->Initialize();

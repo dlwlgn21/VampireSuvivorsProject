@@ -39,7 +39,6 @@ namespace ya
 		if (mDurationTimer >= mWeaponDuration)
 		{
 			mDurationTimer = 0.0f;
-			SetActive(false);
 			mpPool->Return(this);
 			return;
 		}
@@ -78,7 +77,6 @@ namespace ya
 			--mPenetratingCounter;
 			if (mPenetratingCounter <= 0)
 			{
-				SetActive(false);
 				mpPool->Return(this);
 				return;
 			}
@@ -96,7 +94,6 @@ namespace ya
 	void Axe::Initialize(Vector2 pos)
 	{
 		mPos = pos;
-		mPenetratingCounter = mPenetratingCount;
 		initPosAndAccel();
 	}
 	void Axe::initPosAndAccel()
@@ -117,5 +114,7 @@ namespace ya
 			mVelocityX = -mVelocityX;
 		}
 		mVelocityY = -mSpeed - mAccel;
+		mPenetratingCounter = mPenetratingCount;
+
 	}
 }

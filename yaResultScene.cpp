@@ -57,12 +57,11 @@ namespace ya
 		SetTextColor(hdc, RGB(255, 255, 255));
 		TextOutW(hdc, X_POS, INIT_Y_POS, buffer, len);
 
-
-		swprintf_s(buffer, BUFFER_LENGTH, L"%d", ScoreManager::GetInstance().GetKillCount());
+		swprintf_s(buffer, BUFFER_LENGTH, L"%d", ScoreManager::GetInstance().GetPlayerLevel());
 		len = lstrlenW(buffer);
 		TextOutW(hdc, X_POS, INIT_Y_POS + Y_DISTANCE, buffer, len);
 
-		swprintf_s(buffer, BUFFER_LENGTH, L"%d", ScoreManager::GetInstance().GetPlayerLevel());
+		swprintf_s(buffer, BUFFER_LENGTH, L"%d", ScoreManager::GetInstance().GetKillCount());
 		len = lstrlenW(buffer);
 		TextOutW(hdc, X_POS, INIT_Y_POS + (Y_DISTANCE * 2), buffer, len);
 

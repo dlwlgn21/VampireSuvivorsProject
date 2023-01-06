@@ -17,6 +17,7 @@ namespace ya
 
 	//	// Num Line
 	//	N_0, N_1, N2, N_3, N_4, N5, N_6, N_7, N8, N_9,
+
 	char ASCII[static_cast<char>(eKeyCode::COUNT)] =
 	{
 		'Q', 'W', 'E', 'R', 'T', 'Y', 'U', 'I', 'O', 'P',

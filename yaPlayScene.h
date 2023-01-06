@@ -8,6 +8,7 @@ namespace ya
 	class ExpGemObjPool;
 	class MudMan;
 	class Monster;
+	class Sound;
 	template<typename T> class MonsterObjPool;
 	class PlayScene : public Scene
 	{
@@ -38,6 +39,7 @@ namespace ya
 		MonsterObjPool<Monster>* mpMudManPool;
 		MonsterObjPool<Monster>* mpGreenGhostPool;
 		MonsterObjPool<Monster>* mpMedusaHeadPool;
+		Sound* mpBGMSound;
 	};
 }
 

@@ -54,6 +54,9 @@ namespace ya
 		T* ptr = mQ.front();
 		ptr->Initialize(spwanPos);
 		ptr->SetActive(true);
+		Collider* pCollider = ptr->GetComponentOrNull<Collider>(eComponentType::COLLIDER);
+		assert(pCollider != nullptr);
+		pCollider->SetIsWorking(true);
 		mQ.pop();
 		return ptr;
 	}
@@ -66,6 +69,7 @@ namespace ya
 			assert(false);
 			return;
 		}
+		ptr->SetActive(false);
 		Collider* pCollider = ptr->GetComponentOrNull<Collider>(eComponentType::COLLIDER);
 		assert(pCollider != nullptr);
 		pCollider->SetIsWorking(false);

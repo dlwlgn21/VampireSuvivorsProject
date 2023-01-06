@@ -15,7 +15,7 @@ namespace ya
 		, mImgWidth(mpImage->GetWidth())
 		, mImgHeight(mpImage->GetHeight())
 		, mExp(exp)
-		, mpCollider(new Collider(Vector2( static_cast<float>(mImgWidth), static_cast<float>(mImgHeight)), eColliderLayer::EXP_JEM))
+		, mpCollider(new Collider(Vector2( static_cast<float>(mpImage->GetWidth()), static_cast<float>(mpImage->GetHeight())), eColliderLayer::EXP_JEM))
 		, mBlendFunc{}
 		, mpPool(pObjPool)
 	{
@@ -54,7 +54,7 @@ namespace ya
 	}
 	void ExpGem::OnCollisionEnter(Collider* pCollider)
 	{
-		if (pCollider != nullptr && pCollider->GetColliderLayer() == eColliderLayer::PLAYER)
+		if (pCollider->GetColliderLayer() == eColliderLayer::PLAYER)
 		{
 			mpPlayer->IncreaseExp(mExp);
 			mpPool->Return(this);

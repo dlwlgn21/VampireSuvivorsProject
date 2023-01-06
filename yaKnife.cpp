@@ -71,7 +71,6 @@ namespace ya
 		if (mDurationTimer >= mWeaponDuration)
 		{
 			mDurationTimer = 0.0f;
-			SetActive(false);
 			mpKnifeObjPool->Return(this);
 			return;
 		}
@@ -179,7 +178,6 @@ namespace ya
 			}
 			if (mPenetratingCounter <= 0)
 			{
-				SetActive(false);
 				mpKnifeObjPool->Return(this);
 			}
 		}
@@ -237,5 +235,6 @@ namespace ya
 		SetSize({ static_cast<float>(mSizeX), static_cast<float>(mSizeY) });
 		mpCollider->SetSize(GetSize());
 		mpCollider->SetIsWorking(true);
+		mDurationTimer = 0.0f;
 	}
 }

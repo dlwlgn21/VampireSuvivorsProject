@@ -5,6 +5,8 @@
 #include "yaSelectionMenuIcon.h"
 #include "yaUIAnimObject.h"
 #include "yaUIManager.h"
+#include "yaSoundManager.h"
+#include "yaSound.h"
 
 namespace ya
 {
@@ -36,15 +38,24 @@ namespace ya
 	{
 		if (IS_KEY_DOWN(eKeyCode::ESC))
 		{
+			SoundManager& sm = SoundManager::GetInstance();
+			Sound* pSound = sm.GetSound(sm.PASUED_OUT_KEY);
+			pSound->Play(false);
 			UIManager::Pop(eUIType::CHARACTER_SELECTION);
 			UIManager::Push(eUIType::START_MENU_SELECTION);
 		}
 		if (IS_KEY_DOWN(eKeyCode::ENTER) || IS_KEY_DOWN(eKeyCode::SPACE))
 		{
+			SoundManager& sm = SoundManager::GetInstance();
+			Sound* pSound = sm.GetSound(sm.PASUED_IN_KEY);
+			pSound->Play(false);
 			if (static_cast<UIAnimObject*>(mChilds[2])->IsSelected())
 			{
 				UIManager::Pop(eUIType::CHARACTER_SELECTION);
 				UIManager::Push(eUIType::STAGE_SELECTION);
+				SoundManager& sm = SoundManager::GetInstance();
+				Sound* pSound = sm.GetSound(sm.PASUED_OUT_KEY);
+				pSound->Play(false);
 			}
 			assert(mChilds.size() != 0);
 			assert(mChilds.size() == 3);

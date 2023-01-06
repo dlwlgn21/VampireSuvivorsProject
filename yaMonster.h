@@ -2,8 +2,8 @@
 #include "yaGameObejct.h"
 #include "yaPlayer.h"
 
-#define MAX_KEY_LENGTH (32)
-#define MAX_PATH_LENGTH (64)
+const constexpr UINT MAX_KEY_LENGTH = 32;
+const constexpr UINT MAX_PATH_LENGTH = 64;
 
 namespace ya
 {

@@ -5,6 +5,8 @@
 #include "yaInput.h"
 #include "yaUIAnimObject.h"
 #include "yaTime.h"
+#include "yaSoundManager.h"
+#include "yaSound.h"
 
 namespace ya
 {
@@ -55,7 +57,7 @@ namespace ya
 				mpButtons[static_cast<UINT>(ePauseButton::CONTINUE)]->SetIsSelected(false);
 			}
 		}
-		else if (IS_KEY_DOWN(eKeyCode::ENTER) || IS_KEY_DOWN(eKeyCode::SPACE))
+		else if (IS_KEY_UP(eKeyCode::ENTER) || IS_KEY_UP(eKeyCode::SPACE))
 		{
 			if (mpButtons[static_cast<UINT>(ePauseButton::CONTINUE)]->IsSelected())
 			{

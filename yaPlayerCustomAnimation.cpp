@@ -51,8 +51,6 @@ namespace ya
 			if (IS_KEY_PRESSED(eKeyCode::S))
 			{ mbIsDownKeyPressing = true; }
 		}
-
-		
 	}
 
 	void PlayerCustomAnimation::Render(HDC hdc)

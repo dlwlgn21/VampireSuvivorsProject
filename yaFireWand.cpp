@@ -69,11 +69,12 @@ namespace ya
 	{
 		if (other != nullptr && other->GetColliderLayer() == eColliderLayer::MONSTER)
 		{
-			//Monster* pMonster = static_cast<Monster*>(other->GetOwner());
-			//pMonster->DamagedFromWeapon(mDamage);
-			SetActive(false);
-			mpPool->Return(this);
-			// Vector2 monPos = pMonster->GetPos(); 
+			--mPenetratingCounter;
+			if (mPenetratingCounter <= 0)
+			{
+				mpPool->Return(this);
+				return;
+			}
 		}
 	}
 	void FireWand::OnCollisionStay(Collider* other)
@@ -88,7 +89,6 @@ namespace ya
 	{
 		mPos = pos;
 		initAndSetVelocity();
-		mpCollider->SetIsWorking(true);
 	}
 	void FireWand::initAndSetVelocity()
 	{

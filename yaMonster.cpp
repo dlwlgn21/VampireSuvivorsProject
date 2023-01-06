@@ -15,6 +15,9 @@
 #include "yaCamera.h"
 #include "yaKillCounter.h"
 #include "yaScoreManager.h"
+#include "yaSoundManager.h"
+#include "yaSound.h"
+
 
 
 namespace ya
@@ -173,45 +176,45 @@ namespace ya
 	void Monster::CountHitAnimationTimer()
 	{
 		mAnimHittedCounter -= Time::DeltaTime();
-		mR -= 0.002f;
-		mG -= 0.002f;
-		mB -= 0.002f;
-		if (mR < 0.0f || mG < 0.0f || mB < 0.0f)
-		{
-			mR = 1.0f;
-			mG = 1.0f;
-			mB = 1.0f;
-		}
+		//mR -= 0.002f;
+		//mG -= 0.002f;
+		//mB -= 0.002f;
+		//if (mR < 0.0f || mG < 0.0f || mB < 0.0f)
+		//{
+		//	mR = 1.0f;
+		//	mG = 1.0f;
+		//	mB = 1.0f;
+		//}
 		if (mAnimHittedCounter <= 0.0f)
 		{
 			mbIsHittedFromWeapon = false;
 			mAnimHittedCounter = mAnimHittedTime;
-			mR = 1.0f;
-			mG = 1.0f;
-			mB = 1.0f;
+			//mR = 1.0f;
+			//mG = 1.0f;
+			//mB = 1.0f;
 		}
 	}
 
 	void Monster::Render(HDC hdc)
 	{
-		if (mbIsHittedFromWeapon)
-		{
-			wchar_t buffer[8];
-			swprintf_s(buffer, 8, L"%d", mDisplayWeaponDamage);
-			int len = lstrlenW(buffer);
+		//if (mbIsHittedFromWeapon)
+		//{
+		//	wchar_t buffer[8];
+		//	swprintf_s(buffer, 8, L"%d", mDisplayWeaponDamage);
+		//	int len = lstrlenW(buffer);
 
-			HFONT hFont = CreateFontIndirect(&mFont);
-			HFONT hOldFont;
-			hOldFont = (HFONT)SelectObject(hdc, hFont);
+		//	HFONT hFont = CreateFontIndirect(&mFont);
+		//	HFONT hOldFont;
+		//	hOldFont = (HFONT)SelectObject(hdc, hFont);
 
-			SetBkMode(hdc, TRANSPARENT);
-			SetTextColor(hdc, RGB(static_cast<int>(mR * 255), static_cast<int>(mG * 255), static_cast<int>(mB * 255)));
-			TextOutW(hdc, SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2 - 100, buffer, len);
+		//	SetBkMode(hdc, TRANSPARENT);
+		//	SetTextColor(hdc, RGB(static_cast<int>(mR * 255), static_cast<int>(mG * 255), static_cast<int>(mB * 255)));
+		//	TextOutW(hdc, SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2 - 100, buffer, len);
 
-			SelectObject(hdc, hOldFont);
-			DeleteObject(hFont);
-			ReleaseDC(mHwnd, hdc);
-		}
+		//	SelectObject(hdc, hOldFont);
+		//	DeleteObject(hFont);
+		//	ReleaseDC(mHwnd, hdc);
+		//}
 		GameObject::Render(hdc);
 	}
 
@@ -227,6 +230,9 @@ namespace ya
 		case eColliderLayer::PLAYER_PROJECTTILE:
 		{
 			Weapon* pWeapon = static_cast<Weapon*>(pCollider->GetOwner());
+			SoundManager& sm = SoundManager::GetInstance();
+			Sound* pSound = sm.GetSound(sm.ENEMY_HITTED_KEY);
+			pSound->Play(false);
 			mbIsHittedFromWeapon = true;
 			mDisplayWeaponDamage = pWeapon->GetDamage();
 			mHP -= mDisplayWeaponDamage;
@@ -309,6 +315,7 @@ namespace ya
 			//	pMovingObject = this;
 			//	pushYlengh = -(myLeftTopY - otherRightBottomY);
 			//}
+
 
 			////assert(std::abs(pushXLength) > FLT_EPSILON && std::abs(pushYlengh) > FLT_EPSILON);
 			//pMovingObject->SetPos(Vector2(pMovingObject->GetPos().x, pMovingObject->GetPos().y + pushYlengh * mSpeed * Time::DeltaTime()));

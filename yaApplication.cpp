@@ -24,6 +24,7 @@ namespace ya
 		mWindowData.hdc = GetDC(data.hwnd);
 
 		initailizeWindow();
+		SoundManager::GetInstance().Initialize();
 
 		Time::Initialize();
 		Input::Initialize();
@@ -31,7 +32,6 @@ namespace ya
 		UIManager::Initialize();
 		SceneManager::Initialze();
 		Camera::Initialize();
-		SoundManager::Initialize();
 	}
 
 	void Application::initailizeWindow()

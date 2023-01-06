@@ -19,6 +19,7 @@ namespace ya
 	void GameMapCollider::Initialize()
 	{
 		GameObject::Initialize();
+		mpCollider->SetIsWorking(true);
 	}
 	void GameMapCollider::Tick()
 	{
@@ -48,6 +49,7 @@ namespace ya
 				pBgGameImage->SetLeftScrollCheck(true);
 				pBgGameImage->Initialize();
 				SetActive(false);
+				mpCollider->SetIsWorking(false);
 				break;
 			}
 			case eMapColliderType::RIGHT_SCROLL_CHECKER:
@@ -57,6 +59,8 @@ namespace ya
 				pBgGameImage->SetRightScrollCheck(true);
 				pBgGameImage->Initialize();
 				SetActive(false);
+				mpCollider->SetIsWorking(false);
+
 				break;
 			}
 			default:

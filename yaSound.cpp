@@ -5,7 +5,7 @@ namespace ya
 {
 	HRESULT Sound::Load(const std::wstring& path)
 	{
-		if (nullptr == SoundManager::GetDevice())
+		if (nullptr == SoundManager::GetInstance().GetDevice())
 			assert(nullptr); // 사운드 객체 생성되지 않음
 
 		// 확장자 이름 구별하기
@@ -57,17 +57,16 @@ namespace ya
 		pChild.ckid = mmioFOURCC('d', 'a', 't', 'a');
 		mmioDescend(hFile, &pChild, &pParent, MMIO_FINDCHUNK);
 
-
-
 		memset(&mBufferDesc, 0, sizeof(DSBUFFERDESC));
 		mBufferDesc.dwBufferBytes = pChild.cksize;
 		mBufferDesc.dwSize = sizeof(DSBUFFERDESC);
 		mBufferDesc.dwFlags = DSBCAPS_STATIC | DSBCAPS_LOCSOFTWARE | DSBCAPS_CTRLVOLUME;
 		mBufferDesc.lpwfxFormat = &wft;
 
-		if (FAILED(SoundManager::GetDevice()->CreateSoundBuffer(&mBufferDesc, &mSoundBuffer, NULL)))
+		if (FAILED(SoundManager::GetInstance().GetDevice()->CreateSoundBuffer(&mBufferDesc, &mSoundBuffer, NULL)))
 		{
 			MessageBox(NULL, L"사운드버퍼생성실패", L"", MB_OK);
+			assert(false);
 			return false;
 		}
 
